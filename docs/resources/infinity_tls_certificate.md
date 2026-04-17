@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_tls_certificate Resource - terraform-provider-pexip"
+page_title: "pexip_infinity_tls_certificate Resource - terraform-provider-infinity"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity TLS certificate configuration.

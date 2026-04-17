@@ -14,7 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 
-	pexipProvider "github.com/pexip/terraform-provider-pexip/internal/provider"
+	pexipProvider "github.com/pexip/terraform-provider-infinity/internal/provider"
 )
 
 func createProvider() func() provider.Provider {
@@ -23,7 +23,7 @@ func createProvider() func() provider.Provider {
 
 func main() {
 	err := providerserver.Serve(context.Background(), createProvider(), providerserver.ServeOpts{
-		Address: "registry.terraform.io/pexip/pexip",
+		Address: "registry.terraform.io/pexip/infinity",
 	})
 	if err != nil {
 		log.Printf("failed to serve provider: %s", err)

@@ -33,8 +33,8 @@ import (
 	"github.com/pexip/go-infinity-sdk/v38/interfaces"
 	"github.com/pexip/go-infinity-sdk/v38/status"
 
-	"github.com/pexip/terraform-provider-pexip/internal/provider/validators"
-	"github.com/pexip/terraform-provider-pexip/internal/version"
+	"github.com/pexip/terraform-provider-infinity/internal/provider/validators"
+	"github.com/pexip/terraform-provider-infinity/internal/version"
 )
 
 var (
@@ -204,7 +204,7 @@ func (p *PexipProvider) Configure(ctx context.Context, req provider.ConfigureReq
 
 	if p.client == nil {
 		var err error
-		userAgent := fmt.Sprintf("terraform-provider-pexip/%s", version.Version().String())
+		userAgent := fmt.Sprintf("terraform-provider-infinity/%s", version.Version().String())
 
 		p.client, err = infinity.New(
 			infinity.WithBaseURL(address),

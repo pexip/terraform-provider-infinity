@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_event_sink Resource - terraform-provider-pexip"
+page_title: "pexip_infinity_event_sink Resource - terraform-provider-infinity"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity event sink configuration.

@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_conference_alias Resource - terraform-provider-pexip"
+page_title: "pexip_infinity_conference_alias Resource - terraform-provider-infinity"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity conference alias configuration.

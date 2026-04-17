@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_automatic_participant Resource - terraform-provider-pexip"
+page_title: "pexip_infinity_automatic_participant Resource - terraform-provider-infinity"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity automatic participant configuration.

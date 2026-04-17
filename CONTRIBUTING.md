@@ -42,8 +42,8 @@ go install github.com/terraform-docs/terraform-docs@latest
 
 1. **Fork and Clone the Repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/terraform-provider-pexip.git
-   cd terraform-provider-pexip
+   git clone https://github.com/YOUR_USERNAME/terraform-provider-infinity.git
+   cd terraform-provider-infinity
    ```
 
 2. **Install Dependencies**
@@ -61,7 +61,7 @@ go install github.com/terraform-docs/terraform-docs@latest
    cat > ~/.terraformrc << EOF
    provider_installation {
      dev_overrides {
-       "pexip/pexip" = "$HOME/.terraform.d/plugins"
+       "pexip/infinity" = "$HOME/.terraform.d/plugins"
      }
      direct {}
    }
@@ -289,7 +289,7 @@ golangci-lint run --fix
 make fmt
 
 # Check imports
-goimports -w -local github.com/pexip/terraform-provider-pexip .
+goimports -w -local github.com/pexip/terraform-provider-infinity .
 ```
 
 ### Security

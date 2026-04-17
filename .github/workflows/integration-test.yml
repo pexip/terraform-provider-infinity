@@ -11,7 +11,7 @@ env:
   GOPRIVATE: github.com/pexip
 
 concurrency:
-  group: terraform-provider-pexip-integration-test
+  group: terraform-provider-infinity-integration-test
   cancel-in-progress: true
 
 jobs:

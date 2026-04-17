@@ -16,7 +16,7 @@ import (
 	"github.com/stretchr/testify/mock"
 
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/pexip/terraform-provider-pexip/internal/test"
+	"github.com/pexip/terraform-provider-infinity/internal/test"
 )
 
 // Helper function to convert URI slices to resource slices

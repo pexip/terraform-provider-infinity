@@ -17,7 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/pexip/go-infinity-sdk/v38"
 
-	"github.com/pexip/terraform-provider-pexip/internal/test"
+	"github.com/pexip/terraform-provider-infinity/internal/test"
 )
 
 func TestInfinityGoogleAuthServer(t *testing.T) {

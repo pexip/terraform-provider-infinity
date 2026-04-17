@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_worker_vm Resource - terraform-provider-pexip"
+page_title: "pexip_infinity_worker_vm Resource - terraform-provider-infinity"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity worker VM configuration.

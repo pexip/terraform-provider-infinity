@@ -18,7 +18,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
-	"github.com/pexip/terraform-provider-pexip/internal/helpers"
+	"github.com/pexip/terraform-provider-infinity/internal/helpers"
 )
 
 type InfinityManagerConfigModel struct {

@@ -17,7 +17,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/pexip/terraform-provider-pexip/internal/test"
+	"github.com/pexip/terraform-provider-infinity/internal/test"
 
 	"github.com/pexip/go-infinity-sdk/v38"
 )

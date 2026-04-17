@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_dns_server Resource - terraform-provider-pexip"
+page_title: "pexip_infinity_dns_server Resource - terraform-provider-infinity"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity DNS server configuration.

@@ -1,4 +1,4 @@
-module github.com/pexip/terraform-provider-pexip
+module github.com/pexip/terraform-provider-infinity
 
 go 1.24.3
 
