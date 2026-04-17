@@ -2,8 +2,8 @@
 
 # Terraform Provider for Pexip Infinity
 
-[![Build Status](https://github.com/pexip/terraform-provider-pexip/actions/workflows/test.yml/badge.svg)](https://github.com/pexip/terraform-provider-pexip/actions/workflows/test.yml)
-[![Integration Tests](https://github.com/pexip/terraform-provider-pexip/actions/workflows/integration-test.yml/badge.svg)](https://github.com/pexip/terraform-provider-pexip/actions/workflows/integration-test.yml)
+[![Build Status](https://github.com/pexip/terraform-provider-infinity/actions/workflows/test.yml/badge.svg)](https://github.com/pexip/terraform-provider-infinity/actions/workflows/test.yml)
+[![Integration Tests](https://github.com/pexip/terraform-provider-infinity/actions/workflows/integration-test.yml/badge.svg)](https://github.com/pexip/terraform-provider-infinity/actions/workflows/integration-test.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 The official Terraform provider for [Pexip Infinity](https://www.pexip.com/products/infinity/) enables comprehensive Infrastructure as Code management of your Pexip video conferencing platform. Manage everything from basic node configurations to advanced integrations with Microsoft 365, Google Workspace, and external authentication systems.
@@ -35,7 +35,7 @@ terraform {
   required_version = ">= 1.0"
   required_providers {
     pexip = {
-      source  = "registry.terraform.io/pexip/pexip"
+      source  = "registry.terraform.io/pexip/infinity"
       version = "~> 0.1"
     }
   }
@@ -44,7 +44,7 @@ terraform {
 
 ### Manual Installation
 
-1. Download the latest release from [GitHub Releases](https://github.com/pexip/terraform-provider-pexip/releases)
+1. Download the latest release from [GitHub Releases](https://github.com/pexip/terraform-provider-infinity/releases)
 2. Extract the binary to your Terraform plugins directory
 3. Configure Terraform to use the local provider
 
@@ -56,7 +56,7 @@ terraform {
 terraform {
   required_providers {
     pexip = {
-      source  = "registry.terraform.io/pexip/pexip"
+      source  = "registry.terraform.io/pexip/infinity"
       version = "~> 0.1"
     }
   }
@@ -464,8 +464,8 @@ terraform apply
 ### Building from Source
 
 ```bash
-git clone https://github.com/pexip/terraform-provider-pexip.git
-cd terraform-provider-pexip
+git clone https://github.com/pexip/terraform-provider-infinity.git
+cd terraform-provider-infinity
 make build
 ```
 
@@ -476,7 +476,7 @@ make build
 ```hcl
 provider_installation {
   dev_overrides {
-    "pexip/pexip" = "<home dir>/.terraform.d/plugins"
+    "pexip/infinity" = "<home dir>/.terraform.d/plugins"
   }
   direct {}
 }
@@ -639,8 +639,8 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ## Support
 
 ### Community Support
-- [Discussions](https://github.com/pexip/terraform-provider-pexip/discussions) - Community Q&A
-- [GitHub Issues](https://github.com/pexip/terraform-provider-pexip/issues) - Bug reports and feature requests
+- [Discussions](https://github.com/pexip/terraform-provider-infinity/discussions) - Community Q&A
+- [GitHub Issues](https://github.com/pexip/terraform-provider-infinity/issues) - Bug reports and feature requests
 
 ### Documentation
 - [Pexip Infinity Documentation](https://docs.pexip.com/)

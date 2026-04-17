@@ -26,7 +26,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/pexip/go-infinity-sdk/v38/config"
 
-	"github.com/pexip/terraform-provider-pexip/internal/provider/validators"
+	"github.com/pexip/terraform-provider-infinity/internal/provider/validators"
 )
 
 var (

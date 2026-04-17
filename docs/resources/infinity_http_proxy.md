@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_http_proxy Resource - terraform-provider-pexip"
+page_title: "pexip_infinity_http_proxy Resource - terraform-provider-infinity"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity HTTP proxy configuration.

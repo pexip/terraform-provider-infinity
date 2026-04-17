@@ -15,7 +15,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pexip/terraform-provider-pexip/internal/helpers"
+	"github.com/pexip/terraform-provider-infinity/internal/helpers"
 )
 
 var (

@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_policy_server Resource - terraform-provider-pexip"
+page_title: "pexip_infinity_policy_server Resource - terraform-provider-infinity"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity policy server configuration.

@@ -14,7 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 
-	"github.com/pexip/terraform-provider-pexip/internal/provider/validators"
+	"github.com/pexip/terraform-provider-infinity/internal/provider/validators"
 )
 
 var (

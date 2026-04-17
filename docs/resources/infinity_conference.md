@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_conference Resource - terraform-provider-pexip"
+page_title: "pexip_infinity_conference Resource - terraform-provider-infinity"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity conference configuration.

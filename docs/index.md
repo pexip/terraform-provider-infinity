@@ -66,7 +66,7 @@ export PEXIP_INSECURE="true"  # Optional: for development with self-signed certi
 terraform {
   required_providers {
     pexip = {
-      source  = "registry.terraform.io/pexip/pexip"
+      source  = "registry.terraform.io/pexip/infinity"
       version = "~> 0.1"
     }
   }
@@ -400,5 +400,5 @@ module "staging" {
 ## Support
 
 - **Documentation**: [Pexip Documentation](https://docs.pexip.com/)
-- **Issues**: [GitHub Issues](https://github.com/pexip/terraform-provider-pexip/issues)
+- **Issues**: [GitHub Issues](https://github.com/pexip/terraform-provider-infinity/issues)
 - **Security**: For security concerns, please email security@pexip.com

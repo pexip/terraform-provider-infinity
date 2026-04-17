@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_teams_proxy Resource - terraform-provider-pexip"
+page_title: "pexip_infinity_teams_proxy Resource - terraform-provider-infinity"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity Teams proxy configuration.

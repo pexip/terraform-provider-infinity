@@ -16,7 +16,7 @@ import (
 	"time"
 
 	"github.com/pexip/go-infinity-sdk/v38"
-	"github.com/pexip/terraform-provider-pexip/internal/test"
+	"github.com/pexip/terraform-provider-infinity/internal/test"
 	"github.com/stretchr/testify/require"
 )
 

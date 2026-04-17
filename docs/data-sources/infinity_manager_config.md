@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_manager_config Data Source - terraform-provider-pexip"
+page_title: "pexip_infinity_manager_config Data Source - terraform-provider-infinity"
 subcategory: ""
 description: |-
   Generate bootstrap configuration for Pexip Infinity Manager.

@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_authentication Resource - terraform-provider-pexip"
+page_title: "pexip_infinity_authentication Resource - terraform-provider-infinity"
 subcategory: ""
 description: |-
   Manages the Pexip Infinity authentication configuration.

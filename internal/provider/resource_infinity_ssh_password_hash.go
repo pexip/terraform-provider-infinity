@@ -24,7 +24,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 
-	"github.com/pexip/terraform-provider-pexip/internal/helpers"
+	"github.com/pexip/terraform-provider-infinity/internal/helpers"
 )
 
 var (

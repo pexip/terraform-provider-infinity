@@ -18,7 +18,7 @@ import (
 	"github.com/pexip/go-infinity-sdk/v38/types"
 	"github.com/stretchr/testify/mock"
 
-	"github.com/pexip/terraform-provider-pexip/internal/test"
+	"github.com/pexip/terraform-provider-infinity/internal/test"
 )
 
 func TestInfinityMediaLibraryPlaylistEntry(t *testing.T) {
