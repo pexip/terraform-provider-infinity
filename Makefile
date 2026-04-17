@@ -1,5 +1,5 @@
 # Provider and project information
-PROVIDER     ?= pexip
+PROVIDER     ?= infinity
 COMPANY      ?= pexip
 DOMAIN       ?= pexip.com
 NAME         := terraform-provider-$(PROVIDER)
