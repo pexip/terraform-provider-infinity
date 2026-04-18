@@ -1,0 +1,49 @@
+# infinity_webapp_branding
+
+Manages webapp branding configuration with the Infinity service. Webapp branding allows customization of the user interface for different Pexip web applications including the management interface, admin interface, and client applications.
+
+## Example Usage
+
+### With Auto-Generated UUID
+
+```hcl
+resource "pexip_infinity_webapp_branding" "example" {
+  name          = "Corporate Branding"
+  description   = "Corporate branding for Pexip web applications"
+  webapp_type   = "webapp1"
+  is_default    = true
+  branding_file = "/path/to/branding/package.zip"
+  # uuid will be automatically generated if not provided
+}
+```
+
+### With Custom UUID
+
+```hcl
+resource "pexip_infinity_webapp_branding" "example_custom_uuid" {
+  name          = "Corporate Branding"
+  description   = "Corporate branding for Pexip web applications"
+  uuid          = "12345678-1234-1234-1234-123456789012"
+  webapp_type   = "webapp2"
+  is_default    = true
+  branding_file = "/path/to/branding/package.zip"
+}
+```
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+Webapp branding configurations can be imported using their UUID:
+
+```bash
+terraform import pexip_infinity_webapp_branding.example "12345678-1234-1234-1234-123456789012"
+```
+
+## Webapp Types
+
+The different webapp types that can be customized:
+
+- `webapp1` - Webapp type 1
+- `webapp2` - Webapp type 2
+- `webapp3` - Webapp type 3

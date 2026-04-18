@@ -1,0 +1,31 @@
+# infinity_snmp_network_management_system
+
+Manages an SNMP network management system with the Infinity service. SNMP network management systems receive SNMP traps and notifications from Pexip Infinity for monitoring and alerting purposes.
+
+## Example Usage
+
+```hcl
+resource "pexip_infinity_snmp_network_management_system" "example" {
+  name                 = "Primary NMS"
+  description          = "Primary network management system for monitoring"
+  address              = "nms.example.com"
+  port                 = 162
+  snmp_trap_community  = "public"
+}
+```
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+SNMP network management systems can be imported using their resource ID:
+
+```bash
+terraform import pexip_infinity_snmp_network_management_system.example 123
+```
+
+## Security Notes
+
+- The `snmp_trap_community` field is marked as sensitive and will not be displayed in Terraform output.
+- Use strong community strings to secure SNMP communications.
+- Consider using SNMPv3 with encryption when supported by your monitoring infrastructure.

@@ -1,0 +1,143 @@
+---
+page_title: "pexip_infinity_worker_vm Resource - terraform-provider-pexip"
+subcategory: ""
+description: |-
+  Manages a Pexip Infinity worker VM configuration.
+---
+
+# pexip_infinity_worker_vm (Resource)
+
+Manages a Pexip Infinity worker VM configuration. This resource configures the worker VM settings for a Pexip Infinity node in the cluster.
+
+## Example Usage
+
+### Basic Usage
+
+```terraform
+resource "pexip_infinity_worker_vm" "worker" {
+  name            = "worker-vm-01"
+  hostname        = "worker-vm-01"
+  domain          = "company.com"
+  address         = "10.0.1.20"
+  netmask         = "255.255.255.0"
+  gateway         = "10.0.1.1"
+  system_location = "Main Location"
+}
+```
+
+### Full Configuration
+
+```terraform
+resource "pexip_infinity_worker_vm" "worker" {
+  name                  = "worker-vm-01"
+  hostname              = "worker-vm-01"
+  domain                = "company.com" 
+  address               = "10.0.1.20"
+  netmask               = "255.255.255.0"
+  gateway               = "10.0.1.1"
+  system_location       = "Main Location"
+  
+  # VM specifications
+  vm_cpu_count          = 8
+  vm_system_memory      = 8192
+  
+  # Node configuration
+  node_type             = "conferencing"
+  transcoding           = true
+  maintenance_mode      = false
+  maintenance_mode_reason = ""
+  
+  # Network configuration
+  ipv6_address          = "2001:db8::20"
+  ipv6_gateway          = "2001:db8::1"
+  secondary_address     = "10.0.2.20"
+  secondary_netmask     = "255.255.255.0"
+  static_nat_address    = "203.0.113.20"
+  
+  # Security
+  password              = var.vm_password
+  enable_ssh            = "on"
+  
+  # SNMP configuration
+  snmp_mode             = "standard"
+  snmp_community        = "private"
+  snmp_system_contact   = "admin@company.com"
+  snmp_system_location  = "Data Center 1"
+}
+```
+
+### Multiple Worker VMs
+
+```terraform
+resource "pexip_infinity_worker_vm" "workers" {
+  count           = 3
+  name            = "worker-vm-${count.index + 1}"
+  hostname        = "worker-vm-${count.index + 1}"
+  domain          = "company.com"
+  address         = "10.0.1.${20 + count.index}"
+  netmask         = "255.255.255.0"
+  gateway         = "10.0.1.1"
+  system_location = "Main Location"
+}
+```
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import pexip_infinity_worker_vm.example 123
+```
+
+Where `123` is the numeric resource ID of the worker VM.
+
+## Usage Notes
+
+### VM Configuration
+- The worker VM must have a unique name and hostname within the Infinity cluster
+- CPU and memory settings depend on expected workload and available host resources
+- Network configuration must be valid for your infrastructure
+
+### Node Types
+- `conferencing`: Full media processing and transcoding capabilities
+- `proxying`: Edge node that forwards media to transcoding nodes
+
+### Maintenance Mode
+- Use maintenance mode to temporarily remove a node from service
+- Always provide a reason when enabling maintenance mode
+- Disable maintenance mode when the node is ready to serve traffic again
+
+### SNMP Configuration
+- SNMP can be disabled, use standard community strings, or use v3 authentication
+- Configure appropriate contact and location information for monitoring
+
+### Import Considerations
+- Use the numeric resource ID (not the name) for import
+- Ensure the worker VM exists in the Infinity cluster before importing
+- Verify authentication credentials have access to the resource
+
+## Troubleshooting
+
+### Common Issues
+
+**Worker VM Creation Fails**
+- Verify the IP address is available and not in use
+- Ensure the system location exists in the Infinity configuration
+- Check that hostname and name are unique within the cluster
+
+**Network Configuration Issues**
+- Verify IP addresses, netmasks, and gateways are valid for your network
+- For NAT configurations, ensure the static NAT address is properly configured
+- IPv6 addresses must be valid if specified
+
+**Performance Issues**
+- Adjust CPU and memory allocations based on actual usage
+- Monitor media priority weight to ensure proper load distribution
+- Consider transcoding vs. proxying roles based on deployment needs
+
+**Import Fails**
+- Ensure you're using the numeric resource ID, not the name
+- Verify the worker VM exists in the Infinity cluster
+- Check provider authentication credentials

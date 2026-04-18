@@ -1,0 +1,29 @@
+# infinity_user_group
+
+Manages a user group configuration with the Infinity service. User groups allow organizing users for management and permission purposes.
+
+## Example Usage
+
+```hcl
+resource "pexip_infinity_user_group" "example" {
+  name        = "Administrators"
+  description = "System administrators group"
+  users = [
+    "/configuration/v1/end_user/1/",
+    "/configuration/v1/end_user/2/"
+  ]
+  user_group_entity_mappings = [
+    "/configuration/v1/user_group_entity_mapping/1/"
+  ]
+}
+```
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+User groups can be imported using their resource ID:
+
+```bash
+terraform import pexip_infinity_user_group.example 123
+```

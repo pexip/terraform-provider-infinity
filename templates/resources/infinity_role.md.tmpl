@@ -1,0 +1,27 @@
+# infinity_role
+
+Manages a role configuration with the Infinity service. Roles define sets of permissions that can be assigned to users or applications.
+
+## Example Usage
+
+```hcl
+resource "pexip_infinity_role" "example" {
+  name = "Conference Manager"
+  permissions = [
+    "conference.create",
+    "conference.read", 
+    "conference.update",
+    "conference.delete"
+  ]
+}
+```
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+Roles can be imported using their resource ID:
+
+```bash
+terraform import pexip_infinity_role.example 123
+```

@@ -1,0 +1,29 @@
+# infinity_gateway_routing_rule
+
+Manages a gateway routing rule configuration with the Infinity service. Gateway routing rules define how incoming calls are routed and transformed when passing through Pexip Infinity gateways.
+
+## Example Usage
+
+```hcl
+resource "pexip_infinity_gateway_routing_rule" "example" {
+  name               = "SIP Gateway Rule"
+  description        = "Route calls to external SIP gateway"
+  priority           = 100
+  enable             = true
+  match_string       = "^\\+1(.*)$"
+  replace_string     = "$1"
+  called_device_type = "gateway"
+  outgoing_protocol  = "sip"
+  call_type          = "video"
+}
+```
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+Gateway routing rules can be imported using their resource ID:
+
+```bash
+terraform import pexip_infinity_gateway_routing_rule.example 123
+```

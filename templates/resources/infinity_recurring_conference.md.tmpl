@@ -1,0 +1,26 @@
+# infinity_recurring_conference
+
+Manages a recurring conference configuration with the Infinity service. Recurring conferences are used for scheduled conference series that repeat over time.
+
+## Example Usage
+
+```hcl
+resource "pexip_infinity_recurring_conference" "example" {
+  conference      = "/configuration/v1/conference/1/"
+  current_index   = 0
+  ews_item_id     = "AAMkAGVm...ExampleRecurringEwsItemId"
+  is_depleted     = false
+  subject         = "Weekly Team Standup"
+  scheduled_alias = "/configuration/v1/scheduled_alias/1/"
+}
+```
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+Recurring conferences can be imported using their resource ID:
+
+```bash
+terraform import pexip_infinity_recurring_conference.example 123
+```

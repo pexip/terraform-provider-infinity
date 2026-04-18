@@ -1,0 +1,35 @@
+# infinity_ssh_authorized_key
+
+Manages an SSH authorized key configuration with the Infinity service. SSH authorized keys allow secure key-based authentication for SSH access to Pexip Infinity nodes.
+
+## Example Usage
+
+```hcl
+resource "pexip_infinity_ssh_authorized_key" "example" {
+  keytype = "ssh-rsa"
+  key     = "AAAAB3NzaC1yc2EAAAADAQABAAABgQC7vbqajDhA..."
+  comment = "admin@example.com"
+  nodes = [
+    "/configuration/v1/worker_vm/1/",
+    "/configuration/v1/management_vm/1/"
+  ]
+}
+```
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+SSH authorized keys can be imported using their resource ID:
+
+```bash
+terraform import pexip_infinity_ssh_authorized_key.example 123
+```
+
+## Key Format
+
+The SSH public key should be provided in the standard OpenSSH format without the key type prefix or comment suffix. For example:
+- **Correct**: `AAAAB3NzaC1yc2EAAAADAQABAAABgQC7vbqajDhA...`
+- **Incorrect**: `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7vbqajDhA... user@hostname`
+
+The key type and comment are specified separately in the `keytype` and `comment` fields respectively.

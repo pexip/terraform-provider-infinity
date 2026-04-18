@@ -1,0 +1,52 @@
+---
+page_title: "pexip_infinity_manager_config Data Source - terraform-provider-pexip"
+subcategory: ""
+description: |-
+  Generate bootstrap configuration for Pexip Infinity Manager.
+---
+
+# pexip_infinity_manager_config (Data Source)
+
+Generates bootstrap configuration for Pexip Infinity Manager. This data source creates a JSON configuration that can be used to bootstrap a new Pexip Infinity Manager instance.
+
+## Example Usage
+
+```terraform
+data "pexip_infinity_manager_config" "config" {
+  hostname              = "manager-01"
+  domain                = "example.com"
+  ip                    = "192.168.1.100"
+  mask                  = "255.255.255.0"
+  gw                    = "192.168.1.1"
+  dns                   = "8.8.8.8"
+  ntp                   = "pool.ntp.org"
+  user                  = "admin"
+  pass                  = var.manager_password
+  admin_password        = var.admin_password
+  error_reports         = false
+  enable_analytics      = false
+  contact_email_address = "admin@example.com"
+}
+
+# Use the rendered configuration
+output "manager_config" {
+  value     = data.pexip_infinity_manager_config.config.rendered
+  sensitive = true
+}
+```
+
+
+{{ .SchemaMarkdown }}
+## Usage Notes
+
+- The `rendered` output contains sensitive information and should be handled securely
+- The generated configuration is in JSON format suitable for Pexip Infinity Manager bootstrap
+- The `id` is a CRC-32 checksum that changes when any input parameters change
+- Use variables for sensitive values like passwords rather than hardcoding them
+
+## Security Considerations
+
+- Always use Terraform variables for sensitive values like `pass` and `admin_password`
+- Mark outputs containing the rendered configuration as `sensitive = true`
+- Store Terraform state securely as it will contain sensitive configuration data
+- Use strong passwords for both user and admin accounts
