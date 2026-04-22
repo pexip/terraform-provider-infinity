@@ -70,14 +70,14 @@ func (r *InfinityADFSAuthServerResource) Schema(ctx context.Context, req resourc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the ADFS authentication server in Infinity.",
+				MarkdownDescription: "Resource URI for the ADFS authentication server.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the ADFS auth server in Infinity",
+				MarkdownDescription: "The resource integer identifier for the ADFS auth server",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -127,7 +127,7 @@ func (r *InfinityADFSAuthServerResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "The URL which identifies the OAuth 2.0 resource on AD FS. Maximum length: 255 characters.",
 			},
 		},
-		MarkdownDescription: "Manages an ADFS OAuth 2.0 auth server configuration with the Infinity service.",
+		MarkdownDescription: "Manages an ADFS OAuth 2.0 auth server configuration.",
 	}
 }
 

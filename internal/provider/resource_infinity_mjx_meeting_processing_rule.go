@@ -79,14 +79,14 @@ func (r *InfinityMjxMeetingProcessingRuleResource) Schema(ctx context.Context, r
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the MJX meeting processing rule in Infinity.",
+				MarkdownDescription: "Resource URI for the MJX meeting processing rule.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the MJX meeting processing rule in Infinity.",
+				MarkdownDescription: "The resource integer identifier for the MJX meeting processing rule.",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -203,7 +203,7 @@ func (r *InfinityMjxMeetingProcessingRuleResource) Schema(ctx context.Context, r
 				MarkdownDescription: "Apply default meeting processing rules for this meeting type.",
 			},
 		},
-		MarkdownDescription: "Manages an MJX meeting processing rule in Infinity. Meeting processing rules define how OTJ (One-Touch Join) extracts the meeting alias from calendar invitations based on meeting type and pattern matching.",
+		MarkdownDescription: "Manages an MJX meeting processing rule. Meeting processing rules define how OTJ (One-Touch Join) extracts the meeting alias from calendar invitations based on meeting type and pattern matching.",
 	}
 }
 

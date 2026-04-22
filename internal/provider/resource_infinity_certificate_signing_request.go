@@ -72,14 +72,14 @@ func (r *InfinityCertificateSigningRequestResource) Schema(ctx context.Context, 
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the certificate signing request in Infinity",
+				MarkdownDescription: "Resource URI for the certificate signing request",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the certificate signing request in Infinity",
+				MarkdownDescription: "The resource integer identifier for the certificate signing request",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -151,7 +151,7 @@ func (r *InfinityCertificateSigningRequestResource) Schema(ctx context.Context, 
 				MarkdownDescription: "The signed certificate content (PEM format).",
 			},
 		},
-		MarkdownDescription: "Manages a certificate signing request configuration with the Infinity service.",
+		MarkdownDescription: "Manages a certificate signing request configuration.",
 	}
 }
 

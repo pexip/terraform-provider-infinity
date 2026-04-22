@@ -74,14 +74,14 @@ func (r *InfinitySyslogServerResource) Schema(ctx context.Context, req resource.
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the syslog server in Infinity.",
+				MarkdownDescription: "Resource URI for the syslog server.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the syslog server in Infinity",
+				MarkdownDescription: "The resource integer identifier for the syslog server",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -139,7 +139,7 @@ func (r *InfinitySyslogServerResource) Schema(ctx context.Context, req resource.
 				MarkdownDescription: "Enable sending of web server log entries.",
 			},
 		},
-		MarkdownDescription: "Manages a syslog server with the Infinity service. Syslog servers receive system logs and audit information from Pexip Infinity for centralized logging and monitoring.",
+		MarkdownDescription: "Manages a syslog server. Syslog servers receive system logs and audit information from Pexip Infinity for centralized logging and monitoring.",
 	}
 }
 

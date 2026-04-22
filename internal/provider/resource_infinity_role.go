@@ -64,14 +64,14 @@ func (r *InfinityRoleResource) Schema(ctx context.Context, req resource.SchemaRe
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the role in Infinity",
+				MarkdownDescription: "Resource URI for the role",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the role in Infinity",
+				MarkdownDescription: "The resource integer identifier for the role",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -89,7 +89,7 @@ func (r *InfinityRoleResource) Schema(ctx context.Context, req resource.SchemaRe
 				MarkdownDescription: "List of permissions assigned to this role.",
 			},
 		},
-		MarkdownDescription: "Manages a role configuration with the Infinity service.",
+		MarkdownDescription: "Manages a role configuration.",
 	}
 }
 

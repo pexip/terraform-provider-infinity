@@ -116,14 +116,14 @@ func (r *InfinityConferenceResource) Schema(ctx context.Context, req resource.Sc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the conference in Infinity.",
+				MarkdownDescription: "Resource URI for the conference.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the conference in Infinity",
+				MarkdownDescription: "The resource integer identifier for the conference",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -484,7 +484,7 @@ func (r *InfinityConferenceResource) Schema(ctx context.Context, req resource.Sc
 				MarkdownDescription: "The type of this Virtual Reception. Select Skype for Business if this Virtual Reception is to act as an IVR gateway to scheduled and ad hoc Skype for Business meetings. Select Google Meet if this Virtual Reception is to act as an IVR gateway to Google Meet meetings. Skype for Business meetings. Otherwise, select Regular. Valid choices: regular, mssip, gms, teams.",
 			},
 		},
-		MarkdownDescription: "Manages a conference configuration with the Infinity service.",
+		MarkdownDescription: "Manages a conference configuration.",
 	}
 }
 

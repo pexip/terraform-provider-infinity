@@ -92,14 +92,14 @@ func (r *InfinityMjxIntegrationResource) Schema(ctx context.Context, req resourc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the MJX integration in Infinity.",
+				MarkdownDescription: "Resource URI for the MJX integration.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the MJX integration in Infinity.",
+				MarkdownDescription: "The resource integer identifier for the MJX integration.",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -280,7 +280,7 @@ func (r *InfinityMjxIntegrationResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "The Endpoint Groups used by this One-Touch Join Profile.",
 			},
 		},
-		MarkdownDescription: "Manages an MJX integration (One-Touch Join Profile) in Infinity. An MJX integration connects calendar deployments (Exchange, Google, or Graph) with endpoints to enable One-Touch Join functionality.",
+		MarkdownDescription: "Manages an MJX integration (One-Touch Join Profile). An MJX integration connects calendar deployments (Exchange, Google, or Graph) with endpoints to enable One-Touch Join functionality.",
 	}
 }
 

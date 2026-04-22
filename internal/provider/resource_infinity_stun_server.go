@@ -69,14 +69,14 @@ func (r *InfinitySTUNServerResource) Schema(ctx context.Context, req resource.Sc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the STUN server in Infinity.",
+				MarkdownDescription: "Resource URI for the STUN server.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the STUN server in Infinity",
+				MarkdownDescription: "The resource integer identifier for the STUN server",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -114,7 +114,7 @@ func (r *InfinitySTUNServerResource) Schema(ctx context.Context, req resource.Sc
 				MarkdownDescription: "The IP port on the STUN server to which the Conferencing Node will connect. Range: 1 to 65535. Default: 3478.",
 			},
 		},
-		MarkdownDescription: "Manages a STUN server configuration with the Infinity service.",
+		MarkdownDescription: "Manages a STUN server configuration.",
 	}
 }
 

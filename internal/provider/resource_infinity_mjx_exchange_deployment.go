@@ -89,14 +89,14 @@ func (r *InfinityMjxExchangeDeploymentResource) Schema(ctx context.Context, req 
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the MJX Exchange deployment in Infinity.",
+				MarkdownDescription: "Resource URI for the MJX Exchange deployment.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the MJX Exchange deployment in Infinity.",
+				MarkdownDescription: "The resource integer identifier for the MJX Exchange deployment.",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -271,7 +271,7 @@ func (r *InfinityMjxExchangeDeploymentResource) Schema(ctx context.Context, req 
 				MarkdownDescription: "The One-Touch Join Profiles associated with this OTJ Exchange Integration.",
 			},
 		},
-		MarkdownDescription: "Manages an MJX Exchange deployment in Infinity. An MJX Exchange deployment provides integration with Microsoft Exchange, enabling OTJ (One-Touch Join) functionality for Exchange calendar-based meeting management.",
+		MarkdownDescription: "Manages an MJX Exchange deployment. An MJX Exchange deployment provides integration with Microsoft Exchange, enabling OTJ (One-Touch Join) functionality for Exchange calendar-based meeting management.",
 	}
 }
 

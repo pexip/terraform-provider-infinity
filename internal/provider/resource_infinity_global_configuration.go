@@ -173,7 +173,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the global configuration in Infinity",
+				MarkdownDescription: "Resource URI for the global configuration",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -795,7 +795,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "The length of time (in seconds) for which a Guest participant will remain at the waiting screen if a Host does not join, before being disconnected. Range: 0 to 86400. Default: 900.",
 			},
 		},
-		MarkdownDescription: "Manages the global system configuration with the Infinity service. This is a singleton resource - only one global configuration exists per system.",
+		MarkdownDescription: "Manages the global system configuration. This is a singleton resource - only one global configuration exists per system.",
 	}
 }
 

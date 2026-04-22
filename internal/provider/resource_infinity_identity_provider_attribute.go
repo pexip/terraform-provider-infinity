@@ -65,14 +65,14 @@ func (r *InfinityIdentityProviderAttributeResource) Schema(ctx context.Context, 
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the identity provider attribute in Infinity.",
+				MarkdownDescription: "Resource URI for the identity provider attribute.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the identity provider attribute in Infinity",
+				MarkdownDescription: "The resource integer identifier for the identity provider attribute",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -95,7 +95,7 @@ func (r *InfinityIdentityProviderAttributeResource) Schema(ctx context.Context, 
 				MarkdownDescription: "A description of the Identity Provider Attribute. Maximum length: 250 characters.",
 			},
 		},
-		MarkdownDescription: "Manages an identity provider attribute with the Infinity service. Identity provider attributes define custom attributes that can be mapped from identity providers for user authentication and authorization.",
+		MarkdownDescription: "Manages an identity provider attribute. Identity provider attributes define custom attributes that can be mapped from identity providers for user authentication and authorization.",
 	}
 }
 

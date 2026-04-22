@@ -70,14 +70,14 @@ func (r *InfinityWebappAliasResource) Schema(ctx context.Context, req resource.S
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the webapp alias in Infinity",
+				MarkdownDescription: "Resource URI for the webapp alias",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the webapp alias in Infinity",
+				MarkdownDescription: "The resource integer identifier for the webapp alias",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -127,7 +127,7 @@ func (r *InfinityWebappAliasResource) Schema(ctx context.Context, req resource.S
 				MarkdownDescription: "The branding URI associated with this webapp alias. Maximum length: 200 characters.",
 			},
 		},
-		MarkdownDescription: "Manages a webapp alias with the Infinity service. Webapp aliases provide alternative URL paths to access different web applications within Pexip Infinity, allowing for customized branding and user experiences.",
+		MarkdownDescription: "Manages a webapp alias. Webapp aliases provide alternative URL paths to access different web applications within Pexip Infinity, allowing for customized branding and user experiences.",
 	}
 }
 

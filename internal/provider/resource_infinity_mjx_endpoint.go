@@ -80,14 +80,14 @@ func (r *InfinityMjxEndpointResource) Schema(ctx context.Context, req resource.S
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the MJX endpoint in Infinity.",
+				MarkdownDescription: "Resource URI for the MJX endpoint.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the MJX endpoint in Infinity",
+				MarkdownDescription: "The resource integer identifier for the MJX endpoint",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -205,7 +205,7 @@ func (r *InfinityMjxEndpointResource) Schema(ctx context.Context, req resource.S
 				MarkdownDescription: "The Webex endpoint's unique identifier.",
 			},
 		},
-		MarkdownDescription: "Manages an MJX endpoint with the Infinity service. MJX endpoints represent Microsoft Teams integrated endpoints such as Polycom, Cisco, and Webex devices that can be managed and monitored through Pexip Infinity for hybrid Teams deployments.",
+		MarkdownDescription: "Manages an MJX endpoint. MJX endpoints represent Microsoft Teams integrated endpoints such as Polycom, Cisco, and Webex devices that can be managed and monitored through Pexip Infinity for hybrid Teams deployments.",
 	}
 }
 

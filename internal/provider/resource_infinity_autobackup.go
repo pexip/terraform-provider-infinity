@@ -69,11 +69,11 @@ func (r *InfinityAutobackupResource) Configure(ctx context.Context, req resource
 
 func (r *InfinityAutobackupResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Manages the Pexip Infinity automatic backup configuration. This is a singleton resource — only one instance exists.",
+		MarkdownDescription: "Manages the automatic backup configuration. This is a singleton resource — only one instance exists.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the autobackup configuration in Infinity.",
+				MarkdownDescription: "Resource URI for the autobackup configuration.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},

@@ -76,14 +76,14 @@ func (r *InfinityTeamsProxyResource) Schema(ctx context.Context, req resource.Sc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the Teams proxy in Infinity",
+				MarkdownDescription: "Resource URI for the Teams proxy",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the Teams proxy in Infinity",
+				MarkdownDescription: "The resource integer identifier for the Teams proxy",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -153,7 +153,7 @@ func (r *InfinityTeamsProxyResource) Schema(ctx context.Context, req resource.Sc
 				MarkdownDescription: "The Connection string primary key for the Azure Event Hub (standard access policy). This is in the format Endpoint=sb://examplevmss-tzfk6222uo-ehn.servicebus.windows.net/;SharedAccessKeyName=standard_access_policy;SharedAccessKey=[string]/[string]/[string]=;",
 			},
 		},
-		MarkdownDescription: "Manages a Teams proxy configuration with the Infinity service.",
+		MarkdownDescription: "Manages a Teams proxy configuration.",
 	}
 }
 

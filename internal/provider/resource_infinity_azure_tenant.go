@@ -66,14 +66,14 @@ func (r *InfinityAzureTenantResource) Schema(ctx context.Context, req resource.S
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the Azure tenant in Infinity",
+				MarkdownDescription: "Resource URI for the Azure tenant",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the Azure tenant in Infinity",
+				MarkdownDescription: "The resource integer identifier for the Azure tenant",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -104,7 +104,7 @@ func (r *InfinityAzureTenantResource) Schema(ctx context.Context, req resource.S
 				MarkdownDescription: "The Microsoft Azure tenant ID (GUID) for this tenant configuration.",
 			},
 		},
-		MarkdownDescription: "Manages a Microsoft Teams Azure tenant with the Infinity service. Azure tenants are used to configure Microsoft Teams integration and allow Pexip Infinity to connect with specific Microsoft tenants for cloud-based collaboration.",
+		MarkdownDescription: "Manages a Microsoft Teams Azure tenant. Azure tenants are used to configure Microsoft Teams integration and allow Pexip Infinity to connect with specific Microsoft tenants for cloud-based collaboration.",
 	}
 }
 

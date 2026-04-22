@@ -67,14 +67,14 @@ func (r *InfinityRoleMappingResource) Schema(ctx context.Context, req resource.S
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the role mapping in Infinity",
+				MarkdownDescription: "Resource URI for the role mapping",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the role mapping in Infinity",
+				MarkdownDescription: "The resource integer identifier for the role mapping",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -110,7 +110,7 @@ func (r *InfinityRoleMappingResource) Schema(ctx context.Context, req resource.S
 				MarkdownDescription: "List of role URIs to assign when this mapping matches.",
 			},
 		},
-		MarkdownDescription: "Manages a role mapping with the Infinity service. Role mappings automatically assign roles to users based on attributes from identity providers like SAML, LDAP, or OAuth claims.",
+		MarkdownDescription: "Manages a role mapping. Role mappings automatically assign roles to users based on attributes from identity providers like SAML, LDAP, or OAuth claims.",
 	}
 }
 

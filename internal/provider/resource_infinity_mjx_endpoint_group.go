@@ -70,14 +70,14 @@ func (r *InfinityMjxEndpointGroupResource) Schema(ctx context.Context, req resou
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the MJX endpoint group in Infinity.",
+				MarkdownDescription: "Resource URI for the MJX endpoint group.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the MJX endpoint group in Infinity.",
+				MarkdownDescription: "The resource integer identifier for the MJX endpoint group.",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -119,7 +119,7 @@ func (r *InfinityMjxEndpointGroupResource) Schema(ctx context.Context, req resou
 				MarkdownDescription: "The endpoints that belong to this Endpoint Group.",
 			},
 		},
-		MarkdownDescription: "Manages an MJX endpoint group in Infinity. An MJX endpoint group defines the system location and One-Touch Join Profile for a set of OTJ endpoints.",
+		MarkdownDescription: "Manages an MJX endpoint group. An MJX endpoint group defines the system location and One-Touch Join Profile for a set of OTJ endpoints.",
 	}
 }
 

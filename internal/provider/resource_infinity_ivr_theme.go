@@ -67,14 +67,14 @@ func (r *InfinityIvrThemeResource) Schema(ctx context.Context, req resource.Sche
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the IVR theme in Infinity",
+				MarkdownDescription: "Resource URI for the IVR theme",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the IVR theme in Infinity",
+				MarkdownDescription: "The resource integer identifier for the IVR theme",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -95,7 +95,7 @@ func (r *InfinityIvrThemeResource) Schema(ctx context.Context, req resource.Sche
 				MarkdownDescription: "Path to the IVR theme package file to upload (e.g., `package = \"path/to/theme.zip\"`).",
 			},
 		},
-		MarkdownDescription: "Manages an IVR theme configuration with the Infinity service.",
+		MarkdownDescription: "Manages an IVR theme configuration.",
 	}
 }
 

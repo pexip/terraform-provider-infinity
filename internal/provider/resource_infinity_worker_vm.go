@@ -110,14 +110,14 @@ func (r *InfinityWorkerVMResource) Schema(ctx context.Context, req resource.Sche
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the worker VM in Infinity.",
+				MarkdownDescription: "Resource URI for the worker VM.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the worker VM in Infinity",
+				MarkdownDescription: "The resource integer identifier for the worker VM",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -424,7 +424,7 @@ func (r *InfinityWorkerVMResource) Schema(ctx context.Context, req resource.Sche
 				MarkdownDescription: "Bootstrap configuration for the Infinity Node.",
 			},
 		},
-		MarkdownDescription: "Manages a worker VM configuration with the Infinity service.",
+		MarkdownDescription: "Manages a worker VM configuration.",
 	}
 }
 

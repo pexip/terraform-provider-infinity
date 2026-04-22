@@ -64,14 +64,14 @@ func (r *InfinityGMSAccessTokenResource) Schema(ctx context.Context, req resourc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the GMS access token in Infinity",
+				MarkdownDescription: "Resource URI for the GMS access token",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the GMS access token in Infinity",
+				MarkdownDescription: "The resource integer identifier for the GMS access token",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -93,7 +93,7 @@ func (r *InfinityGMSAccessTokenResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "The Google Meet access token. This field is sensitive and will not be displayed in logs.",
 			},
 		},
-		MarkdownDescription: "Manages a Google Meet Service (GMS) access token configuration with the Infinity service. These tokens are used for Google Meet integration.",
+		MarkdownDescription: "Manages a Google Meet Service (GMS) access token configuration. These tokens are used for Google Meet integration.",
 	}
 }
 

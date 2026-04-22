@@ -73,14 +73,14 @@ func (r *InfinityScheduledConferenceResource) Schema(ctx context.Context, req re
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the scheduled conference in Infinity",
+				MarkdownDescription: "Resource URI for the scheduled conference",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the scheduled conference in Infinity",
+				MarkdownDescription: "The resource integer identifier for the scheduled conference",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -140,7 +140,7 @@ func (r *InfinityScheduledConferenceResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "Reference to scheduled alias resource URI.",
 			},
 		},
-		MarkdownDescription: "Manages a scheduled conference configuration with the Infinity service.",
+		MarkdownDescription: "Manages a scheduled conference configuration.",
 	}
 }
 

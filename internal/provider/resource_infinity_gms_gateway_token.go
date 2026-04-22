@@ -65,7 +65,7 @@ func (r *InfinityGMSGatewayTokenResource) Schema(ctx context.Context, req resour
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the GMS gateway token configuration in Infinity",
+				MarkdownDescription: "Resource URI for the GMS gateway token configuration",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -99,7 +99,7 @@ func (r *InfinityGMSGatewayTokenResource) Schema(ctx context.Context, req resour
 				MarkdownDescription: "Resource URI for the GMS gateway token configuration.",
 			},
 		},
-		MarkdownDescription: "Manages the Google Meet gateway token configuration with the Infinity service. This is a singleton resource - only one GMS gateway token configuration exists per system.",
+		MarkdownDescription: "Manages the Google Meet gateway token configuration. This is a singleton resource - only one GMS gateway token configuration exists per system.",
 	}
 }
 

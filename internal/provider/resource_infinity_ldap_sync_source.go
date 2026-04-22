@@ -70,14 +70,14 @@ func (r *InfinityLdapSyncSourceResource) Schema(ctx context.Context, req resourc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the LDAP sync source in Infinity",
+				MarkdownDescription: "Resource URI for the LDAP sync source",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the LDAP sync source in Infinity",
+				MarkdownDescription: "The resource integer identifier for the LDAP sync source",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -137,7 +137,7 @@ func (r *InfinityLdapSyncSourceResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "Permit LDAP queries to be sent over an insecure connection. Defaults to false.",
 			},
 		},
-		MarkdownDescription: "Manages an LDAP synchronization source configuration with the Infinity service.",
+		MarkdownDescription: "Manages an LDAP synchronization source configuration.",
 	}
 }
 

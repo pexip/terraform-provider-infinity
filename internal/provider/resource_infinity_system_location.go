@@ -112,14 +112,14 @@ func (r *InfinitySystemLocationResource) Schema(ctx context.Context, req resourc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the system location in Infinity.",
+				MarkdownDescription: "Resource URI for the system location.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the system location in Infinity",
+				MarkdownDescription: "The resource integer identifier for the system location",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -291,7 +291,7 @@ func (r *InfinitySystemLocationResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "Live captions dial out 3 URI.",
 			},
 		},
-		MarkdownDescription: "Registers a system location with the Infinity service.",
+		MarkdownDescription: "Registers a system location.",
 	}
 }
 

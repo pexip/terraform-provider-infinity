@@ -67,14 +67,14 @@ func (r *InfinityDnsServerResource) Schema(ctx context.Context, req resource.Sch
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the DNS server in Infinity.",
+				MarkdownDescription: "Resource URI for the DNS server.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the DNS server in Infinity",
+				MarkdownDescription: "The resource integer identifier for the DNS server",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -96,7 +96,7 @@ func (r *InfinityDnsServerResource) Schema(ctx context.Context, req resource.Sch
 				MarkdownDescription: "The IP address of the DNS server.",
 			},
 		},
-		MarkdownDescription: "Registers a DNS server with the Infinity service.",
+		MarkdownDescription: "Registers a DNS server.",
 	}
 }
 

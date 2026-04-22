@@ -64,7 +64,7 @@ func (r *InfinityOAuth2ClientResource) Schema(ctx context.Context, req resource.
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the OAuth2 client in Infinity",
+				MarkdownDescription: "Resource URI for the OAuth2 client",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -94,7 +94,7 @@ func (r *InfinityOAuth2ClientResource) Schema(ctx context.Context, req resource.
 				MarkdownDescription: "The private key JWT for the OAuth2 client. This field is sensitive and computed.",
 			},
 		},
-		MarkdownDescription: "Manages an OAuth2 client with the Infinity service. OAuth2 clients are used for API access and automation, providing secure authentication for external applications.",
+		MarkdownDescription: "Manages an OAuth2 client. OAuth2 clients are used for API access and automation, providing secure authentication for external applications.",
 	}
 }
 

@@ -63,14 +63,14 @@ func (r *InfinityExternalWebappHostResource) Schema(ctx context.Context, req res
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the external webapp host in Infinity",
+				MarkdownDescription: "Resource URI for the external webapp host",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the external webapp host in Infinity",
+				MarkdownDescription: "The resource integer identifier for the external webapp host",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -84,7 +84,7 @@ func (r *InfinityExternalWebappHostResource) Schema(ctx context.Context, req res
 				MarkdownDescription: "The IP address or hostname of the external webapp host. Must be a valid IP address or hostname. Maximum length: 253 characters.",
 			},
 		},
-		MarkdownDescription: "Manages an external webapp host with the Infinity service. External webapp hosts define external web application endpoints that can be integrated with Pexip Infinity for custom web interfaces and external service integrations.",
+		MarkdownDescription: "Manages an external webapp host. External webapp hosts define external web application endpoints that can be integrated with Pexip Infinity for custom web interfaces and external service integrations.",
 	}
 }
 

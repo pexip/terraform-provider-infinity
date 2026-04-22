@@ -77,14 +77,14 @@ func (r *InfinityEndUserResource) Schema(ctx context.Context, req resource.Schem
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the end user in Infinity.",
+				MarkdownDescription: "Resource URI for the end user.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the end user in Infinity",
+				MarkdownDescription: "The resource integer identifier for the end user",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -200,7 +200,7 @@ func (r *InfinityEndUserResource) Schema(ctx context.Context, req resource.Schem
 				MarkdownDescription: "LDAP sync identifier. Maximum length: 250 characters.",
 			},
 		},
-		MarkdownDescription: "Manages an end user account with the Infinity service.",
+		MarkdownDescription: "Manages an end user account.",
 	}
 }
 

@@ -66,14 +66,14 @@ func (r *InfinitySSHAuthorizedKeyResource) Schema(ctx context.Context, req resou
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the SSH authorized key in Infinity",
+				MarkdownDescription: "Resource URI for the SSH authorized key",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the SSH authorized key in Infinity",
+				MarkdownDescription: "The resource integer identifier for the SSH authorized key",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -104,7 +104,7 @@ func (r *InfinitySSHAuthorizedKeyResource) Schema(ctx context.Context, req resou
 				MarkdownDescription: "List of node resource URIs where this SSH key is authorized.",
 			},
 		},
-		MarkdownDescription: "Manages an SSH authorized key configuration with the Infinity service.",
+		MarkdownDescription: "Manages an SSH authorized key configuration.",
 	}
 }
 

@@ -64,14 +64,14 @@ func (r *InfinityPexipStreamingCredentialResource) Schema(ctx context.Context, r
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the Pexip Streaming credential in Infinity",
+				MarkdownDescription: "Resource URI for the Pexip Streaming credential",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the Pexip Streaming credential in Infinity",
+				MarkdownDescription: "The resource integer identifier for the Pexip Streaming credential",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -92,7 +92,7 @@ func (r *InfinityPexipStreamingCredentialResource) Schema(ctx context.Context, r
 				MarkdownDescription: "The public key for the Pexip Streaming credential. This should be a valid public key in appropriate format.",
 			},
 		},
-		MarkdownDescription: "Manages a Pexip Streaming credential with the Infinity service. Pexip Streaming credentials are used to authenticate and authorize streaming services, enabling secure content delivery and media streaming functionality within Pexip Infinity deployments.",
+		MarkdownDescription: "Manages a Pexip Streaming credential. Pexip Streaming credentials are used to authenticate and authorize streaming services, enabling secure content delivery and media streaming functionality within Pexip Infinity deployments.",
 	}
 }
 

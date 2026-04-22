@@ -70,14 +70,14 @@ func (r *InfinitySnmpNetworkManagementSystemResource) Schema(ctx context.Context
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the SNMP network management system in Infinity",
+				MarkdownDescription: "Resource URI for the SNMP network management system",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the SNMP network management system in Infinity",
+				MarkdownDescription: "The resource integer identifier for the SNMP network management system",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -125,7 +125,7 @@ func (r *InfinitySnmpNetworkManagementSystemResource) Schema(ctx context.Context
 				MarkdownDescription: "The SNMP trap community name. Maximum length: 16 characters.",
 			},
 		},
-		MarkdownDescription: "Manages an SNMP network management system with the Infinity service. SNMP network management systems receive SNMP traps and notifications from Pexip Infinity for monitoring and alerting purposes.",
+		MarkdownDescription: "Manages an SNMP network management system. SNMP network management systems receive SNMP traps and notifications from Pexip Infinity for monitoring and alerting purposes.",
 	}
 }
 

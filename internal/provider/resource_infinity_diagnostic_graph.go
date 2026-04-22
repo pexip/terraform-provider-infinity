@@ -66,14 +66,14 @@ func (r *InfinityDiagnosticGraphResource) Schema(ctx context.Context, req resour
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the diagnostic graph in Infinity",
+				MarkdownDescription: "Resource URI for the diagnostic graph",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the diagnostic graph in Infinity",
+				MarkdownDescription: "The resource integer identifier for the diagnostic graph",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -100,7 +100,7 @@ func (r *InfinityDiagnosticGraphResource) Schema(ctx context.Context, req resour
 				MarkdownDescription: "List of dataset identifiers to include in this diagnostic graph.",
 			},
 		},
-		MarkdownDescription: "Manages a diagnostic graph with the Infinity service. Diagnostic graphs provide visual monitoring and troubleshooting capabilities for system health and performance metrics.",
+		MarkdownDescription: "Manages a diagnostic graph. Diagnostic graphs provide visual monitoring and troubleshooting capabilities for system health and performance metrics.",
 	}
 }
 

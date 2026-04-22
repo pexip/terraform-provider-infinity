@@ -75,14 +75,14 @@ func (r *InfinitySMTPServerResource) Schema(ctx context.Context, req resource.Sc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the SMTP server in Infinity",
+				MarkdownDescription: "Resource URI for the SMTP server",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the SMTP server in Infinity",
+				MarkdownDescription: "The resource integer identifier for the SMTP server",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -158,7 +158,7 @@ func (r *InfinitySMTPServerResource) Schema(ctx context.Context, req resource.Sc
 				MarkdownDescription: "The connection security to use when connecting to this email server.",
 			},
 		},
-		MarkdownDescription: "Manages an SMTP server with the Infinity service. SMTP servers are used for sending email notifications and alerts from Pexip Infinity.",
+		MarkdownDescription: "Manages an SMTP server. SMTP servers are used for sending email notifications and alerts from Pexip Infinity.",
 	}
 }
 

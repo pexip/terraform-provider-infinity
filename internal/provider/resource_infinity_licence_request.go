@@ -65,7 +65,7 @@ func (r *InfinityLicenceRequestResource) Schema(ctx context.Context, req resourc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the licence request in Infinity",
+				MarkdownDescription: "Resource URI for the licence request",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -102,7 +102,7 @@ func (r *InfinityLicenceRequestResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "The response XML from the license server, if available.",
 			},
 		},
-		MarkdownDescription: "Manages a licence request with the Infinity service. Licence requests are used to generate license activation files that can be submitted to Pexip for license provisioning. Note: This resource only supports creation and reading - licence requests cannot be updated or deleted once created.",
+		MarkdownDescription: "Manages a licence request. Licence requests are used to generate license activation files that can be submitted to Pexip for license provisioning. Note: This resource only supports creation and reading - licence requests cannot be updated or deleted once created.",
 	}
 }
 

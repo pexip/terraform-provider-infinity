@@ -77,14 +77,14 @@ func (r *InfinityCACertificateResource) Schema(ctx context.Context, req resource
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the CA certificate in Infinity",
+				MarkdownDescription: "Resource URI for the CA certificate",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the CA certificate in Infinity",
+				MarkdownDescription: "The resource integer identifier for the CA certificate",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -151,7 +151,7 @@ func (r *InfinityCACertificateResource) Schema(ctx context.Context, req resource
 				MarkdownDescription: "The text representation of the certificate.",
 			},
 		},
-		MarkdownDescription: "Manages a CA certificate configuration with the Infinity service.",
+		MarkdownDescription: "Manages a CA certificate configuration.",
 	}
 }
 

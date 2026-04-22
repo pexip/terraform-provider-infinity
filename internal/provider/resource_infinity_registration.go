@@ -75,7 +75,7 @@ func (r *InfinityRegistrationResource) Schema(ctx context.Context, req resource.
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the registration in Infinity.",
+				MarkdownDescription: "Resource URI for the registration.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -173,7 +173,7 @@ func (r *InfinityRegistrationResource) Schema(ctx context.Context, req resource.
 				MarkdownDescription: "Customizes the Google Cloud Messaging push token. You should only change this setting if you are using a custom Pexip mobile application.",
 			},
 		},
-		MarkdownDescription: "Manages the registration configuration with the Infinity service. This is a singleton resource - only one registration configuration exists per system.",
+		MarkdownDescription: "Manages the registration configuration. This is a singleton resource - only one registration configuration exists per system.",
 	}
 }
 
