@@ -128,8 +128,8 @@ resource "pexip_infinity_conference" "test_service" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the conference in Infinity.
-- `resource_id` (Number) The resource integer identifier for the conference in Infinity
+- `id` (String) Resource URI for the conference.
+- `resource_id` (Number) The resource integer identifier for the conference
 
 
 ## Service Types

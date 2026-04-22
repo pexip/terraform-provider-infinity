@@ -30,7 +30,7 @@ resource "pexip_infinity_gms_gateway_token" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the GMS gateway token configuration in Infinity
+- `id` (String) Resource URI for the GMS gateway token configuration
 - `intermediate_certificate` (String) The intermediate certificate for the Google Meet gateway token.
 - `leaf_certificate` (String) The leaf certificate for the Google Meet gateway token.
 - `resource_uri` (String) Resource URI for the GMS gateway token configuration.

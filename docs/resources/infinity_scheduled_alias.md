@@ -44,7 +44,7 @@ resource "pexip_infinity_scheduled_alias" "example" {
 
 - `conference_deletion_time` (String) The timestamp when the associated conference was deleted, if applicable.
 - `creation_time` (String) The timestamp when this scheduled alias was created.
-- `id` (String) Resource URI for the scheduled alias in Infinity
-- `resource_id` (Number) The resource integer identifier for the scheduled alias in Infinity
+- `id` (String) Resource URI for the scheduled alias
+- `resource_id` (Number) The resource integer identifier for the scheduled alias
 
 

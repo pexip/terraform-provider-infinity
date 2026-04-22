@@ -130,8 +130,8 @@ resource "pexip_infinity_worker_vm" "workers" {
 
 - `cloud_bursting` (Boolean) Defines whether this Conference Node is a cloud bursting node
 - `config` (String, Sensitive) Bootstrap configuration for the Infinity Node.
-- `id` (String) Resource URI for the worker VM in Infinity.
-- `resource_id` (Number) The resource integer identifier for the worker VM in Infinity
+- `id` (String) Resource URI for the worker VM.
+- `resource_id` (Number) The resource integer identifier for the worker VM
 - `transcoding` (Boolean) Deprecated field - use node_type field instead.
 
 

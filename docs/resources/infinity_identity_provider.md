@@ -99,8 +99,8 @@ resource "pexip_infinity_identity_provider" "oidc_example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the identity provider in Infinity.
-- `resource_id` (Number) The resource integer identifier for the identity provider in Infinity
+- `id` (String) Resource URI for the identity provider.
+- `resource_id` (Number) The resource integer identifier for the identity provider
 
 
 ## Import

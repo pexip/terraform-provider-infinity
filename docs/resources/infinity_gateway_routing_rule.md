@@ -69,8 +69,8 @@ resource "pexip_infinity_gateway_routing_rule" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the gateway routing rule in Infinity.
-- `resource_id` (Number) The resource integer identifier for the gateway routing rule in Infinity
+- `id` (String) Resource URI for the gateway routing rule.
+- `resource_id` (Number) The resource integer identifier for the gateway routing rule
 
 
 ## Import

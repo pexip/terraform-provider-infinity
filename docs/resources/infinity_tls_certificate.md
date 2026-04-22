@@ -170,7 +170,7 @@ resource "pexip_infinity_tls_certificate" "from_variables" {
 ### Read-Only
 
 - `end_date` (String) The end date of the certificate validity period.
-- `id` (String) Resource URI for the TLS certificate in Infinity
+- `id` (String) Resource URI for the TLS certificate
 - `issuer_hash` (String) The issuer hash from the certificate.
 - `issuer_key_id` (String) The issuer key identifier from the certificate.
 - `issuer_name` (String) The issuer name from the certificate.
@@ -178,7 +178,7 @@ resource "pexip_infinity_tls_certificate" "from_variables" {
 - `nodes` (Set of String) List of node resource URIs where this certificate is deployed. This attribute is read-only and always empty. Node-certificate associations should be managed from the node resource by setting the tls_certificate attribute on each node.
 - `raw_issuer` (String) The raw issuer data from the certificate.
 - `raw_subject` (String) The raw subject data from the certificate.
-- `resource_id` (Number) The resource integer identifier for the TLS certificate in Infinity
+- `resource_id` (Number) The resource integer identifier for the TLS certificate
 - `serial_no` (String) The serial number from the certificate.
 - `start_date` (String) The start date of the certificate validity period.
 - `subject_alt_names` (String) The subject alternative names from the certificate.

@@ -62,8 +62,8 @@ resource "pexip_infinity_mjx_integration" "example" {
 ### Read-Only
 
 - `endpoint_groups` (Set of String) The Endpoint Groups used by this One-Touch Join Profile.
-- `id` (String) Resource URI for the MJX integration in Infinity.
-- `resource_id` (Number) The resource integer identifier for the MJX integration in Infinity.
+- `id` (String) Resource URI for the MJX integration.
+- `resource_id` (Number) The resource integer identifier for the MJX integration.
 - `webex_refresh_token` (String, Sensitive) The Webex Refresh token for your Webex integration.
 
 

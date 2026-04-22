@@ -30,7 +30,7 @@ resource "pexip_infinity_system_tuneable" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the system tuneable in Infinity
-- `resource_id` (Number) The resource integer identifier for the system tuneable in Infinity
+- `id` (String) Resource URI for the system tuneable
+- `resource_id` (Number) The resource integer identifier for the system tuneable
 
 

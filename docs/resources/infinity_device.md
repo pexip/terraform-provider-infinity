@@ -132,8 +132,8 @@ resource "pexip_infinity_device" "executive_room" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the device in Infinity.
-- `resource_id` (Number) The resource integer identifier for the device in Infinity
+- `id` (String) Resource URI for the device.
+- `resource_id` (Number) The resource integer identifier for the device
 
 
 ## Import

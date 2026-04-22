@@ -37,7 +37,7 @@ resource "pexip_infinity_google_auth_server" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the Google authentication server in Infinity.
-- `resource_id` (Number) The resource integer identifier for the Google auth server in Infinity
+- `id` (String) Resource URI for the Google authentication server.
+- `resource_id` (Number) The resource integer identifier for the Google auth server
 
 

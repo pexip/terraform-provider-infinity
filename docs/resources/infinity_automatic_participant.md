@@ -284,8 +284,8 @@ resource "random_id" "test" {
 ### Read-Only
 
 - `creation_time` (String) The time at which the Automatically Dialed Participant was created.
-- `id` (String) Resource URI for the automatic participant in Infinity.
-- `resource_id` (Number) The resource integer identifier for the automatic participant in Infinity
+- `id` (String) Resource URI for the automatic participant.
+- `resource_id` (Number) The resource integer identifier for the automatic participant
 
 
 ## Import

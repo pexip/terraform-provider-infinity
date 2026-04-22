@@ -35,7 +35,7 @@ resource "pexip_infinity_sip_credential" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the SIP credential in Infinity
-- `resource_id` (Number) The resource integer identifier for the SIP credential in Infinity
+- `id` (String) Resource URI for the SIP credential
+- `resource_id` (Number) The resource integer identifier for the SIP credential
 
 

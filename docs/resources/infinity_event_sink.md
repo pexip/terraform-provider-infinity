@@ -166,8 +166,8 @@ resource "pexip_infinity_event_sink" "development" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the event sink in Infinity
-- `resource_id` (Number) The resource integer identifier for the event sink in Infinity
+- `id` (String) Resource URI for the event sink
+- `resource_id` (Number) The resource integer identifier for the event sink
 
 
 ## Import

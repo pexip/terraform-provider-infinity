@@ -34,7 +34,7 @@ resource "pexip_infinity_identity_provider_group" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the identity provider group in Infinity.
-- `resource_id` (Number) The resource integer identifier for the identity provider group in Infinity
+- `id` (String) Resource URI for the identity provider group.
+- `resource_id` (Number) The resource integer identifier for the identity provider group
 
 

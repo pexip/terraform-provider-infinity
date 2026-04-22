@@ -340,7 +340,7 @@ resource "pexip_infinity_global_configuration" "from_variable" {
 ### Read-Only
 
 - `deployment_uuid` (String) The ID of the deployment.
-- `id` (String) Resource URI for the global configuration in Infinity
+- `id` (String) Resource URI for the global configuration
 - `resource_uri` (String) The URI that identifies this resource.
 
 

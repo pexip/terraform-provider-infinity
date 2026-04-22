@@ -53,9 +53,9 @@ resource "pexip_infinity_mjx_exchange_deployment" "example" {
 ### Read-Only
 
 - `autodiscover_urls` (Set of String) The Autodiscover URLs associated with this One-Touch Join Exchange Integration.
-- `id` (String) Resource URI for the MJX Exchange deployment in Infinity.
+- `id` (String) Resource URI for the MJX Exchange deployment.
 - `mjx_integrations` (Set of String) The One-Touch Join Profiles associated with this OTJ Exchange Integration.
 - `oauth_refresh_token` (String, Sensitive) The OAuth refresh token which is obtained after successfully signing in via the OAuth flow.
-- `resource_id` (Number) The resource integer identifier for the MJX Exchange deployment in Infinity.
+- `resource_id` (Number) The resource integer identifier for the MJX Exchange deployment.
 
 

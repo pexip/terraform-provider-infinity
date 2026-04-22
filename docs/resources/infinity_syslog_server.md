@@ -138,8 +138,8 @@ resource "pexip_infinity_syslog_server" "lb_syslog" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the syslog server in Infinity.
-- `resource_id` (Number) The resource integer identifier for the syslog server in Infinity
+- `id` (String) Resource URI for the syslog server.
+- `resource_id` (Number) The resource integer identifier for the syslog server
 
 
 ## Import

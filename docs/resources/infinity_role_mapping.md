@@ -36,7 +36,7 @@ resource "pexip_infinity_role_mapping" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the role mapping in Infinity
-- `resource_id` (Number) The resource integer identifier for the role mapping in Infinity
+- `id` (String) Resource URI for the role mapping
+- `resource_id` (Number) The resource integer identifier for the role mapping
 
 

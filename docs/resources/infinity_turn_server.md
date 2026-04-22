@@ -146,8 +146,8 @@ resource "pexip_infinity_turn_server" "public_turn" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the TURN server in Infinity.
-- `resource_id` (Number) The resource integer identifier for the TURN server in Infinity
+- `id` (String) Resource URI for the TURN server.
+- `resource_id` (Number) The resource integer identifier for the TURN server
 
 
 ## Import

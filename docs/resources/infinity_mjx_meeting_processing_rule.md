@@ -47,7 +47,7 @@ resource "pexip_infinity_mjx_meeting_processing_rule" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the MJX meeting processing rule in Infinity.
-- `resource_id` (Number) The resource integer identifier for the MJX meeting processing rule in Infinity.
+- `id` (String) Resource URI for the MJX meeting processing rule.
+- `resource_id` (Number) The resource integer identifier for the MJX meeting processing rule.
 
 

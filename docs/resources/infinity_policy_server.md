@@ -167,8 +167,8 @@ resource "pexip_infinity_policy_server" "regional_policy" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the policy server in Infinity.
-- `resource_id` (Number) The resource integer identifier for the policy server in Infinity
+- `id` (String) Resource URI for the policy server.
+- `resource_id` (Number) The resource integer identifier for the policy server
 
 
 ## Import

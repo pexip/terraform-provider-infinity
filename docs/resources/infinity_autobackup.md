@@ -3,12 +3,12 @@
 page_title: "pexip_infinity_autobackup Resource - pexip"
 subcategory: ""
 description: |-
-  Manages the Pexip Infinity automatic backup configuration. This is a singleton resource — only one instance exists.
+  Manages the automatic backup configuration. This is a singleton resource — only one instance exists.
 ---
 
 # pexip_infinity_autobackup (Resource)
 
-Manages the Pexip Infinity automatic backup configuration. This is a singleton resource — only one instance exists.
+Manages the automatic backup configuration. This is a singleton resource — only one instance exists.
 
 
 
@@ -27,4 +27,4 @@ Manages the Pexip Infinity automatic backup configuration. This is a singleton r
 
 ### Read-Only
 
-- `id` (String) Resource URI for the autobackup configuration in Infinity.
+- `id` (String) Resource URI for the autobackup configuration.

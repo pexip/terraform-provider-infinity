@@ -30,7 +30,7 @@ resource "pexip_infinity_pexip_streaming_credential" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the Pexip Streaming credential in Infinity
-- `resource_id` (Number) The resource integer identifier for the Pexip Streaming credential in Infinity
+- `id` (String) Resource URI for the Pexip Streaming credential
+- `resource_id` (Number) The resource integer identifier for the Pexip Streaming credential
 
 

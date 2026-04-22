@@ -85,8 +85,8 @@ resource "pexip_infinity_dns_server" "internal_dns" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the DNS server in Infinity.
-- `resource_id` (Number) The resource integer identifier for the DNS server in Infinity
+- `id` (String) Resource URI for the DNS server.
+- `resource_id` (Number) The resource integer identifier for the DNS server
 
 
 ## Import

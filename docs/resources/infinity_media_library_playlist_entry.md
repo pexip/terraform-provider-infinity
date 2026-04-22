@@ -37,7 +37,7 @@ resource "pexip_infinity_media_library_playlist_entry" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the media library playlist entry in Infinity
-- `resource_id` (Number) The resource integer identifier for the media library playlist entry in Infinity
+- `id` (String) Resource URI for the media library playlist entry
+- `resource_id` (Number) The resource integer identifier for the media library playlist entry
 
 

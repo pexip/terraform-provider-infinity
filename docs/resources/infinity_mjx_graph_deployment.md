@@ -40,8 +40,8 @@ resource "pexip_infinity_mjx_graph_deployment" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the MJX Graph deployment in Infinity.
+- `id` (String) Resource URI for the MJX Graph deployment.
 - `mjx_integrations` (Set of String) The One-Touch Join Profiles associated with this OTJ O365 Graph Integration.
-- `resource_id` (Number) The resource integer identifier for the MJX Graph deployment in Infinity.
+- `resource_id` (Number) The resource integer identifier for the MJX Graph deployment.
 
 

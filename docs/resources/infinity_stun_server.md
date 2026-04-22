@@ -165,8 +165,8 @@ resource "pexip_infinity_stun_server" "external_remote_stun" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the STUN server in Infinity.
-- `resource_id` (Number) The resource integer identifier for the STUN server in Infinity
+- `id` (String) Resource URI for the STUN server.
+- `resource_id` (Number) The resource integer identifier for the STUN server
 
 
 ## Import

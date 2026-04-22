@@ -33,14 +33,14 @@ resource "pexip_infinity_ca_certificate" "example" {
 ### Read-Only
 
 - `end_date` (String) The end date of the certificate validity period.
-- `id` (String) Resource URI for the CA certificate in Infinity
+- `id` (String) Resource URI for the CA certificate
 - `issuer_hash` (String) The issuer hash of the certificate.
 - `issuer_key_id` (String) The issuer key identifier of the certificate.
 - `issuer_name` (String) The issuer name of the certificate.
 - `key_id` (String) The key identifier of the certificate.
 - `raw_issuer` (String) The raw issuer of the certificate.
 - `raw_subject` (String) The raw subject of the certificate.
-- `resource_id` (Number) The resource integer identifier for the CA certificate in Infinity
+- `resource_id` (Number) The resource integer identifier for the CA certificate
 - `serial_no` (String) The serial number of the certificate.
 - `start_date` (String) The start date of the certificate validity period.
 - `subject_hash` (String) The subject hash of the certificate.

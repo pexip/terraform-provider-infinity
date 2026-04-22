@@ -34,7 +34,7 @@ resource "pexip_infinity_diagnostic_graph" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the diagnostic graph in Infinity
-- `resource_id` (Number) The resource integer identifier for the diagnostic graph in Infinity
+- `id` (String) Resource URI for the diagnostic graph
+- `resource_id` (Number) The resource integer identifier for the diagnostic graph
 
 

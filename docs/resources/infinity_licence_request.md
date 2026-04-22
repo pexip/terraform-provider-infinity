@@ -31,7 +31,7 @@ resource "pexip_infinity_licence_request" "example" {
 ### Read-Only
 
 - `generation_time` (String) The timestamp when this licence request was generated.
-- `id` (String) Resource URI for the licence request in Infinity
+- `id` (String) Resource URI for the licence request
 - `response_xml` (String) The response XML from the license server, if available.
 - `sequence_number` (String) The sequence number generated for this licence request
 - `status` (String) The current status of the licence request.

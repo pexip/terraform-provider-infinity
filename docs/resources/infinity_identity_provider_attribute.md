@@ -33,7 +33,7 @@ resource "pexip_infinity_identity_provider_attribute" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the identity provider attribute in Infinity.
-- `resource_id` (Number) The resource integer identifier for the identity provider attribute in Infinity
+- `id` (String) Resource URI for the identity provider attribute.
+- `resource_id` (Number) The resource integer identifier for the identity provider attribute
 
 

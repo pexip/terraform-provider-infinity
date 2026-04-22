@@ -371,11 +371,11 @@ resource "pexip_infinity_management_vm" "development" {
 - `domain` (String) The domain name for this Management Node. Maximum length: 192 characters.
 - `gateway` (String) The IPv4 address of the default gateway.
 - `hostname` (String) The hostname for this Management Node. Maximum length: 63 characters.
-- `id` (String) Resource URI for the management VM in Infinity.
+- `id` (String) Resource URI for the management VM.
 - `initializing` (Boolean) This Management Node is initializing the configuration file.
 - `netmask` (String) The IPv4 network mask for this Management Node.
 - `primary` (Boolean) The IPv4 address for this Management Node.
-- `resource_id` (Number) The resource integer identifier for the management VM in Infinity
+- `resource_id` (Number) The resource integer identifier for the management VM
 
 
 ## Import

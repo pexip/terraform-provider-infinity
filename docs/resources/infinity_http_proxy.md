@@ -218,8 +218,8 @@ resource "pexip_infinity_http_proxy" "secondary" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the HTTP proxy in Infinity.
-- `resource_id` (Number) The resource integer identifier for the HTTP proxy in Infinity
+- `id` (String) Resource URI for the HTTP proxy.
+- `resource_id` (Number) The resource integer identifier for the HTTP proxy
 
 
 ## Import

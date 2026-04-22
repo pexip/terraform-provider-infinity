@@ -37,8 +37,8 @@ resource "pexip_infinity_ldap_sync_source" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the LDAP sync source in Infinity
-- `resource_id` (Number) The resource integer identifier for the LDAP sync source in Infinity
+- `id` (String) Resource URI for the LDAP sync source
+- `resource_id` (Number) The resource integer identifier for the LDAP sync source
 
 
 ## Import

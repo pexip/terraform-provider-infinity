@@ -38,7 +38,7 @@ resource "pexip_infinity_mjx_endpoint_group" "example" {
 ### Read-Only
 
 - `endpoints` (Set of String) The endpoints that belong to this Endpoint Group.
-- `id` (String) Resource URI for the MJX endpoint group in Infinity.
-- `resource_id` (Number) The resource integer identifier for the MJX endpoint group in Infinity.
+- `id` (String) Resource URI for the MJX endpoint group.
+- `resource_id` (Number) The resource integer identifier for the MJX endpoint group.
 
 

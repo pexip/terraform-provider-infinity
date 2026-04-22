@@ -46,7 +46,7 @@ resource "pexip_infinity_webapp_branding" "example_custom_uuid" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the webapp branding package in Infinity
+- `id` (String) Resource URI for the webapp branding package
 - `last_updated` (String) Timestamp when this branding configuration was last updated.
 - `uuid` (String) The UUID for this branding configuration. If not provided, a UUID will be automatically generated.
 

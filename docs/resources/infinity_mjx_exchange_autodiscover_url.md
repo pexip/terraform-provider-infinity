@@ -36,7 +36,7 @@ resource "pexip_infinity_mjx_exchange_autodiscover_url" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the MJX Exchange Autodiscover URL in Infinity.
-- `resource_id` (Number) The resource integer identifier for the MJX Exchange Autodiscover URL in Infinity.
+- `id` (String) Resource URI for the MJX Exchange Autodiscover URL.
+- `resource_id` (Number) The resource integer identifier for the MJX Exchange Autodiscover URL.
 
 

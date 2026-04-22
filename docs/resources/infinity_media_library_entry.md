@@ -35,11 +35,11 @@ resource "pexip_infinity_media_library_entry" "example" {
 ### Read-Only
 
 - `file_name` (String) The file name of the uploaded media file.
-- `id` (String) Resource URI for the media library entry in Infinity
+- `id` (String) Resource URI for the media library entry
 - `media_format` (String) The media format of the uploaded file (e.g., mp4, wav, jpg).
 - `media_size` (Number) The size of the media file in bytes.
 - `media_type` (String) The media type of the uploaded file (e.g., video, audio, image).
-- `resource_id` (Number) The resource integer identifier for the media library entry in Infinity
+- `resource_id` (Number) The resource integer identifier for the media library entry
 - `uuid` (String) UUID for the media library entry (read-only, assigned by the API).
 
 

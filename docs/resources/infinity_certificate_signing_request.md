@@ -42,7 +42,7 @@ resource "pexip_infinity_certificate_signing_request" "example" {
 ### Read-Only
 
 - `csr` (String) The generated certificate signing request (PEM format).
-- `id` (String) Resource URI for the certificate signing request in Infinity
-- `resource_id` (Number) The resource integer identifier for the certificate signing request in Infinity
+- `id` (String) Resource URI for the certificate signing request
+- `resource_id` (Number) The resource integer identifier for the certificate signing request
 
 

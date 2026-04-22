@@ -34,8 +34,8 @@ resource "pexip_infinity_user_group" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the user group in Infinity
-- `resource_id` (Number) The resource integer identifier for the user group in Infinity
+- `id` (String) Resource URI for the user group
+- `resource_id` (Number) The resource integer identifier for the user group
 
 
 ## Import

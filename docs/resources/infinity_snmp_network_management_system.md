@@ -31,8 +31,8 @@ resource "pexip_infinity_snmp_network_management_system" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the SNMP network management system in Infinity
-- `resource_id` (Number) The resource integer identifier for the SNMP network management system in Infinity
+- `id` (String) Resource URI for the SNMP network management system
+- `resource_id` (Number) The resource integer identifier for the SNMP network management system
 
 
 ## Import

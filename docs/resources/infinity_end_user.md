@@ -130,8 +130,8 @@ resource "pexip_infinity_end_user" "executive_user" {
 ### Read-Only
 
 - `exchange_user_id` (String) Exchange User ID (read-only).
-- `id` (String) Resource URI for the end user in Infinity.
-- `resource_id` (Number) The resource integer identifier for the end user in Infinity
+- `id` (String) Resource URI for the end user.
+- `resource_id` (Number) The resource integer identifier for the end user
 - `user_oid` (String) Microsoft 365 Object ID (read-only).
 
 

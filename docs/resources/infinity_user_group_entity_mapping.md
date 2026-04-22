@@ -34,7 +34,7 @@ resource "pexip_infinity_user_group_entity_mapping" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the user group entity mapping in Infinity
-- `resource_id` (Number) The resource integer identifier for the user group entity mapping in Infinity
+- `id` (String) Resource URI for the user group entity mapping
+- `resource_id` (Number) The resource integer identifier for the user group entity mapping
 
 

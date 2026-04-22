@@ -35,8 +35,8 @@ resource "pexip_infinity_scheduled_conference" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the scheduled conference in Infinity
-- `resource_id` (Number) The resource integer identifier for the scheduled conference in Infinity
+- `id` (String) Resource URI for the scheduled conference
+- `resource_id` (Number) The resource integer identifier for the scheduled conference
 
 
 ## Import

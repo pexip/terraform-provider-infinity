@@ -33,8 +33,8 @@ resource "pexip_infinity_adfs_auth_server" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the ADFS authentication server in Infinity.
-- `resource_id` (Number) The resource integer identifier for the ADFS auth server in Infinity
+- `id` (String) Resource URI for the ADFS authentication server.
+- `resource_id` (Number) The resource integer identifier for the ADFS auth server
 
 
 ## Import

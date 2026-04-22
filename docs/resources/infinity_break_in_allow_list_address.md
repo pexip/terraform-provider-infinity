@@ -39,7 +39,7 @@ resource "pexip_infinity_break_in_allow_list_address" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the break-in allow list address in Infinity
-- `resource_id` (Number) The resource integer identifier for the break-in allow list address in Infinity
+- `id` (String) Resource URI for the break-in allow list address
+- `resource_id` (Number) The resource integer identifier for the break-in allow list address
 
 

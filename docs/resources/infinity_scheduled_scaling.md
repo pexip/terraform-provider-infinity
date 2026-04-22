@@ -52,8 +52,8 @@ resource "pexip_infinity_scheduled_scaling" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the scheduled scaling policy in Infinity.
-- `resource_id` (Number) The resource integer identifier for the scheduled scaling policy in Infinity
+- `id` (String) Resource URI for the scheduled scaling policy.
+- `resource_id` (Number) The resource integer identifier for the scheduled scaling policy
 - `updated` (String) The timestamp when this scheduled scaling policy was last updated.
 
 

@@ -47,7 +47,7 @@ resource "pexip_infinity_mjx_endpoint" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the MJX endpoint in Infinity.
-- `resource_id` (Number) The resource integer identifier for the MJX endpoint in Infinity
+- `id` (String) Resource URI for the MJX endpoint.
+- `resource_id` (Number) The resource integer identifier for the MJX endpoint
 
 

@@ -202,8 +202,8 @@ resource "pexip_infinity_static_route" "conditional_route" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the static route in Infinity.
-- `resource_id` (Number) The resource integer identifier for the static route in Infinity
+- `id` (String) Resource URI for the static route.
+- `resource_id` (Number) The resource integer identifier for the static route
 
 
 ## Import

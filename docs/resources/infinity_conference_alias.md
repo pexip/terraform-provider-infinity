@@ -280,8 +280,8 @@ resource "pexip_infinity_conference_alias" "partner_collab" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the conference alias in Infinity.
-- `resource_id` (Number) The resource integer identifier for the conference alias in Infinity
+- `id` (String) Resource URI for the conference alias.
+- `resource_id` (Number) The resource integer identifier for the conference alias
 
 
 ## Import

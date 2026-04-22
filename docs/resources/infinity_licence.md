@@ -34,7 +34,7 @@ resource "pexip_infinity_licence" "example" {
 - `fulfillment_type` (String) The fulfillment type of the licence.
 - `hybrid` (Number) Number of hybrid licenses.
 - `hybrid_overdraft` (Number) Number of hybrid licenses allowed in overdraft.
-- `id` (String) Resource URI for the licence in Infinity
+- `id` (String) Resource URI for the licence
 - `license_type` (String) The type of the licence.
 - `product_id` (String) The product ID associated with the licence.
 - `repair` (Number) Repair flag for the licence.

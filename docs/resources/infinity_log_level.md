@@ -32,7 +32,7 @@ resource "pexip_infinity_log_level" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the log level in Infinity.
-- `resource_id` (Number) The resource integer identifier for the log level in Infinity
+- `id` (String) Resource URI for the log level.
+- `resource_id` (Number) The resource integer identifier for the log level
 
 

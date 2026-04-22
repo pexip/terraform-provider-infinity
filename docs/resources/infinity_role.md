@@ -30,8 +30,8 @@ resource "pexip_infinity_role" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the role in Infinity
-- `resource_id` (Number) The resource integer identifier for the role in Infinity
+- `id` (String) Resource URI for the role
+- `resource_id` (Number) The resource integer identifier for the role
 
 
 ## Import

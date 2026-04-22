@@ -145,8 +145,8 @@ resource "pexip_infinity_system_location" "datacenter" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the system location in Infinity.
-- `resource_id` (Number) The resource integer identifier for the system location in Infinity
+- `id` (String) Resource URI for the system location.
+- `resource_id` (Number) The resource integer identifier for the system location
 
 
 ## Import

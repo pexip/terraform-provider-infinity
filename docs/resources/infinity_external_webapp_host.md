@@ -28,7 +28,7 @@ resource "pexip_infinity_external_webapp_host" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the external webapp host in Infinity
-- `resource_id` (Number) The resource integer identifier for the external webapp host in Infinity
+- `id` (String) Resource URI for the external webapp host
+- `resource_id` (Number) The resource integer identifier for the external webapp host
 
 

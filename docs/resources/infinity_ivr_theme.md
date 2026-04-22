@@ -33,8 +33,8 @@ resource "pexip_infinity_ivr_theme" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the IVR theme in Infinity
-- `resource_id` (Number) The resource integer identifier for the IVR theme in Infinity
+- `id` (String) Resource URI for the IVR theme
+- `resource_id` (Number) The resource integer identifier for the IVR theme
 - `uuid` (String) UUID for the IVR theme.
 
 

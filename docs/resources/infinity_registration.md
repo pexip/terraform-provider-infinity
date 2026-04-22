@@ -38,6 +38,6 @@ resource "pexip_infinity_registration" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the registration in Infinity.
+- `id` (String) Resource URI for the registration.
 
 

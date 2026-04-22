@@ -32,8 +32,8 @@ resource "pexip_infinity_ssh_authorized_key" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the SSH authorized key in Infinity
-- `resource_id` (Number) The resource integer identifier for the SSH authorized key in Infinity
+- `id` (String) Resource URI for the SSH authorized key
+- `resource_id` (Number) The resource integer identifier for the SSH authorized key
 
 
 ## Import

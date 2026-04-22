@@ -37,8 +37,8 @@ resource "pexip_infinity_smtp_server" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the SMTP server in Infinity
-- `resource_id` (Number) The resource integer identifier for the SMTP server in Infinity
+- `id` (String) Resource URI for the SMTP server
+- `resource_id` (Number) The resource integer identifier for the SMTP server
 
 
 ## Import

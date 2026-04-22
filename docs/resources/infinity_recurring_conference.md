@@ -33,8 +33,8 @@ resource "pexip_infinity_recurring_conference" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the recurring conference in Infinity.
-- `resource_id` (Number) The resource integer identifier for the recurring conference in Infinity
+- `id` (String) Resource URI for the recurring conference.
+- `resource_id` (Number) The resource integer identifier for the recurring conference
 
 
 ## Import

@@ -44,9 +44,9 @@ resource "pexip_infinity_mjx_google_deployment" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the MJX Google deployment in Infinity.
+- `id` (String) Resource URI for the MJX Google deployment.
 - `mjx_integrations` (Set of String) The OTJ Google Workspace Integration associated with this One-Touch Join Profile.
 - `refresh_token` (String, Sensitive) The OAuth refresh token which is obtained after successfully finishing the authorization for accessing Google API flow.
-- `resource_id` (Number) The resource integer identifier for the MJX Google deployment in Infinity.
+- `resource_id` (Number) The resource integer identifier for the MJX Google deployment.
 
 

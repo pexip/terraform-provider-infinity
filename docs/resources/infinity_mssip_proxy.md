@@ -36,7 +36,7 @@ resource "pexip_infinity_mssip_proxy" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the MS-SIP proxy in Infinity.
-- `resource_id` (Number) The resource integer identifier for the MSSIP proxy in Infinity
+- `id` (String) Resource URI for the MS-SIP proxy.
+- `resource_id` (Number) The resource integer identifier for the MSSIP proxy
 
 

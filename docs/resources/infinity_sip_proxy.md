@@ -129,8 +129,8 @@ resource "pexip_infinity_sip_proxy" "legacy_sip_proxy" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the SIP proxy in Infinity.
-- `resource_id` (Number) The resource integer identifier for the SIP proxy in Infinity
+- `id` (String) Resource URI for the SIP proxy.
+- `resource_id` (Number) The resource integer identifier for the SIP proxy
 
 
 ## Import

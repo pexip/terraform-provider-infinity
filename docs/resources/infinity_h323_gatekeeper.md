@@ -35,7 +35,7 @@ resource "pexip_infinity_h323_gatekeeper" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the H323 gatekeeper in Infinity.
-- `resource_id` (Number) The resource integer identifier for the H.323 gatekeeper in Infinity
+- `id` (String) Resource URI for the H323 gatekeeper.
+- `resource_id` (Number) The resource integer identifier for the H.323 gatekeeper
 
 

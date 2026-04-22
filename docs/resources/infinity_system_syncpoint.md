@@ -24,7 +24,7 @@ resource "pexip_infinity_system_syncpoint" "example" {
 ### Read-Only
 
 - `creation_time` (String) The timestamp when this system syncpoint was created
-- `id` (String) Resource URI for the system syncpoint in Infinity
-- `resource_id` (Number) The resource integer identifier for the system syncpoint in Infinity
+- `id` (String) Resource URI for the system syncpoint
+- `resource_id` (Number) The resource integer identifier for the system syncpoint
 
 

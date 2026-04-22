@@ -162,7 +162,7 @@ resource "pexip_infinity_authentication" "cert_auth" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the authentication in Infinity.
+- `id` (String) Resource URI for the authentication.
 - `oidc_metadata` (String) The OpenID Connect configuration metadata.  This will be loaded from the Metadata URL if provided.
 
 

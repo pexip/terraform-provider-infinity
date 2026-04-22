@@ -137,8 +137,8 @@ resource "pexip_infinity_teams_proxy" "development_teams" {
 ### Read-Only
 
 - `eventhub_id` (String) The event hub identifier for the Teams proxy. This value is computed by the API from the notifications_queue connection string.
-- `id` (String) Resource URI for the Teams proxy in Infinity
-- `resource_id` (Number) The resource integer identifier for the Teams proxy in Infinity
+- `id` (String) Resource URI for the Teams proxy
+- `resource_id` (Number) The resource integer identifier for the Teams proxy
 
 
 ## Import

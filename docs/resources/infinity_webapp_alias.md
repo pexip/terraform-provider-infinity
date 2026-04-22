@@ -37,7 +37,7 @@ resource "pexip_infinity_webapp_alias" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the webapp alias in Infinity
-- `resource_id` (Number) The resource integer identifier for the webapp alias in Infinity
+- `id` (String) Resource URI for the webapp alias
+- `resource_id` (Number) The resource integer identifier for the webapp alias
 
 

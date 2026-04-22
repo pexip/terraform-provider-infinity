@@ -35,7 +35,7 @@ resource "pexip_infinity_ldap_role" "example" {
 
 ### Read-Only
 
-- `id` (String) Resource URI for the LDAP role in Infinity
-- `resource_id` (Number) The resource integer identifier for the LDAP role in Infinity
+- `id` (String) Resource URI for the LDAP role
+- `resource_id` (Number) The resource integer identifier for the LDAP role
 
 
