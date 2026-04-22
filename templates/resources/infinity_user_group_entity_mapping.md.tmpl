@@ -12,12 +12,7 @@ Manages a user group entity mapping configuration with the Infinity service. Use
 
 ## Example Usage
 
-```terraform
-resource "pexip_infinity_user_group_entity_mapping" "example" {
-  entity_resource_uri = pexip_infinity_conference.example.id
-  user_group          = pexip_infinity_user_group.example.id
-}
-```
+{{tffile "examples/resources/pexip_infinity_user_group_entity_mapping/resource.tf"}}
 
 
 {{ .SchemaMarkdown }}

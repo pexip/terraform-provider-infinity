@@ -4,7 +4,7 @@ Manages an ADFS OAuth 2.0 auth server configuration with the Infinity service.
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_adfs_auth_server" "example" {
   name                               = "ADFS Server"
   description                        = "ADFS authentication server for corporate users"

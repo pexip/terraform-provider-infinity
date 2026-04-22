@@ -4,7 +4,7 @@ Manages a scheduled conference configuration with the Infinity service. Schedule
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_scheduled_conference" "example" {
   conference   = "/configuration/v1/conference/1/"
   start_time   = "2024-12-01T10:00:00Z"

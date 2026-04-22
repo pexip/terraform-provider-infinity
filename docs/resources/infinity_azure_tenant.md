@@ -4,7 +4,7 @@ Manages a Microsoft Teams Azure tenant with the Infinity service. Azure tenants 
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_azure_tenant" "example" {
   name        = "Contoso Corporation"
   description = "Azure tenant for Contoso Corporation Teams integration"

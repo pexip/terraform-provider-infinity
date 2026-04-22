@@ -1,0 +1,20 @@
+resource "pexip_infinity_identity_provider" "oidc_example" {
+  name                               = "Azure AD OIDC"
+  description                        = "Azure Active Directory OIDC provider"
+  idp_type                           = "oidc"
+  signature_algorithm                = "rsa-sha256"
+  digest_algorithm                   = "sha256"
+  assertion_consumer_service_url     = "https://pexip.example.com/oidc/callback"
+  oidc_flow                          = "authorization_code"
+  oidc_client_id                     = "12345678-1234-1234-1234-123456789012"
+  oidc_client_secret                 = "secret-value"
+  oidc_token_url                     = "https://login.microsoftonline.com/tenant-id/oauth2/v2.0/token"
+  oidc_user_info_url                 = "https://graph.microsoft.com/oidc/userinfo"
+  oidc_jwks_url                      = "https://login.microsoftonline.com/tenant-id/discovery/v2.0/keys"
+  oidc_token_endpoint_auth_scheme    = "client_secret_post"
+  oidc_token_signature_scheme        = "rs256"
+  oidc_display_name_claim_name       = "name"
+  oidc_registration_alias_claim_name = "preferred_username"
+  oidc_additional_scopes             = "profile email"
+  disable_popup_flow                 = false
+}

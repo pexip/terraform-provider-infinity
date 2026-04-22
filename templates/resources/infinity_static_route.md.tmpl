@@ -13,181 +13,39 @@ Manages a Pexip Infinity static route configuration. Static routes define custom
 
 ### Basic Static Route
 
-```terraform
-resource "pexip_infinity_static_route" "basic_route" {
-  name    = "Internal Network Route"
-  address = "10.1.0.0"
-  prefix  = 16
-  gateway = "192.168.1.1"
-}
-```
+{{tffile "examples/resources/pexip_infinity_static_route/basic_static_route.tf"}}
 
 ### Static Route to Remote Office
 
-```terraform
-resource "pexip_infinity_static_route" "remote_office" {
-  name    = "Remote Office Network"
-  address = "172.16.0.0"
-  prefix  = 12
-  gateway = "10.0.1.254"
-}
-```
+{{tffile "examples/resources/pexip_infinity_static_route/static_route_to_remote_office.tf"}}
 
 ### Multiple Static Routes for Different Networks
 
-```terraform
-# Route to internal corporate network
-resource "pexip_infinity_static_route" "corporate_network" {
-  name    = "Corporate Network"
-  address = "10.0.0.0"
-  prefix  = 8
-  gateway = "192.168.100.1"
-}
-
-# Route to DMZ network
-resource "pexip_infinity_static_route" "dmz_network" {
-  name    = "DMZ Network"
-  address = "172.20.0.0"
-  prefix  = 16
-  gateway = "192.168.100.2"
-}
-
-# Route to guest network
-resource "pexip_infinity_static_route" "guest_network" {
-  name    = "Guest Network"
-  address = "192.168.50.0"
-  prefix  = 24
-  gateway = "192.168.100.3"
-}
-```
+{{tffile "examples/resources/pexip_infinity_static_route/multiple_static_routes_for_different_networks.tf"}}
 
 ### Host-specific Static Route
 
-```terraform
-resource "pexip_infinity_static_route" "specific_server" {
-  name    = "Database Server Route"
-  address = "10.1.1.100"
-  prefix  = 32
-  gateway = "192.168.1.10"
-}
-```
+{{tffile "examples/resources/pexip_infinity_static_route/host_specific_static_route.tf"}}
 
 ### Default Route Override
 
-```terraform
-resource "pexip_infinity_static_route" "default_route" {
-  name    = "Custom Default Route"
-  address = "0.0.0.0"
-  prefix  = 0
-  gateway = "192.168.1.254"
-}
-```
+{{tffile "examples/resources/pexip_infinity_static_route/default_route_override.tf"}}
 
 ### Enterprise Network Routing
 
-```terraform
-variable "static_routes" {
-  type = list(object({
-    name    = string
-    address = string
-    prefix  = number
-    gateway = string
-  }))
-  default = [
-    {
-      name    = "Branch Office 1"
-      address = "10.10.0.0"
-      prefix  = 16
-      gateway = "192.168.1.10"
-    },
-    {
-      name    = "Branch Office 2"
-      address = "10.20.0.0"
-      prefix  = 16
-      gateway = "192.168.1.11"
-    },
-    {
-      name    = "Data Center"
-      address = "172.16.0.0"
-      prefix  = 12
-      gateway = "192.168.1.20"
-    }
-  ]
-}
-
-resource "pexip_infinity_static_route" "enterprise_routes" {
-  count   = length(var.static_routes)
-  name    = var.static_routes[count.index].name
-  address = var.static_routes[count.index].address
-  prefix  = var.static_routes[count.index].prefix
-  gateway = var.static_routes[count.index].gateway
-}
-```
+{{tffile "examples/resources/pexip_infinity_static_route/enterprise_network_routing.tf"}}
 
 ### Cloud Network Integration
 
-```terraform
-# Route to AWS VPC
-resource "pexip_infinity_static_route" "aws_vpc" {
-  name    = "AWS VPC Network"
-  address = "10.100.0.0"
-  prefix  = 16
-  gateway = "192.168.1.50"
-}
-
-# Route to Azure VNet
-resource "pexip_infinity_static_route" "azure_vnet" {
-  name    = "Azure VNet Network"
-  address = "10.200.0.0"
-  prefix  = 16
-  gateway = "192.168.1.51"
-}
-
-# Route to Google Cloud VPC
-resource "pexip_infinity_static_route" "gcp_vpc" {
-  name    = "Google Cloud VPC"
-  address = "10.300.0.0"
-  prefix  = 16
-  gateway = "192.168.1.52"
-}
-```
+{{tffile "examples/resources/pexip_infinity_static_route/cloud_network_integration.tf"}}
 
 ### VPN Gateway Routes
 
-```terraform
-# Route through Site-to-Site VPN
-resource "pexip_infinity_static_route" "vpn_site_to_site" {
-  name    = "Site-to-Site VPN"
-  address = "172.30.0.0"
-  prefix  = 16
-  gateway = "192.168.1.100"
-}
-
-# Route through Client VPN concentrator
-resource "pexip_infinity_static_route" "vpn_client" {
-  name    = "Client VPN Network"
-  address = "172.31.0.0"
-  prefix  = 24
-  gateway = "192.168.1.101"
-}
-```
+{{tffile "examples/resources/pexip_infinity_static_route/vpn_gateway_routes.tf"}}
 
 ### Conditional Static Routes
 
-```terraform
-# Only create routes if gateway is available
-locals {
-  create_routes = var.gateway_available
-}
-
-resource "pexip_infinity_static_route" "conditional_route" {
-  count   = local.create_routes ? 1 : 0
-  name    = "Conditional Network Route"
-  address = "10.50.0.0"
-  prefix  = 16
-  gateway = var.conditional_gateway
-}
-```
+{{tffile "examples/resources/pexip_infinity_static_route/conditional_static_routes.tf"}}
 
 
 {{ .SchemaMarkdown }}

@@ -12,12 +12,7 @@ Manages a system tuneable (global setting) configuration with the Infinity servi
 
 ## Example Usage
 
-```terraform
-resource "pexip_infinity_system_tuneable" "example" {
-  name    = "max_conference_participants"
-  setting = "100"
-}
-```
+{{tffile "examples/resources/pexip_infinity_system_tuneable/resource.tf"}}
 
 
 {{ .SchemaMarkdown }}

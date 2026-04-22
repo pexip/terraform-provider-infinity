@@ -4,15 +4,7 @@ Manages an SNMP network management system with the Infinity service. SNMP networ
 
 ## Example Usage
 
-```hcl
-resource "pexip_infinity_snmp_network_management_system" "example" {
-  name                 = "Primary NMS"
-  description          = "Primary network management system for monitoring"
-  address              = "nms.example.com"
-  port                 = 162
-  snmp_trap_community  = "public"
-}
-```
+{{tffile "examples/resources/pexip_infinity_snmp_network_management_system/resource.tf"}}
 
 
 {{ .SchemaMarkdown }}

@@ -12,13 +12,7 @@ Manages an LDAP role with the Infinity service. LDAP roles map LDAP groups to Pe
 
 ## Example Usage
 
-```terraform
-resource "pexip_infinity_ldap_role" "example" {
-  name          = "LDAP Admin Role"
-  ldap_group_dn = "cn=pexip-admins,ou=groups,dc=example,dc=com"
-  role          = pexip_infinity_role.example.id
-}
-```
+{{tffile "examples/resources/pexip_infinity_ldap_role/resource.tf"}}
 
 
 {{ .SchemaMarkdown }}

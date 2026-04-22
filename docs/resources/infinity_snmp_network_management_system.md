@@ -4,7 +4,7 @@ Manages an SNMP network management system with the Infinity service. SNMP networ
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_snmp_network_management_system" "example" {
   name                 = "Primary NMS"
   description          = "Primary network management system for monitoring"

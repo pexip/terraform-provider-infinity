@@ -6,7 +6,7 @@ Manages an identity provider configuration with the Infinity service. Identity p
 
 ### SAML Identity Provider
 
-```hcl
+```terraform
 resource "pexip_infinity_identity_provider" "saml_example" {
   name                            = "Corporate SAML IdP"
   description                     = "Corporate SAML identity provider"
@@ -25,7 +25,7 @@ resource "pexip_infinity_identity_provider" "saml_example" {
 
 ### OIDC Identity Provider
 
-```hcl
+```terraform
 resource "pexip_infinity_identity_provider" "oidc_example" {
   name                               = "Azure AD OIDC"
   description                        = "Azure Active Directory OIDC provider"

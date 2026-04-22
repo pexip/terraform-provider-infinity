@@ -4,7 +4,7 @@ Manages a role configuration with the Infinity service. Roles define sets of per
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_role" "example" {
   name = "Conference Manager"
   permissions = [

@@ -1,0 +1,3 @@
+resource "pexip_infinity_ntp_server" "primary_ntp" {
+  address = "pool.ntp.org"
+}

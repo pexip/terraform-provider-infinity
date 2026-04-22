@@ -13,63 +13,19 @@ Manages a Pexip Infinity DNS server configuration. DNS servers are used by Pexip
 
 ### Basic Usage
 
-```terraform
-resource "pexip_infinity_dns_server" "primary_dns" {
-  address = "8.8.8.8"
-}
-```
+{{tffile "examples/resources/pexip_infinity_dns_server/basic_usage.tf"}}
 
 ### DNS Server with Description
 
-```terraform
-resource "pexip_infinity_dns_server" "primary_dns" {
-  address     = "8.8.8.8"
-  description = "Primary Google DNS server"
-}
-
-resource "pexip_infinity_dns_server" "secondary_dns" {
-  address     = "8.8.4.4"
-  description = "Secondary Google DNS server"
-}
-```
+{{tffile "examples/resources/pexip_infinity_dns_server/dns_server_with_description.tf"}}
 
 ### Corporate DNS Servers
 
-```terraform
-resource "pexip_infinity_dns_server" "internal_dns_primary" {
-  address     = "10.0.1.10"
-  description = "Primary internal DNS server"
-}
-
-resource "pexip_infinity_dns_server" "internal_dns_secondary" {
-  address     = "10.0.1.11"
-  description = "Secondary internal DNS server"
-}
-
-# IPv6 DNS server
-resource "pexip_infinity_dns_server" "ipv6_dns" {
-  address     = "2001:4860:4860::8888"
-  description = "Google IPv6 DNS server"
-}
-```
+{{tffile "examples/resources/pexip_infinity_dns_server/corporate_dns_servers.tf"}}
 
 ### Multiple DNS Servers for Different Purposes
 
-```terraform
-# External DNS for internet resolution
-resource "pexip_infinity_dns_server" "external_dns" {
-  count       = length(var.external_dns_servers)
-  address     = var.external_dns_servers[count.index]
-  description = "External DNS server ${count.index + 1}"
-}
-
-# Internal DNS for corporate domains
-resource "pexip_infinity_dns_server" "internal_dns" {
-  count       = length(var.internal_dns_servers)
-  address     = var.internal_dns_servers[count.index]
-  description = "Internal DNS server ${count.index + 1}"
-}
-```
+{{tffile "examples/resources/pexip_infinity_dns_server/multiple_dns_servers_for_different_purposes.tf"}}
 
 
 {{ .SchemaMarkdown }}

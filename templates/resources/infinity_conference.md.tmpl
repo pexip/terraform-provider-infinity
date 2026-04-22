@@ -13,60 +13,19 @@ Manages a Pexip Infinity conference configuration. This resource creates and con
 
 ### Basic Conference
 
-```terraform
-resource "pexip_infinity_conference" "meeting_room" {
-  name         = "executive-meeting"
-  service_type = "conference"
-  pin          = "1234567"
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference/basic_conference.tf"}}
 
 ### Lecture Mode Conference
 
-```terraform
-resource "pexip_infinity_conference" "webinar" {
-  name           = "company-webinar"
-  service_type   = "lecture"
-  description    = "Monthly company-wide webinar"
-  pin            = "987654321"
-  allow_guests   = true
-  guests_muted   = true
-  hosts_can_unmute = true
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference/lecture_mode_conference.tf"}}
 
 ### Full Configuration
 
-```terraform
-resource "pexip_infinity_conference" "secure_meeting" {
-  name        = "board-meeting"
-  description = "Secure board meeting room"
-  service_type = "conference"
-  
-  # Security configuration
-  pin                   = var.meeting_pin
-  guest_pin            = var.guest_pin
-  allow_guests         = true
-  guests_muted         = false
-  hosts_can_unmute     = true
-  
-  # Media configuration
-  max_pixels_per_second = 1920000
-  
-  # Tracking
-  tag = "executive-meetings"
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference/full_configuration.tf"}}
 
 ### Test Call Service
 
-```terraform
-resource "pexip_infinity_conference" "test_service" {
-  name         = "test-call"
-  service_type = "test_call"
-  description  = "Service for testing audio and video"
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference/test_call_service.tf"}}
 
 
 {{ .SchemaMarkdown }}

@@ -12,14 +12,7 @@ Manages an MJX meeting processing rule in Infinity. Meeting processing rules def
 
 ## Example Usage
 
-```terraform
-resource "pexip_infinity_mjx_meeting_processing_rule" "example" {
-  name            = "Teams Meeting Rule"
-  priority        = 10
-  meeting_type    = "teams"
-  mjx_integration = pexip_infinity_mjx_integration.example.id
-}
-```
+{{tffile "examples/resources/pexip_infinity_mjx_meeting_processing_rule/resource.tf"}}
 
 
 {{ .SchemaMarkdown }}

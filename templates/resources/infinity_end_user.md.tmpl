@@ -13,97 +13,27 @@ Manages an end user account with the Infinity service. End users represent indiv
 
 ### Basic End User
 
-```terraform
-resource "pexip_infinity_end_user" "john_doe" {
-  primary_email_address = "john.doe@company.com"
-}
-```
+{{tffile "examples/resources/pexip_infinity_end_user/basic_end_user.tf"}}
 
 ### Complete User Profile
 
-```terraform
-resource "pexip_infinity_end_user" "jane_smith" {
-  primary_email_address = "jane.smith@company.com"
-  first_name            = "Jane"
-  last_name             = "Smith"
-  display_name          = "Jane Smith"
-  telephone_number      = "+1-555-0123"
-  mobile_number         = "+1-555-0124"
-  title                 = "Senior Engineer"
-  department            = "Engineering"
-  avatar_url            = "https://avatars.company.com/jane.smith.jpg"
-}
-```
+{{tffile "examples/resources/pexip_infinity_end_user/complete_user_profile.tf"}}
 
 ### User with Group Memberships
 
-```terraform
-# Assume user groups are defined elsewhere
-resource "pexip_infinity_end_user" "manager_user" {
-  primary_email_address = "manager@company.com"
-  first_name            = "John"
-  last_name             = "Manager"
-  display_name          = "John Manager"
-  title                 = "Engineering Manager"
-  department            = "Engineering"
-  user_groups          = [
-    "/api/admin/configuration/v1/user_group/1/",  # Managers group
-    "/api/admin/configuration/v1/user_group/3/",  # Engineering group
-  ]
-}
-```
+{{tffile "examples/resources/pexip_infinity_end_user/user_with_group_memberships.tf"}}
 
 ### Exchange Integration User
 
-```terraform
-resource "pexip_infinity_end_user" "exchange_user" {
-  primary_email_address = "exchange.user@company.com"
-  first_name            = "Exchange"
-  last_name             = "User"
-  display_name          = "Exchange User"
-  department            = "IT"
-  ms_exchange_guid      = "a1b2c3d4-e5f6-7890-abcd-123456789abc"
-  sync_tag              = "exchange-sync"
-}
-```
+{{tffile "examples/resources/pexip_infinity_end_user/exchange_integration_user.tf"}}
 
 ### Bulk User Creation
 
-```terraform
-# Create multiple users from variable
-resource "pexip_infinity_end_user" "department_users" {
-  for_each = var.department_users
-  
-  primary_email_address = each.value.email
-  first_name            = each.value.first_name
-  last_name             = each.value.last_name
-  display_name          = "${each.value.first_name} ${each.value.last_name}"
-  telephone_number      = each.value.phone
-  department            = each.value.department
-  title                 = each.value.title
-  sync_tag              = "ldap-import"
-}
-```
+{{tffile "examples/resources/pexip_infinity_end_user/bulk_user_creation.tf"}}
 
 ### Users with Avatar and Contact Information
 
-```terraform
-resource "pexip_infinity_end_user" "executive_user" {
-  primary_email_address = "ceo@company.com"
-  first_name            = "Chief"
-  last_name             = "Executive"
-  display_name          = "CEO"
-  title                 = "Chief Executive Officer"
-  department            = "Executive"
-  telephone_number      = "+1-555-0100"
-  mobile_number         = "+1-555-0101"
-  avatar_url            = "https://cdn.company.com/avatars/ceo.jpg"
-  user_groups          = [
-    "/api/admin/configuration/v1/user_group/1/",  # Executives
-    "/api/admin/configuration/v1/user_group/2/",  # Board Members
-  ]
-}
-```
+{{tffile "examples/resources/pexip_infinity_end_user/users_with_avatar_and_contact_information.tf"}}
 
 
 {{ .SchemaMarkdown }}

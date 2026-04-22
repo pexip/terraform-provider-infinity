@@ -14,6 +14,7 @@ data "pexip_infinity_manager_config" "config" {
   contact_email_address = "admin@example.com"
 }
 
+# Use the rendered configuration
 output "manager_config" {
   value     = data.pexip_infinity_manager_config.config.rendered
   sensitive = true

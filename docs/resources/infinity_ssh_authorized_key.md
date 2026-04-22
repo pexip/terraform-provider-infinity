@@ -4,7 +4,7 @@ Manages an SSH authorized key configuration with the Infinity service. SSH autho
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_ssh_authorized_key" "example" {
   keytype = "ssh-rsa"
   key     = "AAAAB3NzaC1yc2EAAAADAQABAAABgQC7vbqajDhA..."

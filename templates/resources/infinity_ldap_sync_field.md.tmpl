@@ -12,13 +12,7 @@ Manages an LDAP sync field with the Infinity service. LDAP sync fields define ho
 
 ## Example Usage
 
-```terraform
-resource "pexip_infinity_ldap_sync_field" "example" {
-  name                   = "Department Field"
-  template_variable_name = "department"
-  ldap_attribute_name    = "department"
-}
-```
+{{tffile "examples/resources/pexip_infinity_ldap_sync_field/resource.tf"}}
 
 
 {{ .SchemaMarkdown }}

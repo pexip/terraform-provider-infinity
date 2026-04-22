@@ -6,7 +6,7 @@ Manages webapp branding configuration with the Infinity service. Webapp branding
 
 ### With Auto-Generated UUID
 
-```hcl
+```terraform
 resource "pexip_infinity_webapp_branding" "example" {
   name          = "Corporate Branding"
   description   = "Corporate branding for Pexip web applications"
@@ -19,7 +19,7 @@ resource "pexip_infinity_webapp_branding" "example" {
 
 ### With Custom UUID
 
-```hcl
+```terraform
 resource "pexip_infinity_webapp_branding" "example_custom_uuid" {
   name          = "Corporate Branding"
   description   = "Corporate branding for Pexip web applications"

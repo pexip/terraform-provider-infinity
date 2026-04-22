@@ -4,7 +4,7 @@ Manages an MJX (Meeting Join Experience) integration with the Infinity service. 
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_mjx_integration" "example" {
   name                          = "Corporate MJX Integration"
   description                   = "MJX integration for corporate calendar systems"
@@ -21,7 +21,7 @@ resource "pexip_infinity_mjx_integration" "example" {
   process_alias_private_meetings = false
   replace_empty_subject         = true
   replace_subject_type          = "template"
-  replace_subject_template      = "Meeting in {{location}}"
+  replace_subject_template      = "Meeting in {{ "{{" }}location{{ "}}" }}"
 }
 ```
 

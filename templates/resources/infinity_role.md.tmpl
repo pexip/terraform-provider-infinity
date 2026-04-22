@@ -4,17 +4,7 @@ Manages a role configuration with the Infinity service. Roles define sets of per
 
 ## Example Usage
 
-```hcl
-resource "pexip_infinity_role" "example" {
-  name = "Conference Manager"
-  permissions = [
-    "conference.create",
-    "conference.read", 
-    "conference.update",
-    "conference.delete"
-  ]
-}
-```
+{{tffile "examples/resources/pexip_infinity_role/resource.tf"}}
 
 
 {{ .SchemaMarkdown }}

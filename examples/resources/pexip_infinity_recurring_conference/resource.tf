@@ -1,7 +1,8 @@
 resource "pexip_infinity_recurring_conference" "example" {
-  conference    = pexip_infinity_conference.example.id
-  current_index = 0
-  ews_item_id   = "AAMkAGVmExampleRecurringEwsItemId"
-  is_depleted   = false
-  subject       = "Weekly Team Standup"
+  conference      = "/configuration/v1/conference/1/"
+  current_index   = 0
+  ews_item_id     = "AAMkAGVm...ExampleRecurringEwsItemId"
+  is_depleted     = false
+  subject         = "Weekly Team Standup"
+  scheduled_alias = "/configuration/v1/scheduled_alias/1/"
 }

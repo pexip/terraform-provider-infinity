@@ -12,13 +12,7 @@ Manages an MJX endpoint with the Infinity service. MJX endpoints represent Micro
 
 ## Example Usage
 
-```terraform
-resource "pexip_infinity_mjx_endpoint" "example" {
-  name                = "Conference Room A"
-  room_resource_email = "conf-room-a@example.com"
-  api_address         = "192.168.1.50"
-}
-```
+{{tffile "examples/resources/pexip_infinity_mjx_endpoint/resource.tf"}}
 
 
 {{ .SchemaMarkdown }}

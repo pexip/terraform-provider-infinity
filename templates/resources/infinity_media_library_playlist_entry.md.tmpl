@@ -12,13 +12,7 @@ Manages a media library playlist entry configuration with the Infinity service. 
 
 ## Example Usage
 
-```terraform
-resource "pexip_infinity_media_library_playlist_entry" "example" {
-  playlist = pexip_infinity_media_library_playlist.example.id
-  media    = pexip_infinity_media_library_entry.example.id
-  position = 1
-}
-```
+{{tffile "examples/resources/pexip_infinity_media_library_playlist_entry/resource.tf"}}
 
 
 {{ .SchemaMarkdown }}

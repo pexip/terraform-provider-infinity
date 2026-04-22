@@ -13,111 +13,27 @@ Manages a syslog server with the Infinity service. Syslog servers receive system
 
 ### Basic UDP Syslog Server
 
-```terraform
-resource "pexip_infinity_syslog_server" "basic_syslog" {
-  address   = "syslog.company.com"
-  port      = 514
-  transport = "udp"
-}
-```
+{{tffile "examples/resources/pexip_infinity_syslog_server/basic_udp_syslog_server.tf"}}
 
 ### Comprehensive Syslog Configuration
 
-```terraform
-resource "pexip_infinity_syslog_server" "central_logging" {
-  address     = "logs.company.com"
-  description = "Central logging server for all Pexip logs"
-  port        = 514
-  transport   = "udp"
-  audit_log   = true
-  support_log = true
-  web_log     = true
-}
-```
+{{tffile "examples/resources/pexip_infinity_syslog_server/comprehensive_syslog_configuration.tf"}}
 
 ### Secure TLS Syslog Server
 
-```terraform
-resource "pexip_infinity_syslog_server" "secure_syslog" {
-  address     = "secure-logs.company.com"
-  description = "Secure syslog server with TLS encryption"
-  port        = 6514
-  transport   = "tls"
-  audit_log   = true
-  support_log = false
-  web_log     = false
-}
-```
+{{tffile "examples/resources/pexip_infinity_syslog_server/secure_tls_syslog_server.tf"}}
 
 ### Multiple Syslog Servers for Different Log Types
 
-```terraform
-# Audit logs to compliance system
-resource "pexip_infinity_syslog_server" "audit_logs" {
-  address     = "audit.company.com"
-  description = "Compliance audit logging system"
-  port        = 514
-  transport   = "tcp"
-  audit_log   = true
-  support_log = false
-  web_log     = false
-}
-
-# Support logs to monitoring system
-resource "pexip_infinity_syslog_server" "support_logs" {
-  address     = "monitoring.company.com"
-  description = "Technical support and monitoring logs"
-  port        = 514
-  transport   = "udp"
-  audit_log   = false
-  support_log = true
-  web_log     = true
-}
-
-# High-priority logs to SIEM
-resource "pexip_infinity_syslog_server" "siem_logs" {
-  address     = "siem.company.com"
-  description = "Security Information and Event Management"
-  port        = 1514
-  transport   = "tls"
-  audit_log   = true
-  support_log = true
-  web_log     = true
-}
-```
+{{tffile "examples/resources/pexip_infinity_syslog_server/multiple_syslog_servers_for_different_log_types.tf"}}
 
 ### Regional Syslog Servers
 
-```terraform
-# Different syslog servers per region
-resource "pexip_infinity_syslog_server" "regional_syslog" {
-  for_each = var.regional_syslog_config
-  
-  address     = each.value.address
-  description = "Regional syslog server for ${each.key}"
-  port        = each.value.port
-  transport   = each.value.transport
-  audit_log   = true
-  support_log = true
-  web_log     = false
-}
-```
+{{tffile "examples/resources/pexip_infinity_syslog_server/regional_syslog_servers.tf"}}
 
 ### Load-Balanced Syslog Configuration
 
-```terraform
-resource "pexip_infinity_syslog_server" "lb_syslog" {
-  count = length(var.syslog_servers)
-  
-  address     = var.syslog_servers[count.index].address
-  description = "Load-balanced syslog server ${count.index + 1}"
-  port        = var.syslog_servers[count.index].port
-  transport   = "udp"
-  audit_log   = true
-  support_log = true
-  web_log     = true
-}
-```
+{{tffile "examples/resources/pexip_infinity_syslog_server/load_balanced_syslog_configuration.tf"}}
 
 
 {{ .SchemaMarkdown }}

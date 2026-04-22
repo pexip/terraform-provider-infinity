@@ -13,95 +13,15 @@ Manages a Pexip Infinity system location configuration. A system location define
 
 ### Basic Usage
 
-```terraform
-resource "pexip_infinity_system_location" "main_location" {
-  name        = "Main Office"
-  description = "Primary office location"
-}
-```
+{{tffile "examples/resources/pexip_infinity_system_location/basic_usage.tf"}}
 
 ### Full Configuration with External Services
 
-```terraform
-# Create DNS servers
-resource "pexip_infinity_dns_server" "primary_dns" {
-  address     = "8.8.8.8"
-  description = "Primary DNS server"
-}
-
-resource "pexip_infinity_dns_server" "secondary_dns" {
-  address     = "8.8.4.4"
-  description = "Secondary DNS server"
-}
-
-# Create NTP servers
-resource "pexip_infinity_ntp_server" "primary_ntp" {
-  address     = "pool.ntp.org"
-  description = "Primary NTP server"
-}
-
-# Create syslog server
-resource "pexip_infinity_syslog_server" "central_logging" {
-  address     = "syslog.company.com"
-  port        = 514
-  transport   = "udp"
-  description = "Central syslog server"
-  audit_log   = true
-  support_log = true
-  web_log     = true
-}
-
-# System location with all services
-resource "pexip_infinity_system_location" "main_location" {
-  name            = "Main Office"
-  description     = "Primary office location with full logging and time sync"
-  mtu             = 1500
-  dns_servers     = [
-    pexip_infinity_dns_server.primary_dns.id,
-    pexip_infinity_dns_server.secondary_dns.id
-  ]
-  ntp_servers     = [
-    pexip_infinity_ntp_server.primary_ntp.id
-  ]
-  syslog_servers  = [
-    pexip_infinity_syslog_server.central_logging.id
-  ]
-}
-```
+{{tffile "examples/resources/pexip_infinity_system_location/full_configuration_with_external_services.tf"}}
 
 ### Multiple Locations for Different Sites
 
-```terraform
-# Branch office with minimal configuration
-resource "pexip_infinity_system_location" "branch_office" {
-  name        = "Branch Office"
-  description = "Remote branch office location"
-  mtu         = 1400  # Lower MTU for WAN links
-  dns_servers = [
-    pexip_infinity_dns_server.primary_dns.id
-  ]
-  ntp_servers = [
-    pexip_infinity_ntp_server.primary_ntp.id
-  ]
-}
-
-# Data center location with dedicated services
-resource "pexip_infinity_system_location" "datacenter" {
-  name        = "Data Center"
-  description = "Primary data center location"
-  mtu         = 9000  # Jumbo frames for internal networks
-  dns_servers = [
-    pexip_infinity_dns_server.primary_dns.id,
-    pexip_infinity_dns_server.secondary_dns.id
-  ]
-  ntp_servers = [
-    pexip_infinity_ntp_server.primary_ntp.id
-  ]
-  syslog_servers = [
-    pexip_infinity_syslog_server.central_logging.id
-  ]
-}
-```
+{{tffile "examples/resources/pexip_infinity_system_location/multiple_locations_for_different_sites.tf"}}
 
 
 {{ .SchemaMarkdown }}

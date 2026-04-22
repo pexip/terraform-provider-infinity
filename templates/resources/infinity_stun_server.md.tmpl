@@ -13,141 +13,31 @@ Manages a STUN server configuration with the Infinity service. STUN (Session Tra
 
 ### Basic STUN Server
 
-```terraform
-resource "pexip_infinity_stun_server" "basic_stun" {
-  name    = "Basic STUN Server"
-  address = "stun.company.com"
-  port    = 3478
-}
-```
+{{tffile "examples/resources/pexip_infinity_stun_server/basic_stun_server.tf"}}
 
 ### Corporate STUN Server
 
-```terraform
-resource "pexip_infinity_stun_server" "corporate_stun" {
-  name        = "Corporate STUN Server"
-  description = "Internal STUN server for NAT traversal"
-  address     = "stun.company.com"
-  port        = 3478
-}
-```
+{{tffile "examples/resources/pexip_infinity_stun_server/corporate_stun_server.tf"}}
 
 ### Public STUN Services
 
-```terraform
-# Google STUN server
-resource "pexip_infinity_stun_server" "google_stun" {
-  name        = "Google STUN"
-  description = "Google public STUN server"
-  address     = "stun.l.google.com"
-  port        = 19302
-}
-
-# Cloudflare STUN server
-resource "pexip_infinity_stun_server" "cloudflare_stun" {
-  name        = "Cloudflare STUN"
-  description = "Cloudflare public STUN server"
-  address     = "stun.cloudflare.com"
-  port        = 3478
-}
-```
+{{tffile "examples/resources/pexip_infinity_stun_server/public_stun_services.tf"}}
 
 ### Multiple STUN Servers for Redundancy
 
-```terraform
-# Primary internal STUN server
-resource "pexip_infinity_stun_server" "internal_stun_primary" {
-  name        = "Internal STUN Primary"
-  description = "Primary internal STUN server"
-  address     = "stun1.company.com"
-  port        = 3478
-}
-
-# Secondary internal STUN server
-resource "pexip_infinity_stun_server" "internal_stun_secondary" {
-  name        = "Internal STUN Secondary"
-  description = "Secondary internal STUN server for redundancy"
-  address     = "stun2.company.com"
-  port        = 3478
-}
-
-# External backup STUN server
-resource "pexip_infinity_stun_server" "external_stun_backup" {
-  name        = "External STUN Backup"
-  description = "External STUN server for backup"
-  address     = "stun.stunprotocol.org"
-  port        = 3478
-}
-```
+{{tffile "examples/resources/pexip_infinity_stun_server/multiple_stun_servers_for_redundancy.tf"}}
 
 ### Regional STUN Servers
 
-```terraform
-# STUN servers for different regions
-locals {
-  regional_stun_servers = {
-    "us-east" = {
-      address = "stun-us-east.company.com"
-      port    = 3478
-    }
-    "us-west" = {
-      address = "stun-us-west.company.com"
-      port    = 3478
-    }
-    "europe" = {
-      address = "stun-eu.company.com"
-      port    = 3478
-    }
-    "asia" = {
-      address = "stun-asia.company.com"
-      port    = 3478
-    }
-  }
-}
-
-resource "pexip_infinity_stun_server" "regional_stun" {
-  for_each = local.regional_stun_servers
-  
-  name        = "STUN Server - ${each.key}"
-  description = "Regional STUN server for ${each.key}"
-  address     = each.value.address
-  port        = each.value.port
-}
-```
+{{tffile "examples/resources/pexip_infinity_stun_server/regional_stun_servers.tf"}}
 
 ### Load-Balanced STUN Configuration
 
-```terraform
-# STUN servers behind load balancer
-resource "pexip_infinity_stun_server" "lb_stun" {
-  count = var.stun_server_count
-  
-  name        = "Load Balanced STUN ${count.index + 1}"
-  description = "STUN server ${count.index + 1} behind load balancer"
-  address     = "stun-lb.company.com"
-  port        = 3478 + count.index
-}
-```
+{{tffile "examples/resources/pexip_infinity_stun_server/load_balanced_stun_configuration.tf"}}
 
 ### Mixed Internal and External STUN
 
-```terraform
-# Internal STUN for office networks
-resource "pexip_infinity_stun_server" "internal_office_stun" {
-  name        = "Office Internal STUN"
-  description = "STUN server for internal office network"
-  address     = "10.0.1.100"
-  port        = 3478
-}
-
-# External STUN for remote users
-resource "pexip_infinity_stun_server" "external_remote_stun" {
-  name        = "Remote User STUN"
-  description = "External STUN server for remote users"
-  address     = "stun.external.company.com"
-  port        = 3478
-}
-```
+{{tffile "examples/resources/pexip_infinity_stun_server/mixed_internal_and_external_stun.tf"}}
 
 
 {{ .SchemaMarkdown }}

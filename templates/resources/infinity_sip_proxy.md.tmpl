@@ -13,104 +13,23 @@ Manages a Pexip Infinity SIP proxy configuration. SIP proxies are used to route 
 
 ### Basic SIP Proxy Configuration
 
-```terraform
-resource "pexip_infinity_sip_proxy" "primary_proxy" {
-  name      = "Primary SIP Proxy"
-  address   = "sip-proxy.example.com"
-  transport = "tcp"
-}
-```
+{{tffile "examples/resources/pexip_infinity_sip_proxy/basic_sip_proxy_configuration.tf"}}
 
 ### SIP Proxy with Custom Port
 
-```terraform
-resource "pexip_infinity_sip_proxy" "custom_port_proxy" {
-  name        = "Custom Port SIP Proxy"
-  description = "SIP proxy with custom port configuration"
-  address     = "192.168.1.100"
-  port        = 5080
-  transport   = "udp"
-}
-```
+{{tffile "examples/resources/pexip_infinity_sip_proxy/sip_proxy_with_custom_port.tf"}}
 
 ### TLS-Secured SIP Proxy
 
-```terraform
-resource "pexip_infinity_sip_proxy" "secure_proxy" {
-  name        = "Secure SIP Proxy"
-  description = "TLS-secured SIP proxy for sensitive communications"
-  address     = "secure-sip.example.com"
-  port        = 5061
-  transport   = "tls"
-}
-```
+{{tffile "examples/resources/pexip_infinity_sip_proxy/tls_secured_sip_proxy.tf"}}
 
 ### Multiple SIP Proxies for Load Balancing
 
-```terraform
-variable "sip_proxy_servers" {
-  type = list(object({
-    name      = string
-    address   = string
-    port      = number
-    transport = string
-  }))
-  default = [
-    {
-      name      = "SIP Proxy 1"
-      address   = "sip-proxy-1.example.com"
-      port      = 5060
-      transport = "tcp"
-    },
-    {
-      name      = "SIP Proxy 2"
-      address   = "sip-proxy-2.example.com"
-      port      = 5060
-      transport = "tcp"
-    }
-  ]
-}
-
-resource "pexip_infinity_sip_proxy" "load_balanced_proxies" {
-  count       = length(var.sip_proxy_servers)
-  name        = var.sip_proxy_servers[count.index].name
-  description = "Load balanced SIP proxy ${count.index + 1}"
-  address     = var.sip_proxy_servers[count.index].address
-  port        = var.sip_proxy_servers[count.index].port
-  transport   = var.sip_proxy_servers[count.index].transport
-}
-```
+{{tffile "examples/resources/pexip_infinity_sip_proxy/multiple_sip_proxies_for_load_balancing.tf"}}
 
 ### Enterprise SIP Infrastructure
 
-```terraform
-# Internal SIP proxy for corporate network
-resource "pexip_infinity_sip_proxy" "internal_sip_proxy" {
-  name        = "Internal SIP Proxy"
-  description = "Internal corporate SIP proxy server"
-  address     = "10.1.1.50"
-  port        = 5060
-  transport   = "tcp"
-}
-
-# External SIP proxy for internet traffic
-resource "pexip_infinity_sip_proxy" "external_sip_proxy" {
-  name        = "External SIP Proxy"
-  description = "External SIP proxy for internet-facing traffic"
-  address     = "sip.company.com"
-  port        = 5061
-  transport   = "tls"
-}
-
-# SIP proxy for legacy systems
-resource "pexip_infinity_sip_proxy" "legacy_sip_proxy" {
-  name        = "Legacy SIP Proxy"
-  description = "SIP proxy for legacy phone systems"
-  address     = "legacy-pbx.internal.com"
-  port        = 5060
-  transport   = "udp"
-}
-```
+{{tffile "examples/resources/pexip_infinity_sip_proxy/enterprise_sip_infrastructure.tf"}}
 
 
 {{ .SchemaMarkdown }}

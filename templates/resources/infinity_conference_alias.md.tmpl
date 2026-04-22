@@ -13,257 +13,43 @@ Manages a Pexip Infinity conference alias configuration. Conference aliases prov
 
 ### Basic Conference Alias
 
-```terraform
-resource "pexip_infinity_conference_alias" "meeting_room_alias" {
-  alias       = "boardroom"
-  description = "Alias for main boardroom conference"
-  conference  = data.pexip_infinity_conference.main_boardroom.id
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference_alias/basic_conference_alias.tf"}}
 
 ### Phone Number Alias
 
-```terraform
-resource "pexip_infinity_conference_alias" "phone_number" {
-  alias       = "8005551234"
-  description = "Toll-free number for customer support meetings"
-  conference  = data.pexip_infinity_conference.customer_support.id
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference_alias/phone_number_alias.tf"}}
 
 ### Multiple Aliases for One Conference
 
-```terraform
-# Primary conference
-data "pexip_infinity_conference" "weekly_standup" {
-  name = "Weekly Team Standup"
-}
-
-# Short alias for easy access
-resource "pexip_infinity_conference_alias" "standup_short" {
-  alias       = "standup"
-  description = "Short alias for weekly standup"
-  conference  = data.pexip_infinity_conference.weekly_standup.id
-}
-
-# Department-specific alias
-resource "pexip_infinity_conference_alias" "dev_standup" {
-  alias       = "dev.standup"
-  description = "Development team standup alias"
-  conference  = data.pexip_infinity_conference.weekly_standup.id
-}
-
-# Numeric alias for phone users
-resource "pexip_infinity_conference_alias" "standup_number" {
-  alias       = "12345"
-  description = "Numeric alias for phone access"
-  conference  = data.pexip_infinity_conference.weekly_standup.id
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference_alias/multiple_aliases_for_one_conference.tf"}}
 
 ### Department Conference Aliases
 
-```terraform
-variable "departments" {
-  type = list(object({
-    name        = string
-    alias       = string
-    conference  = string
-    description = string
-  }))
-  default = [
-    {
-      name        = "Engineering"
-      alias       = "engineering"
-      conference  = "/api/admin/configuration/v1/conference/42/"
-      description = "Engineering team conference"
-    },
-    {
-      name        = "Marketing"
-      alias       = "marketing"
-      conference  = "/api/admin/configuration/v1/conference/43/"
-      description = "Marketing team conference"
-    },
-    {
-      name        = "Sales"
-      alias       = "sales"
-      conference  = "/api/admin/configuration/v1/conference/44/"
-      description = "Sales team conference"
-    }
-  ]
-}
-
-resource "pexip_infinity_conference_alias" "department_aliases" {
-  count       = length(var.departments)
-  alias       = var.departments[count.index].alias
-  description = var.departments[count.index].description
-  conference  = var.departments[count.index].conference
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference_alias/department_conference_aliases.tf"}}
 
 ### Geographic Conference Aliases
 
-```terraform
-# US East Coast conference room
-resource "pexip_infinity_conference_alias" "us_east_room" {
-  alias       = "us-east.conference"
-  description = "US East Coast conference room"
-  conference  = data.pexip_infinity_conference.us_east.id
-}
-
-# US West Coast conference room
-resource "pexip_infinity_conference_alias" "us_west_room" {
-  alias       = "us-west.conference"
-  description = "US West Coast conference room"
-  conference  = data.pexip_infinity_conference.us_west.id
-}
-
-# European conference room
-resource "pexip_infinity_conference_alias" "europe_room" {
-  alias       = "europe.conference"
-  description = "European conference room"
-  conference  = data.pexip_infinity_conference.europe.id
-}
-
-# Asia Pacific conference room
-resource "pexip_infinity_conference_alias" "apac_room" {
-  alias       = "apac.conference"
-  description = "Asia Pacific conference room"
-  conference  = data.pexip_infinity_conference.apac.id
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference_alias/geographic_conference_aliases.tf"}}
 
 ### Customer-Facing Conference Aliases
 
-```terraform
-# Customer support conference
-resource "pexip_infinity_conference_alias" "support_main" {
-  alias       = "support"
-  description = "Main customer support conference"
-  conference  = data.pexip_infinity_conference.customer_support.id
-}
-
-# Sales demo conference
-resource "pexip_infinity_conference_alias" "sales_demo" {
-  alias       = "demo"
-  description = "Sales demonstration conference"
-  conference  = data.pexip_infinity_conference.sales_demo.id
-}
-
-# Training sessions
-resource "pexip_infinity_conference_alias" "training" {
-  alias       = "training"
-  description = "Customer training sessions"
-  conference  = data.pexip_infinity_conference.training_room.id
-}
-
-# Webinar alias
-resource "pexip_infinity_conference_alias" "webinar" {
-  alias       = "webinar"
-  description = "Monthly product webinar"
-  conference  = data.pexip_infinity_conference.monthly_webinar.id
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference_alias/customer_facing_conference_aliases.tf"}}
 
 ### Legacy System Integration
 
-```terraform
-# Legacy phone system integration
-resource "pexip_infinity_conference_alias" "legacy_bridge" {
-  alias       = "9001"
-  description = "Bridge number for legacy phone system"
-  conference  = data.pexip_infinity_conference.bridge_conference.id
-}
-
-# H.323 system alias
-resource "pexip_infinity_conference_alias" "h323_room" {
-  alias       = "h323.room1"
-  description = "H.323 compatible room alias"
-  conference  = data.pexip_infinity_conference.video_room.id
-}
-
-# SIP endpoint alias
-resource "pexip_infinity_conference_alias" "sip_endpoint" {
-  alias       = "sip.meeting"
-  description = "SIP endpoint for enterprise calls"
-  conference  = data.pexip_infinity_conference.enterprise_meeting.id
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference_alias/legacy_system_integration.tf"}}
 
 ### Event and Meeting Aliases
 
-```terraform
-# All-hands meeting
-resource "pexip_infinity_conference_alias" "all_hands" {
-  alias       = "all-hands"
-  description = "Monthly all-hands meeting"
-  conference  = data.pexip_infinity_conference.all_hands_meeting.id
-}
-
-# Board meeting
-resource "pexip_infinity_conference_alias" "board_meeting" {
-  alias       = "board"
-  description = "Executive board meeting"
-  conference  = data.pexip_infinity_conference.executive_board.id
-}
-
-# Customer event
-resource "pexip_infinity_conference_alias" "customer_event" {
-  alias       = "customer-event-2024"
-  description = "Annual customer event 2024"
-  conference  = data.pexip_infinity_conference.annual_event.id
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference_alias/event_and_meeting_aliases.tf"}}
 
 ### Temporary and Project Aliases
 
-```terraform
-# Project-specific conference
-resource "pexip_infinity_conference_alias" "project_alpha" {
-  alias       = "project-alpha"
-  description = "Project Alpha team meetings"
-  conference  = data.pexip_infinity_conference.project_room.id
-}
-
-# Temporary event alias
-resource "pexip_infinity_conference_alias" "temp_event" {
-  alias       = "temp-${formatdate("YYYY-MM-DD", timestamp())}"
-  description = "Temporary conference for today's event"
-  conference  = data.pexip_infinity_conference.temp_conference.id
-}
-
-# Contractor access
-resource "pexip_infinity_conference_alias" "contractor" {
-  alias       = "contractor-access"
-  description = "External contractor conference access"
-  conference  = data.pexip_infinity_conference.contractor_room.id
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference_alias/temporary_and_project_aliases.tf"}}
 
 ### Multi-Domain Aliases
 
-```terraform
-# Corporate domain aliases
-resource "pexip_infinity_conference_alias" "corp_main" {
-  alias       = "corp.main"
-  description = "Corporate main conference"
-  conference  = data.pexip_infinity_conference.corporate_main.id
-}
-
-# Subsidiary domain aliases
-resource "pexip_infinity_conference_alias" "subsidiary_a" {
-  alias       = "suba.meeting"
-  description = "Subsidiary A conference"
-  conference  = data.pexip_infinity_conference.subsidiary_a.id
-}
-
-# Partner domain aliases
-resource "pexip_infinity_conference_alias" "partner_collab" {
-  alias       = "partner.collaboration"
-  description = "Partner collaboration conference"
-  conference  = data.pexip_infinity_conference.partner_room.id
-}
-```
+{{tffile "examples/resources/pexip_infinity_conference_alias/multi_domain_aliases.tf"}}
 
 
 {{ .SchemaMarkdown }}

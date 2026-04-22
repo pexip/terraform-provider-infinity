@@ -13,192 +13,35 @@ Manages a Pexip Infinity HTTP proxy configuration. HTTP proxies are used to rout
 
 ### Basic HTTP Proxy
 
-```terraform
-resource "pexip_infinity_http_proxy" "corporate_proxy" {
-  name     = "Corporate HTTP Proxy"
-  address  = "proxy.company.com"
-  port     = 8080
-  protocol = "http"
-}
-```
+{{tffile "examples/resources/pexip_infinity_http_proxy/basic_http_proxy.tf"}}
 
 ### HTTPS Proxy with Authentication
 
-```terraform
-resource "pexip_infinity_http_proxy" "secure_proxy" {
-  name     = "Secure HTTP Proxy"
-  address  = "secure-proxy.company.com"
-  port     = 8443
-  protocol = "https"
-  username = "pexip-service"
-  password = var.proxy_password
-}
-```
+{{tffile "examples/resources/pexip_infinity_http_proxy/https_proxy_with_authentication.tf"}}
 
 ### Multiple HTTP Proxies for Different Environments
 
-```terraform
-# Production proxy
-resource "pexip_infinity_http_proxy" "production" {
-  name     = "Production HTTP Proxy"
-  address  = "proxy-prod.company.com"
-  port     = 3128
-  protocol = "http"
-  username = "prod-pexip"
-  password = var.prod_proxy_password
-}
-
-# Development proxy
-resource "pexip_infinity_http_proxy" "development" {
-  name     = "Development HTTP Proxy"
-  address  = "proxy-dev.company.com"
-  port     = 3128
-  protocol = "http"
-  username = "dev-pexip"
-  password = var.dev_proxy_password
-}
-
-# Test proxy without authentication
-resource "pexip_infinity_http_proxy" "test" {
-  name     = "Test HTTP Proxy"
-  address  = "proxy-test.company.com"
-  port     = 8080
-  protocol = "http"
-}
-```
+{{tffile "examples/resources/pexip_infinity_http_proxy/multiple_http_proxies_for_different_environments.tf"}}
 
 ### Enterprise Proxy Configuration
 
-```terraform
-variable "proxy_config" {
-  type = object({
-    address  = string
-    port     = number
-    protocol = string
-    username = string
-  })
-  default = {
-    address  = "enterprise-proxy.company.com"
-    port     = 8080
-    protocol = "http"
-    username = "pexip-infinity"
-  }
-}
-
-resource "pexip_infinity_http_proxy" "enterprise" {
-  name     = "Enterprise HTTP Proxy"
-  address  = var.proxy_config.address
-  port     = var.proxy_config.port
-  protocol = var.proxy_config.protocol
-  username = var.proxy_config.username
-  password = var.enterprise_proxy_password
-}
-```
+{{tffile "examples/resources/pexip_infinity_http_proxy/enterprise_proxy_configuration.tf"}}
 
 ### Proxy with Standard Ports
 
-```terraform
-# HTTP proxy using standard port (implied port 80)
-resource "pexip_infinity_http_proxy" "standard_http" {
-  name     = "Standard HTTP Proxy"
-  address  = "http-proxy.company.com"
-  protocol = "http"
-}
-
-# HTTPS proxy using standard port (implied port 443)
-resource "pexip_infinity_http_proxy" "standard_https" {
-  name     = "Standard HTTPS Proxy"
-  address  = "https-proxy.company.com"
-  protocol = "https"
-  username = "secure-user"
-  password = var.secure_proxy_password
-}
-```
+{{tffile "examples/resources/pexip_infinity_http_proxy/proxy_with_standard_ports.tf"}}
 
 ### Conditional Proxy Configuration
 
-```terraform
-locals {
-  use_proxy = var.environment == "production" || var.environment == "staging"
-}
-
-resource "pexip_infinity_http_proxy" "conditional" {
-  count    = local.use_proxy ? 1 : 0
-  name     = "${title(var.environment)} HTTP Proxy"
-  address  = var.proxy_address
-  port     = var.proxy_port
-  protocol = var.proxy_protocol
-  username = var.proxy_username
-  password = var.proxy_password
-}
-```
+{{tffile "examples/resources/pexip_infinity_http_proxy/conditional_proxy_configuration.tf"}}
 
 ### Regional Proxy Configuration
 
-```terraform
-variable "regional_proxies" {
-  type = map(object({
-    name     = string
-    address  = string
-    port     = number
-    username = string
-  }))
-  default = {
-    us-east = {
-      name     = "US East HTTP Proxy"
-      address  = "proxy-useast.company.com"
-      port     = 8080
-      username = "useast-pexip"
-    }
-    us-west = {
-      name     = "US West HTTP Proxy"
-      address  = "proxy-uswest.company.com"
-      port     = 8080
-      username = "uswest-pexip"
-    }
-    europe = {
-      name     = "Europe HTTP Proxy"
-      address  = "proxy-eu.company.com"
-      port     = 8080
-      username = "eu-pexip"
-    }
-  }
-}
-
-resource "pexip_infinity_http_proxy" "regional" {
-  for_each = var.regional_proxies
-  name     = each.value.name
-  address  = each.value.address
-  port     = each.value.port
-  protocol = "http"
-  username = each.value.username
-  password = var.regional_proxy_passwords[each.key]
-}
-```
+{{tffile "examples/resources/pexip_infinity_http_proxy/regional_proxy_configuration.tf"}}
 
 ### Failover Proxy Configuration
 
-```terraform
-# Primary proxy
-resource "pexip_infinity_http_proxy" "primary" {
-  name     = "Primary HTTP Proxy"
-  address  = "proxy1.company.com"
-  port     = 8080
-  protocol = "http"
-  username = "pexip-primary"
-  password = var.primary_proxy_password
-}
-
-# Secondary proxy for failover
-resource "pexip_infinity_http_proxy" "secondary" {
-  name     = "Secondary HTTP Proxy"
-  address  = "proxy2.company.com"
-  port     = 8080
-  protocol = "http"
-  username = "pexip-secondary"
-  password = var.secondary_proxy_password
-}
-```
+{{tffile "examples/resources/pexip_infinity_http_proxy/failover_proxy_configuration.tf"}}
 
 
 {{ .SchemaMarkdown }}

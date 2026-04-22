@@ -4,7 +4,7 @@ Manages a user group configuration with the Infinity service. User groups allow 
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_user_group" "example" {
   name        = "Administrators"
   description = "System administrators group"

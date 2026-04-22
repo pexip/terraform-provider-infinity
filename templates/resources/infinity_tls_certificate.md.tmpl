@@ -13,145 +13,35 @@ Manages a Pexip Infinity TLS certificate configuration. TLS certificates are use
 
 ### Basic TLS Certificate
 
-```terraform
-resource "pexip_infinity_tls_certificate" "example" {
-  certificate = file("${path.module}/certificates/server.crt")
-  private_key = file("${path.module}/certificates/server.key")
-}
-```
+{{tffile "examples/resources/pexip_infinity_tls_certificate/basic_tls_certificate.tf"}}
 
 ### TLS Certificate with Encrypted Private Key
 
-```terraform
-resource "pexip_infinity_tls_certificate" "encrypted_cert" {
-  certificate              = file("${path.module}/certificates/encrypted-server.crt")
-  private_key              = file("${path.module}/certificates/encrypted-server.key")
-  private_key_passphrase   = var.private_key_passphrase
-  parameters               = "SSL/TLS certificate for web interface"
-}
-```
+{{tffile "examples/resources/pexip_infinity_tls_certificate/tls_certificate_with_encrypted_private_key.tf"}}
 
 ### TLS Certificate Deployed to Specific Nodes
 
-```terraform
-# Get node resource URIs
-data "pexip_infinity_node" "conferencing_nodes" {
-  count = length(var.conferencing_node_ids)
-  id    = var.conferencing_node_ids[count.index]
-}
-
-resource "pexip_infinity_tls_certificate" "node_specific" {
-  certificate = file("${path.module}/certificates/conferencing.crt")
-  private_key = file("${path.module}/certificates/conferencing.key")
-  parameters  = "TLS certificate for conferencing nodes"
-  nodes = [
-    for node in data.pexip_infinity_node.conferencing_nodes : node.id
-  ]
-}
-```
+{{tffile "examples/resources/pexip_infinity_tls_certificate/tls_certificate_deployed_to_specific_nodes.tf"}}
 
 ### Wildcard Certificate for Multiple Services
 
-```terraform
-resource "pexip_infinity_tls_certificate" "wildcard" {
-  certificate = file("${path.module}/certificates/wildcard.company.com.crt")
-  private_key = file("${path.module}/certificates/wildcard.company.com.key")
-  parameters  = "Wildcard certificate for *.company.com"
-}
-```
+{{tffile "examples/resources/pexip_infinity_tls_certificate/wildcard_certificate_for_multiple_services.tf"}}
 
 ### Let's Encrypt Certificate with Automated Renewal
 
-```terraform
-# Using external certificate generation (example with ACME provider)
-resource "acme_certificate" "letsencrypt" {
-  account_key_pem = acme_private_key.account.private_key_pem
-  common_name     = "pexip.company.com"
-  subject_alternative_names = [
-    "pexip-web.company.com",
-    "pexip-api.company.com"
-  ]
-
-  dns_challenge {
-    provider = "route53"
-  }
-}
-
-resource "pexip_infinity_tls_certificate" "letsencrypt" {
-  certificate = "${acme_certificate.letsencrypt.certificate_pem}${acme_certificate.letsencrypt.issuer_pem}"
-  private_key = acme_certificate.letsencrypt.private_key_pem
-  parameters  = "Let's Encrypt certificate with automated renewal"
-}
-```
+{{tffile "examples/resources/pexip_infinity_tls_certificate/let_s_encrypt_certificate_with_automated_renewal.tf"}}
 
 ### Enterprise Certificate with Full Chain
 
-```terraform
-locals {
-  certificate_chain = "${file("${path.module}/certificates/server.crt")}${file("${path.module}/certificates/intermediate.crt")}${file("${path.module}/certificates/root.crt")}"
-}
-
-resource "pexip_infinity_tls_certificate" "enterprise" {
-  certificate = local.certificate_chain
-  private_key = file("${path.module}/certificates/server.key")
-  parameters  = "Enterprise certificate with full trust chain"
-}
-```
+{{tffile "examples/resources/pexip_infinity_tls_certificate/enterprise_certificate_with_full_chain.tf"}}
 
 ### Multiple Certificates for Different Purposes
 
-```terraform
-# Web interface certificate
-resource "pexip_infinity_tls_certificate" "web_interface" {
-  certificate = file("${path.module}/certificates/web.crt")
-  private_key = file("${path.module}/certificates/web.key")
-  parameters  = "Certificate for web interface (HTTPS)"
-}
-
-# API certificate
-resource "pexip_infinity_tls_certificate" "api" {
-  certificate = file("${path.module}/certificates/api.crt")
-  private_key = file("${path.module}/certificates/api.key")
-  parameters  = "Certificate for API access"
-}
-
-# SIP TLS certificate
-resource "pexip_infinity_tls_certificate" "sip_tls" {
-  certificate = file("${path.module}/certificates/sip.crt")
-  private_key = file("${path.module}/certificates/sip.key")
-  parameters  = "Certificate for SIP over TLS"
-}
-```
+{{tffile "examples/resources/pexip_infinity_tls_certificate/multiple_certificates_for_different_purposes.tf"}}
 
 ### Certificate with Variables for Sensitive Data
 
-```terraform
-variable "tls_certificate" {
-  description = "TLS certificate in PEM format"
-  type        = string
-  sensitive   = true
-}
-
-variable "tls_private_key" {
-  description = "TLS private key in PEM format"
-  type        = string
-  sensitive   = true
-}
-
-variable "private_key_passphrase" {
-  description = "Passphrase for encrypted private key"
-  type        = string
-  sensitive   = true
-  default     = ""
-}
-
-resource "pexip_infinity_tls_certificate" "from_variables" {
-  certificate            = var.tls_certificate
-  private_key            = var.tls_private_key
-  private_key_passphrase = var.private_key_passphrase != "" ? var.private_key_passphrase : null
-  parameters             = "Certificate deployed from Terraform variables"
-}
-```
+{{tffile "examples/resources/pexip_infinity_tls_certificate/certificate_with_variables_for_sensitive_data.tf"}}
 
 
 {{ .SchemaMarkdown }}

@@ -4,7 +4,7 @@ Manages a licence configuration with the Infinity service. This resource activat
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_licence" "example" {
   entitlement_id = "ENT123456-7890-ABCD-EF01-234567890123"
 }

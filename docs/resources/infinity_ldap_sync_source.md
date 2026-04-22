@@ -4,7 +4,7 @@ Manages an LDAP synchronization source configuration with the Infinity service. 
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_ldap_sync_source" "example" {
   name                     = "Corporate AD"
   description              = "Corporate Active Directory synchronization"

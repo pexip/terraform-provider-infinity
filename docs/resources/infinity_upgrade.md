@@ -4,7 +4,7 @@ Triggers a system upgrade on the Infinity service. This is an action resource th
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_upgrade" "example" {
   package = "pexip-infinity-29.3.1"
 }

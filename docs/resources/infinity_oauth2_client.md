@@ -4,7 +4,7 @@ Manages an OAuth2 client with the Infinity service. OAuth2 clients are used for 
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_oauth2_client" "example" {
   client_name = "API Automation Client"
   role        = "/configuration/v1/system_location/1/role/1/"

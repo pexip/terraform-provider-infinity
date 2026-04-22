@@ -4,7 +4,7 @@ Manages a recurring conference configuration with the Infinity service. Recurrin
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_recurring_conference" "example" {
   conference      = "/configuration/v1/conference/1/"
   current_index   = 0

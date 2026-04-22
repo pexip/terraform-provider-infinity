@@ -4,7 +4,7 @@ Manages an SMTP server with the Infinity service. SMTP servers are used for send
 
 ## Example Usage
 
-```hcl
+```terraform
 resource "pexip_infinity_smtp_server" "example" {
   name                = "Corporate SMTP Server"
   description         = "SMTP server for email notifications"

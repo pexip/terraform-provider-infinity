@@ -12,13 +12,7 @@ Manages an MJX Google deployment in Infinity. An MJX Google deployment provides 
 
 ## Example Usage
 
-```terraform
-resource "pexip_infinity_mjx_google_deployment" "example" {
-  name         = "Corporate Google Workspace Integration"
-  client_email = "pexip-service@project.iam.gserviceaccount.com"
-  private_key  = var.google_private_key
-}
-```
+{{tffile "examples/resources/pexip_infinity_mjx_google_deployment/resource.tf"}}
 
 
 {{ .SchemaMarkdown }}

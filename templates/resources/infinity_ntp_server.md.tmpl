@@ -13,86 +13,23 @@ Manages a Pexip Infinity NTP server configuration. NTP (Network Time Protocol) s
 
 ### Basic Usage
 
-```terraform
-resource "pexip_infinity_ntp_server" "primary_ntp" {
-  address = "pool.ntp.org"
-}
-```
+{{tffile "examples/resources/pexip_infinity_ntp_server/basic_usage.tf"}}
 
 ### NTP Server with Description
 
-```terraform
-resource "pexip_infinity_ntp_server" "primary_ntp" {
-  address     = "pool.ntp.org"
-  description = "Primary NTP pool server"
-}
-
-resource "pexip_infinity_ntp_server" "secondary_ntp" {
-  address     = "time.cloudflare.com"
-  description = "Cloudflare NTP server"
-}
-```
+{{tffile "examples/resources/pexip_infinity_ntp_server/ntp_server_with_description.tf"}}
 
 ### Corporate NTP Configuration
 
-```terraform
-resource "pexip_infinity_ntp_server" "internal_ntp_primary" {
-  address     = "ntp1.company.com"
-  description = "Primary internal NTP server"
-}
-
-resource "pexip_infinity_ntp_server" "internal_ntp_secondary" {
-  address     = "ntp2.company.com"
-  description = "Secondary internal NTP server"
-}
-
-# IP address based NTP server
-resource "pexip_infinity_ntp_server" "ip_based_ntp" {
-  address     = "10.0.1.100"
-  description = "Internal NTP server by IP"
-}
-```
+{{tffile "examples/resources/pexip_infinity_ntp_server/corporate_ntp_configuration.tf"}}
 
 ### Multiple NTP Servers for High Availability
 
-```terraform
-# Public NTP servers
-resource "pexip_infinity_ntp_server" "public_ntp" {
-  count       = length(var.ntp_servers)
-  address     = var.ntp_servers[count.index]
-  description = "Public NTP server ${count.index + 1}"
-}
-
-# Regional NTP servers
-locals {
-  regional_ntp_servers = {
-    "us" = ["time1.google.com", "time2.google.com"]
-    "eu" = ["ntp1.ntp.se", "ntp2.ntp.se"]
-    "asia" = ["ntp.nict.jp", "ntp1.jst.mfeed.ad.jp"]
-  }
-}
-
-resource "pexip_infinity_ntp_server" "regional_ntp" {
-  for_each    = toset(local.regional_ntp_servers[var.region])
-  address     = each.value
-  description = "Regional NTP server for ${var.region} - ${each.value}"
-}
-```
+{{tffile "examples/resources/pexip_infinity_ntp_server/multiple_ntp_servers_for_high_availability.tf"}}
 
 ### Stratum-based NTP Configuration
 
-```terraform
-# Stratum 1 NTP servers (high accuracy)
-resource "pexip_infinity_ntp_server" "stratum1_ntp" {
-  for_each = toset([
-    "time.nist.gov",
-    "time-a.nist.gov",
-    "time-b.nist.gov"
-  ])
-  address     = each.value
-  description = "NIST Stratum 1 NTP server - ${each.value}"
-}
-```
+{{tffile "examples/resources/pexip_infinity_ntp_server/stratum_based_ntp_configuration.tf"}}
 
 
 {{ .SchemaMarkdown }}

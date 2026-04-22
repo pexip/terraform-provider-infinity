@@ -13,237 +13,35 @@ Manages the Pexip Infinity global system configuration. This is a singleton reso
 
 ### Basic Global Configuration
 
-```terraform
-resource "pexip_infinity_global_configuration" "basic" {
-  enable_webrtc = true
-  enable_sip    = true
-  enable_h323   = false
-  enable_rtmp   = true
-  crypto_mode   = "besteffort"
-}
-```
+{{tffile "examples/resources/pexip_infinity_global_configuration/basic_global_configuration.tf"}}
 
 ### Enterprise Security Configuration
 
-```terraform
-resource "pexip_infinity_global_configuration" "enterprise" {
-  enable_webrtc    = true
-  enable_sip       = true
-  enable_h323      = true
-  enable_rtmp      = true
-  crypto_mode      = "required"
-  
-  # Network configuration
-  media_ports_start       = 40000
-  media_ports_end         = 49999
-  signalling_ports_start  = 5060
-  signalling_ports_end    = 5080
-  
-  # Conference settings
-  conference_create_permissions = "user_admin"
-  conference_creation_mode      = "per_cluster"
-  guests_only_timeout          = 30
-  waiting_for_chair_timeout    = 10
-  
-  # Security and compliance
-  enable_analytics      = true
-  enable_error_reporting = false
-  bandwidth_restrictions = "restricted"
-  
-  administrator_email = "admin@company.com"
-}
-```
+{{tffile "examples/resources/pexip_infinity_global_configuration/enterprise_security_configuration.tf"}}
 
 ### Cloud Bursting with AWS
 
-```terraform
-resource "pexip_infinity_global_configuration" "aws_bursting" {
-  enable_webrtc    = true
-  enable_sip       = true
-  crypto_mode      = "besteffort"
-  
-  # Cloud bursting configuration
-  bursting_enabled = true
-  cloud_provider   = "aws"
-  aws_access_key   = var.aws_access_key
-  aws_secret_key   = var.aws_secret_key
-  
-  # Conference settings
-  conference_create_permissions = "any_authenticated"
-  conference_creation_mode      = "per_cluster"
-  
-  administrator_email = "pexip-admin@company.com"
-}
-```
+{{tffile "examples/resources/pexip_infinity_global_configuration/cloud_bursting_with_aws.tf"}}
 
 ### Azure Cloud Integration
 
-```terraform
-resource "pexip_infinity_global_configuration" "azure_integration" {
-  enable_webrtc    = true
-  enable_sip       = true
-  enable_h323      = false
-  enable_rtmp      = true
-  crypto_mode      = "required"
-  
-  # Azure cloud bursting
-  bursting_enabled = true
-  cloud_provider   = "azure"
-  azure_client_id  = var.azure_client_id
-  azure_secret     = var.azure_secret
-  
-  # Media configuration
-  max_pixels_per_second = "1920x1080x30"
-  media_ports_start     = 36000
-  media_ports_end       = 59999
-  
-  # Administrative settings
-  enable_analytics       = true
-  enable_error_reporting = true
-  administrator_email    = "video-admin@company.com"
-}
-```
+{{tffile "examples/resources/pexip_infinity_global_configuration/azure_cloud_integration.tf"}}
 
 ### High-Security Configuration
 
-```terraform
-resource "pexip_infinity_global_configuration" "high_security" {
-  enable_webrtc    = true
-  enable_sip       = true
-  enable_h323      = false
-  enable_rtmp      = false
-  crypto_mode      = "required"
-  
-  # Restricted conference creation
-  conference_create_permissions = "admin_only"
-  conference_creation_mode      = "per_cluster"
-  
-  # Short timeouts for security
-  guests_only_timeout       = 15
-  waiting_for_chair_timeout = 5
-  
-  # Network restrictions
-  bandwidth_restrictions = "restricted"
-  media_ports_start      = 50000
-  media_ports_end        = 50999
-  signalling_ports_start = 5060
-  signalling_ports_end   = 5061
-  
-  # Security monitoring
-  enable_analytics       = true
-  enable_error_reporting = false
-  
-  administrator_email = "security-admin@company.com"
-  
-  # Restrict conference creation to specific groups
-  global_conference_create_groups = [
-    "CN=Video Admins,OU=Groups,DC=company,DC=com",
-    "CN=IT Managers,OU=Groups,DC=company,DC=com"
-  ]
-}
-```
+{{tffile "examples/resources/pexip_infinity_global_configuration/high_security_configuration.tf"}}
 
 ### Development Environment Configuration
 
-```terraform
-resource "pexip_infinity_global_configuration" "development" {
-  enable_webrtc    = true
-  enable_sip       = true
-  enable_h323      = true
-  enable_rtmp      = true
-  crypto_mode      = "besteffort"
-  
-  # Relaxed conference creation for development
-  conference_create_permissions = "any_authenticated"
-  conference_creation_mode      = "per_node"
-  
-  # Extended timeouts for testing
-  guests_only_timeout       = 120
-  waiting_for_chair_timeout = 30
-  
-  # Analytics for development insights
-  enable_analytics       = true
-  enable_error_reporting = true
-  
-  administrator_email = "dev-team@company.com"
-}
-```
+{{tffile "examples/resources/pexip_infinity_global_configuration/development_environment_configuration.tf"}}
 
 ### Multi-Protocol Configuration
 
-```terraform
-resource "pexip_infinity_global_configuration" "multi_protocol" {
-  # Enable all protocols
-  enable_webrtc = true
-  enable_sip    = true
-  enable_h323   = true
-  enable_rtmp   = true
-  
-  # Security settings
-  crypto_mode = "besteffort"
-  
-  # Optimized port ranges for different protocols
-  media_ports_start      = 32768
-  media_ports_end        = 65535
-  signalling_ports_start = 1024
-  signalling_ports_end   = 65535
-  
-  # Video quality settings
-  max_pixels_per_second = "3840x2160x30"  # 4K support
-  
-  # Conference management
-  conference_create_permissions = "user_admin"
-  conference_creation_mode      = "per_cluster"
-  
-  # Operational settings
-  enable_analytics       = true
-  enable_error_reporting = true
-  bandwidth_restrictions = "none"
-  
-  administrator_email = "operations@company.com"
-}
-```
+{{tffile "examples/resources/pexip_infinity_global_configuration/multi_protocol_configuration.tf"}}
 
 ### Variable-Driven Configuration
 
-```terraform
-variable "global_config" {
-  type = object({
-    enable_webrtc                = bool
-    enable_sip                   = bool
-    enable_h323                  = bool
-    enable_rtmp                  = bool
-    crypto_mode                  = string
-    conference_create_permissions = string
-    conference_creation_mode     = string
-    enable_analytics             = bool
-    administrator_email          = string
-  })
-  default = {
-    enable_webrtc                = true
-    enable_sip                   = true
-    enable_h323                  = false
-    enable_rtmp                  = true
-    crypto_mode                  = "besteffort"
-    conference_create_permissions = "user_admin"
-    conference_creation_mode     = "per_cluster"
-    enable_analytics             = true
-    administrator_email          = "admin@company.com"
-  }
-}
-
-resource "pexip_infinity_global_configuration" "from_variable" {
-  enable_webrtc                = var.global_config.enable_webrtc
-  enable_sip                   = var.global_config.enable_sip
-  enable_h323                  = var.global_config.enable_h323
-  enable_rtmp                  = var.global_config.enable_rtmp
-  crypto_mode                  = var.global_config.crypto_mode
-  conference_create_permissions = var.global_config.conference_create_permissions
-  conference_creation_mode     = var.global_config.conference_creation_mode
-  enable_analytics             = var.global_config.enable_analytics
-  administrator_email          = var.global_config.administrator_email
-}
-```
+{{tffile "examples/resources/pexip_infinity_global_configuration/variable_driven_configuration.tf"}}
 
 
 {{ .SchemaMarkdown }}

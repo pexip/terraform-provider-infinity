@@ -4,18 +4,7 @@ Manages an SMTP server with the Infinity service. SMTP servers are used for send
 
 ## Example Usage
 
-```hcl
-resource "pexip_infinity_smtp_server" "example" {
-  name                = "Corporate SMTP Server"
-  description         = "SMTP server for email notifications"
-  address             = "smtp.example.com"
-  port                = 587
-  username            = "pexip@example.com"
-  password            = "secure-password"
-  from_email_address  = "noreply@example.com"
-  connection_security = "starttls"
-}
-```
+{{tffile "examples/resources/pexip_infinity_smtp_server/resource.tf"}}
 
 
 {{ .SchemaMarkdown }}
