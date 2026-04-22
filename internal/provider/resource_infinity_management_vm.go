@@ -328,7 +328,7 @@ func (r *InfinityManagementVMResource) Schema(ctx context.Context, req resource.
 				MarkdownDescription: "The IPv4 address for this Management Node.",
 			},
 		},
-		MarkdownDescription: "Manages a management VM configuration. Management VMs are Pexip Infinity Manager nodes that control the platform. Note: This resource supports Create, Read, and Delete operations only - updates are not supported.",
+		MarkdownDescription: "Manages the management node configuration. The management node provides centralized management of Infinity.\n\n-> **NOTE** This resource is a singleton.",
 	}
 }
 

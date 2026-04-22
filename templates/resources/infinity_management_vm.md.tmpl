@@ -7,29 +7,13 @@ description: |-
 
 # pexip_infinity_management_vm (Resource)
 
-Manages a Pexip Infinity Management VM configuration. Management VMs are Pexip Infinity Manager nodes that control the entire Pexip Infinity platform. They provide the administrative interface, API access, and coordination services for the conferencing infrastructure. This resource supports Create, Read, and Delete operations only - updates are not supported and require recreation of the resource.
+{{ .Description | trimspace }}
 
 ## Example Usage
 
 ### Basic Management VM
 
 {{tffile "examples/resources/pexip_infinity_management_vm/basic_management_vm.tf"}}
-
-### High Availability Management VM Pair
-
-{{tffile "examples/resources/pexip_infinity_management_vm/high_availability_management_vm_pair.tf"}}
-
-### Enterprise Management VM with NAT
-
-{{tffile "examples/resources/pexip_infinity_management_vm/enterprise_management_vm_with_nat.tf"}}
-
-### Cloud-Based Management VM
-
-{{tffile "examples/resources/pexip_infinity_management_vm/cloud_based_management_vm.tf"}}
-
-### Development Management VM
-
-{{tffile "examples/resources/pexip_infinity_management_vm/development_management_vm.tf"}}
 
 
 {{ .SchemaMarkdown }}
