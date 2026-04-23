@@ -360,7 +360,7 @@ func (r *InfinityAuthenticationResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "The text to use for the OpenID Connect button on the login page of the Pexip Infinity Administrator interface. Defaults to OpenID Connect. Maximum length: 128 characters.",
 			},
 		},
-		MarkdownDescription: "Manages the authentication configuration. This is a singleton resource - only one authentication configuration exists per system.",
+		MarkdownDescription: "Manages the authentication configuration.\n\n-> **NOTE** This resource is a singleton.",
 	}
 }
 

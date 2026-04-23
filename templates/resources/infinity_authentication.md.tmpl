@@ -11,11 +11,7 @@ description: |-
 
 ## Example Usage
 
-### Local Authentication (Default)
-
-{{tffile "examples/resources/pexip_infinity_authentication/local_authentication.tf"}}
-
-### LDAP Authentication
+### Local and LDAP Authentication
 
 {{tffile "examples/resources/pexip_infinity_authentication/ldap_authentication.tf"}}
 
@@ -23,127 +19,11 @@ description: |-
 
 {{tffile "examples/resources/pexip_infinity_authentication/openid_connect_authentication.tf"}}
 
-### OIDC with JWT Private Key Authentication
-
-{{tffile "examples/resources/pexip_infinity_authentication/oidc_with_jwt_private_key_authentication.tf"}}
-
-### OAuth2 API Configuration
-
-{{tffile "examples/resources/pexip_infinity_authentication/oauth2_api_configuration.tf"}}
-
-### Client Certificate Authentication
-
-{{tffile "examples/resources/pexip_infinity_authentication/client_certificate_authentication.tf"}}
-
-
 {{ .SchemaMarkdown }}
 ## Import
 
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_authentication.example auth
+terraform import pexip_infinity_authentication.example 1
 ```
-
-For singleton resources, the import ID doesn't matter since there's only one instance.
-
-## Usage Notes
-
-### Authentication Sources
-- **local**: Built-in Pexip user database
-- **ldap**: Active Directory or LDAP integration
-- **oidc**: OpenID Connect single sign-on
-
-### Singleton Resource Behavior
-- Only one authentication configuration exists per Pexip Infinity system
-- Creating this resource updates the existing configuration
-- Deleting resets authentication to local mode
-- Import ID is ignored since there's only one instance
-
-### LDAP Integration
-- Use secure LDAP (ldaps://) for production environments
-- Test LDAP connectivity before applying configuration
-- Ensure bind user has appropriate read permissions
-- Configure proper group membership attributes
-
-### OIDC Integration
-- Requires registered application in identity provider
-- Use appropriate authentication method for security requirements
-- Configure proper scopes and claim mappings
-- Test token validation and user attribute mapping
-
-### Client Certificate Authentication
-- Can be combined with other authentication methods
-- Requires proper PKI infrastructure
-- Configure certificate validation rules separately
-- Monitor certificate expiration and renewal
-
-### OAuth2 API Configuration
-- Controls API authentication behavior
-- Longer expiration times reduce re-authentication
-- Disable basic auth for enhanced security
-- Monitor API token usage and revocation
-
-## Troubleshooting
-
-### Common Issues
-
-**LDAP Authentication Failures**
-- Verify LDAP server connectivity and credentials
-- Check bind user permissions and DN format
-- Test LDAP queries using tools like ldapsearch
-- Verify SSL/TLS certificate trust for ldaps://
-
-**OIDC Authentication Problems**
-- Verify client ID and secret are correct
-- Check OIDC provider metadata URL accessibility
-- Ensure proper redirect URI configuration
-- Verify claim mappings match provider attributes
-
-**User Not Found Errors**
-- Check LDAP user search DN and filter configuration
-- Verify username format matches search filter
-- Ensure user exists in specified search base
-- Test user search filters manually
-
-**Group Membership Issues**
-- Verify group search DN and filter configuration
-- Check group membership attribute mapping
-- Ensure users have proper group memberships
-- Test group queries independently
-
-**Certificate Authentication Problems**
-- Verify client certificate trust chain
-- Check certificate validity and expiration
-- Ensure proper certificate subject validation
-- Verify certificate revocation status
-
-**API Authentication Issues**
-- Check OAuth2 token expiration settings
-- Verify API permissions and scopes
-- Ensure proper token format and validation
-- Monitor token usage and revocation
-
-**Import Fails**
-- Authentication configuration always exists as singleton
-- Import should work with any ID value
-- Verify provider authentication and permissions
-- Check system connectivity to Infinity Manager
-
-**Performance Problems**
-- Monitor LDAP query response times
-- Check OIDC token validation performance
-- Verify network connectivity to authentication sources
-- Consider caching strategies for external authentication
-
-**Security Configuration Issues**
-- Ensure TLS is properly configured for external connections
-- Verify certificate validation settings
-- Check authentication timeout settings
-- Monitor for authentication bypass attempts
-
-**Migration Between Authentication Sources**
-- Plan user migration strategy carefully
-- Test authentication with pilot users
-- Ensure user attribute mapping is correct
-- Have rollback plan ready for issues
