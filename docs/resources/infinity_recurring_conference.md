@@ -1,6 +1,6 @@
 # infinity_recurring_conference
 
-Manages a recurring conference configuration with the Infinity service. Recurring conferences are used for scheduled conference series that repeat over time.
+Manages a recurring conference configuration. Recurring conferences are used for scheduled conference series.
 
 ## Example Usage
 

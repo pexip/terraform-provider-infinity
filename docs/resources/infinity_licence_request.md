@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_licence_request (Resource)
 
-Manages a licence request with the Infinity service. Licence requests are used to generate license activation files that can be submitted to Pexip for license provisioning. Note: This resource only supports creation and reading - licence requests cannot be updated or deleted once created.
+Manages a licence request. Licence requests are used to generate license activation files that can be submitted to Pexip for license provisioning. Note: This resource only supports creation and reading - licence requests cannot be updated or deleted once created.
 
 ## Example Usage
 

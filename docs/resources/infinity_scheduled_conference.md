@@ -1,6 +1,6 @@
 # infinity_scheduled_conference
 
-Manages a scheduled conference configuration with the Infinity service. Scheduled conferences allow you to configure time-based conference reservations with specific start and end times.
+Manages a scheduled conference configuration.
 
 ## Example Usage
 

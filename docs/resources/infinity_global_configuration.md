@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_global_configuration (Resource)
 
-Manages the Pexip Infinity global system configuration. This is a singleton resource that configures system-wide settings including protocol support, security parameters, cloud bursting, port ranges, timeouts, and administrative settings. Only one global configuration exists per Pexip Infinity cluster.
+Manages the global system configuration. This is a singleton resource - only one global configuration exists per system.
 
 ## Example Usage
 

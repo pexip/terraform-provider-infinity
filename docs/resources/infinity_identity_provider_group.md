@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_identity_provider_group (Resource)
 
-Manages an identity provider group with the Infinity service. Identity provider groups organize multiple identity providers for authentication and authorization management.
+Manages an identity provider group. Identity provider groups organize multiple identity providers for authentication and authorization management.
 
 ## Example Usage
 

@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_mjx_exchange_autodiscover_url (Resource)
 
-Manages an MJX Exchange Autodiscover URL in Infinity. An Autodiscover URL is used by the OTJ Exchange Integration to discover Exchange Web Services endpoints.
+Manages an MJX Exchange Autodiscover URL. An Autodiscover URL is used by the OTJ Exchange Integration to discover Exchange Web Services endpoints.
 
 ## Example Usage
 

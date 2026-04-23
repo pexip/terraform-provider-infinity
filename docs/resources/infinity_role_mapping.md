@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_role_mapping (Resource)
 
-Manages a role mapping with the Infinity service. Role mappings automatically assign roles to users based on attributes from identity providers like SAML, LDAP, or OAuth claims.
+Manages a role mapping. Role mappings automatically assign roles to users based on attributes from identity providers like SAML, LDAP, or OAuth claims.
 
 ## Example Usage
 

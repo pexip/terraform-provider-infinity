@@ -1,6 +1,6 @@
 # infinity_mjx_integration
 
-Manages an MJX (Meeting Join Experience) integration with the Infinity service. MJX integrations provide calendar integration and meeting join experiences for various platforms including Exchange, Google Calendar, and Webex.
+Manages an MJX integration (One-Touch Join Profile). An MJX integration connects calendar deployments (Exchange, Google, or Graph) with endpoints to enable One-Touch Join functionality.
 
 ## Example Usage
 

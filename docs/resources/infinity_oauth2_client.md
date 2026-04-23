@@ -1,6 +1,6 @@
 # infinity_oauth2_client
 
-Manages an OAuth2 client with the Infinity service. OAuth2 clients are used for API access and automation, providing secure authentication for external applications.
+Manages an OAuth2 client. OAuth2 clients are used for API access and automation, providing secure authentication for external applications.
 
 ## Example Usage
 

@@ -1,6 +1,6 @@
 # infinity_ssh_authorized_key
 
-Manages an SSH authorized key configuration with the Infinity service. SSH authorized keys allow secure key-based authentication for SSH access to Pexip Infinity nodes.
+Manages an SSH authorized key configuration.
 
 ## Example Usage
 

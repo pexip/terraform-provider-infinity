@@ -1,6 +1,6 @@
 # infinity_identity_provider
 
-Manages an identity provider configuration with the Infinity service. Identity providers enable single sign-on (SSO) integration using SAML or OIDC protocols.
+Manages an identity provider configuration.
 
 ## Example Usage
 

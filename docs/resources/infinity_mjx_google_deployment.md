@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_mjx_google_deployment (Resource)
 
-Manages an MJX Google deployment in Infinity. An MJX Google deployment provides integration with Google Workspace, enabling OTJ (One-Touch Join) functionality for Google Calendar-based meeting management.
+Manages an MJX Google deployment. An MJX Google deployment provides integration with Google Workspace, enabling OTJ (One-Touch Join) functionality for Google Calendar-based meeting management.
 
 ## Example Usage
 

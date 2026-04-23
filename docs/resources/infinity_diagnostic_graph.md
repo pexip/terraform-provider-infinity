@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_diagnostic_graph (Resource)
 
-Manages a diagnostic graph with the Infinity service. Diagnostic graphs provide visual monitoring and troubleshooting capabilities for system health and performance metrics.
+Manages a diagnostic graph. Diagnostic graphs provide visual monitoring and troubleshooting capabilities for system health and performance metrics.
 
 ## Example Usage
 

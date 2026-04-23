@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_ldap_sync_field (Resource)
 
-Manages an LDAP sync field with the Infinity service. LDAP sync fields define how specific LDAP directory attributes are mapped and synchronized with Pexip Infinity user and configuration data during LDAP directory synchronization operations.
+Manages an LDAP sync field. LDAP sync fields define how specific LDAP directory attributes are mapped and synchronized with Pexip Infinity user and configuration data during LDAP directory synchronization operations.
 
 ## Example Usage
 

@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_mjx_exchange_deployment (Resource)
 
-Manages an MJX Exchange deployment in Infinity. An MJX Exchange deployment provides integration with Microsoft Exchange, enabling OTJ (One-Touch Join) functionality for Exchange calendar-based meeting management.
+Manages an MJX Exchange deployment. An MJX Exchange deployment provides integration with Microsoft Exchange, enabling OTJ (One-Touch Join) functionality for Exchange calendar-based meeting management.
 
 ## Example Usage
 

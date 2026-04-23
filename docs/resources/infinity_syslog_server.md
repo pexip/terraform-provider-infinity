@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_syslog_server (Resource)
 
-Manages a syslog server with the Infinity service. Syslog servers receive system logs and audit information from Pexip Infinity for centralized logging and monitoring. This enables comprehensive monitoring, troubleshooting, and compliance auditing of your Pexip Infinity deployment.
+Manages a syslog server. Syslog servers receive system logs and audit information from Pexip Infinity for centralized logging and monitoring.
 
 ## Example Usage
 

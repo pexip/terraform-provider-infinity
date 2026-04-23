@@ -1,6 +1,6 @@
 # infinity_licence
 
-Manages a licence configuration with the Infinity service. This resource activates licences using entitlement IDs.
+Manages a licence configuration. This resource activates licences using entitlement IDs.
 
 ## Example Usage
 

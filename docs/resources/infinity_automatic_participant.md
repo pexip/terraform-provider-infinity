@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_automatic_participant (Resource)
 
-Manages a Pexip Infinity automatic participant configuration. Automatic participants are endpoints that automatically join conferences when they start, providing functionality such as recording, streaming, content sharing, or acting as persistent conference hosts. They can be configured to join with different protocols, roles, and behaviors.
+Manages an automatic participant configuration.
 
 ## Example Usage
 

@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_system_location (Resource)
 
-Manages a Pexip Infinity system location configuration. A system location defines the infrastructure settings for a specific physical or logical location in your Pexip Infinity deployment, including DNS servers, NTP servers, syslog servers, and MTU settings.
+Registers a system location.
 
 ## Example Usage
 

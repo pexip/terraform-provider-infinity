@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_end_user (Resource)
 
-Manages an end user account with the Infinity service. End users represent individuals who can participate in conferences, create meetings, and access Pexip Infinity services. This resource allows you to manage user profiles, contact information, and group memberships for integration with directory services and user management systems.
+Manages an end user account.
 
 ## Example Usage
 

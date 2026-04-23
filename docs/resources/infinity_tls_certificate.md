@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_tls_certificate (Resource)
 
-Manages a Pexip Infinity TLS certificate configuration. TLS certificates are used to secure communications between Pexip Infinity components and external systems, including web browser connections, SIP over TLS, and API access. Certificates can be deployed to specific nodes or made available for system-wide use.
+Manages a TLS certificate configuration.
 
 ## Example Usage
 

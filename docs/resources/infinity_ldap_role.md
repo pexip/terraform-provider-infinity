@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_ldap_role (Resource)
 
-Manages an LDAP role with the Infinity service. LDAP roles map LDAP groups to Pexip roles for authentication and authorization management.
+Manages an LDAP role. LDAP roles map LDAP groups to Pexip roles for authentication and authorization management.
 
 ## Example Usage
 

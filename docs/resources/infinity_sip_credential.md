@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_sip_credential (Resource)
 
-Manages a SIP credential with the Infinity service. SIP credentials are used for authenticating SIP endpoints and devices connecting to Pexip Infinity.
+Manages a SIP credential. SIP credentials are used for authenticating SIP endpoints and devices connecting to Pexip Infinity.
 
 ## Example Usage
 

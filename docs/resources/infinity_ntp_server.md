@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_ntp_server (Resource)
 
-Manages a Pexip Infinity NTP server configuration. NTP (Network Time Protocol) servers provide accurate time synchronization for Pexip Infinity nodes, which is critical for proper operation of security certificates, logging, and other time-dependent features.
+Registers a NTP server.
 
 ## Example Usage
 

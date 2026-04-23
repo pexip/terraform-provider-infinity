@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_mssip_proxy (Resource)
 
-Manages an MSSIP proxy configuration with the Infinity service.
+Manages an MSSIP proxy configuration.
 
 ## Example Usage
 

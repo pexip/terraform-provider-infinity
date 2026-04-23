@@ -1,6 +1,6 @@
 # infinity_snmp_network_management_system
 
-Manages an SNMP network management system with the Infinity service. SNMP network management systems receive SNMP traps and notifications from Pexip Infinity for monitoring and alerting purposes.
+Manages an SNMP network management system. SNMP network management systems receive SNMP traps and notifications from Pexip Infinity for monitoring and alerting purposes.
 
 ## Example Usage
 

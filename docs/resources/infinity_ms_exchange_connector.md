@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_ms_exchange_connector (Resource)
 
-Manages a Microsoft Exchange connector with the Infinity service. Exchange connectors enable integration with Microsoft Exchange/Office 365 for calendar and meeting management.
+Manages a Microsoft Exchange connector. Exchange connectors enable integration with Microsoft Exchange/Office 365 for calendar and meeting management.
 
 ## Example Usage
 

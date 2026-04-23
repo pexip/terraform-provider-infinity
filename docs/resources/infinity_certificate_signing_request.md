@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_certificate_signing_request (Resource)
 
-Manages a certificate signing request configuration with the Infinity service.
+Manages a certificate signing request configuration.
 
 ## Example Usage
 

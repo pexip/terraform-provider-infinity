@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_h323_gatekeeper (Resource)
 
-Manages an H.323 gatekeeper with the Infinity service. H.323 gatekeepers provide address resolution and call routing services for H.323 endpoints and gateways.
+Manages an H.323 gatekeeper. H.323 gatekeepers provide address resolution and call routing services for H.323 endpoints and gateways.
 
 ## Example Usage
 

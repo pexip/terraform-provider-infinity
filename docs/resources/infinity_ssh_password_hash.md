@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_ssh_password_hash (Resource)
 
-Registers a node with the Infinity service. This resource is used to manage the lifecycle of nodes in the Infinity cluster.
+Registers a node. This resource is used to manage the lifecycle of nodes in the Infinity cluster.
 
 ## Example Usage
 

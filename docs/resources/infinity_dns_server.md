@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_dns_server (Resource)
 
-Manages a Pexip Infinity DNS server configuration. DNS servers are used by Pexip Infinity nodes for domain name resolution and are assigned to system locations to provide name resolution services for conferencing nodes deployed in those locations.
+Registers a DNS server.
 
 ## Example Usage
 

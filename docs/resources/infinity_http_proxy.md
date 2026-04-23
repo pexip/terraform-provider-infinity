@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_http_proxy (Resource)
 
-Manages a Pexip Infinity HTTP proxy configuration. HTTP proxies are used to route outbound HTTP and HTTPS traffic through an intermediate server for purposes such as content filtering, security scanning, bandwidth management, or accessing resources in restricted network environments. This is commonly required in enterprise environments where direct internet access is not permitted.
+Manages an HTTP proxy configuration.
 
 ## Example Usage
 

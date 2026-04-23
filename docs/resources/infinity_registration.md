@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_registration (Resource)
 
-Manages the registration configuration with the Infinity service. This is a singleton resource - only one registration configuration exists per system.
+Manages the registration configuration. This is a singleton resource - only one registration configuration exists per system.
 
 ## Example Usage
 

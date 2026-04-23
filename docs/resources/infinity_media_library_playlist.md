@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_media_library_playlist (Resource)
 
-Manages a media library playlist configuration with the Infinity service. Media library playlists organize media entries for sequential or randomized playback in conferences.
+Manages a media library playlist configuration. Media library playlists organize media entries for sequential or randomized playback in conferences.
 
 ## Example Usage
 

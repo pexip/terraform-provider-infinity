@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_system_tuneable (Resource)
 
-Manages a system tuneable (global setting) configuration with the Infinity service.
+Manages a system tuneable (global setting) configuration.
 
 ## Example Usage
 

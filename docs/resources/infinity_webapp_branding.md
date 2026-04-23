@@ -1,6 +1,6 @@
 # infinity_webapp_branding
 
-Manages webapp branding configuration with the Infinity service. Webapp branding allows customization of the user interface for different Pexip web applications including the management interface, admin interface, and client applications.
+Manages webapp branding configuration. Webapp branding allows customization of the user interface for different Pexip web applications including the management interface, admin interface, and client applications.
 
 ## Example Usage
 

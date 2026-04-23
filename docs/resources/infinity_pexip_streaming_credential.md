@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_pexip_streaming_credential (Resource)
 
-Manages a Pexip Streaming credential with the Infinity service. Pexip Streaming credentials are used to authenticate and authorize streaming services, enabling secure content delivery and media streaming functionality within Pexip Infinity deployments.
+Manages a Pexip Streaming credential. Pexip Streaming credentials are used to authenticate and authorize streaming services, enabling secure content delivery and media streaming functionality within Pexip Infinity deployments.
 
 ## Example Usage
 

@@ -1,6 +1,6 @@
 # infinity_smtp_server
 
-Manages an SMTP server with the Infinity service. SMTP servers are used for sending email notifications and alerts from Pexip Infinity.
+Manages an SMTP server. SMTP servers are used for sending email notifications and alerts from Pexip Infinity.
 
 ## Example Usage
 

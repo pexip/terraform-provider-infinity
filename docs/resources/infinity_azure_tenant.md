@@ -1,6 +1,6 @@
 # infinity_azure_tenant
 
-Manages a Microsoft Teams Azure tenant with the Infinity service. Azure tenants are used to configure Microsoft Teams integration and allow Pexip Infinity to connect with specific Microsoft tenants for cloud-based collaboration.
+Manages a Microsoft Teams Azure tenant. Azure tenants are used to configure Microsoft Teams integration and allow Pexip Infinity to connect with specific Microsoft tenants for cloud-based collaboration.
 
 ## Example Usage
 

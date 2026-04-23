@@ -8,7 +8,7 @@ description: |-
 
 # pexip_infinity_gms_access_token (Resource)
 
-Manages a Google Meet Service (GMS) access token configuration with the Infinity service. These tokens are used for Google Meet integration.
+Manages a Google Meet Service (GMS) access token configuration. These tokens are used for Google Meet integration.
 
 ## Example Usage
 

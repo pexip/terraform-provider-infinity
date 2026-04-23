@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_authentication (Resource)
 
-Manages the authentication configuration with the Infinity service. This is a singleton resource - only one authentication configuration exists per system. The resource configures how users authenticate to Pexip Infinity, including local authentication, LDAP integration, and OpenID Connect (OIDC) single sign-on.
+Manages the authentication configuration. This is a singleton resource - only one authentication configuration exists per system.
 
 ## Example Usage
 

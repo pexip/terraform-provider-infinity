@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_worker_vm (Resource)
 
-Manages a Pexip Infinity worker VM configuration. This resource configures the worker VM settings for a Pexip Infinity node in the cluster.
+Manages a worker VM configuration.
 
 ## Example Usage
 

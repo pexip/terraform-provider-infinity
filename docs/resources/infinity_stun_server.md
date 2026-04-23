@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_stun_server (Resource)
 
-Manages a STUN server configuration with the Infinity service. STUN (Session Traversal Utilities for NAT) servers help clients discover their public IP address and determine the type of NAT they are behind. This information is essential for establishing direct peer-to-peer media connections and optimizing call quality by avoiding unnecessary media relay.
+Manages a STUN server configuration.
 
 ## Example Usage
 
