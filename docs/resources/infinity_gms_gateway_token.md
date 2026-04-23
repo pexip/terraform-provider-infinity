@@ -8,7 +8,9 @@ description: |-
 
 # pexip_infinity_gms_gateway_token (Resource)
 
-Manages the Google Meet gateway token configuration. This is a singleton resource - only one GMS gateway token configuration exists per system.
+Manages the Google Meet gateway token configuration.
+
+-> **NOTE** This resource is a singleton.
 
 ## Example Usage
 
@@ -37,3 +39,5 @@ resource "pexip_infinity_gms_gateway_token" "example" {
 - `supports_direct_guest_join` (Boolean) Whether the Google Meet gateway token supports direct guest join.
 
 
+
+-> In the Infinity API, `gms_gateway_token` cannot be reset, only updated. If it is removed from the Terraform configuration and destroyed, it won't be reset and the configuration will remain in place on Infinity.

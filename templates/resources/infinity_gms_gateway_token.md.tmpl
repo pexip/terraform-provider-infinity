@@ -16,3 +16,5 @@ description: |-
 
 
 {{ .SchemaMarkdown }}
+
+-> In the Infinity API, `gms_gateway_token` cannot be reset, only updated. If it is removed from the Terraform configuration and destroyed, it won't be reset and the configuration will remain in place on Infinity.

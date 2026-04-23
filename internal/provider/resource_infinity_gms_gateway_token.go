@@ -99,7 +99,7 @@ func (r *InfinityGMSGatewayTokenResource) Schema(ctx context.Context, req resour
 				MarkdownDescription: "Resource URI for the GMS gateway token configuration.",
 			},
 		},
-		MarkdownDescription: "Manages the Google Meet gateway token configuration. This is a singleton resource - only one GMS gateway token configuration exists per system.",
+		MarkdownDescription: "Manages the Google Meet gateway token configuration.\n\n-> **NOTE** This resource is a singleton.",
 	}
 }
 
