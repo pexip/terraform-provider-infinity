@@ -69,7 +69,7 @@ func (r *InfinityAutobackupResource) Configure(ctx context.Context, req resource
 
 func (r *InfinityAutobackupResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Manages the automatic backup configuration. This is a singleton resource — only one instance exists.",
+		MarkdownDescription: "Manages the automatic backup configuration.\n\n-> **NOTE** This resource is a singleton.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
@@ -101,7 +101,7 @@ func (r *InfinityAutobackupResource) Schema(ctx context.Context, req resource.Sc
 				Validators: []validator.String{
 					stringvalidator.LengthAtMost(100),
 				},
-				MarkdownDescription: "The passphrase used to encrypt all automatically generated backup files. Maximum length: 100 characters.",
+				MarkdownDescription: "The passphrase used to encrypt all automatically generated backup files. Must be set if `autobackup_enabled` is true. Maximum length: 100 characters.",
 			},
 			"autobackup_start_hour": schema.Int32Attribute{
 				Optional: true,
