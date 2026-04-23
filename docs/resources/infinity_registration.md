@@ -8,12 +8,18 @@ description: |-
 
 # pexip_infinity_registration (Resource)
 
-Manages the registration configuration. This is a singleton resource - only one registration configuration exists per system.
+Manages the registration configuration for devices.
+
+-> **NOTE** This resource is a singleton.
 
 ## Example Usage
 
 ```terraform
 resource "pexip_infinity_registration" "example" {
+  enabled = true
+  registration_interval = 3600
+  refresh_interval = 60
+  refresh_strategy = "maximum"
 }
 ```
 

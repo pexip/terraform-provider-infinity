@@ -173,7 +173,7 @@ func (r *InfinityRegistrationResource) Schema(ctx context.Context, req resource.
 				MarkdownDescription: "Customizes the Google Cloud Messaging push token. You should only change this setting if you are using a custom Pexip mobile application.",
 			},
 		},
-		MarkdownDescription: "Manages the registration configuration. This is a singleton resource - only one registration configuration exists per system.",
+		MarkdownDescription: "Manages the registration configuration for devices.\n\n-> **NOTE** This resource is a singleton.",
 	}
 }
 
