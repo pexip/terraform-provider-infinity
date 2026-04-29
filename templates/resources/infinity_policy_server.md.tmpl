@@ -11,30 +11,25 @@ description: |-
 
 ## Example Usage
 
-### Basic Policy Server
+### External Policy Server
 
-{{tffile "examples/resources/pexip_infinity_policy_server/basic_policy_server.tf"}}
+{{tffile "examples/resources/pexip_infinity_policy_server/external_policy.tf"}}
 
-### Policy Server with Authentication
+## Local Policy with Template Files
 
-{{tffile "examples/resources/pexip_infinity_policy_server/policy_server_with_authentication.tf"}}
+While it is possible to put the text of the local policy templates directly in the resource definition, it is often more manageable to use separate template files. This allows for better organization and readability, especially for complex policies. The following example demonstrates how to reference external template files.
 
-### Service and Participant Lookup Policy
+{{tffile "examples/resources/pexip_infinity_policy_server/local_policy.tf"}}
 
-{{tffile "examples/resources/pexip_infinity_policy_server/service_and_participant_lookup_policy.tf"}}
+## System Location Overflow with Local Media Policy
 
-### Internal Policy Configuration
+When configuring overflow locations for high availability, using local media policy can help avoid circular dependencies. The following examples show how to configure local media policy.
 
-{{tffile "examples/resources/pexip_infinity_policy_server/internal_policy_configuration.tf"}}
+{{tffile "examples/resources/pexip_infinity_policy_server/local_media_policy.tf"}}
 
-### Multi-Purpose Policy Server
+This example utilizes cloud bursting locations. It is important to note that when configuring overflow with cloud bursting, nodes in a bursting location are only automatically started up if that location is configured as a Primary overflow location of an always-on location that has reached its capacity threshold. For more details see [docs.pexip.com](https://docs.pexip.com/admin/bursting.htm#guidelines).
 
-{{tffile "examples/resources/pexip_infinity_policy_server/multi_purpose_policy_server.tf"}}
-
-### Regional Policy Servers
-
-{{tffile "examples/resources/pexip_infinity_policy_server/regional_policy_servers.tf"}}
-
+{{tffile "examples/resources/pexip_infinity_policy_server/local_media_policy_bursting.tf"}}
 
 {{ .SchemaMarkdown }}
 ## Import

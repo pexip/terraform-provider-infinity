@@ -9,7 +9,7 @@ page_title: "Common Issues and FAQs"
 #### TLS Certificate Verification
 When deploying the management node for the first time, `insecure` must be set to `true` for the provider. This is because the manager is initially configured with a self-signed certificate. Once a cert signed by a trusted CA has been assigned to the manager, then `insecure` can be set to `false`.
 
-### DNS & NTP
+#### DNS & NTP
 The DNS and NTP servers defined in the `pexip_infinity_manager_config` are added to the DNS and NTP servers in Infinity, but they are not added to the Terraform state. This means if the same DNS and NTP servers are also configured as resources in the Terraform configuration, and error will occur when the configuration is applied because the resources already exist in Infinity. 
 
 There are two ways to address this. First, use temporary values in the `pexip_infinity_manager_config`. Then add the DNS and NTP servers that should be used in the Terraform config and assign them to the management node in the `management_vm` resource. The second option would be to import the DNS and NTP servers set in the `pexip_infinity_manager_config` into the Terraform config.
@@ -28,16 +28,6 @@ Some Infinity resources are singletons, meaning there is only a single instance 
 
 For all resources the argument `id` refers to the API field `resource_uri` and the argument `resource_id` refers to API field `id`. 
 
-### Authentication Errors
-- Verify your Pexip Manager URL, username, and password
-- Ensure the API is accessible from your machine
-- Check that your user has appropriate permissions
+### Virtual Machine Recreation
 
-### SSL/TLS Errors
-- Verify your Pexip Manager uses a valid SSL certificate
-- For self-signed certificates in development, set `insecure = true` in the provider configuration
-- For production, use proper SSL certificates and keep `insecure = false` (default)
-
-### Network Connectivity
-- Ensure your machine can reach the Pexip Manager on the configured port (typically 443)
-- Check firewall rules and network connectivity
+If a config update forces the virtual machine of a conferencing node node to be recreated (e.g. changing the zone of a VM in GCP), the corresponding `worker_vm` in Infinity must also be recreated. This can be done multiple ways. One option is to destroying the Infinity `worker_vm` resource, updating the virtual machine resource config, then recreating the `worker_vm`. Another method is to update the virtual machine config then run `terraform apply -replace=<infinity-worker-vm-resource>`.

@@ -11,132 +11,84 @@ Manages a policy server configuration.
 
 ## Example Usage
 
-### Basic Policy Server
+### External Policy Server
 
 ```terraform
-resource "pexip_infinity_policy_server" "basic_policy" {
-  name = "Basic Policy Server"
-  url  = "https://policy.company.com/pexip"
-}
-```
-
-### Policy Server with Authentication
-
-```terraform
-resource "pexip_infinity_policy_server" "authenticated_policy" {
-  name        = "Authenticated Policy Server"
+resource "pexip_infinity_policy_server" "external_policy" {
+  name        = "External Policy Server"
   description = "Policy server with HTTP basic authentication"
-  url         = "https://policy.company.com/pexip/api"
+  url         = "https://policy.example.com/pexip/api"
   username    = "pexip-service"
   password    = var.policy_server_password
 }
 ```
 
-### Service and Participant Lookup Policy
+## Local Policy with Template Files
+
+While it is possible to put the text of the local policy templates directly in the resource definition, it is often more manageable to use separate template files. This allows for better organization and readability, especially for complex policies. The following example demonstrates how to reference external template files.
 
 ```terraform
-resource "pexip_infinity_policy_server" "lookup_policy" {
-  name                        = "Directory Lookup Policy"
-  description                 = "External directory and service lookup"
-  url                         = "https://directory.company.com/policy"
-  username                    = "directory-user"
-  password                    = var.directory_password
-  
-  # Enable lookup services
-  enable_service_lookup       = true
-  enable_participant_lookup   = true
-  enable_directory_lookup     = true
-  enable_avatar_lookup        = true
-}
-```
-
-### Internal Policy Configuration
-
-```terraform
-resource "pexip_infinity_policy_server" "internal_policy" {
-  name                               = "Internal Policy Engine"
-  description                        = "Internal policy with custom templates"
-  url                                = "https://internal-policy.company.com"
-  
-  # Enable internal policy features
-  enable_internal_service_policy     = true
-  enable_internal_participant_policy = true
-  enable_internal_media_location_policy = true
-  
-  # Custom policy templates
-  service_configuration_template     = jsonencode({
-    default_bandwidth = "2048"
-    recording_enabled = true
-    encryption_required = true
-  })
-  
-  participant_configuration_template = jsonencode({
-    default_role = "guest"
-    max_participants = 50
-    allow_dial_out = false
-  })
-  
-  media_location_configuration_template = jsonencode({
-    preferred_location = "primary"
-    failover_enabled = true
-    quality_threshold = 0.8
-  })
-}
-```
-
-### Multi-Purpose Policy Server
-
-```terraform
-resource "pexip_infinity_policy_server" "comprehensive_policy" {
-  name        = "Comprehensive Policy Server"
-  description = "Full-featured policy server with all capabilities"
-  url         = "https://policy-engine.company.com/api/v2"
-  username    = "pexip-integration"
-  password    = var.comprehensive_policy_password
-  
-  # Enable all lookup types
-  enable_service_lookup             = true
-  enable_participant_lookup         = true
-  enable_registration_lookup        = true
-  enable_directory_lookup           = true
-  enable_avatar_lookup              = true
-  enable_media_location_lookup      = true
-  
-  # Enable internal policies
+resource "pexip_infinity_policy_server" "local_policy" {
+  name        = "Local Policy Server"
+  description = "Local policy example using template files"
   enable_internal_service_policy       = true
-  enable_internal_participant_policy   = true
   enable_internal_media_location_policy = true
-  
-  # Avatar preferences
-  prefer_local_avatar_configuration = false
-  
-  # Configuration templates
-  service_configuration_template = file("${path.module}/templates/service-policy.json")
-  participant_configuration_template = file("${path.module}/templates/participant-policy.json")
-  media_location_configuration_template = file("${path.module}/templates/media-location-policy.json")
+  service_configuration_template = file("${path.module}/templates/service-policy.j2")
+  media_location_configuration_template = file("${path.module}/templates/media-location-policy.j2")
 }
 ```
 
-### Regional Policy Servers
+## System Location Overflow with Local Media Policy
+
+When configuring overflow locations for high availability, using local media policy can help avoid circular dependencies. The following examples show how to configure local media policy.
 
 ```terraform
-# Different policy servers for different regions
-resource "pexip_infinity_policy_server" "regional_policy" {
-  for_each = var.regional_policy_servers
-  
-  name                          = "Policy Server - ${each.key}"
-  description                   = "Regional policy server for ${each.key}"
-  url                           = each.value.url
-  username                      = each.value.username
-  password                      = each.value.password
-  
-  enable_service_lookup         = true
-  enable_participant_lookup     = true
-  enable_directory_lookup       = each.value.enable_directory
-  enable_avatar_lookup          = each.value.enable_avatars
+resource "pexip_infinity_policy_server" "local_media_policy" {
+  name = "Local Media Policy Server Overflow"
+  internal_media_location_policy_template = <<-EOF
+    {
+      {% if call_info.location == "DC_EAST" %}
+        "result" : {
+        "location" : "DC_EAST",
+        "overflow_locations" : [ "DC_WEST" ]
+        }
+      {% elif call_info.location == "DC_WEST" %}
+        "result" : {
+        "location" : "DC_WEST",
+        "overflow_locations" : [ "DC_EAST" ]
+        }
+      {% else %}
+        "result" : {{suggested_media_overflow_locations|pex_to_json}}
+      {% endif %}
+    }
+  EOF
 }
 ```
 
+This example utilizes cloud bursting locations. It is important to note that when configuring overflow with cloud bursting, nodes in a bursting location are only automatically started up if that location is configured as a Primary overflow location of an always-on location that has reached its capacity threshold. For more details see [docs.pexip.com](https://docs.pexip.com/admin/bursting.htm#guidelines).
+
+```terraform
+resource "pexip_infinity_policy_server" "local_media_policy_burst" {
+  name = "Local Media Policy Server Overflow with Burst Locations"
+  internal_media_location_policy_template = <<-EOF
+    {
+      {% if call_info.location == "DC_EAST" %}
+        "result" : {
+        "location" : "DC_EAST",
+        "overflow_locations" : [ "DC_EAST_BURST", "DC_WEST", "DC_WEST_BURST" ]
+        }
+      {% elif call_info.location == "DC_WEST" %}
+        "result" : {
+        "location" : "DC_WEST",
+        "overflow_locations" : [ "DC_WEST_BURST", "DC_EAST", "DC_EAST_BURST" ]
+        }
+      {% else %}
+        "result" : {{suggested_media_overflow_locations|pex_to_json}}
+      {% endif %}
+    }
+  EOF
+}
+```
 
 <!-- schema generated by tfplugindocs -->
 ## Schema
