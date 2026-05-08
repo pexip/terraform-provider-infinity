@@ -107,7 +107,7 @@ locals {
 
 resource "pexip_infinity_stun_server" "regional_stun" {
   for_each = local.regional_stun_servers
-  
+
   name        = "STUN Server - ${each.key}"
   description = "Regional STUN server for ${each.key}"
   address     = each.value.address
@@ -121,7 +121,7 @@ resource "pexip_infinity_stun_server" "regional_stun" {
 # STUN servers behind load balancer
 resource "pexip_infinity_stun_server" "lb_stun" {
   count = var.stun_server_count
-  
+
   name        = "Load Balanced STUN ${count.index + 1}"
   description = "STUN server ${count.index + 1} behind load balancer"
   address     = "stun-lb.company.com"

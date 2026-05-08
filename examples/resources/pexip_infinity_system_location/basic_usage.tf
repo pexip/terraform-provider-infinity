@@ -25,17 +25,17 @@ resource "pexip_infinity_syslog_server" "central_logging" {
 
 # System location
 resource "pexip_infinity_system_location" "main_location" {
-  name            = "Main Office"
-  description     = "Primary office location"
-  mtu             = 1500
-  dns_servers     = [
+  name        = "Main Office"
+  description = "Primary office location"
+  mtu         = 1500
+  dns_servers = [
     pexip_infinity_dns_server.primary_dns.id,
     pexip_infinity_dns_server.secondary_dns.id
   ]
-  ntp_servers     = [
+  ntp_servers = [
     pexip_infinity_ntp_server.primary_ntp.id
   ]
-  syslog_servers  = [
+  syslog_servers = [
     pexip_infinity_syslog_server.central_logging.id
   ]
 }

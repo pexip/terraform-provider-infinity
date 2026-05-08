@@ -19,12 +19,12 @@ variable "teams_tenants" {
 }
 
 resource "pexip_infinity_teams_proxy" "multi_tenant" {
-  count                    = length(var.teams_tenants)
-  name                     = var.teams_tenants[count.index].name
-  description              = "Teams proxy for ${var.teams_tenants[count.index].azure_tenant}"
-  address                  = "teams-proxy-${count.index + 1}.example.com"
-  port                     = 443
-  azure_tenant             = var.teams_tenants[count.index].azure_tenant
-  min_number_of_instances  = var.teams_tenants[count.index].instances
-  notifications_enabled    = true
+  count                   = length(var.teams_tenants)
+  name                    = var.teams_tenants[count.index].name
+  description             = "Teams proxy for ${var.teams_tenants[count.index].azure_tenant}"
+  address                 = "teams-proxy-${count.index + 1}.example.com"
+  port                    = 443
+  azure_tenant            = var.teams_tenants[count.index].azure_tenant
+  min_number_of_instances = var.teams_tenants[count.index].instances
+  notifications_enabled   = true
 }

@@ -29,11 +29,11 @@ While it is possible to put the text of the local policy templates directly in t
 
 ```terraform
 resource "pexip_infinity_policy_server" "local_policy" {
-  name        = "Local Policy Server"
-  description = "Local policy example using template files"
-  enable_internal_service_policy       = true
+  name                                  = "Local Policy Server"
+  description                           = "Local policy example using template files"
+  enable_internal_service_policy        = true
   enable_internal_media_location_policy = true
-  service_configuration_template = file("${path.module}/templates/service-policy.j2")
+  service_configuration_template        = file("${path.module}/templates/service-policy.j2")
   media_location_configuration_template = file("${path.module}/templates/media-location-policy.j2")
 }
 ```
@@ -44,7 +44,7 @@ When configuring overflow locations for high availability, using local media pol
 
 ```terraform
 resource "pexip_infinity_policy_server" "local_media_policy" {
-  name = "Local Media Policy Server Overflow"
+  name                                    = "Local Media Policy Server Overflow"
   internal_media_location_policy_template = <<-EOF
     {
       {% if call_info.location == "DC_EAST" %}
@@ -69,7 +69,7 @@ This example utilizes cloud bursting locations. It is important to note that whe
 
 ```terraform
 resource "pexip_infinity_policy_server" "local_media_policy_burst" {
-  name = "Local Media Policy Server Overflow with Burst Locations"
+  name                                    = "Local Media Policy Server Overflow with Burst Locations"
   internal_media_location_policy_template = <<-EOF
     {
       {% if call_info.location == "DC_EAST" %}

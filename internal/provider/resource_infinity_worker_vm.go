@@ -407,7 +407,7 @@ func (r *InfinityWorkerVMResource) Schema(ctx context.Context, req resource.Sche
 				Validators: []validator.Int64{
 					int64validator.Between(2, 128),
 				},
-				MarkdownDescription: "Enter the number of virtual CPUs to assign to this Conferencing Node. We do not recommend that you assign more virtual CPUs than there are physical cores on a single processor on the host server (unless you have enabled NUMA affinity). For example, if the host server has 2 processors each with 12 physical cores, we recommend that you assign no more than 12 virtual CPUs. Range: 2 to 128. Default: 4.",
+				MarkdownDescription: "Enter the number of virtual CPUs to assign to this Conferencing Node. Used when generating an ova. We do not recommend that you assign more virtual CPUs than there are physical cores on a single processor on the host server (unless you have enabled NUMA affinity). For example, if the host server has 2 processors each with 12 physical cores, we recommend that you assign no more than 12 virtual CPUs. Range: 2 to 128. Default: 4.",
 			},
 			"vm_system_memory": schema.Int64Attribute{
 				Optional: true,
@@ -416,7 +416,7 @@ func (r *InfinityWorkerVMResource) Schema(ctx context.Context, req resource.Sche
 				Validators: []validator.Int64{
 					int64validator.Between(2000, 64000),
 				},
-				MarkdownDescription: "The amount of RAM (in megabytes) to assign to this Conferencing Node. Range: 2000 to 64000. Default: 4096.",
+				MarkdownDescription: "The amount of RAM (in megabytes) to assign to this Conferencing Node. Used when generating an ova. Range: 2000 to 64000. Default: 4096.",
 			},
 			"config": schema.StringAttribute{
 				Computed:            true,

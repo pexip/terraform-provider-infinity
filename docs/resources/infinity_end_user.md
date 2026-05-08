@@ -46,9 +46,9 @@ resource "pexip_infinity_end_user" "manager_user" {
   display_name          = "John Manager"
   title                 = "Engineering Manager"
   department            = "Engineering"
-  user_groups          = [
-    "/api/admin/configuration/v1/user_group/1/",  # Managers group
-    "/api/admin/configuration/v1/user_group/3/",  # Engineering group
+  user_groups = [
+    "/api/admin/configuration/v1/user_group/1/", # Managers group
+    "/api/admin/configuration/v1/user_group/3/", # Engineering group
   ]
 }
 ```
@@ -73,7 +73,7 @@ resource "pexip_infinity_end_user" "exchange_user" {
 # Create multiple users from variable
 resource "pexip_infinity_end_user" "department_users" {
   for_each = var.department_users
-  
+
   primary_email_address = each.value.email
   first_name            = each.value.first_name
   last_name             = each.value.last_name
@@ -98,9 +98,9 @@ resource "pexip_infinity_end_user" "executive_user" {
   telephone_number      = "+1-555-0100"
   mobile_number         = "+1-555-0101"
   avatar_url            = "https://cdn.company.com/avatars/ceo.jpg"
-  user_groups          = [
-    "/api/admin/configuration/v1/user_group/1/",  # Executives
-    "/api/admin/configuration/v1/user_group/2/",  # Board Members
+  user_groups = [
+    "/api/admin/configuration/v1/user_group/1/", # Executives
+    "/api/admin/configuration/v1/user_group/2/", # Board Members
   ]
 }
 ```

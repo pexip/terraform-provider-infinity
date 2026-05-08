@@ -24,14 +24,14 @@ resource "pexip_infinity_turn_server" "basic_turn" {
 
 ```terraform
 resource "pexip_infinity_turn_server" "authenticated_turn" {
-  name        = "Corporate TURN Server"
-  description = "TURN server with username/password authentication"
-  address     = "turn.company.com"
-  port        = 3478
-  server_type = "namepsw"
+  name           = "Corporate TURN Server"
+  description    = "TURN server with username/password authentication"
+  address        = "turn.company.com"
+  port           = 3478
+  server_type    = "namepsw"
   transport_type = "udp"
-  username    = "turnuser"
-  password    = var.turn_password
+  username       = "turnuser"
+  password       = var.turn_password
 }
 ```
 
@@ -98,7 +98,7 @@ resource "pexip_infinity_turn_server" "turn_secondary" {
 # TURN servers for different regions
 resource "pexip_infinity_turn_server" "regional_turn" {
   for_each = var.regional_turn_servers
-  
+
   name           = "TURN Server - ${each.key}"
   description    = "Regional TURN server for ${each.key}"
   address        = each.value.address

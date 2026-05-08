@@ -1,5 +1,5 @@
 resource "pexip_infinity_policy_server" "local_media_policy_burst" {
-  name = "Local Media Policy Server Overflow with Burst Locations"
+  name                                    = "Local Media Policy Server Overflow with Burst Locations"
   internal_media_location_policy_template = <<-EOF
     {
       {% if call_info.location == "DC_EAST" %}

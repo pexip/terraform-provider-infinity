@@ -8,8 +8,8 @@ resource "pexip_infinity_ntp_server" "public_ntp" {
 # Regional NTP servers
 locals {
   regional_ntp_servers = {
-    "us" = ["time1.google.com", "time2.google.com"]
-    "eu" = ["ntp1.ntp.se", "ntp2.ntp.se"]
+    "us"   = ["time1.google.com", "time2.google.com"]
+    "eu"   = ["ntp1.ntp.se", "ntp2.ntp.se"]
     "asia" = ["ntp.nict.jp", "ntp1.jst.mfeed.ad.jp"]
   }
 }

@@ -1,7 +1,7 @@
 # Create multiple users from variable
 resource "pexip_infinity_end_user" "department_users" {
   for_each = var.department_users
-  
+
   primary_email_address = each.value.email
   first_name            = each.value.first_name
   last_name             = each.value.last_name

@@ -9,20 +9,23 @@ description: |-
 
 {{ .Description | trimspace }}
 
+Creating a conferencing node resource only creates the configuration in Infinity, as in the basic usage example below. The actual VM must be deployed as a separate resource using the node config that is returned by Infinity (described in the next section). This config is the XML data that is generated when manually creating a conferencing node. The data is stored in the `worker_vm` property `config`.
+
+A conferencing node can perform one of two roles: transcoding or proxying. The role of the node is determined by the value of the `node_type` property. For transcoding set this to `CONFERENCING`, or omit this argument as this is the default. For proxying nodes set this to `PROXYING`. Additionally, a transcoding node can be configured as a cloud bursting node. Bursting nodes should always have `enable_distributed_database` set to `false` and the appropriate tag or label (depending on the cloud provider) containing the name of the manager must also be set on the VM.
+
 ## Example Usage
 
 ### Basic Usage
 
 {{tffile "examples/resources/pexip_infinity_worker_vm/basic_usage.tf"}}
 
-### Full Configuration
+### Deploy a Conferencing Node in GCP
 
-{{tffile "examples/resources/pexip_infinity_worker_vm/full_configuration.tf"}}
+This example shows how to deploy a conferencing node in GCP with a static NAT address. When a conferencing node is deployed in GCP, the worker VM configuration is used as the value for the key `conferencing_node_config` in the GCP VM metadata. Without this metadata, the conferencing node will never sync with the manager. The version of Infinity being deployed depends on the disk image that is specified in the `boot_disk` block. The image version must match the version of Infinity that has been deployed. For instructions on creating Infinity disk images in GCP, see the [Pexip documentation](https://docs.pexip.com/admin/gcp_disk_images.htm).
 
-### Multiple Worker VMs
+For more info on deploying a VM in GCP with Terraform, see the [Google Compute Instance documentation](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance).
 
-{{tffile "examples/resources/pexip_infinity_worker_vm/multiple_worker_vms.tf"}}
-
+{{tffile "examples/resources/pexip_infinity_worker_vm/gcp_basic.tf"}}
 
 {{ .SchemaMarkdown }}
 ## Import
@@ -34,52 +37,3 @@ terraform import pexip_infinity_worker_vm.example 123
 ```
 
 Where `123` is the numeric resource ID of the worker VM.
-
-## Usage Notes
-
-### VM Configuration
-- The worker VM must have a unique name and hostname within the Infinity cluster
-- CPU and memory settings depend on expected workload and available host resources
-- Network configuration must be valid for your infrastructure
-
-### Node Types
-- `conferencing`: Full media processing and transcoding capabilities
-- `proxying`: Edge node that forwards media to transcoding nodes
-
-### Maintenance Mode
-- Use maintenance mode to temporarily remove a node from service
-- Always provide a reason when enabling maintenance mode
-- Disable maintenance mode when the node is ready to serve traffic again
-
-### SNMP Configuration
-- SNMP can be disabled, use standard community strings, or use v3 authentication
-- Configure appropriate contact and location information for monitoring
-
-### Import Considerations
-- Use the numeric resource ID (not the name) for import
-- Ensure the worker VM exists in the Infinity cluster before importing
-- Verify authentication credentials have access to the resource
-
-## Troubleshooting
-
-### Common Issues
-
-**Worker VM Creation Fails**
-- Verify the IP address is available and not in use
-- Ensure the system location exists in the Infinity configuration
-- Check that hostname and name are unique within the cluster
-
-**Network Configuration Issues**
-- Verify IP addresses, netmasks, and gateways are valid for your network
-- For NAT configurations, ensure the static NAT address is properly configured
-- IPv6 addresses must be valid if specified
-
-**Performance Issues**
-- Adjust CPU and memory allocations based on actual usage
-- Monitor media priority weight to ensure proper load distribution
-- Consider transcoding vs. proxying roles based on deployment needs
-
-**Import Fails**
-- Ensure you're using the numeric resource ID, not the name
-- Verify the worker VM exists in the Infinity cluster
-- Check provider authentication credentials

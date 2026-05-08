@@ -92,7 +92,7 @@ resource "pexip_infinity_syslog_server" "siem_logs" {
 # Different syslog servers per region
 resource "pexip_infinity_syslog_server" "regional_syslog" {
   for_each = var.regional_syslog_config
-  
+
   address     = each.value.address
   description = "Regional syslog server for ${each.key}"
   port        = each.value.port
@@ -108,7 +108,7 @@ resource "pexip_infinity_syslog_server" "regional_syslog" {
 ```terraform
 resource "pexip_infinity_syslog_server" "lb_syslog" {
   count = length(var.syslog_servers)
-  
+
   address     = var.syslog_servers[count.index].address
   description = "Load-balanced syslog server ${count.index + 1}"
   port        = var.syslog_servers[count.index].port

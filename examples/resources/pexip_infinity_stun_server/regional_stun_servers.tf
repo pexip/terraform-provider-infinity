@@ -22,7 +22,7 @@ locals {
 
 resource "pexip_infinity_stun_server" "regional_stun" {
   for_each = local.regional_stun_servers
-  
+
   name        = "STUN Server - ${each.key}"
   description = "Regional STUN server for ${each.key}"
   address     = each.value.address

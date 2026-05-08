@@ -23,13 +23,13 @@ resource "pexip_infinity_device" "conference_room_a" {
 
 ```terraform
 resource "pexip_infinity_device" "sip_phone" {
-  alias                = "sip-phone-101"
-  description          = "Reception desk SIP phone"
-  username             = "phone101"
-  password             = var.sip_phone_password
+  alias                       = "sip-phone-101"
+  description                 = "Reception desk SIP phone"
+  username                    = "phone101"
+  password                    = var.sip_phone_password
   primary_owner_email_address = "reception@company.com"
-  enable_sip           = true
-  enable_h323          = false
+  enable_sip                  = true
+  enable_h323                 = false
 }
 ```
 
@@ -37,14 +37,14 @@ resource "pexip_infinity_device" "sip_phone" {
 
 ```terraform
 resource "pexip_infinity_device" "boardroom_system" {
-  alias                = "boardroom.company.com"
-  description          = "Main boardroom video system"
-  username             = "boardroom"
-  password             = var.room_system_password
+  alias                       = "boardroom.company.com"
+  description                 = "Main boardroom video system"
+  username                    = "boardroom"
+  password                    = var.room_system_password
   primary_owner_email_address = "facilities@company.com"
-  enable_sip           = true
-  enable_h323          = true
-  tag                  = "video-systems"
+  enable_sip                  = true
+  enable_h323                 = true
+  tag                         = "video-systems"
 }
 ```
 
@@ -52,13 +52,13 @@ resource "pexip_infinity_device" "boardroom_system" {
 
 ```terraform
 resource "pexip_infinity_device" "infinity_connect_device" {
-  alias                           = "connect-device-01"
-  description                     = "Infinity Connect device with SSO"
-  primary_owner_email_address     = "user@company.com"
-  enable_infinity_connect_sso     = true
-  enable_standard_sso             = true
-  sso_identity_provider_group     = "corporate-users"
-  tag                             = "infinity-connect"
+  alias                       = "connect-device-01"
+  description                 = "Infinity Connect device with SSO"
+  primary_owner_email_address = "user@company.com"
+  enable_infinity_connect_sso = true
+  enable_standard_sso         = true
+  sso_identity_provider_group = "corporate-users"
+  tag                         = "infinity-connect"
 }
 ```
 
@@ -68,16 +68,16 @@ resource "pexip_infinity_device" "infinity_connect_device" {
 # Sales team devices
 resource "pexip_infinity_device" "sales_devices" {
   count = length(var.sales_team_devices)
-  
-  alias                = var.sales_team_devices[count.index].alias
-  description          = "Sales team device ${count.index + 1}"
-  username             = var.sales_team_devices[count.index].username
-  password             = var.sales_team_devices[count.index].password
+
+  alias                       = var.sales_team_devices[count.index].alias
+  description                 = "Sales team device ${count.index + 1}"
+  username                    = var.sales_team_devices[count.index].username
+  password                    = var.sales_team_devices[count.index].password
   primary_owner_email_address = var.sales_team_devices[count.index].email
-  enable_sip           = true
-  enable_h323          = false
-  tag                  = "sales-team"
-  sync_tag             = "ldap-sales"
+  enable_sip                  = true
+  enable_h323                 = false
+  tag                         = "sales-team"
+  sync_tag                    = "ldap-sales"
 }
 ```
 
@@ -85,25 +85,25 @@ resource "pexip_infinity_device" "sales_devices" {
 
 ```terraform
 resource "pexip_infinity_device" "executive_room" {
-  alias                           = "executive-suite.company.com"
-  description                     = "Executive conference room with full capabilities"
-  username                        = "executive_room"
-  password                        = var.executive_room_password
-  primary_owner_email_address     = "executive-assistant@company.com"
-  
+  alias                       = "executive-suite.company.com"
+  description                 = "Executive conference room with full capabilities"
+  username                    = "executive_room"
+  password                    = var.executive_room_password
+  primary_owner_email_address = "executive-assistant@company.com"
+
   # Protocol support
   enable_sip                      = true
   enable_h323                     = true
   enable_infinity_connect_non_sso = true
   enable_infinity_connect_sso     = true
   enable_standard_sso             = true
-  
+
   # SSO configuration
-  sso_identity_provider_group     = "executives"
-  
+  sso_identity_provider_group = "executives"
+
   # Organizational tags
-  tag                             = "executive-rooms"
-  sync_tag                        = "ldap-executives"
+  tag      = "executive-rooms"
+  sync_tag = "ldap-executives"
 }
 ```
 

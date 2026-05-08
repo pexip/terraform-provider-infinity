@@ -5,5 +5,6 @@ resource "pexip_infinity_worker_vm" "worker" {
   address         = "10.0.1.20"
   netmask         = "255.255.255.0"
   gateway         = "10.0.1.1"
-  system_location = "Main Location"
+  password        = var.cli_password
+  system_location = pexip_infinity_system_location.example.id
 }
