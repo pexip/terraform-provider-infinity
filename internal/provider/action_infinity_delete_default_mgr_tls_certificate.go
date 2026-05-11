@@ -47,7 +47,7 @@ func (a *InfinityDeleteDefaultMgrTLSCertificateAction) Configure(ctx context.Con
 
 func (a *InfinityDeleteDefaultMgrTLSCertificateAction) Schema(ctx context.Context, req action.SchemaRequest, resp *action.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		MarkdownDescription: "Deletes the default management node TLS certificate (ID 1) that is automatically created when a management node is deployed. This is an action that performs a one-time deletion operation.",
+		MarkdownDescription: "Deletes the default management node TLS certificate (ID 1) that is automatically created when a management node is deployed.",
 	}
 }
 
