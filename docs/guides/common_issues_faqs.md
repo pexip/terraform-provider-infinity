@@ -26,7 +26,7 @@ Some Infinity resources are singletons, meaning there is only a single instance 
 
 ### Resource IDs
 
-For all resources the argument `id` refers to the API field `resource_uri` and the argument `resource_id` refers to API field `id`. 
+For all resources the argument `id` refers to the API field `resource_uri` (e.g. `/api/admin/configuration/v1/worker_vm/3/`) and the argument `resource_id` refers to API field `id` (e.g. `3`). 
 
 ### Virtual Machine Recreation
 
