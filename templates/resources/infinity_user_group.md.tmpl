@@ -1,0 +1,17 @@
+# infinity_user_group
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+{{tffile "examples/resources/pexip_infinity_user_group/resource.tf"}}
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+User groups can be imported using their resource ID:
+
+```bash
+terraform import pexip_infinity_user_group.example 123
+```

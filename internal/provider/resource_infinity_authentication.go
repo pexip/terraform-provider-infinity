@@ -98,7 +98,7 @@ func (r *InfinityAuthenticationResource) Schema(ctx context.Context, req resourc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the authentication in Infinity.",
+				MarkdownDescription: "Resource URI for the authentication.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -360,7 +360,7 @@ func (r *InfinityAuthenticationResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "The text to use for the OpenID Connect button on the login page of the Pexip Infinity Administrator interface. Defaults to OpenID Connect. Maximum length: 128 characters.",
 			},
 		},
-		MarkdownDescription: "Manages the authentication configuration with the Infinity service. This is a singleton resource - only one authentication configuration exists per system.",
+		MarkdownDescription: "Manages the authentication configuration.\n\n-> **NOTE** This resource is a singleton.",
 	}
 }
 

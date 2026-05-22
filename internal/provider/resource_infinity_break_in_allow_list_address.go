@@ -74,14 +74,14 @@ func (r *InfinityBreakInAllowListAddressResource) Schema(ctx context.Context, re
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the break-in allow list address in Infinity",
+				MarkdownDescription: "Resource URI for the break-in allow list address",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the break-in allow list address in Infinity",
+				MarkdownDescription: "The resource integer identifier for the break-in allow list address",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -138,7 +138,7 @@ func (r *InfinityBreakInAllowListAddressResource) Schema(ctx context.Context, re
 				MarkdownDescription: "Whether to ignore incorrect PIN attempts from this address range.",
 			},
 		},
-		MarkdownDescription: "Manages a break-in allow list address with the Infinity service. Break-in allow list addresses define IP address ranges that are exempt from certain security restrictions, allowing specified networks to bypass break-in attempt detection for specific scenarios.",
+		MarkdownDescription: "Manages a break-in allow list address. Break-in allow list addresses define IP address ranges that are exempt from certain security restrictions, allowing specified networks to bypass break-in attempt detection for specific scenarios.",
 	}
 }
 

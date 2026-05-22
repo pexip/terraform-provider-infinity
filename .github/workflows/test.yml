@@ -127,15 +127,15 @@ jobs:
         run: ls -laR ~/.terraform.d/plugins
 
       - name: Terraform fmt
-        run: terraform fmt -check -recursive ./example/
+        run: terraform fmt -check -recursive ./examples/
 
       - name: Terraform init
         run: terraform init
-        working-directory: ./example/
+        working-directory: ./examples/
 
       - name: Terraform validate
         run: terraform validate -no-color
-        working-directory: ./example/
+        working-directory: ./examples/
 
   lint:
     name: Code Quality

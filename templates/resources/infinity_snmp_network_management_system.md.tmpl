@@ -1,0 +1,23 @@
+# infinity_snmp_network_management_system
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+{{tffile "examples/resources/pexip_infinity_snmp_network_management_system/resource.tf"}}
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+SNMP network management systems can be imported using their resource ID:
+
+```bash
+terraform import pexip_infinity_snmp_network_management_system.example 123
+```
+
+## Security Notes
+
+- The `snmp_trap_community` field is marked as sensitive and will not be displayed in Terraform output.
+- Use strong community strings to secure SNMP communications.
+- Consider using SNMPv3 with encryption when supported by your monitoring infrastructure.

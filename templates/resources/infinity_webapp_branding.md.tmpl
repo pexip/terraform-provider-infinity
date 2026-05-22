@@ -1,0 +1,31 @@
+# infinity_webapp_branding
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+### With Auto-Generated UUID
+
+{{tffile "examples/resources/pexip_infinity_webapp_branding/with_auto_generated_uuid.tf"}}
+
+### With Custom UUID
+
+{{tffile "examples/resources/pexip_infinity_webapp_branding/with_custom_uuid.tf"}}
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+Webapp branding configurations can be imported using their UUID:
+
+```bash
+terraform import pexip_infinity_webapp_branding.example "12345678-1234-1234-1234-123456789012"
+```
+
+## Webapp Types
+
+The different webapp types that can be customized:
+
+- `webapp1` - Webapp type 1
+- `webapp2` - Webapp type 2
+- `webapp3` - Webapp type 3

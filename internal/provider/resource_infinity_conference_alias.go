@@ -65,14 +65,14 @@ func (r *InfinityConferenceAliasResource) Schema(ctx context.Context, req resour
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the conference alias in Infinity.",
+				MarkdownDescription: "Resource URI for the conference alias.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the conference alias in Infinity",
+				MarkdownDescription: "The resource integer identifier for the conference alias",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -97,7 +97,7 @@ func (r *InfinityConferenceAliasResource) Schema(ctx context.Context, req resour
 				MarkdownDescription: "Reference to the conference resource URI that this alias points to.",
 			},
 		},
-		MarkdownDescription: "Manages a conference alias configuration with the Infinity service.",
+		MarkdownDescription: "Manages a conference alias configuration.",
 	}
 }
 

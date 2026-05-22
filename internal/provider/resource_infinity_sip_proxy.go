@@ -70,14 +70,14 @@ func (r *InfinitySIPProxyResource) Schema(ctx context.Context, req resource.Sche
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the SIP proxy in Infinity.",
+				MarkdownDescription: "Resource URI for the SIP proxy.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the SIP proxy in Infinity",
+				MarkdownDescription: "The resource integer identifier for the SIP proxy",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -123,7 +123,7 @@ func (r *InfinitySIPProxyResource) Schema(ctx context.Context, req resource.Sche
 				MarkdownDescription: "The IP transport used to connect to the SIP proxy. Valid choices: udp, tcp, tls.",
 			},
 		},
-		MarkdownDescription: "Manages a SIP proxy configuration with the Infinity service.",
+		MarkdownDescription: "Manages a SIP proxy configuration.",
 	}
 }
 

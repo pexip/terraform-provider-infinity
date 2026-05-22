@@ -82,14 +82,14 @@ func (r *InfinityTLSCertificateResource) Schema(ctx context.Context, req resourc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the TLS certificate in Infinity",
+				MarkdownDescription: "Resource URI for the TLS certificate",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the TLS certificate in Infinity",
+				MarkdownDescription: "The resource integer identifier for the TLS certificate",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -184,7 +184,7 @@ func (r *InfinityTLSCertificateResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "The text representation of the certificate.",
 			},
 		},
-		MarkdownDescription: "Manages a TLS certificate configuration with the Infinity service.",
+		MarkdownDescription: "Manages a TLS certificate configuration.",
 	}
 }
 

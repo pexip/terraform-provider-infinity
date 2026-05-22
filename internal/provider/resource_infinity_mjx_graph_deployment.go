@@ -75,14 +75,14 @@ func (r *InfinityMjxGraphDeploymentResource) Schema(ctx context.Context, req res
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the MJX Graph deployment in Infinity.",
+				MarkdownDescription: "Resource URI for the MJX Graph deployment.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the MJX Graph deployment in Infinity.",
+				MarkdownDescription: "The resource integer identifier for the MJX Graph deployment.",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -153,7 +153,7 @@ func (r *InfinityMjxGraphDeploymentResource) Schema(ctx context.Context, req res
 				MarkdownDescription: "The One-Touch Join Profiles associated with this OTJ O365 Graph Integration.",
 			},
 		},
-		MarkdownDescription: "Manages an MJX Graph deployment in Infinity. An MJX Graph deployment provides integration with the Microsoft Graph API, enabling OTJ (One-Touch Join) functionality for Microsoft 365 calendar-based meeting management.",
+		MarkdownDescription: "Manages an MJX Graph deployment. An MJX Graph deployment provides integration with the Microsoft Graph API, enabling OTJ (One-Touch Join) functionality for Microsoft 365 calendar-based meeting management.",
 	}
 }
 

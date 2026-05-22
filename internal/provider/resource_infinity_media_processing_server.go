@@ -65,14 +65,14 @@ func (r *InfinityMediaProcessingServerResource) Schema(ctx context.Context, req 
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the media processing server in Infinity",
+				MarkdownDescription: "Resource URI for the media processing server",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the media processing server in Infinity",
+				MarkdownDescription: "The resource integer identifier for the media processing server",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -94,7 +94,7 @@ func (r *InfinityMediaProcessingServerResource) Schema(ctx context.Context, req 
 				MarkdownDescription: "The public JWT key used for authentication with the media processing server.",
 			},
 		},
-		MarkdownDescription: "Manages a media processing server with the Infinity service. Media processing servers provide advanced media handling capabilities for conferencing, such as transcoding, recording, and streaming services that extend beyond the core Pexip Infinity functionality.",
+		MarkdownDescription: "Manages a media processing server. Media processing servers provide advanced media handling capabilities for conferencing, such as transcoding, recording, and streaming services that extend beyond the core Pexip Infinity functionality.",
 	}
 }
 

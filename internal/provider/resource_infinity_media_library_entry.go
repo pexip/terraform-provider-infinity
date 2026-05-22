@@ -73,14 +73,14 @@ func (r *InfinityMediaLibraryEntryResource) Schema(ctx context.Context, req reso
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the media library entry in Infinity",
+				MarkdownDescription: "Resource URI for the media library entry",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the media library entry in Infinity",
+				MarkdownDescription: "The resource integer identifier for the media library entry",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -129,7 +129,7 @@ func (r *InfinityMediaLibraryEntryResource) Schema(ctx context.Context, req reso
 				MarkdownDescription: "Path to the media file to upload (e.g., `media_file = \"path/to/video.mp4\"`).",
 			},
 		},
-		MarkdownDescription: "Manages a media library entry configuration with the Infinity service. Media library entries are used for storing media files such as images, videos, and audio files that can be used in conferences.",
+		MarkdownDescription: "Manages a media library entry configuration. Media library entries are used for storing media files such as images, videos, and audio files that can be used in conferences.",
 	}
 }
 

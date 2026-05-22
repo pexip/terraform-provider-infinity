@@ -77,14 +77,14 @@ func (r *InfinityAutomaticParticipantResource) Schema(ctx context.Context, req r
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the automatic participant in Infinity.",
+				MarkdownDescription: "Resource URI for the automatic participant.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the automatic participant in Infinity",
+				MarkdownDescription: "The resource integer identifier for the automatic participant",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -194,7 +194,7 @@ func (r *InfinityAutomaticParticipantResource) Schema(ctx context.Context, req r
 				MarkdownDescription: "The time at which the Automatically Dialed Participant was created.",
 			},
 		},
-		MarkdownDescription: "Manages an automatic participant configuration with the Infinity service.",
+		MarkdownDescription: "Manages an automatic participant configuration.",
 	}
 }
 

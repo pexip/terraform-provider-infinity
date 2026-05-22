@@ -81,7 +81,7 @@ func (r *InfinityLicenceResource) Schema(ctx context.Context, req resource.Schem
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the licence in Infinity",
+				MarkdownDescription: "Resource URI for the licence",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -172,7 +172,7 @@ func (r *InfinityLicenceResource) Schema(ctx context.Context, req resource.Schem
 				MarkdownDescription: "Whether the licence should be activated in offline mode.",
 			},
 		},
-		MarkdownDescription: "Manages a licence configuration with the Infinity service. This resource activates licences using entitlement IDs.",
+		MarkdownDescription: "Manages a licence configuration. This resource activates licences using entitlement IDs.",
 	}
 }
 

@@ -66,14 +66,14 @@ func (r *InfinityUserGroupEntityMappingResource) Schema(ctx context.Context, req
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the user group entity mapping in Infinity",
+				MarkdownDescription: "Resource URI for the user group entity mapping",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the user group entity mapping in Infinity",
+				MarkdownDescription: "The resource integer identifier for the user group entity mapping",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -102,7 +102,7 @@ func (r *InfinityUserGroupEntityMappingResource) Schema(ctx context.Context, req
 				MarkdownDescription: "The user group that should be mapped to the entity. This should be a valid user group URI or identifier.",
 			},
 		},
-		MarkdownDescription: "Manages a user group entity mapping configuration with the Infinity service. User group entity mappings define relationships between user groups and system entities for access control and permissions.",
+		MarkdownDescription: "Manages a user group entity mapping configuration. User group entity mappings define relationships between user groups and system entities for access control and permissions.",
 	}
 }
 

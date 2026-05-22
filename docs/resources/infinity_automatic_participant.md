@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_automatic_participant Resource - terraform-provider-infinity"
+page_title: "pexip_infinity_automatic_participant Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity automatic participant configuration.
@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_automatic_participant (Resource)
 
-Manages a Pexip Infinity automatic participant configuration. Automatic participants are endpoints that automatically join conferences when they start, providing functionality such as recording, streaming, content sharing, or acting as persistent conference hosts. They can be configured to join with different protocols, roles, and behaviors.
+Manages an automatic participant configuration.
 
 ## Example Usage
 
@@ -15,16 +15,16 @@ Manages a Pexip Infinity automatic participant configuration. Automatic particip
 
 ```terraform
 resource "pexip_infinity_automatic_participant" "recorder" {
-  alias               = "conference-recorder"
-  description         = "Automatic recording participant"
-  conference          = data.pexip_infinity_conference.meeting_room.id
-  protocol            = "sip"
-  call_type           = "video"
-  role                = "guest"
+  alias                 = "conference-recorder"
+  description           = "Automatic recording participant"
+  conference            = data.pexip_infinity_conference.meeting_room.id
+  protocol              = "sip"
+  call_type             = "video"
+  role                  = "guest"
   keep_conference_alive = "end_conference_when_alone"
-  routing             = "auto"
-  streaming           = true
-  remote_display_name = "Conference Recorder"
+  routing               = "auto"
+  streaming             = true
+  remote_display_name   = "Conference Recorder"
 }
 ```
 
@@ -32,16 +32,16 @@ resource "pexip_infinity_automatic_participant" "recorder" {
 
 ```terraform
 resource "pexip_infinity_automatic_participant" "chair_bot" {
-  alias               = "meeting-chair"
-  description         = "Automatic chair to keep conference active"
-  conference          = data.pexip_infinity_conference.persistent_meeting.id
-  protocol            = "webrtc"
-  call_type           = "audio"
-  role                = "chair"
+  alias                 = "meeting-chair"
+  description           = "Automatic chair to keep conference active"
+  conference            = data.pexip_infinity_conference.persistent_meeting.id
+  protocol              = "webrtc"
+  call_type             = "audio"
+  role                  = "chair"
   keep_conference_alive = "keep_conference_alive"
-  routing             = "auto"
-  streaming           = false
-  remote_display_name = "Meeting Host"
+  routing               = "auto"
+  streaming             = false
+  remote_display_name   = "Meeting Host"
 }
 ```
 
@@ -49,18 +49,18 @@ resource "pexip_infinity_automatic_participant" "chair_bot" {
 
 ```terraform
 resource "pexip_infinity_automatic_participant" "rtmp_streamer" {
-  alias               = "live-stream"
-  description         = "RTMP streaming to social media"
-  conference          = data.pexip_infinity_conference.webinar.id
-  protocol            = "rtmp"
-  call_type           = "video"
-  role                = "guest"
+  alias                 = "live-stream"
+  description           = "RTMP streaming to social media"
+  conference            = data.pexip_infinity_conference.webinar.id
+  protocol              = "rtmp"
+  call_type             = "video"
+  role                  = "guest"
   keep_conference_alive = "end_conference_when_alone"
-  routing             = "manual"
-  system_location     = data.pexip_infinity_system_location.streaming.id
-  streaming           = true
-  remote_display_name = "Live Stream"
-  presentation_url    = "rtmp://streaming.example.com/live/stream-key"
+  routing               = "manual"
+  system_location       = data.pexip_infinity_system_location.streaming.id
+  streaming             = true
+  remote_display_name   = "Live Stream"
+  presentation_url      = "rtmp://streaming.example.com/live/stream-key"
 }
 ```
 
@@ -68,17 +68,17 @@ resource "pexip_infinity_automatic_participant" "rtmp_streamer" {
 
 ```terraform
 resource "pexip_infinity_automatic_participant" "h323_gateway" {
-  alias               = "legacy-system"
-  description         = "H.323 gateway for legacy video systems"
-  conference          = data.pexip_infinity_conference.hybrid_meeting.id
-  protocol            = "h323"
-  call_type           = "video"
-  role                = "guest"
+  alias                 = "legacy-system"
+  description           = "H.323 gateway for legacy video systems"
+  conference            = data.pexip_infinity_conference.hybrid_meeting.id
+  protocol              = "h323"
+  call_type             = "video"
+  role                  = "guest"
   keep_conference_alive = "end_conference_when_alone"
-  routing             = "manual"
-  system_location     = data.pexip_infinity_system_location.gateway.id
-  dtmf_sequence       = "12345#"
-  remote_display_name = "Legacy Video System"
+  routing               = "manual"
+  system_location       = data.pexip_infinity_system_location.gateway.id
+  dtmf_sequence         = "12345#"
+  remote_display_name   = "Legacy Video System"
 }
 ```
 
@@ -87,45 +87,45 @@ resource "pexip_infinity_automatic_participant" "h323_gateway" {
 ```terraform
 # Recording participant
 resource "pexip_infinity_automatic_participant" "recorder" {
-  alias               = "recorder-${var.conference_name}"
-  description         = "Recording for ${var.conference_name}"
-  conference          = var.conference_id
-  protocol            = "sip"
-  call_type           = "video"
-  role                = "guest"
+  alias                 = "recorder-${var.conference_name}"
+  description           = "Recording for ${var.conference_name}"
+  conference            = var.conference_id
+  protocol              = "sip"
+  call_type             = "video"
+  role                  = "guest"
   keep_conference_alive = "end_conference_when_alone"
-  routing             = "auto"
-  streaming           = true
-  remote_display_name = "Recording Service"
+  routing               = "auto"
+  streaming             = true
+  remote_display_name   = "Recording Service"
 }
 
 # Streaming participant
 resource "pexip_infinity_automatic_participant" "streamer" {
-  alias               = "streamer-${var.conference_name}"
-  description         = "Streaming for ${var.conference_name}"
-  conference          = var.conference_id
-  protocol            = "rtmp"
-  call_type           = "video"
-  role                = "guest"
+  alias                 = "streamer-${var.conference_name}"
+  description           = "Streaming for ${var.conference_name}"
+  conference            = var.conference_id
+  protocol              = "rtmp"
+  call_type             = "video"
+  role                  = "guest"
   keep_conference_alive = "end_conference_when_alone"
-  routing             = "auto"
-  streaming           = true
-  remote_display_name = "Live Stream"
-  presentation_url    = var.rtmp_stream_url
+  routing               = "auto"
+  streaming             = true
+  remote_display_name   = "Live Stream"
+  presentation_url      = var.rtmp_stream_url
 }
 
 # Chair participant for persistent hosting
 resource "pexip_infinity_automatic_participant" "host" {
-  alias               = "host-${var.conference_name}"
-  description         = "Persistent host for ${var.conference_name}"
-  conference          = var.conference_id
-  protocol            = "webrtc"
-  call_type           = "audio"
-  role                = "chair"
+  alias                 = "host-${var.conference_name}"
+  description           = "Persistent host for ${var.conference_name}"
+  conference            = var.conference_id
+  protocol              = "webrtc"
+  call_type             = "audio"
+  role                  = "chair"
   keep_conference_alive = "keep_conference_alive"
-  routing             = "auto"
-  streaming           = false
-  remote_display_name = "Conference Host"
+  routing               = "auto"
+  streaming             = false
+  remote_display_name   = "Conference Host"
 }
 ```
 
@@ -134,58 +134,58 @@ resource "pexip_infinity_automatic_participant" "host" {
 ```terraform
 variable "automatic_participants" {
   type = list(object({
-    alias               = string
-    description         = string
-    protocol            = string
-    call_type           = string
-    role                = string
+    alias                 = string
+    description           = string
+    protocol              = string
+    call_type             = string
+    role                  = string
     keep_conference_alive = string
-    routing             = string
-    streaming           = bool
-    remote_display_name = string
-    presentation_url    = string
+    routing               = string
+    streaming             = bool
+    remote_display_name   = string
+    presentation_url      = string
   }))
   default = [
     {
-      alias               = "enterprise-recorder"
-      description         = "Enterprise recording service"
-      protocol            = "sip"
-      call_type           = "video"
-      role                = "guest"
+      alias                 = "enterprise-recorder"
+      description           = "Enterprise recording service"
+      protocol              = "sip"
+      call_type             = "video"
+      role                  = "guest"
       keep_conference_alive = "end_conference_when_alone"
-      routing             = "auto"
-      streaming           = true
-      remote_display_name = "Enterprise Recorder"
-      presentation_url    = ""
+      routing               = "auto"
+      streaming             = true
+      remote_display_name   = "Enterprise Recorder"
+      presentation_url      = ""
     },
     {
-      alias               = "compliance-monitor"
-      description         = "Compliance monitoring participant"
-      protocol            = "webrtc"
-      call_type           = "audio"
-      role                = "guest"
+      alias                 = "compliance-monitor"
+      description           = "Compliance monitoring participant"
+      protocol              = "webrtc"
+      call_type             = "audio"
+      role                  = "guest"
       keep_conference_alive = "end_conference_when_alone"
-      routing             = "auto"
-      streaming           = false
-      remote_display_name = "Compliance Monitor"
-      presentation_url    = ""
+      routing               = "auto"
+      streaming             = false
+      remote_display_name   = "Compliance Monitor"
+      presentation_url      = ""
     }
   ]
 }
 
 resource "pexip_infinity_automatic_participant" "enterprise" {
-  count               = length(var.automatic_participants)
-  alias               = var.automatic_participants[count.index].alias
-  description         = var.automatic_participants[count.index].description
-  conference          = data.pexip_infinity_conference.enterprise_meeting.id
-  protocol            = var.automatic_participants[count.index].protocol
-  call_type           = var.automatic_participants[count.index].call_type
-  role                = var.automatic_participants[count.index].role
+  count                 = length(var.automatic_participants)
+  alias                 = var.automatic_participants[count.index].alias
+  description           = var.automatic_participants[count.index].description
+  conference            = data.pexip_infinity_conference.enterprise_meeting.id
+  protocol              = var.automatic_participants[count.index].protocol
+  call_type             = var.automatic_participants[count.index].call_type
+  role                  = var.automatic_participants[count.index].role
   keep_conference_alive = var.automatic_participants[count.index].keep_conference_alive
-  routing             = var.automatic_participants[count.index].routing
-  streaming           = var.automatic_participants[count.index].streaming
-  remote_display_name = var.automatic_participants[count.index].remote_display_name
-  presentation_url    = var.automatic_participants[count.index].presentation_url != "" ? var.automatic_participants[count.index].presentation_url : null
+  routing               = var.automatic_participants[count.index].routing
+  streaming             = var.automatic_participants[count.index].streaming
+  remote_display_name   = var.automatic_participants[count.index].remote_display_name
+  presentation_url      = var.automatic_participants[count.index].presentation_url != "" ? var.automatic_participants[count.index].presentation_url : null
 }
 ```
 
@@ -194,46 +194,46 @@ resource "pexip_infinity_automatic_participant" "enterprise" {
 ```terraform
 # Main presentation stream
 resource "pexip_infinity_automatic_participant" "webinar_stream" {
-  alias               = "webinar-main-stream"
-  description         = "Main webinar stream to CDN"
-  conference          = data.pexip_infinity_conference.webinar.id
-  protocol            = "rtmp"
-  call_type           = "video"
-  role                = "guest"
+  alias                 = "webinar-main-stream"
+  description           = "Main webinar stream to CDN"
+  conference            = data.pexip_infinity_conference.webinar.id
+  protocol              = "rtmp"
+  call_type             = "video"
+  role                  = "guest"
   keep_conference_alive = "end_conference_when_alone"
-  routing             = "manual"
-  system_location     = data.pexip_infinity_system_location.streaming_servers.id
-  streaming           = true
-  remote_display_name = "Webinar Stream"
-  presentation_url    = "rtmp://cdn.example.com/live/${var.webinar_stream_key}"
+  routing               = "manual"
+  system_location       = data.pexip_infinity_system_location.streaming_servers.id
+  streaming             = true
+  remote_display_name   = "Webinar Stream"
+  presentation_url      = "rtmp://cdn.example.com/live/${var.webinar_stream_key}"
 }
 
 # Backup recording
 resource "pexip_infinity_automatic_participant" "webinar_backup" {
-  alias               = "webinar-backup-recorder"
-  description         = "Backup recording for webinar"
-  conference          = data.pexip_infinity_conference.webinar.id
-  protocol            = "sip"
-  call_type           = "video"
-  role                = "guest"
+  alias                 = "webinar-backup-recorder"
+  description           = "Backup recording for webinar"
+  conference            = data.pexip_infinity_conference.webinar.id
+  protocol              = "sip"
+  call_type             = "video"
+  role                  = "guest"
   keep_conference_alive = "end_conference_when_alone"
-  routing             = "auto"
-  streaming           = true
-  remote_display_name = "Backup Recorder"
+  routing               = "auto"
+  streaming             = true
+  remote_display_name   = "Backup Recorder"
 }
 
 # Webinar host bot
 resource "pexip_infinity_automatic_participant" "webinar_host" {
-  alias               = "webinar-host-bot"
-  description         = "Automated webinar host"
-  conference          = data.pexip_infinity_conference.webinar.id
-  protocol            = "webrtc"
-  call_type           = "audio"
-  role                = "chair"
+  alias                 = "webinar-host-bot"
+  description           = "Automated webinar host"
+  conference            = data.pexip_infinity_conference.webinar.id
+  protocol              = "webrtc"
+  call_type             = "audio"
+  role                  = "chair"
   keep_conference_alive = "keep_conference_alive"
-  routing             = "auto"
-  streaming           = false
-  remote_display_name = "Webinar Host"
+  routing               = "auto"
+  streaming             = false
+  remote_display_name   = "Webinar Host"
 }
 ```
 
@@ -241,16 +241,16 @@ resource "pexip_infinity_automatic_participant" "webinar_host" {
 
 ```terraform
 resource "pexip_infinity_automatic_participant" "test_participant" {
-  alias               = "test-${random_id.test.hex}"
-  description         = "Test automatic participant"
-  conference          = data.pexip_infinity_conference.test_conference.id
-  protocol            = "webrtc"
-  call_type           = "video"
-  role                = "guest"
+  alias                 = "test-${random_id.test.hex}"
+  description           = "Test automatic participant"
+  conference            = data.pexip_infinity_conference.test_conference.id
+  protocol              = "webrtc"
+  call_type             = "video"
+  role                  = "guest"
   keep_conference_alive = "end_conference_when_alone"
-  routing             = "auto"
-  streaming           = false
-  remote_display_name = "Test Participant"
+  routing               = "auto"
+  streaming             = false
+  remote_display_name   = "Test Participant"
 }
 
 resource "random_id" "test" {
@@ -258,32 +258,35 @@ resource "random_id" "test" {
 }
 ```
 
+
+<!-- schema generated by tfplugindocs -->
 ## Schema
 
 ### Required
 
-- `alias` (String) - The unique alias of the automatic participant. Maximum length: 250 characters.
-- `conference` (String) - The conference URI or reference. Maximum length: 250 characters.
-- `protocol` (String) - The protocol for the automatic participant. Valid values: `sip`, `h323`, `rtmp`, `webrtc`.
-- `call_type` (String) - The call type. Valid values: `audio`, `video`.
-- `role` (String) - The role of the automatic participant. Valid values: `guest`, `chair`.
-- `keep_conference_alive` (String) - Conference behavior when only this participant remains. Valid values: `keep_conference_alive`, `end_conference_when_alone`.
-- `routing` (String) - The routing type. Valid values: `auto`, `manual`.
+- `alias` (String) The alias of the participant that is to be dialed when the conference starts. Maximum length: 250 characters.
 
 ### Optional
 
-- `description` (String) - A description of the automatic participant. Maximum length: 250 characters.
-- `dtmf_sequence` (String) - DTMF sequence to send when connecting. Maximum length: 250 characters.
-- `system_location` (String) - Reference to system location resource URI.
-- `streaming` (Boolean) - Whether streaming is enabled. Defaults to `false`.
-- `remote_display_name` (String) - The remote display name. Maximum length: 250 characters.
-- `presentation_url` (String) - The presentation URL. Maximum length: 250 characters.
+- `call_type` (String) Maximum media content of the call. The participant being called will not be able to escalate beyond the selected capability. Valid choices: audio, video, video-only.
+- `conference` (Set of String) The conference to which the Automatically Dialed Participant belongs.
+- `description` (String) An optional description of the Automatically Dialed Participant. Maximum length: 250 characters.
+- `dtmf_sequence` (String) The DTMF sequence to be transmitted after the call to the automatically dialed participant starts. Insert a comma for a 2 second pause. Maximum length: 250 characters.
+- `keep_conference_alive` (String) Determines whether the conference will continue when all other participants have disconnected. Yes: the conference will continue to run until this participant has disconnected (applies to Hosts only). If multiple: the conference will continue to run as long as there are two or more If multiple participants and at least one of them is a Host. No: the conference will be terminated automatically if this is the only remaining participant.
+- `presentation_url` (String) The optional RTMP URL for the second (presentation) stream. Maximum length: 250 characters.
+- `protocol` (String) The protocol to use when dialing the participant. Note that if the call is to a registered device, Pexip Infinity will instead use the protocol that the device used to make the registration. Valid choices: teams, gms, h323, sip, mssip, rtmp.
+- `remote_display_name` (String) The optional user-facing display name for this participant, which will be shown in the participant lists. Maximum length: 250 characters.
+- `role` (String) The level of privileges the participant will have in the conference. host: The participant will have full privileges. guest: The participant will have restricted privileges. Valid choices: guest, chair.
+- `routing` (String) Route this call manually using the defaults for the specified location - or route this call automatically using Call Routing Rules. Valid choices: manual, routing_rule.
+- `streaming` (Boolean) Identify the dialed participant as a streaming or recording device.
+- `system_location` (String) For manually routed Automatically Dialed Participants (ADPs), this is the location of the Conferencing Node from which the call to the ADP will be initiated. For automatically routed ADPs, this is the notional source location used when considering if a routing rule applies or not - however the routing rule itself determines the location of the node that dials the ADP. To allow Pexip Infinity to automatically select the Conferencing Node to initiate the outgoing call, select Automatic.
 
 ### Read-Only
 
-- `id` (String) - Resource URI for the automatic participant in Infinity.
-- `resource_id` (Number) - The resource integer identifier for the automatic participant in Infinity.
-- `creation_time` (String) - The creation timestamp of the automatic participant.
+- `creation_time` (String) The time at which the Automatically Dialed Participant was created.
+- `id` (String) Resource URI for the automatic participant.
+- `resource_id` (Number) The resource integer identifier for the automatic participant
+
 
 ## Import
 

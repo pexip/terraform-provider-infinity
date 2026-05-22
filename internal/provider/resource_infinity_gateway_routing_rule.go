@@ -108,14 +108,14 @@ func (r *InfinityGatewayRoutingRuleResource) Schema(ctx context.Context, req res
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the gateway routing rule in Infinity.",
+				MarkdownDescription: "Resource URI for the gateway routing rule.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the gateway routing rule in Infinity",
+				MarkdownDescription: "The resource integer identifier for the gateway routing rule",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -365,7 +365,7 @@ func (r *InfinityGatewayRoutingRuleResource) Schema(ctx context.Context, req res
 				MarkdownDescription: "The TURN server to be used for outbound Lync / Skype for Business (MS-SIP) calls (where applicable).",
 			},
 		},
-		MarkdownDescription: "Manages a gateway routing rule configuration with the Infinity service.",
+		MarkdownDescription: "Manages a gateway routing rule configuration.",
 	}
 }
 

@@ -1,0 +1,153 @@
+---
+page_title: "pexip_infinity_device Resource - terraform-provider-pexip"
+subcategory: ""
+description: |-
+  Manages a Pexip Infinity device configuration.
+---
+
+# pexip_infinity_device (Resource)
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+### Basic Device Configuration
+
+{{tffile "examples/resources/pexip_infinity_device/basic_device_configuration.tf"}}
+
+### SIP Device with Authentication
+
+{{tffile "examples/resources/pexip_infinity_device/sip_device_with_authentication.tf"}}
+
+### Video Conferencing Room System
+
+{{tffile "examples/resources/pexip_infinity_device/video_conferencing_room_system.tf"}}
+
+### Infinity Connect Device with SSO
+
+{{tffile "examples/resources/pexip_infinity_device/infinity_connect_device_with_sso.tf"}}
+
+### Multiple Devices for Department
+
+{{tffile "examples/resources/pexip_infinity_device/multiple_devices_for_department.tf"}}
+
+### Device with Full Configuration
+
+{{tffile "examples/resources/pexip_infinity_device/device_with_full_configuration.tf"}}
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import pexip_infinity_device.example 123
+```
+
+Where `123` is the numeric resource ID of the device.
+
+## Usage Notes
+
+### Device Types and Protocols
+- **SIP Devices**: IP phones, software clients, room systems supporting SIP
+- **H.323 Devices**: Legacy video conferencing systems and terminals
+- **Infinity Connect**: Pexip's native client application
+- **Mixed Protocol**: Devices supporting multiple protocols for flexibility
+
+### Authentication Methods
+- **Username/Password**: Traditional credential-based authentication
+- **SSO Integration**: Single sign-on with identity providers
+- **Certificate-based**: Using client certificates (configured separately)
+
+### Device Alias Requirements
+- Must be unique across the Pexip Infinity deployment
+- Can be hostname (device.company.com) or identifier (room-101)
+- Used for dialing and device identification
+- Should follow consistent naming conventions
+
+### SSO Configuration
+- `enable_standard_sso`: General SSO authentication
+- `enable_infinity_connect_sso`: SSO specifically for Infinity Connect clients
+- `sso_identity_provider_group`: Maps device to specific identity provider groups
+- Requires proper SSO configuration in authentication settings
+
+### Infinity Connect Options
+- `enable_infinity_connect_non_sso`: Traditional username/password for Infinity Connect
+- `enable_infinity_connect_sso`: SSO authentication for Infinity Connect
+- Both can be enabled to support different authentication methods
+
+### Device Management
+- Use tags for organizational grouping and policy application
+- Sync tags enable integration with external directory services
+- Primary owner email helps with device management and notifications
+- Device descriptions aid in identification and troubleshooting
+
+## Troubleshooting
+
+### Common Issues
+
+**Device Creation Fails**
+- Verify the alias is unique across the Infinity deployment
+- Ensure alias follows proper naming conventions
+- Check that all field lengths are within specified limits
+- Verify password meets security requirements if specified
+
+**Device Authentication Issues**
+- Verify username and password are correct and not expired
+- Check that the appropriate protocol is enabled (SIP/H.323)
+- Ensure device supports the enabled authentication methods
+- Verify SSO configuration if SSO is enabled
+
+**SIP Registration Problems**
+- Verify `enable_sip` is set to true
+- Check SIP proxy configuration on the device
+- Ensure network connectivity between device and Pexip nodes
+- Verify SIP credentials match the device configuration
+
+**H.323 Connection Issues**
+- Verify `enable_h323` is set to true
+- Check H.323 gatekeeper settings on the device
+- Ensure proper network routing for H.323 traffic
+- Verify device supports required H.323 protocol versions
+
+**Infinity Connect Problems**
+- Verify appropriate Infinity Connect options are enabled
+- Check client version compatibility
+- Ensure proper DNS resolution for Infinity services
+- Verify SSO configuration if SSO is enabled
+
+**SSO Authentication Failures**
+- Verify SSO is properly configured in authentication settings
+- Check identity provider group configuration
+- Ensure user exists in the specified identity provider group
+- Verify SSO certificates and trust relationships
+
+**Device Not Found in Calls**
+- Verify device alias is correct and unique
+- Check that device is properly registered
+- Ensure device is not in maintenance or disabled state
+- Verify routing rules allow calls to the device
+
+**Import Fails**
+- Ensure you're using the numeric resource ID, not the alias
+- Verify the device exists in the Infinity cluster
+- Check provider authentication credentials have access to the resource
+
+**Protocol Compatibility Issues**
+- Verify device supports the enabled protocols
+- Check codec compatibility between device and Pexip
+- Ensure proper bandwidth and QoS settings
+- Verify firewall rules allow required protocol traffic
+
+**Organizational Management Problems**
+- Use consistent tagging strategies for device management
+- Implement proper sync tag integration with directory services
+- Ensure primary owner email addresses are current and valid
+- Regularly audit device configurations and ownership
+
+**External System Integration**
+- Verify sync tags match external directory attributes
+- Check integration credentials and permissions
+- Ensure proper mapping between external and Pexip identities
+- Monitor synchronization processes for errors or conflicts

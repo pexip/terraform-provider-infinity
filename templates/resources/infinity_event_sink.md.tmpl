@@ -1,0 +1,177 @@
+---
+page_title: "pexip_infinity_event_sink Resource - terraform-provider-pexip"
+subcategory: ""
+description: |-
+  Manages a Pexip Infinity event sink configuration.
+---
+
+# pexip_infinity_event_sink (Resource)
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+### Basic Event Sink Configuration
+
+{{tffile "examples/resources/pexip_infinity_event_sink/basic_event_sink_configuration.tf"}}
+
+### Event Sink with Authentication
+
+{{tffile "examples/resources/pexip_infinity_event_sink/event_sink_with_authentication.tf"}}
+
+### Advanced Event Sink with Bulk Support
+
+{{tffile "examples/resources/pexip_infinity_event_sink/advanced_event_sink_with_bulk_support.tf"}}
+
+### Multiple Event Sinks for Different Purposes
+
+{{tffile "examples/resources/pexip_infinity_event_sink/multiple_event_sinks_for_different_purposes.tf"}}
+
+### Enterprise Event Integration
+
+{{tffile "examples/resources/pexip_infinity_event_sink/enterprise_event_integration.tf"}}
+
+### Development and Testing Event Sink
+
+{{tffile "examples/resources/pexip_infinity_event_sink/development_and_testing_event_sink.tf"}}
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import pexip_infinity_event_sink.example 123
+```
+
+Where `123` is the numeric resource ID of the event sink.
+
+## Usage Notes
+
+### Event Types
+
+Pexip Infinity generates various types of events that can be sent to event sinks:
+
+- **Conference Events**: Conference creation, start, end, and modification
+- **Participant Events**: Participant join, leave, mute, unmute, and role changes
+- **Media Events**: Media statistics, quality metrics, and codec information
+- **System Events**: Node status changes, resource utilization, and health events
+- **Security Events**: Authentication attempts, access control, and policy violations
+
+### Event Sink Versions
+
+- **Version 1**: Basic event format with essential information
+- **Version 2**: Enhanced event format with additional metadata and statistics
+- **Future Versions**: Support for new event types and enhanced data formats
+
+### Bulk Support
+
+- **Individual Events**: Each event is sent as a separate HTTP request
+- **Bulk Events**: Multiple events are batched together in a single HTTP request
+- **Performance**: Bulk support reduces network overhead and improves performance
+- **Processing**: Event sink must be designed to handle bulk event arrays
+
+### TLS Certificate Verification
+
+- **Production**: Always enable TLS certificate verification in production environments
+- **Development**: May disable for testing with self-signed certificates
+- **Security**: Certificate verification prevents man-in-the-middle attacks
+- **Trust Store**: Ensure proper certificate authority trust is configured
+
+### Authentication
+
+- **HTTP Basic Auth**: Username and password are sent with each request
+- **API Keys**: Can be included in the URL or as custom headers
+- **Token-Based**: Implement token-based authentication in your event sink
+- **Security**: Always use HTTPS when authentication credentials are provided
+
+### Event Delivery
+
+- **Reliable Delivery**: Pexip attempts to deliver events reliably with retries
+- **Failure Handling**: Failed events may be queued and retried
+- **Monitoring**: Monitor event delivery success rates and error conditions
+- **Timeouts**: Configure appropriate timeout values for event sink responses
+
+### Performance Considerations
+
+- **High Volume**: Consider bulk support for high-volume environments
+- **Response Time**: Event sink should respond quickly to avoid blocking
+- **Scalability**: Design event sink to handle peak conference loads
+- **Queue Management**: Implement proper queue management for event processing
+
+## Troubleshooting
+
+### Common Issues
+
+**Event Sink Creation Fails**
+- Verify the URL format is correct and accessible
+- Ensure the username and password don't exceed maximum length limits
+- Check that the version number is valid (>= 1)
+- Verify the description doesn't exceed the character limit
+
+**Events Not Being Delivered**
+- Verify the event sink URL is accessible from Pexip Infinity nodes
+- Check firewall rules allow HTTPS traffic to the event sink
+- Ensure the event sink is responding with appropriate HTTP status codes
+- Monitor Pexip Infinity logs for event delivery errors
+
+**Authentication Failures**
+- Verify username and password are correct
+- Check that the event sink properly handles HTTP Basic Authentication
+- Ensure credentials have appropriate permissions on the event sink
+- Monitor event sink logs for authentication errors
+
+**TLS Connection Issues**
+- Verify the event sink has a valid SSL/TLS certificate
+- Check certificate expiration dates and trust chain
+- Ensure TLS cipher suites are compatible
+- Consider disabling certificate verification for testing (not recommended for production)
+
+**Performance Issues**
+- Enable bulk support if the event sink supports it
+- Monitor event delivery latency and success rates
+- Check event sink response times and processing capacity
+- Consider implementing event queuing and async processing
+
+**Event Processing Errors**
+- Verify the event sink can handle the event format (version 1 or 2)
+- Check event sink parsing and validation logic
+- Monitor for malformed or unexpected event data
+- Implement proper error handling and logging in the event sink
+
+**High Event Volume Issues**
+- Enable bulk support to reduce request overhead
+- Implement proper queue management in the event sink
+- Monitor event sink resource utilization and scaling
+- Consider load balancing for high-volume scenarios
+
+**Network Connectivity Problems**
+- Test connectivity from Pexip Infinity nodes to the event sink URL
+- Verify DNS resolution for the event sink hostname
+- Check network routing and firewall configurations
+- Monitor network latency and packet loss
+
+**Certificate Verification Failures**
+- Ensure the event sink certificate is issued by a trusted CA
+- Check certificate validity period and expiration
+- Verify the certificate hostname matches the event sink URL
+- Update certificate trust store if using private CAs
+
+**Import Fails**
+- Ensure you're using the numeric resource ID, not the event sink name
+- Verify the event sink exists in the Infinity cluster
+- Check provider authentication credentials have access to the resource
+- Note that password information may not be available during import
+
+**Event Sink Unavailable**
+- Implement proper error handling in the event sink application
+- Monitor event sink uptime and availability
+- Configure appropriate health checks and alerting
+- Consider implementing event sink redundancy
+
+**Data Processing Issues**
+- Validate event data format and structure in the event sink
+- Implement proper error handling for malformed events
+- Monitor event processing rates and error conditions
+- Ensure adequate storage and processing capacity

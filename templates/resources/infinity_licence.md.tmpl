@@ -1,0 +1,23 @@
+# infinity_licence
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+{{tffile "examples/resources/pexip_infinity_licence/resource.tf"}}
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+Licences can be imported using their fulfillment ID:
+
+```bash
+terraform import pexip_infinity_licence.example FUL123456-7890-ABCD-EF01-234567890123
+```
+
+## Notes
+
+- Licence resources are immutable once activated. Updates are not supported.
+- To change licence settings, you must delete and recreate the resource.
+- The licence will be deactivated when the resource is destroyed.

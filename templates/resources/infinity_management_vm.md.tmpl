@@ -1,0 +1,34 @@
+---
+page_title: "pexip_infinity_management_vm Resource - terraform-provider-pexip"
+subcategory: ""
+description: |-
+  Manages a Pexip Infinity Management VM configuration.
+---
+
+# pexip_infinity_management_vm (Resource)
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+### Basic Management VM
+
+{{tffile "examples/resources/pexip_infinity_management_vm/basic_management_vm.tf"}}
+
+### Using an action to remove the default TLS certificate
+
+{{tffile "examples/resources/pexip_infinity_management_vm/management_vm_with_action.tf"}}
+
+{{ .SchemaMarkdown }}
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import pexip_infinity_management_vm.example 1
+```
+
+Where `1` is the numeric resource ID of the management VM.
+
+## Usage Notes 
+~> It is not possible to update the network configuration, hostname or domain via the provider. To make changes to these properties, the management node must be redeployed.

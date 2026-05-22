@@ -65,14 +65,14 @@ func (r *InfinityLdapRoleResource) Schema(ctx context.Context, req resource.Sche
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the LDAP role in Infinity",
+				MarkdownDescription: "Resource URI for the LDAP role",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the LDAP role in Infinity",
+				MarkdownDescription: "The resource integer identifier for the LDAP role",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -99,7 +99,7 @@ func (r *InfinityLdapRoleResource) Schema(ctx context.Context, req resource.Sche
 				MarkdownDescription: "List of role URIs associated with this LDAP role mapping.",
 			},
 		},
-		MarkdownDescription: "Manages an LDAP role with the Infinity service. LDAP roles map LDAP groups to Pexip roles for authentication and authorization management.",
+		MarkdownDescription: "Manages an LDAP role. LDAP roles map LDAP groups to Pexip roles for authentication and authorization management.",
 	}
 }
 

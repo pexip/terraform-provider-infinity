@@ -72,14 +72,14 @@ func (r *InfinityScheduledAliasResource) Schema(ctx context.Context, req resourc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the scheduled alias in Infinity",
+				MarkdownDescription: "Resource URI for the scheduled alias",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the scheduled alias in Infinity",
+				MarkdownDescription: "The resource integer identifier for the scheduled alias",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -141,7 +141,7 @@ func (r *InfinityScheduledAliasResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "The timestamp when the associated conference was deleted, if applicable.",
 			},
 		},
-		MarkdownDescription: "Manages a scheduled alias with the Infinity service. Scheduled aliases are used for Microsoft Exchange integration to provide consistent conference aliases for scheduled meetings and calendar integration.",
+		MarkdownDescription: "Manages a scheduled alias. Scheduled aliases are used for Microsoft Exchange integration to provide consistent conference aliases for scheduled meetings and calendar integration.",
 	}
 }
 

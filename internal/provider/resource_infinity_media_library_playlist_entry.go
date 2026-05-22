@@ -70,14 +70,14 @@ func (r *InfinityMediaLibraryPlaylistEntryResource) Schema(ctx context.Context, 
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the media library playlist entry in Infinity",
+				MarkdownDescription: "Resource URI for the media library playlist entry",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the media library playlist entry in Infinity",
+				MarkdownDescription: "The resource integer identifier for the media library playlist entry",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -119,7 +119,7 @@ func (r *InfinityMediaLibraryPlaylistEntryResource) Schema(ctx context.Context, 
 				MarkdownDescription: "The number of times the item is played, the default is 1. If you set the value to 0 the item plays repeatedly until the user disconnects themselves or until the call is terminated programmatically via the management API. Default: 1.",
 			},
 		},
-		MarkdownDescription: "Manages a media library playlist entry configuration with the Infinity service. Playlist entries define the media items and their playback order within a playlist.",
+		MarkdownDescription: "Manages a media library playlist entry configuration. Playlist entries define the media items and their playback order within a playlist.",
 	}
 }
 

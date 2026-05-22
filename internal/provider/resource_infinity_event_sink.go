@@ -75,14 +75,14 @@ func (r *InfinityEventSinkResource) Schema(ctx context.Context, req resource.Sch
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the event sink in Infinity",
+				MarkdownDescription: "Resource URI for the event sink",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the event sink in Infinity",
+				MarkdownDescription: "The resource integer identifier for the event sink",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -151,7 +151,7 @@ func (r *InfinityEventSinkResource) Schema(ctx context.Context, req resource.Sch
 				MarkdownDescription: "The version of the event sink API. Must be at least 1.",
 			},
 		},
-		MarkdownDescription: "Manages an event sink configuration with the Infinity service.",
+		MarkdownDescription: "Manages an event sink configuration.",
 	}
 }
 

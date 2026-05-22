@@ -71,14 +71,14 @@ func (r *InfinityMSSIPProxyResource) Schema(ctx context.Context, req resource.Sc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the MS-SIP proxy in Infinity.",
+				MarkdownDescription: "Resource URI for the MS-SIP proxy.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the MSSIP proxy in Infinity",
+				MarkdownDescription: "The resource integer identifier for the MSSIP proxy",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -125,7 +125,7 @@ func (r *InfinityMSSIPProxyResource) Schema(ctx context.Context, req resource.Sc
 				MarkdownDescription: "The IP transport used to connect to the Skype for Business server. Valid choices: tcp, tls.",
 			},
 		},
-		MarkdownDescription: "Manages an MSSIP proxy configuration with the Infinity service.",
+		MarkdownDescription: "Manages an MSSIP proxy configuration.",
 	}
 }
 

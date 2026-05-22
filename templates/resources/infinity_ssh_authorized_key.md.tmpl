@@ -1,0 +1,25 @@
+# infinity_ssh_authorized_key
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+{{tffile "examples/resources/pexip_infinity_ssh_authorized_key/resource.tf"}}
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+SSH authorized keys can be imported using their resource ID:
+
+```bash
+terraform import pexip_infinity_ssh_authorized_key.example 123
+```
+
+## Key Format
+
+The SSH public key should be provided in the standard OpenSSH format without the key type prefix or comment suffix. For example:
+- **Correct**: `AAAAB3NzaC1yc2EAAAADAQABAAABgQC7vbqajDhA...`
+- **Incorrect**: `ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7vbqajDhA... user@hostname`
+
+The key type and comment are specified separately in the `keytype` and `comment` fields respectively.

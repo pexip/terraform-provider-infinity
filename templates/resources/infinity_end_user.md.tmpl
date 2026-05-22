@@ -1,0 +1,161 @@
+---
+page_title: "pexip_infinity_end_user Resource - terraform-provider-pexip"
+subcategory: ""
+description: |-
+  Manages a Pexip Infinity end user account configuration.
+---
+
+# pexip_infinity_end_user (Resource)
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+### Basic End User
+
+{{tffile "examples/resources/pexip_infinity_end_user/basic_end_user.tf"}}
+
+### Complete User Profile
+
+{{tffile "examples/resources/pexip_infinity_end_user/complete_user_profile.tf"}}
+
+### User with Group Memberships
+
+{{tffile "examples/resources/pexip_infinity_end_user/user_with_group_memberships.tf"}}
+
+### Exchange Integration User
+
+{{tffile "examples/resources/pexip_infinity_end_user/exchange_integration_user.tf"}}
+
+### Bulk User Creation
+
+{{tffile "examples/resources/pexip_infinity_end_user/bulk_user_creation.tf"}}
+
+### Users with Avatar and Contact Information
+
+{{tffile "examples/resources/pexip_infinity_end_user/users_with_avatar_and_contact_information.tf"}}
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import pexip_infinity_end_user.example 123
+```
+
+Where `123` is the numeric resource ID of the end user.
+
+## Usage Notes
+
+### User Identity Management
+- Primary email address must be unique across all end users
+- Display name is used in conferencing interfaces and notifications
+- Contact information enables communication and calendar integration
+- User groups define permissions and access levels
+
+### Directory Service Integration
+- Use `sync_tag` for LDAP/AD synchronization identification
+- `ms_exchange_guid` enables Exchange calendar integration
+- `user_oid` and `exchange_user_id` are automatically populated for Microsoft 365 users
+- External sync can update user information automatically
+
+### Avatar Configuration
+- Avatar URLs should be publicly accessible or use internal CDN
+- Recommended image size is 128x128 pixels
+- Supported formats typically include JPG, PNG, and GIF
+- Consider caching and load balancing for avatar services
+
+### User Group Memberships
+- User groups control access to conferences and features
+- Groups are referenced by their resource URI
+- Multiple group memberships enable fine-grained permissions
+- Group changes immediately affect user access
+
+### Contact Information Best Practices
+- Use standardized phone number formats
+- Ensure email addresses are valid and monitored
+- Keep contact information current for emergency situations
+- Consider privacy requirements for personal information
+
+## Troubleshooting
+
+### Common Issues
+
+**End User Creation Fails**
+- Verify the primary email address is unique
+- Ensure email address format is valid
+- Check that all field lengths are within specified limits
+- Verify required fields are provided
+
+**Email Address Conflicts**
+- Check for existing users with the same email address
+- Verify email address is not used by devices or other resources
+- Ensure proper email domain configuration
+- Use consistent email address formatting
+
+**User Group Assignment Issues**
+- Verify user group URIs are correct and exist
+- Check that user groups are properly configured
+- Ensure user has appropriate permissions for group membership
+- Verify group membership limits are not exceeded
+
+**Directory Synchronization Problems**
+- Verify sync_tag matches external directory attribute
+- Check LDAP/AD connection and authentication
+- Ensure proper attribute mapping configuration
+- Monitor synchronization logs for errors
+
+**Exchange Integration Issues**
+- Verify ms_exchange_guid format is correct
+- Check Exchange server connectivity and permissions
+- Ensure proper Exchange Web Services configuration
+- Verify calendar integration settings
+
+**Avatar Display Problems**
+- Verify avatar URL is accessible from clients
+- Check image format and size requirements
+- Ensure proper CORS headers for cross-origin requests
+- Test avatar URL accessibility from different networks
+
+**Authentication Issues**
+- Verify user exists in authentication source (local/LDAP/SSO)
+- Check user account status and permissions
+- Ensure proper authentication configuration
+- Verify user credentials and account lockout status
+
+**Import Fails**
+- Ensure you're using the numeric resource ID, not the email
+- Verify the end user exists in the Infinity cluster
+- Check provider authentication credentials have access to the resource
+
+**Contact Information Formatting**
+- Use consistent phone number formats across all users
+- Ensure telephone numbers include proper country codes
+- Validate email address formats before creation
+- Consider international number formatting standards
+
+**User Profile Synchronization**
+- Monitor external directory changes for user updates
+- Implement proper conflict resolution for synchronized data
+- Ensure proper mapping between external and Pexip attributes
+- Regularly audit user information for accuracy
+
+**Performance with Large User Sets**
+- Consider batch operations for bulk user creation
+- Implement proper indexing for user searches
+- Monitor system performance with large user databases
+- Use pagination for user management interfaces
+
+**Compliance and Data Protection**
+- Ensure user data handling complies with privacy regulations
+- Implement proper data retention policies
+- Consider user consent for profile information
+- Audit user data access and modifications
+
+**Microsoft 365 Integration**
+- Verify user_oid is populated for Office 365 users
+- Check Azure AD synchronization status
+- Ensure proper permissions for Exchange integration
+- Monitor Microsoft Graph API integration

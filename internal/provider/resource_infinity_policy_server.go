@@ -83,14 +83,14 @@ func (r *InfinityPolicyServerResource) Schema(ctx context.Context, req resource.
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the policy server in Infinity.",
+				MarkdownDescription: "Resource URI for the policy server.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the policy server in Infinity",
+				MarkdownDescription: "The resource integer identifier for the policy server",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -227,7 +227,7 @@ func (r *InfinityPolicyServerResource) Schema(ctx context.Context, req resource.
 				MarkdownDescription: "A Jinja2 script that takes the existing media location configuration and optionally modifies or overrides location settings. Maximum length: 49152 characters.",
 			},
 		},
-		MarkdownDescription: "Manages a policy server configuration with the Infinity service.",
+		MarkdownDescription: "Manages a policy server configuration.",
 	}
 }
 

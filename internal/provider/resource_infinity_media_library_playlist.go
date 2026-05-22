@@ -69,14 +69,14 @@ func (r *InfinityMediaLibraryPlaylistResource) Schema(ctx context.Context, req r
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the media library playlist in Infinity",
+				MarkdownDescription: "Resource URI for the media library playlist",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the media library playlist in Infinity",
+				MarkdownDescription: "The resource integer identifier for the media library playlist",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -117,7 +117,7 @@ func (r *InfinityMediaLibraryPlaylistResource) Schema(ctx context.Context, req r
 				MarkdownDescription: "List of media library entry URIs that make up this playlist.",
 			},
 		},
-		MarkdownDescription: "Manages a media library playlist configuration with the Infinity service. Media library playlists organize media entries for sequential or randomized playback in conferences.",
+		MarkdownDescription: "Manages a media library playlist configuration. Media library playlists organize media entries for sequential or randomized playback in conferences.",
 	}
 }
 

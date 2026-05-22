@@ -69,14 +69,14 @@ func (r *InfinityH323GatekeeperResource) Schema(ctx context.Context, req resourc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the H323 gatekeeper in Infinity.",
+				MarkdownDescription: "Resource URI for the H323 gatekeeper.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the H.323 gatekeeper in Infinity",
+				MarkdownDescription: "The resource integer identifier for the H.323 gatekeeper",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -115,7 +115,7 @@ func (r *InfinityH323GatekeeperResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "The RAS port of the H.323 gatekeeper. Range: 1 to 65535. Default: 1719.",
 			},
 		},
-		MarkdownDescription: "Manages an H.323 gatekeeper with the Infinity service. H.323 gatekeepers provide address resolution and call routing services for H.323 endpoints and gateways.",
+		MarkdownDescription: "Manages an H.323 gatekeeper. H.323 gatekeepers provide address resolution and call routing services for H.323 endpoints and gateways.",
 	}
 }
 

@@ -66,14 +66,14 @@ func (r *InfinityIdentityProviderGroupResource) Schema(ctx context.Context, req 
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the identity provider group in Infinity.",
+				MarkdownDescription: "Resource URI for the identity provider group.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the identity provider group in Infinity",
+				MarkdownDescription: "The resource integer identifier for the identity provider group",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -102,7 +102,7 @@ func (r *InfinityIdentityProviderGroupResource) Schema(ctx context.Context, req 
 				MarkdownDescription: "List of identity provider URIs associated with this group.",
 			},
 		},
-		MarkdownDescription: "Manages an identity provider group with the Infinity service. Identity provider groups organize multiple identity providers for authentication and authorization management.",
+		MarkdownDescription: "Manages an identity provider group. Identity provider groups organize multiple identity providers for authentication and authorization management.",
 	}
 }
 

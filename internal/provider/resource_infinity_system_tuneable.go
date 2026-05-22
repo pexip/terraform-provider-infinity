@@ -64,14 +64,14 @@ func (r *InfinitySystemTuneableResource) Schema(ctx context.Context, req resourc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the system tuneable in Infinity",
+				MarkdownDescription: "Resource URI for the system tuneable",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the system tuneable in Infinity",
+				MarkdownDescription: "The resource integer identifier for the system tuneable",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -91,7 +91,7 @@ func (r *InfinitySystemTuneableResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "The value of the system tuneable parameter.",
 			},
 		},
-		MarkdownDescription: "Manages a system tuneable (global setting) configuration with the Infinity service.",
+		MarkdownDescription: "Manages a system tuneable (global setting) configuration.",
 	}
 }
 

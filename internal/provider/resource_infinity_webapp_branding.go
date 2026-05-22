@@ -69,7 +69,7 @@ func (r *InfinityWebappBrandingResource) Schema(ctx context.Context, req resourc
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the webapp branding package in Infinity",
+				MarkdownDescription: "Resource URI for the webapp branding package",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -120,7 +120,7 @@ func (r *InfinityWebappBrandingResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "Timestamp when this branding configuration was last updated.",
 			},
 		},
-		MarkdownDescription: "Manages webapp branding configuration with the Infinity service. Webapp branding allows customization of the user interface for different Pexip web applications including the management interface, admin interface, and client applications.",
+		MarkdownDescription: "Manages webapp branding configuration. Webapp branding allows customization of the user interface for different Pexip web applications including the management interface, admin interface, and client applications.",
 	}
 }
 

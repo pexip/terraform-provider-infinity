@@ -65,14 +65,14 @@ func (r *InfinityNtpServerResource) Schema(ctx context.Context, req resource.Sch
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the NTP server in Infinity.",
+				MarkdownDescription: "Resource URI for the NTP server.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the NTP server in Infinity",
+				MarkdownDescription: "The resource integer identifier for the NTP server",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -94,7 +94,7 @@ func (r *InfinityNtpServerResource) Schema(ctx context.Context, req resource.Sch
 				MarkdownDescription: "The IP address or FQDN of the NTP server. Maximum length: 255 characters.",
 			},
 		},
-		MarkdownDescription: "Registers a NTP server with the Infinity service.",
+		MarkdownDescription: "Registers a NTP server.",
 	}
 }
 

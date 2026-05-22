@@ -90,7 +90,7 @@ func (r *InfinityWebPasswordHashResource) Schema(ctx context.Context, req resour
 				MarkdownDescription: "The hash of the password, generated using the provided salt and rounds.",
 			},
 		},
-		MarkdownDescription: "Registers a node with the Infinity service. This resource is used to manage the lifecycle of nodes in the Infinity cluster.",
+		MarkdownDescription: "Registers a node. This resource is used to manage the lifecycle of nodes in the Infinity cluster.",
 	}
 }
 

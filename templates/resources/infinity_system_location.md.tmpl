@@ -1,0 +1,34 @@
+---
+page_title: "pexip_infinity_system_location Resource - terraform-provider-pexip"
+subcategory: ""
+description: |-
+  Manages a Pexip Infinity system location configuration.
+---
+
+# pexip_infinity_system_location (Resource)
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+### Basic Usage
+
+{{tffile "examples/resources/pexip_infinity_system_location/basic_usage.tf"}}
+
+{{ .SchemaMarkdown }}
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import pexip_infinity_system_location.example 123
+```
+
+Where `123` is the numeric resource ID of the system location.
+
+## Usage Notes
+
+### Overflow locations
+
+For high availability, a common configuration is to have two different system locations that refer to one another as overflow locations. However, this config results in a circular dependency in Terraform and will cause an error. As a workaround, local media policy can be used to configure overflow locations without creating a circular dependency. For an example, see [System Location Overflow with Local Media Policy](https://registry.terraform.io/providers/pexip/infinity/latest/docs/resources/infinity_policy_server#system-location-overflow-with-local-media-policy).

@@ -69,14 +69,14 @@ func (r *InfinityStaticRouteResource) Schema(ctx context.Context, req resource.S
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the static route in Infinity.",
+				MarkdownDescription: "Resource URI for the static route.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the static route in Infinity",
+				MarkdownDescription: "The resource integer identifier for the static route",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -110,7 +110,7 @@ func (r *InfinityStaticRouteResource) Schema(ctx context.Context, req resource.S
 				MarkdownDescription: "The IP address of the gateway to the network for this route.",
 			},
 		},
-		MarkdownDescription: "Manages a static route configuration with the Infinity service.",
+		MarkdownDescription: "Manages a static route configuration.",
 	}
 }
 

@@ -84,14 +84,14 @@ func (r *InfinityScheduledScalingResource) Schema(ctx context.Context, req resou
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the scheduled scaling policy in Infinity.",
+				MarkdownDescription: "Resource URI for the scheduled scaling policy.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the scheduled scaling policy in Infinity",
+				MarkdownDescription: "The resource integer identifier for the scheduled scaling policy",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -210,7 +210,7 @@ func (r *InfinityScheduledScalingResource) Schema(ctx context.Context, req resou
 				MarkdownDescription: "The timestamp when this scheduled scaling policy was last updated.",
 			},
 		},
-		MarkdownDescription: "Manages a scheduled scaling policy with the Infinity service. Scheduled scaling policies automatically add or remove VM instances based on time-based schedules, helping optimize resource utilization for predictable workload patterns.",
+		MarkdownDescription: "Manages a scheduled scaling policy. Scheduled scaling policies automatically add or remove VM instances based on time-based schedules, helping optimize resource utilization for predictable workload patterns.",
 	}
 }
 

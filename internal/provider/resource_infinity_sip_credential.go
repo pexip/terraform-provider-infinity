@@ -66,14 +66,14 @@ func (r *InfinitySIPCredentialResource) Schema(ctx context.Context, req resource
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the SIP credential in Infinity",
+				MarkdownDescription: "Resource URI for the SIP credential",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the SIP credential in Infinity",
+				MarkdownDescription: "The resource integer identifier for the SIP credential",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -102,7 +102,7 @@ func (r *InfinitySIPCredentialResource) Schema(ctx context.Context, req resource
 				MarkdownDescription: "The SIP password for authentication. This field is sensitive.",
 			},
 		},
-		MarkdownDescription: "Manages a SIP credential with the Infinity service. SIP credentials are used for authenticating SIP endpoints and devices connecting to Pexip Infinity.",
+		MarkdownDescription: "Manages a SIP credential. SIP credentials are used for authenticating SIP endpoints and devices connecting to Pexip Infinity.",
 	}
 }
 

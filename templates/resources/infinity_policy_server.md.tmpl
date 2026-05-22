@@ -1,0 +1,157 @@
+---
+page_title: "pexip_infinity_policy_server Resource - terraform-provider-pexip"
+subcategory: ""
+description: |-
+  Manages a Pexip Infinity policy server configuration.
+---
+
+# pexip_infinity_policy_server (Resource)
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+### External Policy Server
+
+{{tffile "examples/resources/pexip_infinity_policy_server/external_policy.tf"}}
+
+## Local Policy with Template Files
+
+While it is possible to put the text of the local policy templates directly in the resource definition, it is often more manageable to use separate template files. This allows for better organization and readability, especially for complex policies. The following example demonstrates how to reference external template files.
+
+{{tffile "examples/resources/pexip_infinity_policy_server/local_policy.tf"}}
+
+## System Location Overflow with Local Media Policy
+
+When configuring overflow locations for high availability, using local media policy can help avoid circular dependencies. The following examples show how to configure local media policy.
+
+{{tffile "examples/resources/pexip_infinity_policy_server/local_media_policy.tf"}}
+
+This example utilizes cloud bursting locations. It is important to note that when configuring overflow with cloud bursting, nodes in a bursting location are only automatically started up if that location is configured as a Primary overflow location of an always-on location that has reached its capacity threshold. For more details see [docs.pexip.com](https://docs.pexip.com/admin/bursting.htm#guidelines).
+
+{{tffile "examples/resources/pexip_infinity_policy_server/local_media_policy_bursting.tf"}}
+
+{{ .SchemaMarkdown }}
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import pexip_infinity_policy_server.example 123
+```
+
+Where `123` is the numeric resource ID of the policy server.
+
+## Usage Notes
+
+### Policy Server Types
+- **Lookup Services**: Provide external directory integration and service resolution
+- **Internal Policies**: Define business rules using templates and logic
+- **Registration Control**: Manage device and user registration policies
+- **Media Location**: Control media routing and location selection
+
+### Lookup Service Types
+- **Service Lookup**: Resolve conference aliases and virtual meeting rooms
+- **Participant Lookup**: Validate and configure participant access
+- **Directory Lookup**: Search corporate directories for users and contacts
+- **Avatar Lookup**: Retrieve user profile pictures and avatars
+- **Media Location Lookup**: Determine optimal media processing locations
+
+### Authentication
+- HTTP Basic Authentication with username/password
+- Ensure credentials have appropriate permissions on policy server
+- Use HTTPS URLs to protect authentication credentials
+- Consider using service accounts with limited permissions
+
+### Policy Templates
+- JSON-formatted configuration templates for different policy types
+- Templates can include variables and conditional logic
+- Used by internal policy engines for dynamic configuration
+- Should be validated for proper JSON syntax and required fields
+
+### Performance Considerations
+- Policy servers are called for each relevant event
+- Ensure policy servers can handle expected request volume
+- Implement proper timeout handling and fallback mechanisms
+- Monitor policy server response times and availability
+
+### Security Considerations
+- Use HTTPS for all policy server communications
+- Implement proper authentication and authorization
+- Validate all policy server responses
+- Log policy decisions for audit and troubleshooting
+
+## Troubleshooting
+
+### Common Issues
+
+**Policy Server Creation Fails**
+- Verify the policy server name is unique
+- Ensure URL format is correct and accessible
+- Check that all field lengths are within specified limits
+- Verify authentication credentials if provided
+
+**Policy Server Not Responding**
+- Test policy server URL accessibility from Pexip nodes
+- Verify HTTP/HTTPS connectivity and certificate validity
+- Check authentication credentials and permissions
+- Ensure policy server is running and configured correctly
+
+**Authentication Failures**
+- Verify username and password are correct
+- Check that authentication method is supported by policy server
+- Ensure credentials have appropriate permissions
+- Test authentication independently of Pexip
+
+**Lookup Service Issues**
+- Verify appropriate lookup types are enabled
+- Check policy server endpoints for lookup requests
+- Ensure proper request/response format implementation
+- Test lookup functionality independently
+
+**Template Configuration Problems**
+- Validate JSON syntax in configuration templates
+- Ensure required fields are present in templates
+- Check template variable substitution
+- Test template rendering with sample data
+
+**Performance Problems**
+- Monitor policy server response times
+- Check for policy server resource constraints
+- Verify network connectivity and latency
+- Consider implementing caching where appropriate
+
+**Import Fails**
+- Ensure you're using the numeric resource ID, not the name
+- Verify the policy server exists in the Infinity cluster
+- Check provider authentication credentials have access to the resource
+
+**SSL/TLS Issues**
+- Verify certificate validity and trust chain
+- Check certificate subject name matches URL
+- Ensure proper SSL/TLS version support
+- Verify certificate is not expired or revoked
+
+**Policy Logic Errors**
+- Review policy server logs for errors and warnings
+- Test policy logic with various input scenarios
+- Verify policy responses match expected format
+- Check for proper error handling in policy code
+
+**Integration Problems**
+- Verify policy server API compatibility with Pexip requirements
+- Check request/response formats match specifications
+- Ensure proper HTTP status codes are returned
+- Test integration with sample data
+
+**Failover and Redundancy**
+- Implement multiple policy servers for high availability
+- Configure proper failover mechanisms
+- Test policy server failure scenarios
+- Monitor policy server health and availability
+
+**Debugging Policy Decisions**
+- Enable detailed logging on policy server
+- Review Pexip logs for policy-related events
+- Use policy server test interfaces where available
+- Implement proper error reporting and diagnostics

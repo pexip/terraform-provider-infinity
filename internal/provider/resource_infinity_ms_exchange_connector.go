@@ -169,14 +169,14 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the Microsoft Exchange connector in Infinity.",
+				MarkdownDescription: "Resource URI for the Microsoft Exchange connector.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the Microsoft Exchange connector in Infinity",
+				MarkdownDescription: "The resource integer identifier for the Microsoft Exchange connector",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -791,7 +791,7 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "The title of the add-in on the side pane. Maximum length: 250 characters.",
 			},
 		},
-		MarkdownDescription: "Manages a Microsoft Exchange connector with the Infinity service. Exchange connectors enable integration with Microsoft Exchange/Office 365 for calendar and meeting management.",
+		MarkdownDescription: "Manages a Microsoft Exchange connector. Exchange connectors enable integration with Microsoft Exchange/Office 365 for calendar and meeting management.",
 	}
 }
 

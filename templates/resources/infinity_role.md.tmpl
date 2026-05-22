@@ -1,0 +1,17 @@
+# infinity_role
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+{{tffile "examples/resources/pexip_infinity_role/resource.tf"}}
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+Roles can be imported using their resource ID:
+
+```bash
+terraform import pexip_infinity_role.example 123
+```

@@ -75,14 +75,14 @@ func (r *InfinityDeviceResource) Schema(ctx context.Context, req resource.Schema
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the device in Infinity.",
+				MarkdownDescription: "Resource URI for the device.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the device in Infinity",
+				MarkdownDescription: "The resource integer identifier for the device",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -174,7 +174,7 @@ func (r *InfinityDeviceResource) Schema(ctx context.Context, req resource.Schema
 				MarkdownDescription: "A unique identifier used to track which LDAP sync template created this device. Maximum length: 250 characters.",
 			},
 		},
-		MarkdownDescription: "Manages a device configuration with the Infinity service.",
+		MarkdownDescription: "Manages a device configuration.",
 	}
 }
 

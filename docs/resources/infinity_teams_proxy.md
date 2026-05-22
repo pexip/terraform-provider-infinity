@@ -1,5 +1,5 @@
 ---
-page_title: "pexip_infinity_teams_proxy Resource - terraform-provider-infinity"
+page_title: "pexip_infinity_teams_proxy Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity Teams proxy configuration.
@@ -7,7 +7,7 @@ description: |-
 
 # pexip_infinity_teams_proxy (Resource)
 
-Manages a Pexip Infinity Teams proxy configuration. Teams proxies enable Pexip Infinity to integrate with Microsoft Teams, providing seamless interoperability between Teams and other video conferencing platforms. The proxy handles authentication, protocol translation, and service discovery for Teams integration.
+Manages a Teams proxy configuration.
 
 ## Example Usage
 
@@ -15,11 +15,11 @@ Manages a Pexip Infinity Teams proxy configuration. Teams proxies enable Pexip I
 
 ```terraform
 resource "pexip_infinity_teams_proxy" "primary_teams_proxy" {
-  name                     = "Primary Teams Proxy"
-  address                  = "teams-proxy.example.com"
-  port                     = 443
-  azure_tenant             = "contoso.onmicrosoft.com"
-  min_number_of_instances  = 2
+  name                    = "Primary Teams Proxy"
+  address                 = "teams-proxy.example.com"
+  port                    = 443
+  azure_tenant            = "contoso.onmicrosoft.com"
+  min_number_of_instances = 2
 }
 ```
 
@@ -27,15 +27,15 @@ resource "pexip_infinity_teams_proxy" "primary_teams_proxy" {
 
 ```terraform
 resource "pexip_infinity_teams_proxy" "teams_proxy_with_events" {
-  name                     = "Teams Proxy with Events"
-  description              = "Teams proxy with event hub integration"
-  address                  = "teams-proxy.company.com"
-  port                     = 443
-  azure_tenant             = "company.onmicrosoft.com"
-  eventhub_id              = "teams-events-hub"
-  min_number_of_instances  = 3
-  notifications_enabled    = true
-  notifications_queue      = "teams-notifications-queue"
+  name                    = "Teams Proxy with Events"
+  description             = "Teams proxy with event hub integration"
+  address                 = "teams-proxy.company.com"
+  port                    = 443
+  azure_tenant            = "company.onmicrosoft.com"
+  eventhub_id             = "teams-events-hub"
+  min_number_of_instances = 3
+  notifications_enabled   = true
+  notifications_queue     = "teams-notifications-queue"
 }
 ```
 
@@ -43,13 +43,13 @@ resource "pexip_infinity_teams_proxy" "teams_proxy_with_events" {
 
 ```terraform
 resource "pexip_infinity_teams_proxy" "ha_teams_proxy" {
-  name                     = "HA Teams Proxy"
-  description              = "High availability Teams proxy configuration"
-  address                  = "teams-ha.example.com"
-  port                     = 443
-  azure_tenant             = "example.onmicrosoft.com"
-  min_number_of_instances  = 5
-  notifications_enabled    = true
+  name                    = "HA Teams Proxy"
+  description             = "High availability Teams proxy configuration"
+  address                 = "teams-ha.example.com"
+  port                    = 443
+  azure_tenant            = "example.onmicrosoft.com"
+  min_number_of_instances = 5
+  notifications_enabled   = true
 }
 ```
 
@@ -77,14 +77,14 @@ variable "teams_tenants" {
 }
 
 resource "pexip_infinity_teams_proxy" "multi_tenant" {
-  count                    = length(var.teams_tenants)
-  name                     = var.teams_tenants[count.index].name
-  description              = "Teams proxy for ${var.teams_tenants[count.index].azure_tenant}"
-  address                  = "teams-proxy-${count.index + 1}.example.com"
-  port                     = 443
-  azure_tenant             = var.teams_tenants[count.index].azure_tenant
-  min_number_of_instances  = var.teams_tenants[count.index].instances
-  notifications_enabled    = true
+  count                   = length(var.teams_tenants)
+  name                    = var.teams_tenants[count.index].name
+  description             = "Teams proxy for ${var.teams_tenants[count.index].azure_tenant}"
+  address                 = "teams-proxy-${count.index + 1}.example.com"
+  port                    = 443
+  azure_tenant            = var.teams_tenants[count.index].azure_tenant
+  min_number_of_instances = var.teams_tenants[count.index].instances
+  notifications_enabled   = true
 }
 ```
 
@@ -93,50 +93,53 @@ resource "pexip_infinity_teams_proxy" "multi_tenant" {
 ```terraform
 # Primary Teams proxy for production
 resource "pexip_infinity_teams_proxy" "production_teams" {
-  name                     = "Production Teams Proxy"
-  description              = "Production Teams proxy for enterprise"
-  address                  = "teams-prod.enterprise.com"
-  port                     = 443
-  azure_tenant             = "enterprise.onmicrosoft.com"
-  eventhub_id              = "production-teams-events"
-  min_number_of_instances  = 10
-  notifications_enabled    = true
-  notifications_queue      = "prod-teams-notifications"
+  name                    = "Production Teams Proxy"
+  description             = "Production Teams proxy for enterprise"
+  address                 = "teams-prod.enterprise.com"
+  port                    = 443
+  azure_tenant            = "enterprise.onmicrosoft.com"
+  eventhub_id             = "production-teams-events"
+  min_number_of_instances = 10
+  notifications_enabled   = true
+  notifications_queue     = "prod-teams-notifications"
 }
 
 # Development Teams proxy
 resource "pexip_infinity_teams_proxy" "development_teams" {
-  name                     = "Development Teams Proxy"
-  description              = "Development Teams proxy for testing"
-  address                  = "teams-dev.enterprise.com"
-  port                     = 443
-  azure_tenant             = "enterprise-dev.onmicrosoft.com"
-  min_number_of_instances  = 1
-  notifications_enabled    = false
+  name                    = "Development Teams Proxy"
+  description             = "Development Teams proxy for testing"
+  address                 = "teams-dev.enterprise.com"
+  port                    = 443
+  azure_tenant            = "enterprise-dev.onmicrosoft.com"
+  min_number_of_instances = 1
+  notifications_enabled   = false
 }
 ```
 
+
+<!-- schema generated by tfplugindocs -->
 ## Schema
 
 ### Required
 
-- `name` (String) - The name used to refer to this Teams proxy. Maximum length: 250 characters.
-- `address` (String) - The address or hostname of the Teams proxy. Maximum length: 255 characters.
-- `port` (Number) - The port number for the Teams proxy. Range: 1 to 65535.
-- `azure_tenant` (String) - The Azure tenant ID for the Teams proxy. Maximum length: 255 characters.
-- `min_number_of_instances` (Number) - The minimum number of instances for the Teams proxy. Must be at least 1.
+- `address` (String) The address or hostname of the Teams proxy. Maximum length: 255 characters.
+- `azure_tenant` (String) The Azure tenant ID for the Teams proxy. Maximum length: 255 characters.
+- `name` (String) The name used to refer to this Teams proxy. Maximum length: 250 characters.
 
 ### Optional
 
-- `description` (String) - A description of the Teams proxy. Maximum length: 250 characters.
-- `eventhub_id` (String) - The event hub identifier for the Teams proxy. Maximum length: 255 characters.
-- `notifications_enabled` (Boolean) - Whether notifications are enabled for the Teams proxy. Defaults to `false`.
-- `notifications_queue` (String, Sensitive) - The notification queue name for the Teams proxy. Maximum length: 255 characters.
+- `description` (String) A description of the Teams proxy. Maximum length: 250 characters.
+- `min_number_of_instances` (Number) The minimum number of instances for the Teams proxy.
+- `notifications_enabled` (Boolean) Whether notifications are enabled for the Teams proxy.
+- `notifications_queue` (String, Sensitive) The Connection string primary key for the Azure Event Hub (standard access policy). This is in the format Endpoint=sb://examplevmss-tzfk6222uo-ehn.servicebus.windows.net/;SharedAccessKeyName=standard_access_policy;SharedAccessKey=[string]/[string]/[string]=;
+- `port` (Number) The port number for the Teams proxy. Range: 1 to 65535.
 
 ### Read-Only
 
-- `id` (String) - Resource URI for the Teams proxy in Infinity.
-- `resource_id` (Number) - The resource integer identifier for the Teams proxy in Infinity.
+- `eventhub_id` (String) The event hub identifier for the Teams proxy. This value is computed by the API from the notifications_queue connection string.
+- `id` (String) Resource URI for the Teams proxy
+- `resource_id` (Number) The resource integer identifier for the Teams proxy
+
 
 ## Import
 

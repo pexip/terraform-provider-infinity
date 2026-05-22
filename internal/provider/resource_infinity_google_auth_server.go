@@ -67,14 +67,14 @@ func (r *InfinityGoogleAuthServerResource) Schema(ctx context.Context, req resou
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the Google authentication server in Infinity.",
+				MarkdownDescription: "Resource URI for the Google authentication server.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the Google auth server in Infinity",
+				MarkdownDescription: "The resource integer identifier for the Google auth server",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -117,7 +117,7 @@ func (r *InfinityGoogleAuthServerResource) Schema(ctx context.Context, req resou
 				MarkdownDescription: "The Google OAuth 2.0 client secret. This field is sensitive.",
 			},
 		},
-		MarkdownDescription: "Manages a Google OAuth 2.0 auth server with the Infinity service. Google auth servers enable OAuth 2.0 authentication integration with Google services for user authentication and authorization within Pexip Infinity.",
+		MarkdownDescription: "Manages a Google OAuth 2.0 auth server. Google auth servers enable OAuth 2.0 authentication integration with Google services for user authentication and authorization within Pexip Infinity.",
 	}
 }
 

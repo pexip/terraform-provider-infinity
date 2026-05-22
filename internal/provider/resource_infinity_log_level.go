@@ -65,14 +65,14 @@ func (r *InfinityLogLevelResource) Schema(ctx context.Context, req resource.Sche
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the log level in Infinity.",
+				MarkdownDescription: "Resource URI for the log level.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the log level in Infinity",
+				MarkdownDescription: "The resource integer identifier for the log level",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -95,7 +95,7 @@ func (r *InfinityLogLevelResource) Schema(ctx context.Context, req resource.Sche
 				MarkdownDescription: "The log level. Valid values: DEBUG, INFO, WARNING, ERROR, CRITICAL.",
 			},
 		},
-		MarkdownDescription: "Manages a log level configuration with the Infinity service. Log levels control the verbosity of system logging for troubleshooting and monitoring.",
+		MarkdownDescription: "Manages a log level configuration. Log levels control the verbosity of system logging for troubleshooting and monitoring.",
 	}
 }
 

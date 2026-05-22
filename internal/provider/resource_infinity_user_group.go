@@ -67,14 +67,14 @@ func (r *InfinityUserGroupResource) Schema(ctx context.Context, req resource.Sch
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the user group in Infinity",
+				MarkdownDescription: "Resource URI for the user group",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the user group in Infinity",
+				MarkdownDescription: "The resource integer identifier for the user group",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -108,7 +108,7 @@ func (r *InfinityUserGroupResource) Schema(ctx context.Context, req resource.Sch
 				MarkdownDescription: "List of user group entity mapping resource URIs associated with this group.",
 			},
 		},
-		MarkdownDescription: "Manages a user group configuration with the Infinity service.",
+		MarkdownDescription: "Manages a user group configuration.",
 	}
 }
 

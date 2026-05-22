@@ -61,14 +61,14 @@ func (r *InfinitySystemSyncpointResource) Schema(ctx context.Context, req resour
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the system syncpoint in Infinity",
+				MarkdownDescription: "Resource URI for the system syncpoint",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the system syncpoint in Infinity",
+				MarkdownDescription: "The resource integer identifier for the system syncpoint",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -78,7 +78,7 @@ func (r *InfinitySystemSyncpointResource) Schema(ctx context.Context, req resour
 				MarkdownDescription: "The timestamp when this system syncpoint was created",
 			},
 		},
-		MarkdownDescription: "Manages a system syncpoint with the Infinity service. System syncpoints are critical for multi-site deployments and provide system synchronization points for coordinated operations. Note: This resource only supports creation and reading - syncpoints cannot be updated or deleted once created.",
+		MarkdownDescription: "Manages a system syncpoint. System syncpoints are critical for multi-site deployments and provide system synchronization points for coordinated operations. Note: This resource only supports creation and reading - syncpoints cannot be updated or deleted once created.",
 	}
 }
 

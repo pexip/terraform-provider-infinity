@@ -1,0 +1,24 @@
+# infinity_ldap_sync_source
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+{{tffile "examples/resources/pexip_infinity_ldap_sync_source/resource.tf"}}
+
+
+{{ .SchemaMarkdown }}
+## Import
+
+LDAP sync sources can be imported using their resource ID:
+
+```bash
+terraform import pexip_infinity_ldap_sync_source.example 123
+```
+
+## Security Notes
+
+- The `ldap_bind_password` field is marked as sensitive and will not be displayed in Terraform output.
+- Use a dedicated service account with minimal required permissions for LDAP binding.
+- Set `ldap_permit_no_tls` to `false` (default) to ensure encrypted LDAP communications.
+- Consider using `ldap_use_global_catalog` for better performance in multi-domain Active Directory environments.

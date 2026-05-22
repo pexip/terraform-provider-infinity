@@ -101,14 +101,14 @@ func (r *InfinityManagementVMResource) Schema(ctx context.Context, req resource.
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the management VM in Infinity.",
+				MarkdownDescription: "Resource URI for the management VM.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the management VM in Infinity",
+				MarkdownDescription: "The resource integer identifier for the management VM",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -328,7 +328,7 @@ func (r *InfinityManagementVMResource) Schema(ctx context.Context, req resource.
 				MarkdownDescription: "The IPv4 address for this Management Node.",
 			},
 		},
-		MarkdownDescription: "Manages a management VM configuration with the Infinity service. Management VMs are Pexip Infinity Manager nodes that control the platform. Note: This resource supports Create, Read, and Delete operations only - updates are not supported.",
+		MarkdownDescription: "Manages the management node configuration. The management node provides centralized management of Infinity.\n\n-> **NOTE** This resource is a singleton.",
 	}
 }
 

@@ -68,14 +68,14 @@ func (r *InfinityLdapSyncFieldResource) Schema(ctx context.Context, req resource
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the LDAP sync field in Infinity",
+				MarkdownDescription: "Resource URI for the LDAP sync field",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the LDAP sync field in Infinity",
+				MarkdownDescription: "The resource integer identifier for the LDAP sync field",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -112,7 +112,7 @@ func (r *InfinityLdapSyncFieldResource) Schema(ctx context.Context, req resource
 				MarkdownDescription: "Whether this LDAP field contains binary data (e.g., photos, certificates) or text data.",
 			},
 		},
-		MarkdownDescription: "Manages an LDAP sync field with the Infinity service. LDAP sync fields define how specific LDAP directory attributes are mapped and synchronized with Pexip Infinity user and configuration data during LDAP directory synchronization operations.",
+		MarkdownDescription: "Manages an LDAP sync field. LDAP sync fields define how specific LDAP directory attributes are mapped and synchronized with Pexip Infinity user and configuration data during LDAP directory synchronization operations.",
 	}
 }
 

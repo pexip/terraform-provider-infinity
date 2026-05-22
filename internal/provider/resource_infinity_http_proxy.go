@@ -71,14 +71,14 @@ func (r *InfinityHTTPProxyResource) Schema(ctx context.Context, req resource.Sch
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the HTTP proxy in Infinity.",
+				MarkdownDescription: "Resource URI for the HTTP proxy.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the HTTP proxy in Infinity",
+				MarkdownDescription: "The resource integer identifier for the HTTP proxy",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -135,7 +135,7 @@ func (r *InfinityHTTPProxyResource) Schema(ctx context.Context, req resource.Sch
 				MarkdownDescription: "The password used when accessing the proxy server. Maximum length: 100 characters.",
 			},
 		},
-		MarkdownDescription: "Manages an HTTP proxy configuration with the Infinity service.",
+		MarkdownDescription: "Manages an HTTP proxy configuration.",
 	}
 }
 

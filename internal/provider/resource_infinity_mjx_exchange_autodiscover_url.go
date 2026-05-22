@@ -67,14 +67,14 @@ func (r *InfinityMjxExchangeAutodiscoverURLResource) Schema(ctx context.Context,
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:            true,
-				MarkdownDescription: "Resource URI for the MJX Exchange Autodiscover URL in Infinity.",
+				MarkdownDescription: "Resource URI for the MJX Exchange Autodiscover URL.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"resource_id": schema.Int32Attribute{
 				Computed:            true,
-				MarkdownDescription: "The resource integer identifier for the MJX Exchange Autodiscover URL in Infinity.",
+				MarkdownDescription: "The resource integer identifier for the MJX Exchange Autodiscover URL.",
 				PlanModifiers: []planmodifier.Int32{
 					int32planmodifier.UseStateForUnknown(),
 				},
@@ -108,7 +108,7 @@ func (r *InfinityMjxExchangeAutodiscoverURLResource) Schema(ctx context.Context,
 				MarkdownDescription: "The OTJ Exchange Integration this Autodiscover URL belongs to.",
 			},
 		},
-		MarkdownDescription: "Manages an MJX Exchange Autodiscover URL in Infinity. An Autodiscover URL is used by the OTJ Exchange Integration to discover Exchange Web Services endpoints.",
+		MarkdownDescription: "Manages an MJX Exchange Autodiscover URL. An Autodiscover URL is used by the OTJ Exchange Integration to discover Exchange Web Services endpoints.",
 	}
 }
 
