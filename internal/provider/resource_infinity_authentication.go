@@ -288,7 +288,7 @@ func (r *InfinityAuthenticationResource) Schema(ctx context.Context, req resourc
 				Optional: true,
 				Computed: true,
 				Validators: []validator.String{
-					stringvalidator.OneOf("pkce","client_secret", "private_key"),
+					stringvalidator.OneOf("pkce", "client_secret", "private_key"),
 				},
 				Default:             stringdefault.StaticString("client_secret"),
 				MarkdownDescription: "The OpenID Connect authentication method. Valid choices: pkce, client_secret, private_key.",
