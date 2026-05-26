@@ -399,7 +399,6 @@ func (r *InfinityWorkerVMResource) Schema(ctx context.Context, req resource.Sche
 			},
 			"tls_client_certificate": schema.StringAttribute{
 				Optional:            true,
-				Computed:            true,
 				MarkdownDescription: "The TLS client certificate to use on this node.",
 			},
 			"transcoding": schema.BoolAttribute{
