@@ -132,6 +132,7 @@ type InfinityGlobalConfigurationResourceModel struct {
 	MaxPresentationBandwidthRatio       types.Int64  `tfsdk:"max_presentation_bandwidth_ratio"`
 	MediaPortsEnd                       types.Int64  `tfsdk:"media_ports_end"`
 	MediaPortsStart                     types.Int64  `tfsdk:"media_ports_start"`
+	MinPinLength                        types.Int64  `tfsdk:"min_pin_length"`
 	OcspResponderURL                    types.String `tfsdk:"ocsp_responder_url"`
 	OcspState                           types.String `tfsdk:"ocsp_state"`
 	PinEntryTimeout                     types.Int64  `tfsdk:"pin_entry_timeout"`
@@ -694,6 +695,15 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				},
 				MarkdownDescription: "The start value for the range of ports (UDP and TCP) that all Conferencing Nodes will use to send media (for all call protocols). The media port range must contain at least 100 ports. Range: 10000 to 49999. Default: 40000.",
 			},
+			"min_pin_length": schema.Int64Attribute{
+				Optional: true,
+				Computed: true,
+				Default:  int64default.StaticInt64(6),
+				Validators: []validator.Int64{
+					int64validator.Between(4, 20),
+				},
+				MarkdownDescription: "The minimum allowed PIN length for hosts and guests in Virtual Meeting Rooms or Virtual Auditoriums which have PINs configured. Length: 4-20 digits, including any terminal #. Default: 6.",
+			},
 			"ocsp_responder_url": schema.StringAttribute{
 				Optional: true,
 				Computed: true,
@@ -862,6 +872,7 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 		MaxPresentationBandwidthRatio:       int(plan.MaxPresentationBandwidthRatio.ValueInt64()),
 		MediaPortsStart:                     int(plan.MediaPortsStart.ValueInt64()),
 		MediaPortsEnd:                       int(plan.MediaPortsEnd.ValueInt64()),
+		MinPinLength:                        int(plan.MinPinLength.ValueInt64()),
 		SignallingPortsStart:                int(plan.SignallingPortsStart.ValueInt64()),
 		SignallingPortsEnd:                  int(plan.SignallingPortsEnd.ValueInt64()),
 		PinEntryTimeout:                     int(plan.PinEntryTimeout.ValueInt64()),
@@ -1071,6 +1082,7 @@ func (r *InfinityGlobalConfigurationResource) read(ctx context.Context, awsSecre
 	data.MaxPresentationBandwidthRatio = types.Int64Value(int64(srv.MaxPresentationBandwidthRatio))
 	data.MediaPortsStart = types.Int64Value(int64(srv.MediaPortsStart))
 	data.MediaPortsEnd = types.Int64Value(int64(srv.MediaPortsEnd))
+	data.MinPinLength = types.Int64Value(int64(srv.MinPinLength))
 	data.SignallingPortsStart = types.Int64Value(int64(srv.SignallingPortsStart))
 	data.SignallingPortsEnd = types.Int64Value(int64(srv.SignallingPortsEnd))
 	data.PinEntryTimeout = types.Int64Value(int64(srv.PinEntryTimeout))
@@ -1254,6 +1266,7 @@ func (r *InfinityGlobalConfigurationResource) Delete(ctx context.Context, req re
 		MaxPresentationBandwidthRatio:       75,
 		MediaPortsEnd:                       49999,
 		MediaPortsStart:                     40000,
+		MinPinLength:                        6,
 		OcspResponderURL:                    "",
 		OcspState:                           "OFF",
 		PinEntryTimeout:                     120,
