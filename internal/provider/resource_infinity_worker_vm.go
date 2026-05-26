@@ -80,6 +80,7 @@ type InfinityWorkerVMResourceModel struct {
 	StaticNATAddress           types.String `tfsdk:"static_nat_address"`
 	StaticRoutes               types.Set    `tfsdk:"static_routes"`
 	TLSCertificate             types.String `tfsdk:"tls_certificate"`
+	TLSClientCertificate       types.String `tfsdk:"tls_client_certificate"`
 
 	Config types.String `tfsdk:"config"`
 }
@@ -396,6 +397,11 @@ func (r *InfinityWorkerVMResource) Schema(ctx context.Context, req resource.Sche
 				Computed:            true,
 				MarkdownDescription: "The TLS certificate to use on this node.",
 			},
+			"tls_client_certificate": schema.StringAttribute{
+				Optional:            true,
+				Computed:            true,
+				MarkdownDescription: "The TLS client certificate to use on this node.",
+			},
 			"transcoding": schema.BoolAttribute{
 				Computed:            true,
 				MarkdownDescription: "Deprecated field - use node_type field instead.",
@@ -572,6 +578,10 @@ func (r *InfinityWorkerVMResource) Create(ctx context.Context, req resource.Crea
 		value := plan.TLSCertificate.ValueString()
 		createRequest.TLSCertificate = &value
 	}
+	if !plan.TLSClientCertificate.IsNull() && !plan.TLSClientCertificate.IsUnknown() {
+		value := plan.TLSClientCertificate.ValueString()
+		createRequest.TLSClientCertificate = &value
+	}
 
 	createResponse, err := r.InfinityClient.Config().CreateWorkerVM(ctx, createRequest)
 	if err != nil {
@@ -656,6 +666,7 @@ func (r *InfinityWorkerVMResource) read(ctx context.Context, resourceID int, vmC
 	data.IPv6Address = types.StringPointerValue(srv.IPv6Address)
 	data.IPv6Gateway = types.StringPointerValue(srv.IPv6Gateway)
 	data.TLSCertificate = types.StringPointerValue(srv.TLSCertificate)
+	data.TLSClientCertificate = types.StringPointerValue(srv.TLSClientCertificate)
 	data.SecondaryAddress = types.StringPointerValue(srv.SecondaryAddress)
 	data.SecondaryNetmask = types.StringPointerValue(srv.SecondaryNetmask)
 	data.StaticNATAddress = types.StringPointerValue(srv.StaticNATAddress)
@@ -799,6 +810,10 @@ func (r *InfinityWorkerVMResource) Update(ctx context.Context, req resource.Upda
 	if !plan.TLSCertificate.IsNull() && !plan.TLSCertificate.IsUnknown() {
 		value := plan.TLSCertificate.ValueString()
 		updateRequest.TLSCertificate = &value
+	}
+	if !plan.TLSClientCertificate.IsNull() && !plan.TLSClientCertificate.IsUnknown() {
+		value := plan.TLSClientCertificate.ValueString()
+		updateRequest.TLSClientCertificate = &value
 	}
 	// Send the update request to the management node
 	_, err := r.InfinityClient.Config().UpdateWorkerVM(ctx, resourceID, updateRequest)
