@@ -533,7 +533,11 @@ func (r *InfinityGatewayRoutingRuleResource) read(ctx context.Context, resourceI
 	data.ExternalParticipantAvatarLookup = types.StringPointerValue(srv.ExternalParticipantAvatarLookup)
 	data.GMSAccessToken = types.StringPointerValue(srv.GMSAccessToken)
 	data.H323Gatekeeper = types.StringPointerValue(srv.H323Gatekeeper)
-	data.IVRTheme = types.StringPointerValue(srv.IVRTheme)
+	if srv.IVRTheme != nil {
+		data.IVRTheme = types.StringValue(srv.IVRTheme.ResourceURI)
+	} else {
+		data.IVRTheme = types.StringNull()
+	}
 	data.LiveCaptionsEnabled = types.StringValue(srv.LiveCaptionsEnabled)
 	data.MatchIncomingCalls = types.BoolValue(srv.MatchIncomingCalls)
 	data.MatchIncomingH323 = types.BoolValue(srv.MatchIncomingH323)

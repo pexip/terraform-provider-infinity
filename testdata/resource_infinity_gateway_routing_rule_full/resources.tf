@@ -41,6 +41,7 @@ resource "pexip_infinity_gateway_routing_rule" "tf-test-gateway-routing-rule" {
   enable_participant_avatar_lookup = "yes"
   live_captions_enabled            = "yes"
   treat_as_trusted                 = true
+  ivr_theme                        = "/api/admin/configuration/v1/ivr_theme/2/"
 }
 
 resource "pexip_infinity_gateway_routing_rule" "tf-test-gateway-routing-rule-registered" {
