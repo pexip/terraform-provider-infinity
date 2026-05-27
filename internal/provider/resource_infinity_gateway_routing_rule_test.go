@@ -133,7 +133,7 @@ func TestInfinityGatewayRoutingRule(t *testing.T) {
 		mockState.TreatAsTrusted = req.TreatAsTrusted
 		mockState.DisabledCodecs = req.DisabledCodecs
 		if req.IVRTheme != nil {
-			mockState.IVRTheme = &config.IVRTheme{ResourceURI: *req.IVRTheme}
+			mockState.IVRTheme = &config.IVRTheme{ID: 2}
 		} else {
 			mockState.IVRTheme = nil
 		}
@@ -189,7 +189,7 @@ func TestInfinityGatewayRoutingRule(t *testing.T) {
 		mockState.TreatAsTrusted = req.TreatAsTrusted
 		mockState.DisabledCodecs = req.DisabledCodecs
 		if req.IVRTheme != nil {
-			mockState.IVRTheme = &config.IVRTheme{ResourceURI: *req.IVRTheme}
+			mockState.IVRTheme = &config.IVRTheme{ID: 2}
 		} else {
 			mockState.IVRTheme = nil
 		}
@@ -237,7 +237,7 @@ func TestInfinityGatewayRoutingRule(t *testing.T) {
 		mockState.TreatAsTrusted = req.TreatAsTrusted
 		mockState.DisabledCodecs = req.DisabledCodecs
 		if req.IVRTheme != nil {
-			mockState.IVRTheme = &config.IVRTheme{ResourceURI: *req.IVRTheme}
+			mockState.IVRTheme = &config.IVRTheme{ID: 2}
 		} else {
 			mockState.IVRTheme = nil
 		}
@@ -290,7 +290,7 @@ func TestInfinityGatewayRoutingRule(t *testing.T) {
 		mockState.TreatAsTrusted = req.TreatAsTrusted
 		mockState.DisabledCodecs = req.DisabledCodecs
 		if req.IVRTheme != nil {
-			mockState.IVRTheme = &config.IVRTheme{ResourceURI: *req.IVRTheme}
+			mockState.IVRTheme = &config.IVRTheme{ID: 2}
 		} else {
 			mockState.IVRTheme = nil
 		}

@@ -534,7 +534,7 @@ func (r *InfinityGatewayRoutingRuleResource) read(ctx context.Context, resourceI
 	data.GMSAccessToken = types.StringPointerValue(srv.GMSAccessToken)
 	data.H323Gatekeeper = types.StringPointerValue(srv.H323Gatekeeper)
 	if srv.IVRTheme != nil {
-		data.IVRTheme = types.StringValue(srv.IVRTheme.ResourceURI)
+		data.IVRTheme = types.StringValue(fmt.Sprintf("/api/admin/configuration/v1/ivr_theme/%d/", srv.IVRTheme.ID))
 	} else {
 		data.IVRTheme = types.StringNull()
 	}
