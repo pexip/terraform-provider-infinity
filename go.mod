@@ -1,7 +1,5 @@
 module github.com/pexip/terraform-provider-infinity
 
-replace github.com/pexip/go-infinity-sdk/v38 => /Users/mike/Documents/github/go-infinity-sdk
-
 go 1.24.3
 
 toolchain go1.24.4
