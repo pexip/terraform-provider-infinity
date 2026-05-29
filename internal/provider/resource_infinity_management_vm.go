@@ -220,6 +220,7 @@ func (r *InfinityManagementVMResource) Schema(ctx context.Context, req resource.
 			},
 			"tls_certificate": schema.StringAttribute{
 				Optional:            true,
+				Computed:            true,
 				MarkdownDescription: "The TLS certificate to use on this node.",
 			},
 			"enable_ssh": schema.StringAttribute{
