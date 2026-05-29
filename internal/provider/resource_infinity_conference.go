@@ -213,7 +213,6 @@ func (r *InfinityConferenceResource) Schema(ctx context.Context, req resource.Sc
 			},
 			"automatic_participants": schema.SetAttribute{
 				Optional:            true,
-				Computed:            true,
 				ElementType:         types.StringType,
 				MarkdownDescription: "When a conference begins, a call will be placed automatically to these selected participants.",
 			},
@@ -325,6 +324,7 @@ func (r *InfinityConferenceResource) Schema(ctx context.Context, req resource.Sc
 				},
 				MarkdownDescription: "This optional field allows you to set a secure access code for Guest participants who dial in to the service. Length: 4-20 digits, including any terminal #.",
 			},
+			// default of one_main_seven_pips should not be set here as this is null for two_stage_dialing
 			"guest_view": schema.StringAttribute{
 				Optional: true,
 				Computed: true,
@@ -349,7 +349,7 @@ func (r *InfinityConferenceResource) Schema(ctx context.Context, req resource.Sc
 				Optional:            true,
 				MarkdownDescription: "Select the set of Identity Providers to be offered to Hosts to authenticate with, in order to join the conference. If this is blank, Hosts will not be required to authenticate.",
 			},
-			// default of one_main_seven_pips should not be set here as it depends on the service type
+			// default of one_main_seven_pips should not be set here as this is null for two_stage_dialing
 			"host_view": schema.StringAttribute{
 				Optional: true,
 				Computed: true,
