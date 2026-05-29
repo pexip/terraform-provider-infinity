@@ -108,6 +108,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		MaxPresentationBandwidthRatio:       33,                   // default: 75
 		MediaPortsEnd:                       49999,                // default: 49999
 		MediaPortsStart:                     40123,                // default: 40000
+		MinPinLength:                        10,                   // default: 6
 		OcspResponderURL:                    "notdefaultocsp",
 		OcspState:                           "ON",  // default: "OFF"
 		PinEntryTimeout:                     321,   // default: 120
@@ -214,6 +215,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		assert.Equal(t, 75, req.MaxPresentationBandwidthRatio)
 		assert.Equal(t, 49999, req.MediaPortsEnd)
 		assert.Equal(t, 40000, req.MediaPortsStart)
+		assert.Equal(t, 6, req.MinPinLength)
 		assert.Equal(t, "", req.OcspResponderURL)
 		assert.Equal(t, "OFF", req.OcspState)
 		assert.Equal(t, 120, req.PinEntryTimeout)
@@ -299,6 +301,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		mockState.MaxPresentationBandwidthRatio = 75
 		mockState.MediaPortsEnd = 49999
 		mockState.MediaPortsStart = 40000
+		mockState.MinPinLength = 6
 		mockState.OcspResponderURL = ""
 		mockState.OcspState = "OFF"
 		mockState.PinEntryTimeout = 120
@@ -393,6 +396,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		mockState.MaxPresentationBandwidthRatio = updateRequest.MaxPresentationBandwidthRatio
 		mockState.MediaPortsEnd = updateRequest.MediaPortsEnd
 		mockState.MediaPortsStart = updateRequest.MediaPortsStart
+		mockState.MinPinLength = updateRequest.MinPinLength
 		mockState.OcspResponderURL = updateRequest.OcspResponderURL
 		mockState.OcspState = updateRequest.OcspState
 		mockState.PinEntryTimeout = updateRequest.PinEntryTimeout
@@ -447,6 +451,7 @@ func testInfinityGlobalConfiguration(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "max_callrate_out", "999"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "media_ports_start", "40123"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "media_ports_end", "49999"),
+					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "min_pin_length", "10"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "signalling_ports_start", "33001"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "signalling_ports_end", "39998"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "ocsp_state", "ON"),
@@ -495,6 +500,7 @@ func testInfinityGlobalConfiguration(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "guests_only_timeout", "60"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "media_ports_start", "40000"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "media_ports_end", "49999"),
+					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "min_pin_length", "6"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "signalling_ports_start", "33000"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "signalling_ports_end", "39999"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "ocsp_state", "OFF"),

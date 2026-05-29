@@ -75,6 +75,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
   max_presentation_bandwidth_ratio        = 33
   media_ports_end                         = 49999
   media_ports_start                       = 40123
+  min_pin_length                          = 10
   ocsp_responder_url                      = "notdefaultocsp"
   ocsp_state                              = "ON"
   pin_entry_timeout                       = 321
