@@ -82,7 +82,7 @@ func testInfinityGatewayRoutingRuleFullIntegration(t *testing.T, client Infinity
 		resource.TestCheckResourceAttr("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule", "disabled_codecs.#", "2"),
 		resource.TestCheckTypeSetElemAttr("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule", "disabled_codecs.*", "H261"),
 		resource.TestCheckTypeSetElemAttr("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule", "disabled_codecs.*", "H263"),
-		resource.TestCheckResourceAttrSet("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule", "ivr_theme"),
+		resource.TestCheckResourceAttrPair("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule", "ivr_theme", "pexip_infinity_ivr_theme.tf-test-theme", "id"),
 	)
 
 	minChecks := resource.ComposeTestCheckFunc(
