@@ -152,7 +152,8 @@ func (r *InfinityAutobackupResource) ValidateConfig(ctx context.Context, req res
 		return
 	}
 
-	if data.AutobackupEnabled.ValueBool() && data.AutobackupPassphrase.ValueString() == "" {
+	if !data.AutobackupEnabled.IsUnknown() && data.AutobackupEnabled.ValueBool() &&
+		!data.AutobackupPassphrase.IsUnknown() && data.AutobackupPassphrase.ValueString() == "" {
 		resp.Diagnostics.AddAttributeError(
 			path.Root("autobackup_passphrase"),
 			"Missing Required Attribute",
