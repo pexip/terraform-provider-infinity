@@ -59,6 +59,7 @@ func TestInfinityGatewayRoutingRule(t *testing.T) {
 		MaxPixelsPerSecond:              nil,
 		MaxCallrateIn:                   nil,
 		MaxCallrateOut:                  nil,
+		IVRTheme:                        nil,
 		DisabledCodecs:                  &[]config.CodecValue{},
 	}
 
@@ -131,6 +132,11 @@ func TestInfinityGatewayRoutingRule(t *testing.T) {
 		mockState.LiveCaptionsEnabled = req.LiveCaptionsEnabled
 		mockState.TreatAsTrusted = req.TreatAsTrusted
 		mockState.DisabledCodecs = req.DisabledCodecs
+		if req.IVRTheme != nil {
+			mockState.IVRTheme = &config.IVRTheme{ID: 2}
+		} else {
+			mockState.IVRTheme = nil
+		}
 	}).Once()
 
 	// Step 1: Create with full config (second resource)
@@ -182,6 +188,11 @@ func TestInfinityGatewayRoutingRule(t *testing.T) {
 		mockState.LiveCaptionsEnabled = req.LiveCaptionsEnabled
 		mockState.TreatAsTrusted = req.TreatAsTrusted
 		mockState.DisabledCodecs = req.DisabledCodecs
+		if req.IVRTheme != nil {
+			mockState.IVRTheme = &config.IVRTheme{ID: 2}
+		} else {
+			mockState.IVRTheme = nil
+		}
 		if args.Get(3) != nil {
 			rule := args.Get(3).(*config.GatewayRoutingRule)
 			*rule = *mockState
@@ -225,6 +236,11 @@ func TestInfinityGatewayRoutingRule(t *testing.T) {
 		mockState.LiveCaptionsEnabled = req.LiveCaptionsEnabled
 		mockState.TreatAsTrusted = req.TreatAsTrusted
 		mockState.DisabledCodecs = req.DisabledCodecs
+		if req.IVRTheme != nil {
+			mockState.IVRTheme = &config.IVRTheme{ID: 2}
+		} else {
+			mockState.IVRTheme = nil
+		}
 	}).Once()
 
 	// Step 5: Recreate second resource (back in full config)
@@ -273,6 +289,11 @@ func TestInfinityGatewayRoutingRule(t *testing.T) {
 		mockState.LiveCaptionsEnabled = req.LiveCaptionsEnabled
 		mockState.TreatAsTrusted = req.TreatAsTrusted
 		mockState.DisabledCodecs = req.DisabledCodecs
+		if req.IVRTheme != nil {
+			mockState.IVRTheme = &config.IVRTheme{ID: 2}
+		} else {
+			mockState.IVRTheme = nil
+		}
 		if args.Get(3) != nil {
 			rule := args.Get(3).(*config.GatewayRoutingRule)
 			*rule = *mockState
@@ -463,6 +484,7 @@ func testInfinityGatewayRoutingRule(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule", "disabled_codecs.#", "2"),
 					resource.TestCheckTypeSetElemAttr("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule", "disabled_codecs.*", "H261"),
 					resource.TestCheckTypeSetElemAttr("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule", "disabled_codecs.*", "H263"),
+					resource.TestCheckResourceAttr("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule", "ivr_theme", "/api/admin/configuration/v1/ivr_theme/2/"),
 					// Second resource checks
 					resource.TestCheckResourceAttrSet("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule-registered", "id"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule-registered", "resource_id"),
@@ -561,6 +583,7 @@ func testInfinityGatewayRoutingRule(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule", "disabled_codecs.#", "2"),
 					resource.TestCheckTypeSetElemAttr("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule", "disabled_codecs.*", "H261"),
 					resource.TestCheckTypeSetElemAttr("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule", "disabled_codecs.*", "H263"),
+					resource.TestCheckResourceAttr("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule", "ivr_theme", "/api/admin/configuration/v1/ivr_theme/2/"),
 					// Second resource checks
 					resource.TestCheckResourceAttrSet("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule-registered", "id"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule-registered", "resource_id"),
