@@ -59,6 +59,7 @@ type InfinityManagementVMResourceModel struct {
 	EventSinks                  types.Set    `tfsdk:"event_sinks"`
 	HTTPProxy                   types.String `tfsdk:"http_proxy"`
 	TLSCertificate              types.String `tfsdk:"tls_certificate"`
+	TLSClientCertificate        types.String `tfsdk:"tls_client_certificate"`
 	EnableSSH                   types.String `tfsdk:"enable_ssh"`
 	SSHAuthorizedKeys           types.Set    `tfsdk:"ssh_authorized_keys"`
 	SSHAuthorizedKeysUseCloud   types.Bool   `tfsdk:"ssh_authorized_keys_use_cloud"`
@@ -223,6 +224,10 @@ func (r *InfinityManagementVMResource) Schema(ctx context.Context, req resource.
 				Computed:            true,
 				MarkdownDescription: "The TLS certificate to use on this node.",
 			},
+			"tls_client_certificate": schema.StringAttribute{
+				Optional:            true,
+				MarkdownDescription: "The TLS client certificate to use on this node.",
+			},
 			"enable_ssh": schema.StringAttribute{
 				Optional: true,
 				Computed: true,
@@ -373,6 +378,10 @@ func (r *InfinityManagementVMResource) buildUpdateRequest(plan *InfinityManageme
 	if !plan.TLSCertificate.IsNull() && !plan.TLSCertificate.IsUnknown() {
 		cert := plan.TLSCertificate.ValueString()
 		updateRequest.TLSCertificate = &cert
+	}
+	if !plan.TLSClientCertificate.IsNull() && !plan.TLSClientCertificate.IsUnknown() {
+		cert := plan.TLSClientCertificate.ValueString()
+		updateRequest.TLSClientCertificate = &cert
 	}
 	if !plan.EnableSSH.IsNull() && !plan.EnableSSH.IsUnknown() {
 		updateRequest.EnableSSH = plan.EnableSSH.ValueString()
@@ -541,6 +550,12 @@ func (r *InfinityManagementVMResource) read(ctx context.Context, resourceID int,
 		data.TLSCertificate = types.StringNull()
 	}
 
+	if srv.TLSClientCertificate != nil {
+		data.TLSClientCertificate = types.StringValue(*srv.TLSClientCertificate)
+	} else {
+		data.TLSClientCertificate = types.StringNull()
+	}
+
 	if srv.SNMPNetworkManagementSystem != nil {
 		data.SNMPNetworkManagementSystem = types.StringValue(*srv.SNMPNetworkManagementSystem)
 	} else {
@@ -702,6 +717,7 @@ func (r *InfinityManagementVMResource) Delete(ctx context.Context, req resource.
 		StaticRoutes:                []string{},
 		EventSinks:                  []string{},
 		TLSCertificate:              nil,
+		TLSClientCertificate:        nil,
 		SSHAuthorizedKeys:           []string{},
 		SSHAuthorizedKeysUseCloud:   true,
 		SNMPNetworkManagementSystem: nil,
