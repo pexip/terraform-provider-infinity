@@ -76,10 +76,7 @@ func TestInfinityConference(t *testing.T) {
 		ServiceType:                     "conference",
 		PIN:                             "123456",
 		Tag:                             "tf-test-tag",
-		Aliases: &[]config.ConferenceAlias{
-			{ID: 1},
-			{ID: 2},
-		},
+		// Aliases start nil; alias CRUD mocks populate them
 		AutomaticParticipants: &[]config.AutomaticParticipant{
 			{ID: 1},
 			{ID: 2},
@@ -154,21 +151,8 @@ func TestInfinityConference(t *testing.T) {
 			mockState.IVRTheme = nil
 		}
 
-		// Aliases - if provided, update; if nil/empty, clear
-		if updateRequest.Aliases != nil {
-			var aliasObjects []config.ConferenceAlias
-			for i, alias := range *updateRequest.Aliases {
-				aliasObjects = append(aliasObjects, config.ConferenceAlias{
-					ID:          i + 1,
-					Alias:       alias,
-					Conference:  "/api/admin/configuration/v1/conference/123/",
-					ResourceURI: fmt.Sprintf("/api/admin/configuration/v1/conference_alias/%d/", i+1),
-				})
-			}
-			mockState.Aliases = &aliasObjects
-		} else {
-			mockState.Aliases = nil
-		}
+		// Aliases are managed separately via alias CRUD mocks; do not update here.
+
 		// AutomaticParticipants - if provided, update; if nil/empty, clear
 		if updateRequest.AutomaticParticipants != nil {
 			var participantObjects []config.AutomaticParticipant
@@ -196,6 +180,81 @@ func TestInfinityConference(t *testing.T) {
 	client.On("DeleteJSON", mock.Anything, mock.MatchedBy(func(path string) bool {
 		return path == "configuration/v1/conference/123/"
 	}), mock.Anything).Return(nil)
+
+	// Mock alias creation: Step 1 creates alias1 then alias2
+	alias1Response := &types.PostResponse{ResourceURI: "/api/admin/configuration/v1/conference_alias/1/"}
+	alias2Response := &types.PostResponse{ResourceURI: "/api/admin/configuration/v1/conference_alias/2/"}
+
+	// Step 1: first alias
+	client.On("PostWithResponse", mock.Anything, "configuration/v1/conference_alias/", mock.Anything, mock.Anything).
+		Return(alias1Response, nil).
+		Run(func(args mock.Arguments) {
+			req := args.Get(2).(*config.ConferenceAliasCreateRequest)
+			newAlias := config.ConferenceAlias{
+				ID: 1, Alias: req.Alias, Description: req.Description, Conference: req.Conference,
+				ResourceURI: "/api/admin/configuration/v1/conference_alias/1/",
+			}
+			if mockState.Aliases == nil {
+				mockState.Aliases = &[]config.ConferenceAlias{}
+			}
+			*mockState.Aliases = append(*mockState.Aliases, newAlias)
+		}).Once()
+	// Step 1: second alias
+	client.On("PostWithResponse", mock.Anything, "configuration/v1/conference_alias/", mock.Anything, mock.Anything).
+		Return(alias2Response, nil).
+		Run(func(args mock.Arguments) {
+			req := args.Get(2).(*config.ConferenceAliasCreateRequest)
+			newAlias := config.ConferenceAlias{
+				ID: 2, Alias: req.Alias, Description: req.Description, Conference: req.Conference,
+				ResourceURI: "/api/admin/configuration/v1/conference_alias/2/",
+			}
+			*mockState.Aliases = append(*mockState.Aliases, newAlias)
+		}).Once()
+	// Step 4 (update to full): first alias recreated
+	client.On("PostWithResponse", mock.Anything, "configuration/v1/conference_alias/", mock.Anything, mock.Anything).
+		Return(alias1Response, nil).
+		Run(func(args mock.Arguments) {
+			req := args.Get(2).(*config.ConferenceAliasCreateRequest)
+			newAlias := config.ConferenceAlias{
+				ID: 1, Alias: req.Alias, Description: req.Description, Conference: req.Conference,
+				ResourceURI: "/api/admin/configuration/v1/conference_alias/1/",
+			}
+			if mockState.Aliases == nil {
+				mockState.Aliases = &[]config.ConferenceAlias{}
+			}
+			*mockState.Aliases = append(*mockState.Aliases, newAlias)
+		}).Once()
+	// Step 4 (update to full): second alias recreated
+	client.On("PostWithResponse", mock.Anything, "configuration/v1/conference_alias/", mock.Anything, mock.Anything).
+		Return(alias2Response, nil).
+		Run(func(args mock.Arguments) {
+			req := args.Get(2).(*config.ConferenceAliasCreateRequest)
+			newAlias := config.ConferenceAlias{
+				ID: 2, Alias: req.Alias, Description: req.Description, Conference: req.Conference,
+				ResourceURI: "/api/admin/configuration/v1/conference_alias/2/",
+			}
+			*mockState.Aliases = append(*mockState.Aliases, newAlias)
+		}).Once()
+
+	// Mock alias deletion (Step 2: update to min removes both aliases)
+	client.On("DeleteJSON", mock.Anything, mock.MatchedBy(func(path string) bool {
+		return path == "configuration/v1/conference_alias/1/" || path == "configuration/v1/conference_alias/2/"
+	}), mock.Anything).Return(nil).Run(func(args mock.Arguments) {
+		path := args.Get(1).(string)
+		if mockState.Aliases != nil {
+			remaining := make([]config.ConferenceAlias, 0)
+			for _, a := range *mockState.Aliases {
+				if fmt.Sprintf("configuration/v1/conference_alias/%d/", a.ID) != path {
+					remaining = append(remaining, a)
+				}
+			}
+			if len(remaining) == 0 {
+				mockState.Aliases = nil
+			} else {
+				mockState.Aliases = &remaining
+			}
+		}
+	}).Maybe()
 
 	testInfinityConference(t, client)
 }
@@ -250,8 +309,14 @@ func testInfinityConference(t *testing.T, client InfinityClient) {
 					resource.TestCheckTypeSetElemAttr("pexip_infinity_conference.tf-test-conference", "automatic_participants.*", "/api/admin/configuration/v1/automatic_participant/1/"),
 					resource.TestCheckTypeSetElemAttr("pexip_infinity_conference.tf-test-conference", "automatic_participants.*", "/api/admin/configuration/v1/automatic_participant/2/"),
 					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "aliases.#", "2"),
-					resource.TestCheckTypeSetElemAttr("pexip_infinity_conference.tf-test-conference", "aliases.*", "/api/admin/configuration/v1/conference_alias/1/"),
-					resource.TestCheckTypeSetElemAttr("pexip_infinity_conference.tf-test-conference", "aliases.*", "/api/admin/configuration/v1/conference_alias/2/"),
+					resource.TestCheckTypeSetElemNestedAttrs("pexip_infinity_conference.tf-test-conference", "aliases.*", map[string]string{
+						"alias":       "alias1.tf-test",
+						"description": "First test alias",
+					}),
+					resource.TestCheckTypeSetElemNestedAttrs("pexip_infinity_conference.tf-test-conference", "aliases.*", map[string]string{
+						"alias":       "alias2.tf-test",
+						"description": "Second test alias",
+					}),
 				),
 			},
 			// Test 2: Update to min configuration, then delete
@@ -325,8 +390,14 @@ func testInfinityConference(t *testing.T, client InfinityClient) {
 					resource.TestCheckTypeSetElemAttr("pexip_infinity_conference.tf-test-conference", "automatic_participants.*", "/api/admin/configuration/v1/automatic_participant/1/"),
 					resource.TestCheckTypeSetElemAttr("pexip_infinity_conference.tf-test-conference", "automatic_participants.*", "/api/admin/configuration/v1/automatic_participant/2/"),
 					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "aliases.#", "2"),
-					resource.TestCheckTypeSetElemAttr("pexip_infinity_conference.tf-test-conference", "aliases.*", "/api/admin/configuration/v1/conference_alias/1/"),
-					resource.TestCheckTypeSetElemAttr("pexip_infinity_conference.tf-test-conference", "aliases.*", "/api/admin/configuration/v1/conference_alias/2/"),
+					resource.TestCheckTypeSetElemNestedAttrs("pexip_infinity_conference.tf-test-conference", "aliases.*", map[string]string{
+						"alias":       "alias1.tf-test",
+						"description": "First test alias",
+					}),
+					resource.TestCheckTypeSetElemNestedAttrs("pexip_infinity_conference.tf-test-conference", "aliases.*", map[string]string{
+						"alias":       "alias2.tf-test",
+						"description": "Second test alias",
+					}),
 				),
 			},
 		},

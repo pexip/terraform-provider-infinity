@@ -13,6 +13,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/int32validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -90,6 +91,49 @@ type InfinityConferenceResourceModel struct {
 	// ScheduledConferencesCount       types.Int32  `tfsdk:"scheduled_conferences_count"` # Read-only field
 }
 
+type ConferenceAliasNestedModel struct {
+	ResourceID  types.Int32  `tfsdk:"resource_id"`
+	Alias       types.String `tfsdk:"alias"`
+	Description types.String `tfsdk:"description"`
+}
+
+func nestedAliasObjectType() attr.Type {
+	return types.ObjectType{
+		AttrTypes: map[string]attr.Type{
+			"resource_id": types.Int32Type,
+			"alias":       types.StringType,
+			"description": types.StringType,
+		},
+	}
+}
+
+// nullToUnknownInt32Modifier handles the resource_id computed attribute inside
+// SetNestedAttribute nested objects:
+//   - If the plan value is null and the state has a known value (existing element),
+//     use the state value to suppress drift on refresh.
+//   - If the plan value is null and the state is also null/unknown (new element),
+//     mark as unknown so Terraform accepts whatever value the provider computes.
+type nullToUnknownInt32Modifier struct{}
+
+func (m nullToUnknownInt32Modifier) Description(_ context.Context) string {
+	return "Preserves state value when available; otherwise marks as unknown for provider computation."
+}
+
+func (m nullToUnknownInt32Modifier) MarkdownDescription(_ context.Context) string {
+	return "Preserves state value when available; otherwise marks as unknown for provider computation."
+}
+
+func (m nullToUnknownInt32Modifier) PlanModifyInt32(_ context.Context, req planmodifier.Int32Request, resp *planmodifier.Int32Response) {
+	if !req.PlanValue.IsNull() {
+		return
+	}
+	if !req.StateValue.IsNull() && !req.StateValue.IsUnknown() {
+		resp.PlanValue = req.StateValue
+		return
+	}
+	resp.PlanValue = types.Int32Unknown()
+}
+
 func (r *InfinityConferenceResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_infinity_conference"
 }
@@ -135,11 +179,31 @@ func (r *InfinityConferenceResource) Schema(ctx context.Context, req resource.Sc
 				},
 				MarkdownDescription: "The name used to refer to this service. Maximum length: 250 characters.",
 			},
-			"aliases": schema.SetAttribute{
-				Optional:            true,
-				Computed:            true,
-				ElementType:         types.StringType,
-				MarkdownDescription: "The aliases associated with this conference.",
+			"aliases": schema.SetNestedAttribute{
+				Optional: true,
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"resource_id": schema.Int32Attribute{
+							Computed: true,
+							PlanModifiers: []planmodifier.Int32{
+								nullToUnknownInt32Modifier{},
+							},
+							MarkdownDescription: "The numeric ID of the conference alias.",
+						},
+						"alias": schema.StringAttribute{
+							Required: true,
+							Validators: []validator.String{
+								stringvalidator.LengthAtMost(250),
+							},
+							MarkdownDescription: "The dial string used to join this service.",
+						},
+						"description": schema.StringAttribute{
+							Optional:            true,
+							MarkdownDescription: "An optional description of the alias.",
+						},
+					},
+				},
+				MarkdownDescription: "Aliases for this conference. Each alias is managed as a conference_alias resource internally.",
 			},
 			"allow_guests": schema.BoolAttribute{
 				Optional:            true,
@@ -264,6 +328,9 @@ func (r *InfinityConferenceResource) Schema(ctx context.Context, req resource.Sc
 			"guest_view": schema.StringAttribute{
 				Optional: true,
 				Computed: true,
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
 				Validators: []validator.String{
 					stringvalidator.LengthAtMost(50),
 				},
@@ -286,6 +353,9 @@ func (r *InfinityConferenceResource) Schema(ctx context.Context, req resource.Sc
 			"host_view": schema.StringAttribute{
 				Optional: true,
 				Computed: true,
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
 				Validators: []validator.String{
 					stringvalidator.LengthAtMost(50),
 				},
@@ -531,11 +601,6 @@ func (r *InfinityConferenceResource) Create(ctx context.Context, req resource.Cr
 
 	// All nullable fields
 	// Only set optional fields if they are not null in the plan
-	if !plan.Aliases.IsNull() && !plan.Aliases.IsUnknown() {
-		aliases, diags := getStringList(ctx, plan.Aliases)
-		resp.Diagnostics.Append(diags...)
-		createRequest.Aliases = &aliases
-	}
 	if !plan.AutomaticParticipants.IsNull() && !plan.AutomaticParticipants.IsUnknown() {
 		automaticParticipants, diags := getStringList(ctx, plan.AutomaticParticipants)
 		resp.Diagnostics.Append(diags...)
@@ -676,6 +741,29 @@ func (r *InfinityConferenceResource) Create(ctx context.Context, req resource.Cr
 		return
 	}
 
+	// Create aliases if specified
+	if !plan.Aliases.IsNull() && !plan.Aliases.IsUnknown() {
+		var plannedAliases []ConferenceAliasNestedModel
+		resp.Diagnostics.Append(plan.Aliases.ElementsAs(ctx, &plannedAliases, false)...)
+		if resp.Diagnostics.HasError() {
+			return
+		}
+		for _, a := range plannedAliases {
+			_, err := r.InfinityClient.Config().CreateConferenceAlias(ctx, &config.ConferenceAliasCreateRequest{
+				Alias:       a.Alias.ValueString(),
+				Conference:  createResponse.ResourceURI,
+				Description: a.Description.ValueString(),
+			})
+			if err != nil {
+				resp.Diagnostics.AddError(
+					"Error Creating Conference Alias",
+					fmt.Sprintf("Could not create alias %s for Infinity conference: %s", a.Alias.ValueString(), err),
+				)
+				return
+			}
+		}
+	}
+
 	// Read the state from the API to get all computed values
 	model, err := r.read(ctx, resourceID)
 	if err != nil {
@@ -686,6 +774,12 @@ func (r *InfinityConferenceResource) Create(ctx context.Context, req resource.Cr
 		return
 	}
 	tflog.Trace(ctx, fmt.Sprintf("created Infinity conference with ID: %s, name: %s", model.ID, model.Name))
+
+	// If aliases were not configured inline, do not store API aliases in state.
+	// This prevents drift when aliases are managed by standalone conference_alias resources.
+	if plan.Aliases.IsNull() {
+		model.Aliases = types.SetNull(nestedAliasObjectType())
+	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, model)...)
 }
@@ -763,14 +857,22 @@ func (r *InfinityConferenceResource) read(ctx context.Context, resourceID int) (
 		data.IVRTheme = types.StringValue(fmt.Sprintf("/api/admin/configuration/v1/ivr_theme/%d/", srv.IVRTheme.ID))
 	}
 
-	// Convert conference aliases from SDK to Terraform format
-	var aliases []string
+	// Convert conference aliases from SDK to Terraform nested model
+	var aliases []ConferenceAliasNestedModel
 	if srv.Aliases != nil {
-		for _, alias := range *srv.Aliases {
-			aliases = append(aliases, fmt.Sprintf("/api/admin/configuration/v1/conference_alias/%d/", alias.ID))
+		for _, a := range *srv.Aliases {
+			desc := types.StringNull()
+			if a.Description != "" {
+				desc = types.StringValue(a.Description)
+			}
+			aliases = append(aliases, ConferenceAliasNestedModel{
+				ResourceID:  types.Int32Value(int32(a.ID)), // #nosec G115 -- API values are expected to be within int32 range
+				Alias:       types.StringValue(a.Alias),
+				Description: desc,
+			})
 		}
 	}
-	aliasesSetValue, diags := types.SetValueFrom(ctx, types.StringType, aliases)
+	aliasesSetValue, diags := types.SetValueFrom(ctx, nestedAliasObjectType(), aliases)
 	if diags.HasError() {
 		return nil, fmt.Errorf("error converting aliases: %v", diags)
 	}
@@ -794,14 +896,17 @@ func (r *InfinityConferenceResource) read(ctx context.Context, resourceID int) (
 }
 
 func (r *InfinityConferenceResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	state := &InfinityConferenceResourceModel{}
+	priorState := &InfinityConferenceResourceModel{}
 
-	resp.Diagnostics.Append(req.State.Get(ctx, state)...)
+	resp.Diagnostics.Append(req.State.Get(ctx, priorState)...)
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
-	resourceID := int(state.ResourceID.ValueInt32())
+	// Remember whether aliases were managed inline before this read.
+	priorAliasesNull := priorState.Aliases.IsNull()
+
+	resourceID := int(priorState.ResourceID.ValueInt32())
 	state, err := r.read(ctx, resourceID)
 	if err != nil {
 		// Check if the error is a 404 (not found)
@@ -814,6 +919,12 @@ func (r *InfinityConferenceResource) Read(ctx context.Context, req resource.Read
 			fmt.Sprintf("Could not read Infinity conference: %s", err),
 		)
 		return
+	}
+
+	// If aliases were not previously managed inline, preserve null to avoid drift
+	// caused by standalone conference_alias resources that are visible in the API.
+	if priorAliasesNull {
+		state.Aliases = types.SetNull(nestedAliasObjectType())
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, state)...)
@@ -864,13 +975,84 @@ func (r *InfinityConferenceResource) Update(ctx context.Context, req resource.Up
 		TwoStageDialType:                plan.TwoStageDialType.ValueString(),
 	}
 
+	// Sync aliases: create new, update changed, delete removed
+	var stateAliases []ConferenceAliasNestedModel
+	var plannedAliases []ConferenceAliasNestedModel
+
+	if !state.Aliases.IsNull() && !state.Aliases.IsUnknown() {
+		resp.Diagnostics.Append(state.Aliases.ElementsAs(ctx, &stateAliases, false)...)
+		if resp.Diagnostics.HasError() {
+			return
+		}
+	}
+	if !plan.Aliases.IsNull() && !plan.Aliases.IsUnknown() {
+		resp.Diagnostics.Append(plan.Aliases.ElementsAs(ctx, &plannedAliases, false)...)
+		if resp.Diagnostics.HasError() {
+			return
+		}
+	}
+
+	stateAliasMap := make(map[string]ConferenceAliasNestedModel)
+	for _, a := range stateAliases {
+		stateAliasMap[a.Alias.ValueString()] = a
+	}
+
+	conferenceURI := state.ID.ValueString()
+	aliasURIs := make([]string, 0)
+
+	for _, a := range plannedAliases {
+		aliasStr := a.Alias.ValueString()
+		if existing, found := stateAliasMap[aliasStr]; found {
+			aliasID := int(existing.ResourceID.ValueInt32())
+			aliasURI := fmt.Sprintf("/api/admin/configuration/v1/conference_alias/%d/", aliasID)
+			if a.Description.ValueString() != existing.Description.ValueString() {
+				_, err := r.InfinityClient.Config().UpdateConferenceAlias(ctx, aliasID, &config.ConferenceAliasUpdateRequest{
+					Alias:       aliasStr,
+					Conference:  conferenceURI,
+					Description: a.Description.ValueString(),
+				})
+				if err != nil {
+					resp.Diagnostics.AddError(
+						"Error Updating Conference Alias",
+						fmt.Sprintf("Could not update alias %s: %s", aliasStr, err),
+					)
+					return
+				}
+			}
+			aliasURIs = append(aliasURIs, aliasURI)
+			delete(stateAliasMap, aliasStr)
+		} else {
+			createAliasResp, err := r.InfinityClient.Config().CreateConferenceAlias(ctx, &config.ConferenceAliasCreateRequest{
+				Alias:       aliasStr,
+				Conference:  conferenceURI,
+				Description: a.Description.ValueString(),
+			})
+			if err != nil {
+				resp.Diagnostics.AddError(
+					"Error Creating Conference Alias",
+					fmt.Sprintf("Could not create alias %s: %s", aliasStr, err),
+				)
+				return
+			}
+			aliasURIs = append(aliasURIs, createAliasResp.ResourceURI)
+		}
+	}
+
+	for _, a := range stateAliasMap {
+		aliasID := int(a.ResourceID.ValueInt32())
+		if err := r.InfinityClient.Config().DeleteConferenceAlias(ctx, aliasID); err != nil && !isNotFoundError(err) {
+			resp.Diagnostics.AddError(
+				"Error Deleting Conference Alias",
+				fmt.Sprintf("Could not delete alias %s: %s", a.Alias.ValueString(), err),
+			)
+			return
+		}
+	}
+
+	updateRequest.Aliases = &aliasURIs
+
 	// All nullable fields
 	// Only set optional fields if they are not null in the plan
-	if !plan.Aliases.IsNull() && !plan.Aliases.IsUnknown() {
-		aliases, diags := getStringList(ctx, plan.Aliases)
-		resp.Diagnostics.Append(diags...)
-		updateRequest.Aliases = &aliases
-	}
 	if !plan.AutomaticParticipants.IsNull() && !plan.AutomaticParticipants.IsUnknown() {
 		automaticParticipants, diags := getStringList(ctx, plan.AutomaticParticipants)
 		resp.Diagnostics.Append(diags...)
@@ -1006,6 +1188,11 @@ func (r *InfinityConferenceResource) Update(ctx context.Context, req resource.Up
 			fmt.Sprintf("Could not read updated Infinity conference with ID %d: %s", resourceID, err),
 		)
 		return
+	}
+
+	// If aliases were not configured inline, do not store API aliases in state.
+	if plan.Aliases.IsNull() {
+		updatedModel.Aliases = types.SetNull(nestedAliasObjectType())
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, updatedModel)...)

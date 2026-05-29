@@ -62,6 +62,15 @@ func testInfinityConferenceIntegration(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_automatic_participant.tf-test-participant1", "alias", "tf-test-participant1@example.com"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_automatic_participant.tf-test-participant2", "id"),
 					resource.TestCheckResourceAttr("pexip_infinity_automatic_participant.tf-test-participant2", "alias", "tf-test-participant2@example.com"),
+					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "aliases.#", "2"),
+					resource.TestCheckTypeSetElemNestedAttrs("pexip_infinity_conference.tf-test-conference", "aliases.*", map[string]string{
+						"alias":       "tf-test-alias1",
+						"description": "Test alias 1",
+					}),
+					resource.TestCheckTypeSetElemNestedAttrs("pexip_infinity_conference.tf-test-conference", "aliases.*", map[string]string{
+						"alias":       "tf-test-alias2",
+						"description": "Test alias 2",
+					}),
 				),
 			},
 			// Step 2: Update to min configuration
@@ -101,6 +110,15 @@ func testInfinityConferenceIntegration(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_automatic_participant.tf-test-participant1", "alias", "tf-test-participant1@example.com"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_automatic_participant.tf-test-participant2", "id"),
 					resource.TestCheckResourceAttr("pexip_infinity_automatic_participant.tf-test-participant2", "alias", "tf-test-participant2@example.com"),
+					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "aliases.#", "2"),
+					resource.TestCheckTypeSetElemNestedAttrs("pexip_infinity_conference.tf-test-conference", "aliases.*", map[string]string{
+						"alias":       "tf-test-alias1",
+						"description": "Test alias 1",
+					}),
+					resource.TestCheckTypeSetElemNestedAttrs("pexip_infinity_conference.tf-test-conference", "aliases.*", map[string]string{
+						"alias":       "tf-test-alias2",
+						"description": "Test alias 2",
+					}),
 				),
 			},
 		},

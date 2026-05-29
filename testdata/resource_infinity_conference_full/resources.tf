@@ -12,7 +12,10 @@ resource "pexip_infinity_conference" "tf-test-conference" {
   guest_pin                           = "654321"
   tag                                 = "tf-test-tag"
   allow_guests                        = true
-  aliases                             = ["/api/admin/configuration/v1/conference_alias/1/", "/api/admin/configuration/v1/conference_alias/2/"]
+  aliases = [
+    { alias = "alias1.tf-test", description = "First test alias" },
+    { alias = "alias2.tf-test", description = "Second test alias" },
+  ]
   automatic_participants              = ["/api/admin/configuration/v1/automatic_participant/1/", "/api/admin/configuration/v1/automatic_participant/2/"]
   breakout_rooms                      = true
   call_type                           = "video-only"
