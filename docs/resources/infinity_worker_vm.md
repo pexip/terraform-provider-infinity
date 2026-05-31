@@ -120,6 +120,7 @@ resource "google_compute_instance" "infinity_worker" {
 - `static_nat_address` (String) The public IPv4 address used by the Conferencing Node when it is located behind a NAT device. Note that if you are using NAT, you must also configure your NAT device to route the Conferencing Node's IPv4 static NAT address to its IPv4 address.
 - `static_routes` (Set of String) Additional configuration to permit routing of traffic to networks not accessible through the configured default gateway.
 - `tls_certificate` (String) The TLS certificate to use on this node.
+- `tls_client_certificate` (String) The TLS client certificate to use on this node.
 - `vm_cpu_count` (Number) Enter the number of virtual CPUs to assign to this Conferencing Node. Used when generating an ova. We do not recommend that you assign more virtual CPUs than there are physical cores on a single processor on the host server (unless you have enabled NUMA affinity). For example, if the host server has 2 processors each with 12 physical cores, we recommend that you assign no more than 12 virtual CPUs. Range: 2 to 128. Default: 4.
 - `vm_system_memory` (Number) The amount of RAM (in megabytes) to assign to this Conferencing Node. Used when generating an ova. Range: 2000 to 64000. Default: 4096.
 
