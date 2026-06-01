@@ -780,6 +780,9 @@ func (r *InfinityConferenceResource) Create(ctx context.Context, req resource.Cr
 	if plan.Aliases.IsNull() {
 		model.Aliases = types.SetNull(nestedAliasObjectType())
 	}
+	if plan.AutomaticParticipants.IsNull() {
+		model.AutomaticParticipants = types.SetNull(types.StringType)
+	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, model)...)
 }
@@ -880,17 +883,19 @@ func (r *InfinityConferenceResource) read(ctx context.Context, resourceID int) (
 
 	// Convert automatic participants from SDK to Terraform format.
 	// The API does not populate resource_uri on embedded participant objects; construct it from ID instead.
-	var participants []string
-	if srv.AutomaticParticipants != nil {
+	if srv.AutomaticParticipants == nil {
+		data.AutomaticParticipants = types.SetNull(types.StringType)
+	} else {
+		var participants []string
 		for _, participant := range *srv.AutomaticParticipants {
 			participants = append(participants, fmt.Sprintf("/api/admin/configuration/v1/automatic_participant/%d/", participant.ID))
 		}
+		participantsSetValue, diags := types.SetValueFrom(ctx, types.StringType, participants)
+		if diags.HasError() {
+			return nil, fmt.Errorf("error converting automatic participants: %v", diags)
+		}
+		data.AutomaticParticipants = participantsSetValue
 	}
-	participantsSetValue, diags := types.SetValueFrom(ctx, types.StringType, participants)
-	if diags.HasError() {
-		return nil, fmt.Errorf("error converting automatic participants: %v", diags)
-	}
-	data.AutomaticParticipants = participantsSetValue
 
 	return &data, nil
 }
@@ -925,6 +930,9 @@ func (r *InfinityConferenceResource) Read(ctx context.Context, req resource.Read
 	// caused by standalone conference_alias resources that are visible in the API.
 	if priorAliasesNull {
 		state.Aliases = types.SetNull(nestedAliasObjectType())
+	}
+	if priorState.AutomaticParticipants.IsNull() {
+		state.AutomaticParticipants = types.SetNull(types.StringType)
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, state)...)
@@ -1193,6 +1201,9 @@ func (r *InfinityConferenceResource) Update(ctx context.Context, req resource.Up
 	// If aliases were not configured inline, do not store API aliases in state.
 	if plan.Aliases.IsNull() {
 		updatedModel.Aliases = types.SetNull(nestedAliasObjectType())
+	}
+	if plan.AutomaticParticipants.IsNull() {
+		updatedModel.AutomaticParticipants = types.SetNull(types.StringType)
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, updatedModel)...)
