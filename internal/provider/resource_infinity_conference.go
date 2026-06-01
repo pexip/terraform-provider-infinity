@@ -1046,18 +1046,20 @@ func (r *InfinityConferenceResource) Update(ctx context.Context, req resource.Up
 		}
 	}
 
-	for _, a := range stateAliasMap {
-		aliasID := int(a.ResourceID.ValueInt32())
-		if err := r.InfinityClient.Config().DeleteConferenceAlias(ctx, aliasID); err != nil && !isNotFoundError(err) {
-			resp.Diagnostics.AddError(
-				"Error Deleting Conference Alias",
-				fmt.Sprintf("Could not delete alias %s: %s", a.Alias.ValueString(), err),
-			)
-			return
+	if !plan.Aliases.IsNull() && !plan.Aliases.IsUnknown() {
+		for _, a := range stateAliasMap {
+			aliasID := int(a.ResourceID.ValueInt32())
+			if err := r.InfinityClient.Config().DeleteConferenceAlias(ctx, aliasID); err != nil && !isNotFoundError(err) {
+				resp.Diagnostics.AddError(
+					"Error Deleting Conference Alias",
+					fmt.Sprintf("Could not delete alias %s: %s", a.Alias.ValueString(), err),
+				)
+				return
+			}
 		}
-	}
 
-	updateRequest.Aliases = &aliasURIs
+		updateRequest.Aliases = &aliasURIs
+	}
 
 	// All nullable fields
 	// Only set optional fields if they are not null in the plan
