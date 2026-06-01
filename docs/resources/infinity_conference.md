@@ -2,7 +2,7 @@
 
 Manages a conference configuration.
 
-There are multiple conference types in Infinity, each designed for different use cases. These examples use the nested attribute `aliases` to assign one or more aliases to a conference. Additionally the `conference_alias` resource can also be used if desired.
+There are multiple conference types in Infinity, each designed for different use cases. These examples use the nested attribute `aliases` to assign one or more aliases to a conference. Additionally, the `conference_alias` resource can also be used if desired.
 
 ## Example Usage
 
@@ -58,7 +58,7 @@ resource "pexip_infinity_conference" "virtual_auditorium" {
 
 ### Media Playback Service
 
-Multiple resources are need to create a media playback service. In this example a single media file is added to a playlist. The service is configured to disconnect the participant once the playlist has finished.
+Multiple resources are needed to create a media playback service. In this example, a single media file is added to a playlist. The service is configured to disconnect the participant once the playlist has finished.
 
 ```terraform
 resource "pexip_infinity_media_library_entry" "example" {

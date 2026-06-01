@@ -210,7 +210,8 @@ func TestInfinityConference(t *testing.T) {
 			}
 			*mockState.Aliases = append(*mockState.Aliases, newAlias)
 		}).Once()
-	// Step 4 (update to full): first alias recreated
+	// Step 4 (update to full): first alias recreated — reset aliases first since step 2 no longer
+	// deletes them (plan.Aliases is null, so the provider skips alias deletion intentionally).
 	client.On("PostWithResponse", mock.Anything, "configuration/v1/conference_alias/", mock.Anything, mock.Anything).
 		Return(alias1Response, nil).
 		Run(func(args mock.Arguments) {
@@ -219,10 +220,7 @@ func TestInfinityConference(t *testing.T) {
 				ID: 1, Alias: req.Alias, Description: req.Description, Conference: req.Conference,
 				ResourceURI: "/api/admin/configuration/v1/conference_alias/1/",
 			}
-			if mockState.Aliases == nil {
-				mockState.Aliases = &[]config.ConferenceAlias{}
-			}
-			*mockState.Aliases = append(*mockState.Aliases, newAlias)
+			mockState.Aliases = &[]config.ConferenceAlias{newAlias}
 		}).Once()
 	// Step 4 (update to full): second alias recreated
 	client.On("PostWithResponse", mock.Anything, "configuration/v1/conference_alias/", mock.Anything, mock.Anything).
