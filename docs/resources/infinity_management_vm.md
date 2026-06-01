@@ -84,6 +84,7 @@ action "pexip_delete_default_mgr_tls_certificate" "remove_default" {}
 - `static_routes` (Set of String) Additional configuration to permit routing of traffic to networks not accessible through the configured default gateway.
 - `syslog_servers` (Set of String) The Syslog servers to be used by this Management Node.
 - `tls_certificate` (String) The TLS certificate to use on this node.
+- `tls_client_certificate` (String) The TLS client certificate to use on this node.
 
 ### Read-Only
 

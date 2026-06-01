@@ -1,70 +1,105 @@
----
-page_title: "pexip_infinity_conference Resource - terraform-provider-pexip"
-subcategory: ""
-description: |-
-  Manages a Pexip Infinity conference configuration.
----
-
 # pexip_infinity_conference (Resource)
 
 Manages a conference configuration.
 
+There are multiple conference types in Infinity, each designed for different use cases. These examples use the nested attribute `aliases` to assign one or more aliases to a conference. Additionally, the `conference_alias` resource can also be used if desired.
+
 ## Example Usage
 
-### Basic Conference
+### Virtual Meeting Room
 
 ```terraform
-resource "pexip_infinity_conference" "meeting_room" {
-  name         = "executive-meeting"
+resource "pexip_infinity_conference" "vmr" {
+  name         = "Example VMR"
   service_type = "conference"
-  pin          = "1234567"
+  aliases = [
+    { alias = "examplevmr" },
+    { alias = "examplevmr@example.com" },
+    { alias = "1776" }
+  ]
 }
 ```
 
-### Lecture Mode Conference
+### Virtual Reception
+
+This IVR only matches four digits for routing to other conferences.
 
 ```terraform
-resource "pexip_infinity_conference" "webinar" {
+resource "pexip_infinity_conference" "ivr" {
+  name         = "IVR Service"
+  service_type = "two_stage_dialing"
+  description  = "IVR example"
+  match_string = "^\\d{4}$"
+  aliases = [
+    { alias = "exampleivr" },
+    { alias = "exampleivr@example.com" },
+  ]
+}
+```
+
+### Virtual Auditorium
+
+This VA will auto-mute all guests as they join.
+
+```terraform
+resource "pexip_infinity_conference" "virtual_auditorium" {
   name             = "company-webinar"
   service_type     = "lecture"
   description      = "Monthly company-wide webinar"
-  pin              = "987654321"
+  pin              = "987654"
   allow_guests     = true
-  guests_muted     = true
-  hosts_can_unmute = true
+  mute_all_guests  = true
+  aliases = [
+    { alias = "exampleva" },
+    { alias = "exampleva@example.com" },
+  ]
 }
 ```
 
-### Full Configuration
+### Media Playback Service
+
+Multiple resources are needed to create a media playback service. In this example, a single media file is added to a playlist. The service is configured to disconnect the participant once the playlist has finished.
 
 ```terraform
-resource "pexip_infinity_conference" "secure_meeting" {
-  name         = "board-meeting"
-  description  = "Secure board meeting room"
-  service_type = "conference"
+resource "pexip_infinity_media_library_entry" "example" {
+  name        = "example"
+  media_file  = "${path.module}/example.mp4"
+}
 
-  # Security configuration
-  pin              = var.meeting_pin
-  guest_pin        = var.guest_pin
-  allow_guests     = true
-  guests_muted     = false
-  hosts_can_unmute = true
+resource "pexip_infinity_media_library_playlist" "example_playlist" {
+  name        = "example_playlist"
+}
 
-  # Media configuration
-  max_pixels_per_second = 1920000
+resource "pexip_infinity_media_library_playlist_entry" "example_playlist_entry" {
+  playlist = pexip_infinity_media_library_playlist.example_playlist.id
+  media    = pexip_infinity_media_library_entry.example.id
+}
 
-  # Tracking
-  tag = "executive-meetings"
+resource "pexip_infinity_conference" "media_playback" {
+  name        = "Media Playback Example"
+  service_type = "media_playback"
+  media_playlist = pexip_infinity_media_library_playlist.example_playlist.id
+  on_completion = jsonencode({
+    disconnect = true
+  })
+  aliases = [
+    { alias = "exampleplayback" },
+    { alias = "exampleplayback@example.com" },
+  ]
 }
 ```
 
 ### Test Call Service
 
 ```terraform
-resource "pexip_infinity_conference" "test_service" {
-  name         = "test-call"
+resource "pexip_infinity_conference" "test_call" {
+  name         = "Test Call Service"
   service_type = "test_call"
   description  = "Service for testing audio and video"
+  aliases = [
+    { alias = "calltest" },
+    { alias = "calltest@example.com" },
+  ]
 }
 ```
 
@@ -78,7 +113,7 @@ resource "pexip_infinity_conference" "test_service" {
 
 ### Optional
 
-- `aliases` (Set of String) The aliases associated with this conference.
+- `aliases` (Attributes Set) Aliases for this conference. Each alias is managed as a conference_alias resource internally. (see [below for nested schema](#nestedatt--aliases))
 - `allow_guests` (Boolean) Whether Guest participants are allowed to join the conference. true: the conference will have two types of participants: Hosts and Guests. You must enter a PIN to be used by the Hosts. You can optionally enter a Guest PIN; if you do not enter a Guest PIN, Guests can join without a PIN, but the meeting will not start until the first Host has joined. false: all participants will have Host privileges.
 - `automatic_participants` (Set of String) When a conference begins, a call will be placed automatically to these selected participants.
 - `breakout_rooms` (Boolean) Allow this service to use different breakout rooms for participants.
@@ -131,23 +166,23 @@ resource "pexip_infinity_conference" "test_service" {
 - `id` (String) Resource URI for the conference.
 - `resource_id` (Number) The resource integer identifier for the conference
 
+<a id="nestedatt--aliases"></a>
+### Nested Schema for `aliases`
 
-## Service Types
+Required:
 
-### conference
-Standard multi-party conference where all participants can see and hear each other.
+- `alias` (String) The dial string used to join this service.
 
-### lecture
-One-to-many presentation mode where hosts present to many participants. Typically used for webinars and large meetings.
+Optional:
 
-### two_stage_dialing
-Allows participants to dial out to external numbers from within the conference.
+- `description` (String) An optional description of the alias.
 
-### test_call
-Service for testing audio and video quality before joining actual meetings.
+Read-Only:
 
-### media_playback
-Service for playing back recorded media content.
+- `resource_id` (Number) The numeric ID of the conference alias.
+
+
+
 
 ## Import
 
@@ -158,55 +193,3 @@ terraform import pexip_infinity_conference.example 123
 ```
 
 Where `123` is the numeric resource ID of the conference.
-
-## Usage Notes
-
-### Security Configuration
-- Always use strong PINs with sufficient length and complexity
-- Consider separate PINs for hosts and guests when needed
-- Guest access should be carefully controlled based on meeting requirements
-
-### Audio Management
-- Use `guests_muted` for large meetings to reduce background noise
-- Enable `hosts_can_unmute` to allow presenters to manage audio
-- Consider service type when configuring audio settings
-
-### Video Quality
-- Set `max_pixels_per_second` based on network capacity and meeting requirements
-- Higher values provide better quality but require more bandwidth
-- Consider participant device capabilities when setting limits
-
-### Usage Tracking
-- Use the `tag` field for reporting and analytics
-- Tags help organize conferences by department, project, or purpose
-- Consistent tagging enables better usage insights
-
-## Troubleshooting
-
-### Common Issues
-
-**Conference Creation Fails**
-- Verify the conference name is unique within the deployment
-- Check that PIN requirements are met (4-20 digits)
-- Ensure service_type is valid
-
-**Participants Cannot Join**
-- Verify PIN is correct and properly shared
-- Check that allow_guests is enabled if guests need access
-- Ensure the conference is properly configured and active
-
-**Audio/Video Issues**
-- Review max_pixels_per_second settings for video quality
-- Check guests_muted and hosts_can_unmute settings
-- Verify service_type matches intended usage pattern
-
-**Import Fails**
-- Ensure you're using the numeric resource ID, not the name
-- Verify the conference exists in the Infinity deployment
-- Check provider authentication credentials
-
-### PIN Security Best Practices
-- Use PINs of at least 6-8 digits for better security
-- Avoid sequential or repeated numbers
-- Rotate PINs regularly for sensitive meetings
-- Use different PINs for hosts and guests when appropriate

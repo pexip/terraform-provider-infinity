@@ -62,11 +62,20 @@ func testInfinityConferenceIntegration(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_automatic_participant.tf-test-participant1", "alias", "tf-test-participant1@example.com"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_automatic_participant.tf-test-participant2", "id"),
 					resource.TestCheckResourceAttr("pexip_infinity_automatic_participant.tf-test-participant2", "alias", "tf-test-participant2@example.com"),
+					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "aliases.#", "2"),
+					resource.TestCheckTypeSetElemNestedAttrs("pexip_infinity_conference.tf-test-conference", "aliases.*", map[string]string{
+						"alias":       "tf-test-alias1",
+						"description": "Test alias 1",
+					}),
+					resource.TestCheckTypeSetElemNestedAttrs("pexip_infinity_conference.tf-test-conference", "aliases.*", map[string]string{
+						"alias":       "tf-test-alias2",
+						"description": "Test alias 2",
+					}),
 				),
 			},
 			// Step 2: Update to min configuration
 			{
-				Config: test.LoadTestFolder(t, "resource_infinity_conference_min_integration"),
+				Config: test.LoadTestFolder(t, "resource_infinity_conference_min"),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrSet("pexip_infinity_conference.tf-test-conference", "id"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_conference.tf-test-conference", "resource_id"),
@@ -75,13 +84,13 @@ func testInfinityConferenceIntegration(t *testing.T, client InfinityClient) {
 			},
 			// Step 3: Destroy resources before recreate-from-scratch test
 			{
-				Config:       test.LoadTestFolder(t, "resource_infinity_conference_min_integration"),
+				Config:       test.LoadTestFolder(t, "resource_infinity_conference_min"),
 				ResourceName: "pexip_infinity_conference.tf-test-conference",
 				Destroy:      true,
 			},
 			// Step 4: Create with min configuration (after destroy)
 			{
-				Config: test.LoadTestFolder(t, "resource_infinity_conference_min_integration"),
+				Config: test.LoadTestFolder(t, "resource_infinity_conference_min"),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrSet("pexip_infinity_conference.tf-test-conference", "id"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_conference.tf-test-conference", "resource_id"),
@@ -101,6 +110,15 @@ func testInfinityConferenceIntegration(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_automatic_participant.tf-test-participant1", "alias", "tf-test-participant1@example.com"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_automatic_participant.tf-test-participant2", "id"),
 					resource.TestCheckResourceAttr("pexip_infinity_automatic_participant.tf-test-participant2", "alias", "tf-test-participant2@example.com"),
+					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "aliases.#", "2"),
+					resource.TestCheckTypeSetElemNestedAttrs("pexip_infinity_conference.tf-test-conference", "aliases.*", map[string]string{
+						"alias":       "tf-test-alias1",
+						"description": "Test alias 1",
+					}),
+					resource.TestCheckTypeSetElemNestedAttrs("pexip_infinity_conference.tf-test-conference", "aliases.*", map[string]string{
+						"alias":       "tf-test-alias2",
+						"description": "Test alias 2",
+					}),
 				),
 			},
 		},
