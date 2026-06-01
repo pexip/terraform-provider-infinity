@@ -992,6 +992,23 @@ func (r *InfinityConferenceResource) Update(ctx context.Context, req resource.Up
 		if resp.Diagnostics.HasError() {
 			return
 		}
+	} else if !plan.Aliases.IsNull() && !plan.Aliases.IsUnknown() {
+		// State aliases are null (previously not managed inline) but plan now includes aliases.
+		// Read current aliases from the API to avoid attempting to create duplicates.
+		current, err := r.read(ctx, resourceID)
+		if err != nil {
+			resp.Diagnostics.AddError(
+				"Error Reading Infinity Conference Aliases",
+				fmt.Sprintf("Could not read current conference aliases for ID %d: %s", resourceID, err),
+			)
+			return
+		}
+		if !current.Aliases.IsNull() && !current.Aliases.IsUnknown() {
+			resp.Diagnostics.Append(current.Aliases.ElementsAs(ctx, &stateAliases, false)...)
+			if resp.Diagnostics.HasError() {
+				return
+			}
+		}
 	}
 	if !plan.Aliases.IsNull() && !plan.Aliases.IsUnknown() {
 		resp.Diagnostics.Append(plan.Aliases.ElementsAs(ctx, &plannedAliases, false)...)
