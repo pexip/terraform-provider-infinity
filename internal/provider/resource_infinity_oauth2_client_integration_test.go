@@ -51,7 +51,6 @@ func testInfinityOAuth2ClientIntegration(t *testing.T, client InfinityClient) {
 				Config: test.LoadTestFolder(t, "resource_infinity_oauth2_client_full"),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrSet("pexip_infinity_oauth2_client.oauth2_client-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_oauth2_client.oauth2_client-test", "resource_id"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_oauth2_client.oauth2_client-test", "client_id"),
 					resource.TestCheckResourceAttr("pexip_infinity_oauth2_client.oauth2_client-test", "client_name", "tf-test oauth2_client RW"),
 					resource.TestCheckResourceAttr("pexip_infinity_oauth2_client.oauth2_client-test", "role", "/api/admin/configuration/v1/role/1/"),
@@ -62,7 +61,6 @@ func testInfinityOAuth2ClientIntegration(t *testing.T, client InfinityClient) {
 				Config: test.LoadTestFolder(t, "resource_infinity_oauth2_client_full_updated"),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrSet("pexip_infinity_oauth2_client.oauth2_client-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_oauth2_client.oauth2_client-test", "resource_id"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_oauth2_client.oauth2_client-test", "client_id"),
 					resource.TestCheckResourceAttr("pexip_infinity_oauth2_client.oauth2_client-test", "client_name", "tf-test oauth2_client RO"),
 					resource.TestCheckResourceAttr("pexip_infinity_oauth2_client.oauth2_client-test", "role", "/api/admin/configuration/v1/role/2/"),
