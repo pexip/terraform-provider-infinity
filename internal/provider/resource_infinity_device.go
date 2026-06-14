@@ -117,7 +117,7 @@ func (r *InfinityDeviceResource) Schema(ctx context.Context, req resource.Schema
 				Optional:  true,
 				Computed:  true,
 				Sensitive: true,
-				Default:  stringdefault.StaticString(""),
+				Default:   stringdefault.StaticString(""),
 				Validators: []validator.String{
 					stringvalidator.LengthAtMost(100),
 				},
