@@ -10,6 +10,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -294,34 +295,35 @@ func (r *InfinityOAuth2ClientResource) Delete(ctx context.Context, req resource.
 }
 
 func (r *InfinityOAuth2ClientResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resourceID := req.ID
+	resourceID, err := strconv.Atoi(req.ID)
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Invalid Import ID",
+			fmt.Sprintf("Import ID must be a valid integer for the resource ID. Got: %s", req.ID),
+		)
+		return
+	}
 
-	tflog.Trace(ctx, fmt.Sprintf("Importing Infinity OAuth2 client with resource ID: %s", resourceID))
+	tflog.Trace(ctx, fmt.Sprintf("Importing Infinity OAuth2 client with resource ID: %d", resourceID))
 
 	// Read the resource from the API
-	model, err := r.read(ctx, resourceID)
+	model, err := r.read(ctx, req.ID)
 	if err != nil {
-		// Check if the error is a 404 (not found)
 		if isNotFoundError(err) {
 			resp.Diagnostics.AddError(
 				"Infinity OAuth2 Client Not Found",
-				fmt.Sprintf("Infinity OAuth2 client with resource ID %s not found.", resourceID),
+				fmt.Sprintf("Infinity OAuth2 client with resource ID %d not found.", resourceID),
 			)
 			return
 		}
 		resp.Diagnostics.AddError(
 			"Error Importing Infinity OAuth2 Client",
-			fmt.Sprintf("Could not import Infinity OAuth2 client with resource ID %s: %s", resourceID, err),
+			fmt.Sprintf("Could not import Infinity OAuth2 client with resource ID %d: %s", resourceID, err),
 		)
 		return
 	}
 
-	// Set the resource_id from the import ID
-	var numericID int32
-	if _, err := fmt.Sscanf(resourceID, "%d", &numericID); err == nil {
-		model.ResourceID = types.Int32Value(numericID)
-	}
+	model.ResourceID = types.Int32Value(int32(resourceID)) // #nosec G115 -- API values are expected to be within int32 range
 
-	// Set the state from the imported resource
 	resp.Diagnostics.Append(resp.State.Set(ctx, model)...)
 }
