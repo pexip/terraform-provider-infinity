@@ -136,8 +136,8 @@ github.com/mitchellh/reflectwalk v1.0.2 h1:G2LzWKi524PWgd3mLHV8Y5k7s6XUvT0Gef6zx
 github.com/mitchellh/reflectwalk v1.0.2/go.mod h1:mSTlrgnPZtwu0c4WaC2kGObEpuNDbx0jmZXqmk4esnw=
 github.com/oklog/run v1.2.0 h1:O8x3yXwah4A73hJdlrwo/2X6J62gE5qTMusH0dvz60E=
 github.com/oklog/run v1.2.0/go.mod h1:mgDbKRSwPhJfesJ4PntqFUbKQRZ50NgmZTSPlFA0YFk=
-github.com/pexip/go-infinity-sdk/v38 v38.0.33-0.20260615144708-026b16f48709 h1:KSh/6I6VX3XBbQHp1URl7WRH9D5lQ7OvBD1Q86JN19w=
-github.com/pexip/go-infinity-sdk/v38 v38.0.33-0.20260615144708-026b16f48709/go.mod h1:gtMzH/Mhk51u1oNkmM38cgQUV9NJc5pguq3gj3hABxk=
+github.com/pexip/go-infinity-sdk/v40 v40.0.0 h1:M/Au+oxY93vL1zYewIH6OjA6AE2BUeqbKAs/X+xTP5k=
+github.com/pexip/go-infinity-sdk/v40 v40.0.0/go.mod h1:GRre/KFx3jHtysU5Rzpe6ueyUp3d+FCvhp5AXqW9YaY=
 github.com/pjbgf/sha1cd v0.3.2 h1:a9wb0bp1oC2TGwStyn0Umc/IGKQnEgF0vVaZ8QF8eo4=
 github.com/pjbgf/sha1cd v0.3.2/go.mod h1:zQWigSxVmsHEZow5qaLtPYxpcKMMQpa09ixqBxuCS6A=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
