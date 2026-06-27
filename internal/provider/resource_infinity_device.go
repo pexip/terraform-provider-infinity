@@ -149,7 +149,7 @@ func (r *InfinityDeviceResource) Schema(ctx context.Context, req resource.Schema
 			"enable_infinity_connect_sso": schema.BoolAttribute{
 				Optional:            true,
 				Computed:            true,
-				MarkdownDescription: "Allows a Pexip Infinity Connect client to register using this alias, using AD authentication if required.",
+				MarkdownDescription: "Allows a legacy Infinity Connect client to register using this alias, using AD authentication if required.",
 			},
 			"enable_standard_sso": schema.BoolAttribute{
 				Optional:            true,

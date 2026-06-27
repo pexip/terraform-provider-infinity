@@ -369,7 +369,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "Enables relay of chat messages between conference participants using Skype for Business and Infinity Connect clients. You can also configure this setting on individual Virtual Meeting Rooms and Virtual Auditoriums.",
+				MarkdownDescription: "Enables relay of chat messages between conference participants using supported clients such as the Pexip apps. You can also configure this setting on individual Virtual Meeting Rooms and Virtual Auditoriums.",
 			},
 			"enable_clock": schema.BoolAttribute{
 				Optional:            true,
