@@ -225,7 +225,7 @@ func (r *InfinityGatewayRoutingRuleResource) Schema(ctx context.Context, req res
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(false),
-				MarkdownDescription: "Only apply this rule to incoming calls from devices, videoconferencing endpoints, soft clients or Pexip apps that are registered to Pexip Infinity.  Note that the call must also match one of the selected protocols below. Calls placed from non-registered clients or devices, or from the Pexip web app will not be routed by this rule if it is enabled.",
+				MarkdownDescription: "Only apply this rule to incoming calls from devices, videoconferencing endpoints, soft clients or Pexip apps that are registered to Pexip Infinity. Note that the call must also match one of the selected protocols below. Calls placed from non-registered clients or devices, or from the Pexip web app will not be routed by this rule if it is enabled.",
 			},
 			"match_incoming_sip": schema.BoolAttribute{
 				Optional:            true,
