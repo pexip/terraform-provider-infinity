@@ -134,7 +134,7 @@ func (r *InfinityLdapSyncSourceResource) Schema(ctx context.Context, req resourc
 			"ldap_permit_no_tls": schema.BoolAttribute{
 				Optional:            true,
 				Computed:            true,
-				MarkdownDescription: "Permit LDAP queries to be sent over an insecure connection. Defaults to false.",
+				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 		},
 		MarkdownDescription: "Manages an LDAP synchronization source configuration.",
