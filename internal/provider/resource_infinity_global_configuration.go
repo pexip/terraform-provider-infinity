@@ -792,8 +792,8 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 			"teams_enable_powerpoint_render": schema.BoolAttribute{
 				Optional:            true,
 				Computed:            true,
-				Default:             booldefault.StaticBool(false),
-				MarkdownDescription: "This setting is intended for future use to enable PowerPoint Live content in Microsoft Teams calls. Check the online documentation for the latest status for this feature.",
+				Default:             booldefault.StaticBool(true),
+				MarkdownDescription: "Determines whether PowerPoint Live content is enabled for Microsoft Teams calls. Default: true.",
 			},
 			"waiting_for_chair_timeout": schema.Int64Attribute{
 				Optional: true,
