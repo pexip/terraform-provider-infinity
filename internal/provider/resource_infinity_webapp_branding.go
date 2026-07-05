@@ -41,6 +41,7 @@ type InfinityWebappBrandingResourceModel struct {
 	WebappType   types.String `tfsdk:"webapp_type"`
 	BrandingFile types.String `tfsdk:"branding_file"`
 	LastUpdated  types.String `tfsdk:"last_updated"`
+	IsDefault    types.Bool   `tfsdk:"is_default"`
 }
 
 func (r *InfinityWebappBrandingResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -118,6 +119,10 @@ func (r *InfinityWebappBrandingResource) Schema(ctx context.Context, req resourc
 			"last_updated": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "Timestamp when this branding configuration was last updated.",
+			},
+			"is_default": schema.BoolAttribute{
+				Computed:            true,
+				MarkdownDescription: "Whether this is Pexip supplied default branding.",
 			},
 		},
 		MarkdownDescription: "Manages webapp branding configuration. Webapp branding allows customization of the user interface for different Pexip web applications including the management interface, admin interface, and client applications.",
@@ -210,6 +215,7 @@ func (r *InfinityWebappBrandingResource) read(ctx context.Context, uuid string, 
 	data.WebappType = types.StringValue(srv.WebappType)
 	data.LastUpdated = types.StringValue(srv.LastUpdated.String())
 	data.BrandingFile = types.StringValue(brandingFile)
+	data.IsDefault = types.BoolValue(srv.IsDefault)
 
 	return &data, nil
 }
