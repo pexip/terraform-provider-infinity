@@ -128,7 +128,7 @@ func (r *InfinityMjxMeetingProcessingRuleResource) Schema(ctx context.Context, r
 						"pexipinfinity", "pexipservice", "teams", "teamssipguestjoin",
 						"polyteamsbody", "ciscoteamsbody", "pexipserviceteamsbody", "pexipinfinityteamsbody",
 						"hangouts", "googlemeetsipguestjoin", "s4b", "polys4bbody",
-						"webex", "zoom", "gotomeeting", "domain", "regex", "custom",
+						"webex", "zoom", "gotomeeting", "domain", "regex", "regex_re2", "custom",
 					),
 				},
 				MarkdownDescription: "The meeting type of this Meeting Processing Rule. Valid values: `pexipinfinity`, `pexipservice`, `teams`, `teamssipguestjoin`, `polyteamsbody`, `ciscoteamsbody`, `pexipserviceteamsbody`, `pexipinfinityteamsbody`, `hangouts`, `googlemeetsipguestjoin`, `s4b`, `polys4bbody`, `webex`, `zoom`, `gotomeeting`, `domain`, `regex`, `custom`.",
