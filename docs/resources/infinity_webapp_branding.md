@@ -38,7 +38,7 @@ resource "pexip_infinity_webapp_branding" "example_custom_uuid" {
 
 - `branding_file` (String) The path or identifier for the branding file to use for customization.
 - `name` (String) The name of the webapp branding configuration. This is used as the identifier. Maximum length: 100 characters.
-- `webapp_type` (String) The type of webapp this branding applies to. Valid values: pexapp, management, admin.
+- `webapp_type` (String) The web app supported by this branding package. Valid values: webapp2, webapp3.
 
 ### Optional
 
@@ -47,6 +47,7 @@ resource "pexip_infinity_webapp_branding" "example_custom_uuid" {
 ### Read-Only
 
 - `id` (String) Resource URI for the webapp branding package
+- `is_default` (Boolean) Whether this is Pexip supplied default branding.
 - `last_updated` (String) Timestamp when this branding configuration was last updated.
 - `uuid` (String) The UUID for this branding configuration. If not provided, a UUID will be automatically generated.
 
