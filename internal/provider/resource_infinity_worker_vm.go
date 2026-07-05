@@ -40,6 +40,14 @@ type InfinityWorkerVMResource struct {
 	InfinityClient InfinityClient
 }
 
+/*
+The following fields have been deprecated in the Infinity API and have been removed from the model:
+  	* managed
+	* signalling
+	* service_policy
+	* service_manager
+*/
+
 type InfinityWorkerVMResourceModel struct {
 	ID                         types.String `tfsdk:"id"`
 	ResourceID                 types.Int32  `tfsdk:"resource_id"`
