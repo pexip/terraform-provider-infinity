@@ -9,4 +9,5 @@ resource "pexip_infinity_webapp_alias" "tf-test-webapp-alias" {
   description = "tf-test webapp alias description"
   webapp_type = "webapp3"
   is_enabled  = true
+  is_default  = true
 }
