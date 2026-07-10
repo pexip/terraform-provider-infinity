@@ -1113,7 +1113,7 @@ func (r *InfinityMsExchangeConnectorResource) read(ctx context.Context, resource
 		}
 		domainSetValue, diags := types.SetValueFrom(ctx, types.StringType, exchangeDomains)
 		if diags.HasError() {
-			return nil, fmt.Errorf("error converting DNS servers: %v", diags)
+			return nil, fmt.Errorf("error converting Exchange domains: %v", diags)
 		}
 		data.Domains = domainSetValue
 	} else {
