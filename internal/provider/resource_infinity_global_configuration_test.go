@@ -120,7 +120,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		SiteBannerBg:                        "#ffffff", // default: "#c0c0c0"
 		SiteBannerFg:                        "#ff0000", // default: "#000000"
 		TeamsEnablePowerpointRender:         true,
-		WaitingForChairTimeout:              901,       // default: 900
+		WaitingForChairTimeout:              901, // default: 900
 	}
 
 	// Mock the GetGlobalconfiguration API call for Read operations
