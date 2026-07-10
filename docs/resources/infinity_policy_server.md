@@ -33,8 +33,8 @@ resource "pexip_infinity_policy_server" "local_policy" {
   description                                    = "Local policy example using template files"
   enable_internal_service_policy                 = true
   enable_internal_media_location_policy          = true
-  internal_service_configuration_template        = file("${path.module}/templates/service-policy.j2")
-  internal_media_location_configuration_template = file("${path.module}/templates/media-location-policy.j2")
+  internal_service_policy_template        = file("${path.module}/templates/service-policy.j2")
+  internal_media_location_policy_template = file("${path.module}/templates/media-location-policy.j2")
 }
 ```
 
