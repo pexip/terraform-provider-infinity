@@ -237,7 +237,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "Select this option to instruct Pexip Infinity's Break-in Defense Policy Manager to temporarily block service access attempts from any source IP address that dials a significant number of incorrect aliases in a short period (and thus may perhaps be attempting to scan your deployment to discover valid aliases).",
+				MarkdownDescription: "Select this option to instruct Pexip Infinity's Break-in Defense Policy Manager to temporarily block service access attempts from any source IP address that dials a significant number of incorrect aliases in a short period (and thus may perhaps be attempting to scan your deployment to discover valid aliases to allow the attacker to make improper use of VMRs or gateway rules - such as toll fraud attempts). By default, this will block ALL new call service access attempts from an IP address if more than 20 incorrect aliases are dialed from that IP address over SIP, H.323 or WebRTC (Pexip app) in a 10 minute window.",
 			},
 			"bursting_enabled": schema.BoolAttribute{
 				Optional:            true,
@@ -357,7 +357,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "Enable or disable support for Pexip Infinity Client API. This is required for integration with Infinity Connect browser-based and desktop clients, the Pexip Mobile App for iOS and Android, and any other third-party applications that use the client API, as well as for integration with Microsoft Teams.",
+				MarkdownDescription: "Enable or disable support for Pexip Infinity Client API. This is required for integration with Pexip's browser-based, desktop and mobile apps, and any other third-party applications that use the client API, as well as for integration with Microsoft Teams.",
 			},
 			"enable_breakout_rooms": schema.BoolAttribute{
 				Optional:            true,
@@ -369,7 +369,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "Enables relay of chat messages between conference participants using Skype for Business and Infinity Connect clients. You can also configure this setting on individual Virtual Meeting Rooms and Virtual Auditoriums.",
+				MarkdownDescription: "Enables relay of chat messages between conference participants using supported clients such as the Pexip apps. You can also configure this setting on individual Virtual Meeting Rooms and Virtual Auditoriums.",
 			},
 			"enable_clock": schema.BoolAttribute{
 				Optional:            true,
@@ -387,13 +387,13 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "Enables calls via the Distributed Gateway, and allows users of Pexip Infinity Connect, the Pexip Mobile Apps for iOS and Android, and the Pexip management web interface to add participants to a conference.",
+				MarkdownDescription: "Enables calls via the Distributed Gateway, and allows users of Pexip apps and the Pexip management web interface to add participants to a conference.",
 			},
 			"enable_directory": schema.BoolAttribute{
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "When disabled, Infinity Connect clients will display aliases from their own call history only. When enabled, registered Infinity Connect clients will additionally display the aliases of VMRs, Virtual Auditoriums, Virtual Receptions, and devices registered to the Pexip Infinity deployment.",
+				MarkdownDescription: "When disabled, Pexip apps will display aliases from their own call history only. When enabled, registered Pexip apps will additionally display the aliases of VMRs, Virtual Auditoriums, Virtual Receptions, and devices registered to the Pexip Infinity deployment.",
 			},
 			"enable_edge_non_mesh": schema.BoolAttribute{
 				Optional:            true,
@@ -405,7 +405,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "Enables Connect apps and SIP/H.323 endpoints to send Far-End Camera Control (FECC) signals to supporting endpoints, in order to pan, tilt and zoom the device's camera.",
+				MarkdownDescription: "Enables Pexip apps and SIP/H.323 endpoints to send Far-End Camera Control (FECC) signals to supporting endpoints, in order to pan, tilt and zoom the device's camera.",
 			},
 			"enable_h323": schema.BoolAttribute{
 				Optional:            true,
@@ -441,7 +441,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "Enables RTMP calls on all Conferencing Nodes. This allows Infinity Connect clients that use RTMP to access Pexip Infinity services, and allows conference content to be output to streaming and recording services.",
+				MarkdownDescription: "Enables RTMP calls on all Conferencing Nodes. This allows Pexip apps that use RTMP to access Pexip Infinity services, and allows conference content to be output to streaming and recording services.",
 			},
 			"enable_sip": schema.BoolAttribute{
 				Optional:            true,
@@ -477,7 +477,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "Enables WebRTC calls on all Conferencing Nodes. This allows access to Pexip Infinity services from Infinity Connect clients that use WebRTC, including Google Chrome, Microsoft Edge, Firefox, Opera and Safari (version 11 onwards) browsers, and the Infinity Connect desktop client.",
+				MarkdownDescription: "Enables WebRTC calls on all Conferencing Nodes. This allows access to Pexip Infinity services from Pexip apps that use WebRTC, including Google Chrome, Microsoft Edge, Firefox, Opera and Safari (version 11 onwards) browsers, and the Pexip app for Windows.",
 			},
 			"error_reporting_enabled": schema.BoolAttribute{
 				Optional:            true,
@@ -792,8 +792,8 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 			"teams_enable_powerpoint_render": schema.BoolAttribute{
 				Optional:            true,
 				Computed:            true,
-				Default:             booldefault.StaticBool(false),
-				MarkdownDescription: "This setting is intended for future use to enable PowerPoint Live content in Microsoft Teams calls. Check the online documentation for the latest status for this feature.",
+				Default:             booldefault.StaticBool(true),
+				MarkdownDescription: "Determines whether PowerPoint Live content is enabled for Microsoft Teams calls. Default: true.",
 			},
 			"waiting_for_chair_timeout": schema.Int64Attribute{
 				Optional: true,
@@ -1277,7 +1277,7 @@ func (r *InfinityGlobalConfigurationResource) Delete(ctx context.Context, req re
 		SiteBanner:                          "",
 		SiteBannerBg:                        "#c0c0c0",
 		SiteBannerFg:                        "#000000",
-		TeamsEnablePowerpointRender:         false,
+		TeamsEnablePowerpointRender:         true,
 		WaitingForChairTimeout:              900,
 	}
 

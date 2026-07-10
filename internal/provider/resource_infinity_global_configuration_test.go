@@ -119,8 +119,8 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		SiteBanner:                          "notdefaultsitebanner",
 		SiteBannerBg:                        "#ffffff", // default: "#c0c0c0"
 		SiteBannerFg:                        "#ff0000", // default: "#000000"
-		TeamsEnablePowerpointRender:         true,      // default: false
-		WaitingForChairTimeout:              901,       // default: 900
+		TeamsEnablePowerpointRender:         true,
+		WaitingForChairTimeout:              901, // default: 900
 	}
 
 	// Mock the GetGlobalconfiguration API call for Read operations
@@ -226,7 +226,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		assert.Equal(t, "", req.SiteBanner)
 		assert.Equal(t, "#c0c0c0", req.SiteBannerBg)
 		assert.Equal(t, "#000000", req.SiteBannerFg)
-		assert.False(t, req.TeamsEnablePowerpointRender)
+		assert.True(t, req.TeamsEnablePowerpointRender)
 		assert.Equal(t, 900, req.WaitingForChairTimeout)
 
 		// Update mockState to reflect the reset defaults so subsequent reads are correct.
@@ -312,7 +312,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		mockState.SiteBanner = ""
 		mockState.SiteBannerBg = "#c0c0c0"
 		mockState.SiteBannerFg = "#000000"
-		mockState.TeamsEnablePowerpointRender = false
+		mockState.TeamsEnablePowerpointRender = true
 		mockState.WaitingForChairTimeout = 900
 	}).Once()
 

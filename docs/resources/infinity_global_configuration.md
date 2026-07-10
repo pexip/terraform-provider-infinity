@@ -52,7 +52,7 @@ resource "pexip_infinity_global_configuration" "gcp_bursting" {
 - `bdpm_max_pin_failures_per_window` (Number) Sets the maximum number of PIN failures per service (e.g. VMR) in any sliding 10 minute windowed period, that are allowed from participants at unknown source addresses, before protective action is taken for that service. Range: 5 to 200.
 - `bdpm_max_scan_attempts_per_window` (Number) Sets the maximum number of incorrect alias dial attempts in any sliding 10-minute windowed period, that are allowed from an unknown source address, before protective action is taken against that address. Range: 5 to 200.
 - `bdpm_pin_checks_enabled` (Boolean) Select this option to instruct Pexip Infinity's Break-in Defense Policy Manager to temporarily block all access to a VMR that receives a significant number of incorrect PIN entry attempts (and thus may perhaps be under attack from a malicious actor). By default, this will block ALL new access attempts to a VMR for up to 10 minutes if more than 20 incorrect PIN entry attempts are made against that VMR in a 10 minute window.
-- `bdpm_scan_quarantine_enabled` (Boolean) Select this option to instruct Pexip Infinity's Break-in Defense Policy Manager to temporarily block service access attempts from any source IP address that dials a significant number of incorrect aliases in a short period (and thus may perhaps be attempting to scan your deployment to discover valid aliases).
+- `bdpm_scan_quarantine_enabled` (Boolean) Select this option to instruct Pexip Infinity's Break-in Defense Policy Manager to temporarily block service access attempts from any source IP address that dials a significant number of incorrect aliases in a short period (and thus may perhaps be attempting to scan your deployment to discover valid aliases to allow the attacker to make improper use of VMRs or gateway rules - such as toll fraud attempts). By default, this will block ALL new call service access attempts from an IP address if more than 20 incorrect aliases are dialed from that IP address over SIP, H.323 or WebRTC (Pexip app) in a 10 minute window.
 - `bursting_enabled` (Boolean) Select this option to instruct Pexip Infinity to monitor the system locations and start up / shutdown overflow Conferencing Nodes hosted in either Amazon Web Services (AWS) or Microsoft Azure when in need of extra capacity. For more information, see the Admin Guide section 'Dynamic bursting to a cloud service'.
 - `bursting_min_lifetime` (Number) The minimum number of minutes that a cloud bursting node is kept powered on. Note that newly started cloud Conferencing Nodes can take up to 5 minutes to fully startup. Minimum: 5.
 - `bursting_threshold` (Number) The bursting threshold controls when your overflow Conferencing Nodes in the cloud are automatically started up so that they can provide additional conferencing capacity. Minimum: 1.
@@ -66,27 +66,27 @@ resource "pexip_infinity_global_configuration" "gcp_bursting" {
 - `disabled_codecs` (Set of String) Choose codecs to disable.
 - `eject_last_participant_backstop_timeout` (Number) The length of time (in seconds) for which a conference will continue with only one participant remaining (independent of Host/Guest role). Must be 0 (never eject) or between 60 and 86400. Default: 0.
 - `enable_analytics` (Boolean) Select this option to allow submission of deployment and usage statistics to Pexip. This will help us improve the product.
-- `enable_application_api` (Boolean) Enable or disable support for Pexip Infinity Client API. This is required for integration with Infinity Connect browser-based and desktop clients, the Pexip Mobile App for iOS and Android, and any other third-party applications that use the client API, as well as for integration with Microsoft Teams.
+- `enable_application_api` (Boolean) Enable or disable support for Pexip Infinity Client API. This is required for integration with Pexip's browser-based, desktop and mobile apps, and any other third-party applications that use the client API, as well as for integration with Microsoft Teams.
 - `enable_breakout_rooms` (Boolean) Enable the Breakout Rooms feature on VMRs.
-- `enable_chat` (Boolean) Enables relay of chat messages between conference participants using Skype for Business and Infinity Connect clients. You can also configure this setting on individual Virtual Meeting Rooms and Virtual Auditoriums.
+- `enable_chat` (Boolean) Enables relay of chat messages between conference participants using supported clients such as the Pexip apps. You can also configure this setting on individual Virtual Meeting Rooms and Virtual Auditoriums.
 - `enable_clock` (Boolean) Enables support for displaying an in-conference timer or countdown clock.
 - `enable_denoise` (Boolean) Enable server side denoising for speech from noisy participants (see documentation for ways to enable it for a VMR).
-- `enable_dialout` (Boolean) Enables calls via the Distributed Gateway, and allows users of Pexip Infinity Connect, the Pexip Mobile Apps for iOS and Android, and the Pexip management web interface to add participants to a conference.
-- `enable_directory` (Boolean) When disabled, Infinity Connect clients will display aliases from their own call history only. When enabled, registered Infinity Connect clients will additionally display the aliases of VMRs, Virtual Auditoriums, Virtual Receptions, and devices registered to the Pexip Infinity deployment.
+- `enable_dialout` (Boolean) Enables calls via the Distributed Gateway, and allows users of Pexip apps and the Pexip management web interface to add participants to a conference.
+- `enable_directory` (Boolean) When disabled, Pexip apps will display aliases from their own call history only. When enabled, registered Pexip apps will additionally display the aliases of VMRs, Virtual Auditoriums, Virtual Receptions, and devices registered to the Pexip Infinity deployment.
 - `enable_edge_non_mesh` (Boolean) Enable the restricted IPsec network routing requirements of Proxying Edge Nodes. When enabled, if a location only contains Proxying Edge Nodes, then those nodes only require IPsec connectivity with other nodes in that location, the transcoding location, the primary and secondary overflow locations, and with the Management Node.
-- `enable_fecc` (Boolean) Enables Connect apps and SIP/H.323 endpoints to send Far-End Camera Control (FECC) signals to supporting endpoints, in order to pan, tilt and zoom the device's camera.
+- `enable_fecc` (Boolean) Enables Pexip apps and SIP/H.323 endpoints to send Far-End Camera Control (FECC) signals to supporting endpoints, in order to pan, tilt and zoom the device's camera.
 - `enable_h323` (Boolean) Enable the H323 protocol on all Conferencing Nodes.
 - `enable_legacy_dialout_api` (Boolean) Enables outbound calls from a VMR using the legacy dialout API. When disabled, outbound calls are only permitted by following Call Routing Rules.
 - `enable_lync_auto_escalate` (Boolean) Determines whether a Skype for Business audio call is automatically escalated so that it receives video from a conference.
 - `enable_lync_vbss` (Boolean) Determines whether Video-based Screen Sharing (VbSS) is enabled for Skype for Business calls.
 - `enable_mlvad` (Boolean) Enable Voice Focus for advanced voice activity detection.
-- `enable_rtmp` (Boolean) Enables RTMP calls on all Conferencing Nodes. This allows Infinity Connect clients that use RTMP to access Pexip Infinity services, and allows conference content to be output to streaming and recording services.
+- `enable_rtmp` (Boolean) Enables RTMP calls on all Conferencing Nodes. This allows Pexip apps that use RTMP to access Pexip Infinity services, and allows conference content to be output to streaming and recording services.
 - `enable_sip` (Boolean) Enable the SIP protocol over TCP and TLS on all Conferencing Nodes.
 - `enable_sip_udp` (Boolean) Enable incoming calls using the SIP protocol over UDP on all Conferencing Nodes. If changing from enabled to disabled, all Conferencing Nodes must be rebooted.
 - `enable_softmute` (Boolean) Enable Softmute for advance speech-aware audio gating (see documentation for ways to enable it for a VMR). Note that this does not remove any noise from the audio.
 - `enable_ssh` (Boolean) Allows an administrator to log in to the Management and Conferencing Nodes over SSH. This setting can be overridden on individual nodes.
 - `enable_turn_443` (Boolean) Enable media relay on TCP port 443 for WebRTC clients as a fallback.
-- `enable_webrtc` (Boolean) Enables WebRTC calls on all Conferencing Nodes. This allows access to Pexip Infinity services from Infinity Connect clients that use WebRTC, including Google Chrome, Microsoft Edge, Firefox, Opera and Safari (version 11 onwards) browsers, and the Infinity Connect desktop client.
+- `enable_webrtc` (Boolean) Enables WebRTC calls on all Conferencing Nodes. This allows access to Pexip Infinity services from Pexip apps that use WebRTC, including Google Chrome, Microsoft Edge, Firefox, Opera and Safari (version 11 onwards) browsers, and the Pexip app for Windows.
 - `error_reporting_enabled` (Boolean) Select this option to permit submission of incident reports.
 - `error_reporting_url` (String) The URL to which incident reports will be sent. Maximum length: 255 characters.
 - `es_connection_timeout` (Number) Maximum number of seconds allowed to connect, send, and wait for a response.
@@ -127,7 +127,7 @@ resource "pexip_infinity_global_configuration" "gcp_bursting" {
 - `site_banner` (String) Text of the banner to display on the top of every page of this Pexip Infinity administrator web interface. Maximum length: 255 characters.
 - `site_banner_bg` (String) The background color for the site banner.
 - `site_banner_fg` (String) The text color for the site banner.
-- `teams_enable_powerpoint_render` (Boolean) This setting is intended for future use to enable PowerPoint Live content in Microsoft Teams calls. Check the online documentation for the latest status for this feature.
+- `teams_enable_powerpoint_render` (Boolean) Determines whether PowerPoint Live content is enabled for Microsoft Teams calls. Default: true.
 - `waiting_for_chair_timeout` (Number) The length of time (in seconds) for which a Guest participant will remain at the waiting screen if a Host does not join, before being disconnected. Range: 0 to 86400. Default: 900.
 
 ### Read-Only
