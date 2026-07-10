@@ -264,9 +264,12 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "Domain for scheduled conference aliases.",
 			},
 			"scheduled_alias_suffix_length": schema.Int64Attribute{
-				Optional:            true,
-				Computed:            true,
-				Default:             int64default.StaticInt64(6),
+				Optional: true,
+				Computed: true,
+				Default:  int64default.StaticInt64(6),
+				Validators: []validator.Int64{
+					int64validator.Between(5, 15),
+				},
 				MarkdownDescription: "The length of the random number suffix part of aliases used for scheduled conferences. Range: 5 to 15. Default: 6.",
 			},
 			"meeting_buffer_before": schema.Int64Attribute{
