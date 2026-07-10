@@ -199,7 +199,10 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "An optional description of the Secure Scheduler for Exchange Integration. Maximum length: 250 characters.",
 			},
 			"room_mailbox_email_address": schema.StringAttribute{
-				Optional:            true,
+				Optional: true,
+				Validators: []validator.String{
+					validators.Email(),
+				},
 				MarkdownDescription: "Room mailbox email address for Exchange integration.",
 			},
 			"room_mailbox_name": schema.StringAttribute{
