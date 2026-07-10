@@ -282,9 +282,12 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "The number of minutes before the meeting's scheduled start time that participants will be able to join the VMR. Range: 0 to 180. Default: 30.",
 			},
 			"meeting_buffer_after": schema.Int64Attribute{
-				Optional:            true,
-				Computed:            true,
-				Default:             int64default.StaticInt64(60),
+				Optional: true,
+				Computed: true,
+				Default:  int64default.StaticInt64(60),
+				Validators: []validator.Int64{
+					int64validator.Between(0, 180),
+				},
 				MarkdownDescription: "The number of minutes after the meeting's scheduled end of a conference participants will be able to join the VMR. Range: 0 to 180. Default: 60.",
 			},
 			"enable_dynamic_vmrs": schema.BoolAttribute{
