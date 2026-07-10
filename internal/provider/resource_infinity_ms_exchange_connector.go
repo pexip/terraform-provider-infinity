@@ -830,7 +830,6 @@ func (r *InfinityMsExchangeConnectorResource) Create(ctx context.Context, req re
 		OauthAuthEndpoint:              plan.OauthAuthEndpoint.ValueString(),
 		OauthTokenEndpoint:             plan.OauthTokenEndpoint.ValueString(),
 		OauthRedirectURI:               plan.OauthRedirectURI.ValueString(),
-		OauthRefreshToken:              plan.OauthRefreshToken.ValueString(),
 		KerberosRealm:                  plan.KerberosRealm.ValueString(),
 		KerberosKdc:                    plan.KerberosKdc.ValueString(),
 		KerberosKdcHttpsProxy:          plan.KerberosKdcHttpsProxy.ValueString(),
