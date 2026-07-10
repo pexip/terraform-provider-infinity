@@ -248,7 +248,7 @@ func (r *InfinityAuthenticationResource) Schema(ctx context.Context, req resourc
 			"ldap_permit_no_tls": schema.BoolAttribute{
 				Optional:            true,
 				Computed:            true,
-				MarkdownDescription: "Permit LDAP queries to be sent over an insecure connection.",
+				MarkdownDescription: "This field is deprecated and will be ignored.",
 				Default:             booldefault.StaticBool(false),
 			},
 			"oidc_metadata_url": schema.StringAttribute{

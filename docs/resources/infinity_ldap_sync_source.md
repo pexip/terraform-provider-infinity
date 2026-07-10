@@ -32,7 +32,7 @@ resource "pexip_infinity_ldap_sync_source" "example" {
 ### Optional
 
 - `description` (String) A description of the LDAP synchronization source. Maximum length: 250 characters.
-- `ldap_permit_no_tls` (Boolean) Permit LDAP queries to be sent over an insecure connection. Defaults to false.
+- `ldap_permit_no_tls` (Boolean) This field is deprecated and will be ignored.
 - `ldap_use_global_catalog` (Boolean) Search the Active Directory Global Catalog instead of traditional LDAP. Defaults to false.
 
 ### Read-Only

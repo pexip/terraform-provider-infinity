@@ -133,7 +133,13 @@ func TestInfinityGatewayRoutingRule(t *testing.T) {
 		mockState.TreatAsTrusted = req.TreatAsTrusted
 		mockState.DisabledCodecs = req.DisabledCodecs
 		if req.IVRTheme != nil {
-			mockState.IVRTheme = &config.IVRTheme{ID: 2}
+			mockState.IVRTheme = &config.IVRTheme{
+				ID:             2,
+				Name:           "Pexip theme (English_UK)",
+				UUID:           "defaultplushash",
+				CustomLayouts:  "",
+				PinningConfigs: "",
+			}
 		} else {
 			mockState.IVRTheme = nil
 		}
@@ -189,7 +195,13 @@ func TestInfinityGatewayRoutingRule(t *testing.T) {
 		mockState.TreatAsTrusted = req.TreatAsTrusted
 		mockState.DisabledCodecs = req.DisabledCodecs
 		if req.IVRTheme != nil {
-			mockState.IVRTheme = &config.IVRTheme{ID: 2}
+			mockState.IVRTheme = &config.IVRTheme{
+				ID:             2,
+				Name:           "Pexip theme (English_UK)",
+				UUID:           "defaultplushash",
+				CustomLayouts:  "",
+				PinningConfigs: "",
+			}
 		} else {
 			mockState.IVRTheme = nil
 		}
@@ -237,7 +249,13 @@ func TestInfinityGatewayRoutingRule(t *testing.T) {
 		mockState.TreatAsTrusted = req.TreatAsTrusted
 		mockState.DisabledCodecs = req.DisabledCodecs
 		if req.IVRTheme != nil {
-			mockState.IVRTheme = &config.IVRTheme{ID: 2}
+			mockState.IVRTheme = &config.IVRTheme{
+				ID:             2,
+				Name:           "Pexip theme (English_UK)",
+				UUID:           "defaultplushash",
+				CustomLayouts:  "",
+				PinningConfigs: "",
+			}
 		} else {
 			mockState.IVRTheme = nil
 		}
@@ -290,7 +308,13 @@ func TestInfinityGatewayRoutingRule(t *testing.T) {
 		mockState.TreatAsTrusted = req.TreatAsTrusted
 		mockState.DisabledCodecs = req.DisabledCodecs
 		if req.IVRTheme != nil {
-			mockState.IVRTheme = &config.IVRTheme{ID: 2}
+			mockState.IVRTheme = &config.IVRTheme{
+				ID:             2,
+				Name:           "Pexip theme (English_UK)",
+				UUID:           "defaultplushash",
+				CustomLayouts:  "",
+				PinningConfigs: "",
+			}
 		} else {
 			mockState.IVRTheme = nil
 		}
@@ -493,6 +517,13 @@ func testInfinityGatewayRoutingRule(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule-registered", "priority", "67"),
 					resource.TestCheckResourceAttr("pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule-registered", "match_incoming_only_if_registered", "true"),
 				),
+			},
+			{
+				// Import: verify the full config resource can be imported by resource_id
+				ResourceName:      "pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule",
+				ImportState:       true,
+				ImportStateVerify: true,
+				ImportStateId:     "1",
 			},
 			{
 				// Step 2: Update to min config (clear optional fields, reset to defaults)
