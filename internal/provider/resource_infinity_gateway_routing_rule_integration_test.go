@@ -15,7 +15,10 @@ import (
 	"testing"
 	"time"
 
+	"fmt"
+
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	tftesting "github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/stretchr/testify/require"
 
 	"github.com/pexip/terraform-provider-infinity/internal/test"
@@ -136,6 +139,19 @@ func testInfinityGatewayRoutingRuleFullIntegration(t *testing.T, client Infinity
 			{
 				Config: fullConfig,
 				Check:  fullChecks,
+			},
+			// Import: verify resource can be imported by resource_id after full config
+			{
+				ResourceName:      "pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule",
+				ImportState:       true,
+				ImportStateVerify: true,
+				ImportStateIdFunc: func(s *tftesting.State) (string, error) {
+					rs, ok := s.RootModule().Resources["pexip_infinity_gateway_routing_rule.tf-test-gateway-routing-rule"]
+					if !ok {
+						return "", fmt.Errorf("resource not found in state")
+					}
+					return rs.Primary.Attributes["resource_id"], nil
+				},
 			},
 			// Step 5: Update to min config
 			{
