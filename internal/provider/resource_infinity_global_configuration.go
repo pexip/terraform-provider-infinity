@@ -1277,7 +1277,7 @@ func (r *InfinityGlobalConfigurationResource) Delete(ctx context.Context, req re
 		SiteBanner:                          "",
 		SiteBannerBg:                        "#c0c0c0",
 		SiteBannerFg:                        "#000000",
-		TeamsEnablePowerpointRender:         false,
+		TeamsEnablePowerpointRender:         true,
 		WaitingForChairTimeout:              900,
 	}
 
