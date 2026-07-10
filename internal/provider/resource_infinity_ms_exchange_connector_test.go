@@ -24,41 +24,37 @@ func TestInfinityMsExchangeConnector(t *testing.T) {
 	t.Parallel()
 	_ = os.Setenv("TF_ACC", "1")
 
-	// Create a mock client and set up expectations
 	client := infinity.NewClientMock()
 
-	// Mock the CreateMsexchangeconnector API call
 	createResponse := &types.PostResponse{
 		Body:        []byte(""),
-		ResourceURI: "/api/admin/configuration/v1/ms_exchange_connector/123/",
+		ResourceURI: "/api/admin/configuration/v1/ms_exchange_connector/1/",
 	}
 	client.On("PostWithResponse", mock.Anything, "configuration/v1/ms_exchange_connector/", mock.Anything, mock.Anything).Return(createResponse, nil)
 
-	// Helper function to get string pointer
 	stringPtr := func(s string) *string { return &s }
 
-	// Shared state for mocking
 	mockState := &config.MsExchangeConnector{
-		ID:                             123,
-		ResourceURI:                    "/api/admin/configuration/v1/ms_exchange_connector/123/",
-		Name:                           "ms_exchange_connector-test",
-		Description:                    "Test MsExchangeConnector",
-		MeetingBufferBefore:            300,
-		MeetingBufferAfter:             300,
-		ScheduledAliasSuffixLength:     6,
+		ID:                             1,
+		ResourceURI:                    "/api/admin/configuration/v1/ms_exchange_connector/1/",
+		Name:                           "tf-test-ms-exchange-connector",
+		Description:                    "tf-test MS Exchange Connector",
+		MeetingBufferBefore:            60,
+		MeetingBufferAfter:             90,
+		ScheduledAliasSuffixLength:     8,
 		RoomMailboxEmailAddress:        stringPtr("test@example.com"),
-		RoomMailboxName:                "ms_exchange_connector-test",
+		RoomMailboxName:                "tf-test-ms-exchange-connector",
 		URL:                            "https://example.com",
-		Username:                       "ms_exchange_connector-test",
+		Username:                       "tf-test-ms-exchange-connector",
 		Password:                       "test-value",
 		AuthenticationMethod:           "OAUTH",
 		AuthProvider:                   "AZURE",
-		UUID:                           "test-value",
+		UUID:                           "test-uuid",
 		ScheduledAliasPrefix:           stringPtr("test-value"),
 		ScheduledAliasDomain:           "example.com",
 		EnableDynamicVmrs:              true,
 		EnablePersonalVmrs:             true,
-		AllowNewUsers:                  true,
+		AllowNewUsers:                  false,
 		DisableProxy:                   true,
 		UseCustomAddInSources:          true,
 		EnableAddinDebugLogs:           true,
@@ -67,8 +63,8 @@ func TestInfinityMsExchangeConnector(t *testing.T) {
 		OauthAuthEndpoint:              "test-value",
 		OauthTokenEndpoint:             "test-value",
 		OauthRedirectURI:               "test-value",
-		OauthRefreshToken:              "test-value",
-		OauthState:                     stringPtr("test-value"),
+		OauthRefreshToken:              "",
+		OauthState:                     nil,
 		KerberosRealm:                  "test-value",
 		KerberosKdc:                    "test-value",
 		KerberosKdcHttpsProxy:          "test-value",
@@ -77,13 +73,13 @@ func TestInfinityMsExchangeConnector(t *testing.T) {
 		KerberosAuthEveryRequest:       true,
 		KerberosVerifyTlsUsingCustomCa: true,
 		AddinServerDomain:              "test-value",
-		AddinDisplayName:               "ms_exchange_connector-test",
-		AddinDescription:               "Test MsExchangeConnector",
-		AddinProviderName:              "ms_exchange_connector-test",
+		AddinDisplayName:               "tf-test-ms-exchange-connector",
+		AddinDescription:               "tf-test MS Exchange Connector",
+		AddinProviderName:              "tf-test-ms-exchange-connector",
 		AddinButtonLabel:               "test-value",
 		AddinGroupLabel:                "test-value",
 		AddinSupertipTitle:             "test-value",
-		AddinSupertipDescription:       "Test MsExchangeConnector",
+		AddinSupertipDescription:       "tf-test MS Exchange Connector",
 		AddinApplicationID:             stringPtr("test-value"),
 		AddinAuthorityURL:              "https://example.com",
 		AddinOidcMetadataURL:           "https://example.com",
@@ -98,11 +94,10 @@ func TestInfinityMsExchangeConnector(t *testing.T) {
 		MicrosoftFabricURL:           "https://example.com",
 		MicrosoftFabricComponentsURL: "https://example.com",
 		AdditionalAddInScriptSources: "test-value",
-		Domains:                      nil, // Not specified in test config, so should be nil
 		HostIdentityProviderGroup:    stringPtr("test-server.example.com"),
 		IvrTheme:                     stringPtr("test-value"),
 		NonIdpParticipants:           "disallow_all",
-		// Template fields with defaults
+		// Template fields with API defaults
 		AcceptEditedOccurrenceTemplate:      "<div style=\"font-size:11.0pt; color:#000000; font-family:Calibri,Arial,Helvetica,sans-serif;\">\r\nThis meeting occurrence in a recurring series has been successfully rescheduled using the aliases: {{alias}} and {{numeric_alias}}.<br>\r\n</div>",
 		AcceptEditedRecurringSeriesTemplate: "<div style=\"font-size:11.0pt; color:#000000; font-family:Calibri,Arial,Helvetica,sans-serif;\">\r\nThis recurring meeting series has been successfully rescheduled.<br>\r\nAll meetings in this series will use the aliases: {{alias}} and {{numeric_alias}}.<br>\r\n</div>",
 		AcceptEditedSingleMeetingTemplate:   "<div style=\"font-size:11.0pt; color:#000000; font-family:Calibri,Arial,Helvetica,sans-serif;\">\r\nThis meeting has been successfully rescheduled using the aliases: {{alias}} and {{numeric_alias}}.<br>\r\n</div>",
@@ -145,192 +140,185 @@ func TestInfinityMsExchangeConnector(t *testing.T) {
 		AddinPanePersonalVmrErrorInsertingMeetingMessage: "There was a problem adding the joining instructions. Please try again.",
 	}
 
-	// Mock the GetMsexchangeconnector API call for Read operations
-	client.On("GetJSON", mock.Anything, "configuration/v1/ms_exchange_connector/123/", mock.Anything, mock.Anything).Return(nil).Run(func(args mock.Arguments) {
-		ms_exchange_connector := args.Get(3).(*config.MsExchangeConnector)
-		*ms_exchange_connector = *mockState
+	client.On("GetJSON", mock.Anything, "configuration/v1/ms_exchange_connector/1/", mock.Anything, mock.Anything).Return(nil).Run(func(args mock.Arguments) {
+		dest := args.Get(3).(*config.MsExchangeConnector)
+		*dest = *mockState
 	}).Maybe()
 
-	// Mock the UpdateMsexchangeconnector API call
-	client.On("PutJSON", mock.Anything, "configuration/v1/ms_exchange_connector/123/", mock.Anything, mock.Anything).Return(nil).Run(func(args mock.Arguments) {
-		updateRequest := args.Get(2).(*config.MsExchangeConnectorUpdateRequest)
-		ms_exchange_connector := args.Get(3).(*config.MsExchangeConnector)
+	client.On("PutJSON", mock.Anything, "configuration/v1/ms_exchange_connector/1/", mock.Anything, mock.Anything).Return(nil).Run(func(args mock.Arguments) {
+		req := args.Get(2).(*config.MsExchangeConnectorUpdateRequest)
+		dest := args.Get(3).(*config.MsExchangeConnector)
 
-		// Update mock state based on request
-		mockState.Name = updateRequest.Name
-		mockState.Description = updateRequest.Description
+		// Non-pointer string/bool fields (always set from plan)
+		mockState.Name = req.Name
+		mockState.Description = req.Description
+		mockState.RoomMailboxName = req.RoomMailboxName
+		mockState.URL = req.URL
+		mockState.Username = req.Username
+		mockState.Password = req.Password
+		mockState.AuthenticationMethod = req.AuthenticationMethod
+		mockState.AuthProvider = req.AuthProvider
+		mockState.ScheduledAliasDomain = req.ScheduledAliasDomain
+		mockState.OauthClientSecret = req.OauthClientSecret
+		mockState.OauthAuthEndpoint = req.OauthAuthEndpoint
+		mockState.OauthTokenEndpoint = req.OauthTokenEndpoint
+		mockState.OauthRedirectURI = req.OauthRedirectURI
+		mockState.KerberosRealm = req.KerberosRealm
+		mockState.KerberosKdc = req.KerberosKdc
+		mockState.KerberosKdcHttpsProxy = req.KerberosKdcHttpsProxy
+		mockState.KerberosExchangeSpn = req.KerberosExchangeSpn
+		mockState.AddinServerDomain = req.AddinServerDomain
+		mockState.AddinDisplayName = req.AddinDisplayName
+		mockState.AddinDescription = req.AddinDescription
+		mockState.AddinProviderName = req.AddinProviderName
+		mockState.AddinButtonLabel = req.AddinButtonLabel
+		mockState.AddinGroupLabel = req.AddinGroupLabel
+		mockState.AddinSupertipTitle = req.AddinSupertipTitle
+		mockState.AddinSupertipDescription = req.AddinSupertipDescription
+		mockState.AddinAuthorityURL = req.AddinAuthorityURL
+		mockState.AddinOidcMetadataURL = req.AddinOidcMetadataURL
+		mockState.AddinAuthenticationMethod = req.AddinAuthenticationMethod
+		mockState.PersonalVmrOauthClientSecret = req.PersonalVmrOauthClientSecret
+		mockState.PersonalVmrOauthAuthEndpoint = req.PersonalVmrOauthAuthEndpoint
+		mockState.PersonalVmrOauthTokenEndpoint = req.PersonalVmrOauthTokenEndpoint
+		mockState.PersonalVmrAdfsRelyingPartyTrustIdentifier = req.PersonalVmrAdfsRelyingPartyTrustIdentifier
+		mockState.OfficeJsURL = req.OfficeJsURL
+		mockState.MicrosoftFabricURL = req.MicrosoftFabricURL
+		mockState.MicrosoftFabricComponentsURL = req.MicrosoftFabricComponentsURL
+		mockState.AdditionalAddInScriptSources = req.AdditionalAddInScriptSources
+		mockState.NonIdpParticipants = req.NonIdpParticipants
 
-		// Handle oauth_state specifically since it might not be in update request
-		if updateRequest.Description == "Updated Test MsExchangeConnector" {
-			mockState.OauthState = stringPtr("updated-value")
-		}
-		if updateRequest.MeetingBufferBefore != nil {
-			mockState.MeetingBufferBefore = *updateRequest.MeetingBufferBefore
-		}
-		if updateRequest.MeetingBufferAfter != nil {
-			mockState.MeetingBufferAfter = *updateRequest.MeetingBufferAfter
-		}
-		if updateRequest.ScheduledAliasSuffixLength != nil {
-			mockState.ScheduledAliasSuffixLength = *updateRequest.ScheduledAliasSuffixLength
-		}
-		if updateRequest.RoomMailboxEmailAddress != nil {
-			mockState.RoomMailboxEmailAddress = updateRequest.RoomMailboxEmailAddress
-		}
-		mockState.RoomMailboxName = updateRequest.RoomMailboxName
-		mockState.URL = updateRequest.URL
-		mockState.Username = updateRequest.Username
-		mockState.Password = updateRequest.Password
-		mockState.AuthenticationMethod = updateRequest.AuthenticationMethod
-		mockState.AuthProvider = updateRequest.AuthProvider
-		mockState.UUID = updateRequest.UUID
-		if updateRequest.ScheduledAliasPrefix != nil {
-			mockState.ScheduledAliasPrefix = updateRequest.ScheduledAliasPrefix
-		}
-		mockState.ScheduledAliasDomain = updateRequest.ScheduledAliasDomain
-		if updateRequest.EnableDynamicVmrs != nil {
-			mockState.EnableDynamicVmrs = *updateRequest.EnableDynamicVmrs
-		}
-		if updateRequest.EnablePersonalVmrs != nil {
-			mockState.EnablePersonalVmrs = *updateRequest.EnablePersonalVmrs
-		}
-		if updateRequest.AllowNewUsers != nil {
-			mockState.AllowNewUsers = *updateRequest.AllowNewUsers
-		}
-		if updateRequest.DisableProxy != nil {
-			mockState.DisableProxy = *updateRequest.DisableProxy
-		}
-		if updateRequest.UseCustomAddInSources != nil {
-			mockState.UseCustomAddInSources = *updateRequest.UseCustomAddInSources
-		}
-		if updateRequest.EnableAddinDebugLogs != nil {
-			mockState.EnableAddinDebugLogs = *updateRequest.EnableAddinDebugLogs
-		}
-		if updateRequest.OauthClientID != nil {
-			mockState.OauthClientID = updateRequest.OauthClientID
-		}
-		mockState.OauthClientSecret = updateRequest.OauthClientSecret
-		mockState.OauthAuthEndpoint = updateRequest.OauthAuthEndpoint
-		mockState.OauthTokenEndpoint = updateRequest.OauthTokenEndpoint
-		mockState.OauthRedirectURI = updateRequest.OauthRedirectURI
-		mockState.OauthRefreshToken = updateRequest.OauthRefreshToken
-		// OauthState may not be available in update request, keep current value
-		mockState.KerberosRealm = updateRequest.KerberosRealm
-		mockState.KerberosKdc = updateRequest.KerberosKdc
-		mockState.KerberosKdcHttpsProxy = updateRequest.KerberosKdcHttpsProxy
-		mockState.KerberosExchangeSpn = updateRequest.KerberosExchangeSpn
-		if updateRequest.KerberosEnableTls != nil {
-			mockState.KerberosEnableTls = *updateRequest.KerberosEnableTls
-		}
-		if updateRequest.KerberosAuthEveryRequest != nil {
-			mockState.KerberosAuthEveryRequest = *updateRequest.KerberosAuthEveryRequest
-		}
-		if updateRequest.KerberosVerifyTlsUsingCustomCa != nil {
-			mockState.KerberosVerifyTlsUsingCustomCa = *updateRequest.KerberosVerifyTlsUsingCustomCa
-		}
-		// Update other fields as needed
-		mockState.AddinServerDomain = updateRequest.AddinServerDomain
-		mockState.AddinDisplayName = updateRequest.AddinDisplayName
-		mockState.AddinDescription = updateRequest.AddinDescription
-		mockState.AddinProviderName = updateRequest.AddinProviderName
-		mockState.AddinButtonLabel = updateRequest.AddinButtonLabel
-		mockState.AddinGroupLabel = updateRequest.AddinGroupLabel
-		mockState.AddinSupertipTitle = updateRequest.AddinSupertipTitle
-		mockState.AddinSupertipDescription = updateRequest.AddinSupertipDescription
-		if updateRequest.AddinApplicationID != nil {
-			mockState.AddinApplicationID = updateRequest.AddinApplicationID
-		}
-		mockState.AddinAuthorityURL = updateRequest.AddinAuthorityURL
-		mockState.AddinOidcMetadataURL = updateRequest.AddinOidcMetadataURL
-		mockState.AddinAuthenticationMethod = updateRequest.AddinAuthenticationMethod
-		if updateRequest.AddinNaaWebApiApplicationID != nil {
-			mockState.AddinNaaWebApiApplicationID = updateRequest.AddinNaaWebApiApplicationID
-		}
-		if updateRequest.PersonalVmrOauthClientID != nil {
-			mockState.PersonalVmrOauthClientID = updateRequest.PersonalVmrOauthClientID
-		}
-		// Update additional fields
-		// Note: Domains field in update request is *[]string (URIs), but in response it's *[]ExchangeDomain (objects)
-		// The test doesn't verify this field, so we skip updating it in the mock
-		if updateRequest.HostIdentityProviderGroup != nil {
-			mockState.HostIdentityProviderGroup = updateRequest.HostIdentityProviderGroup
-		}
-		if updateRequest.IvrTheme != nil {
-			mockState.IvrTheme = updateRequest.IvrTheme
-		}
-		mockState.PersonalVmrOauthClientSecret = updateRequest.PersonalVmrOauthClientSecret
-		mockState.PersonalVmrOauthAuthEndpoint = updateRequest.PersonalVmrOauthAuthEndpoint
-		mockState.PersonalVmrOauthTokenEndpoint = updateRequest.PersonalVmrOauthTokenEndpoint
-		mockState.PersonalVmrAdfsRelyingPartyTrustIdentifier = updateRequest.PersonalVmrAdfsRelyingPartyTrustIdentifier
-		mockState.OfficeJsURL = updateRequest.OfficeJsURL
-		mockState.MicrosoftFabricURL = updateRequest.MicrosoftFabricURL
-		mockState.MicrosoftFabricComponentsURL = updateRequest.MicrosoftFabricComponentsURL
-		mockState.AdditionalAddInScriptSources = updateRequest.AdditionalAddInScriptSources
-		mockState.NonIdpParticipants = updateRequest.NonIdpParticipants
+		// Pointer fields - unconditionally assign so they are cleared when nil
+		mockState.RoomMailboxEmailAddress = req.RoomMailboxEmailAddress
+		mockState.ScheduledAliasPrefix = req.ScheduledAliasPrefix
+		mockState.OauthClientID = req.OauthClientID
+		mockState.AddinApplicationID = req.AddinApplicationID
+		mockState.AddinNaaWebApiApplicationID = req.AddinNaaWebApiApplicationID
+		mockState.PersonalVmrOauthClientID = req.PersonalVmrOauthClientID
+		mockState.HostIdentityProviderGroup = req.HostIdentityProviderGroup
+		mockState.IvrTheme = req.IvrTheme
 
-		// Return updated state
-		*ms_exchange_connector = *mockState
+		// Int/bool pointer fields (always set via schema defaults)
+		if req.ScheduledAliasSuffixLength != nil {
+			mockState.ScheduledAliasSuffixLength = *req.ScheduledAliasSuffixLength
+		}
+		if req.MeetingBufferBefore != nil {
+			mockState.MeetingBufferBefore = *req.MeetingBufferBefore
+		}
+		if req.MeetingBufferAfter != nil {
+			mockState.MeetingBufferAfter = *req.MeetingBufferAfter
+		}
+		if req.EnableDynamicVmrs != nil {
+			mockState.EnableDynamicVmrs = *req.EnableDynamicVmrs
+		}
+		if req.EnablePersonalVmrs != nil {
+			mockState.EnablePersonalVmrs = *req.EnablePersonalVmrs
+		}
+		if req.AllowNewUsers != nil {
+			mockState.AllowNewUsers = *req.AllowNewUsers
+		}
+		if req.DisableProxy != nil {
+			mockState.DisableProxy = *req.DisableProxy
+		}
+		if req.UseCustomAddInSources != nil {
+			mockState.UseCustomAddInSources = *req.UseCustomAddInSources
+		}
+		if req.EnableAddinDebugLogs != nil {
+			mockState.EnableAddinDebugLogs = *req.EnableAddinDebugLogs
+		}
+		if req.KerberosEnableTls != nil {
+			mockState.KerberosEnableTls = *req.KerberosEnableTls
+		}
+		if req.KerberosAuthEveryRequest != nil {
+			mockState.KerberosAuthEveryRequest = *req.KerberosAuthEveryRequest
+		}
+		if req.KerberosVerifyTlsUsingCustomCa != nil {
+			mockState.KerberosVerifyTlsUsingCustomCa = *req.KerberosVerifyTlsUsingCustomCa
+		}
+
+		*dest = *mockState
 	}).Maybe()
 
-	// Mock the DeleteMsexchangeconnector API call
-	client.On("DeleteJSON", mock.Anything, mock.MatchedBy(func(path string) bool {
-		return path == "configuration/v1/ms_exchange_connector/123/"
-	}), mock.Anything).Return(nil)
+	client.On("DeleteJSON", mock.Anything, "configuration/v1/ms_exchange_connector/1/", mock.Anything).Return(nil)
 
 	testInfinityMsExchangeConnector(t, client)
 }
 
 func testInfinityMsExchangeConnector(t *testing.T, client InfinityClient) {
+	fullConfig := test.LoadTestFolder(t, "resource_infinity_ms_exchange_connector_full")
+	minConfig := test.LoadTestFolder(t, "resource_infinity_ms_exchange_connector_min")
+
+	fullChecks := resource.ComposeTestCheckFunc(
+		resource.TestCheckResourceAttrSet("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "id"),
+		resource.TestCheckResourceAttrSet("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "resource_id"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "name", "tf-test-ms-exchange-connector"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "description", "tf-test MS Exchange Connector"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "meeting_buffer_before", "60"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "meeting_buffer_after", "90"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "scheduled_alias_suffix_length", "8"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "authentication_method", "OAUTH"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "auth_provider", "AZURE"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_dynamic_vmrs", "true"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_personal_vmrs", "true"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "allow_new_users", "false"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "disable_proxy", "true"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "use_custom_add_in_sources", "true"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_addin_debug_logs", "true"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "kerberos_enable_tls", "true"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "kerberos_auth_every_request", "true"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "kerberos_verify_tls_using_custom_ca", "true"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "non_idp_participants", "disallow_all"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "addin_authentication_method", "EXCHANGE_USER_ID_TOKEN"),
+	)
+
+	minChecks := resource.ComposeTestCheckFunc(
+		resource.TestCheckResourceAttrSet("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "id"),
+		resource.TestCheckResourceAttrSet("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "resource_id"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "name", "tf-test-ms-exchange-connector"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "description", ""),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "meeting_buffer_before", "30"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "meeting_buffer_after", "60"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "scheduled_alias_suffix_length", "6"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "authentication_method", "BASIC"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "auth_provider", "ADFS"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_dynamic_vmrs", "true"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_personal_vmrs", "false"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "allow_new_users", "true"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "disable_proxy", "false"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "use_custom_add_in_sources", "false"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_addin_debug_logs", "false"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "kerberos_enable_tls", "true"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "kerberos_auth_every_request", "false"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "kerberos_verify_tls_using_custom_ca", "false"),
+	)
+
 	resource.Test(t, resource.TestCase{
 		ProtoV6ProviderFactories: getTestProtoV6ProviderFactories(client),
 		Steps: []resource.TestStep{
+			// Step 1: Create with full config
 			{
-				Config: test.LoadTestFolder(t, "resource_infinity_ms_exchange_connector_basic"),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "name", "ms_exchange_connector-test"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "description", "Test MsExchangeConnector"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "room_mailbox_name", "ms_exchange_connector-test"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "username", "ms_exchange_connector-test"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "enable_dynamic_vmrs", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "enable_personal_vmrs", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "allow_new_users", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "disable_proxy", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "use_custom_add_in_sources", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "enable_addin_debug_logs", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "kerberos_enable_tls", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "kerberos_auth_every_request", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "kerberos_verify_tls_using_custom_ca", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "addin_display_name", "ms_exchange_connector-test"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "addin_description", "Test MsExchangeConnector"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "addin_provider_name", "ms_exchange_connector-test"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "addin_supertip_description", "Test MsExchangeConnector"),
-				),
+				Config: fullConfig,
+				Check:  fullChecks,
 			},
+			// Step 2: Update to min config
 			{
-				Config: test.LoadTestFolder(t, "resource_infinity_ms_exchange_connector_basic_updated"),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "name", "ms_exchange_connector-test"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "description", "Updated Test MsExchangeConnector"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "meeting_buffer_before", "600"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "meeting_buffer_after", "600"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "scheduled_alias_suffix_length", "8"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "room_mailbox_email_address", "updated@example.com"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "url", "https://updated.example.com"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "authentication_method", "BASIC"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "auth_provider", "ADFS"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "enable_dynamic_vmrs", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "enable_personal_vmrs", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "allow_new_users", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "disable_proxy", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "use_custom_add_in_sources", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "enable_addin_debug_logs", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "kerberos_enable_tls", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "kerberos_auth_every_request", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.ms_exchange_connector-test", "kerberos_verify_tls_using_custom_ca", "false"),
-				),
+				Config: minConfig,
+				Check:  minChecks,
+			},
+			// Step 3: Destroy
+			{
+				Config:  minConfig,
+				Destroy: true,
+			},
+			// Step 4: Create with min config
+			{
+				Config: minConfig,
+				Check:  minChecks,
+			},
+			// Step 5: Update to full config
+			{
+				Config: fullConfig,
+				Check:  fullChecks,
 			},
 		},
 	})

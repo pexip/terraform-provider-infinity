@@ -4,16 +4,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_ms_exchange_connector" "ms_exchange_connector-test" {
-  name                                             = "ms_exchange_connector-test"
-  description                                      = "Test MsExchangeConnector"
-  meeting_buffer_before                            = 300
-  meeting_buffer_after                             = 300
-  scheduled_alias_suffix_length                    = 6
+resource "pexip_infinity_ms_exchange_connector" "tf-test-ms-exchange-connector" {
+  name                                             = "tf-test-ms-exchange-connector"
+  description                                      = "tf-test MS Exchange Connector"
+  meeting_buffer_before                            = 60
+  meeting_buffer_after                             = 90
+  scheduled_alias_suffix_length                    = 8
   room_mailbox_email_address                       = "test@example.com"
-  room_mailbox_name                                = "ms_exchange_connector-test"
+  room_mailbox_name                                = "tf-test-ms-exchange-connector"
   url                                              = "https://example.com"
-  username                                         = "ms_exchange_connector-test"
+  username                                         = "tf-test-ms-exchange-connector"
   password                                         = "test-value"
   authentication_method                            = "OAUTH"
   auth_provider                                    = "AZURE"
@@ -21,7 +21,7 @@ resource "pexip_infinity_ms_exchange_connector" "ms_exchange_connector-test" {
   scheduled_alias_domain                           = "example.com"
   enable_dynamic_vmrs                              = true
   enable_personal_vmrs                             = true
-  allow_new_users                                  = true
+  allow_new_users                                  = false
   disable_proxy                                    = true
   use_custom_add_in_sources                        = true
   enable_addin_debug_logs                          = true
@@ -30,7 +30,6 @@ resource "pexip_infinity_ms_exchange_connector" "ms_exchange_connector-test" {
   oauth_auth_endpoint                              = "test-value"
   oauth_token_endpoint                             = "test-value"
   oauth_redirect_uri                               = "test-value"
-  oauth_state                                      = "test-value"
   kerberos_realm                                   = "test-value"
   kerberos_kdc                                     = "test-value"
   kerberos_kdc_https_proxy                         = "test-value"
@@ -39,13 +38,13 @@ resource "pexip_infinity_ms_exchange_connector" "ms_exchange_connector-test" {
   kerberos_auth_every_request                      = true
   kerberos_verify_tls_using_custom_ca              = true
   addin_server_domain                              = "test-value"
-  addin_display_name                               = "ms_exchange_connector-test"
-  addin_description                                = "Test MsExchangeConnector"
-  addin_provider_name                              = "ms_exchange_connector-test"
+  addin_display_name                               = "tf-test-ms-exchange-connector"
+  addin_description                                = "tf-test MS Exchange Connector"
+  addin_provider_name                              = "tf-test-ms-exchange-connector"
   addin_button_label                               = "test-value"
   addin_group_label                                = "test-value"
   addin_supertip_title                             = "test-value"
-  addin_supertip_description                       = "Test MsExchangeConnector"
+  addin_supertip_description                       = "tf-test MS Exchange Connector"
   addin_application_id                             = "test-value"
   addin_authority_url                              = "https://example.com"
   addin_oidc_metadata_url                          = "https://example.com"
