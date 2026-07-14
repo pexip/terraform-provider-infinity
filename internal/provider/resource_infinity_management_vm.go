@@ -746,8 +746,14 @@ func (r *InfinityManagementVMResource) Delete(ctx context.Context, req resource.
 	if resp.Diagnostics.HasError() {
 		return
 	}
+	if state.ResourceID.IsNull() || state.ResourceID.IsUnknown() || state.ResourceID.ValueInt32() == 0 {
+		resp.Diagnostics.AddError(
+			"Missing Resource ID",
+			"Cannot reset management VM: resource_id is missing or zero in state. Try re-importing the resource with the correct integer ID.",
+		)
+		return
+	}
 	resourceID := int(state.ResourceID.ValueInt32())
-
 	updateRequest := &config.ManagementVMUpdateRequest{
 		// Fields without omitempty — always sent in JSON
 		Description:                 "",
