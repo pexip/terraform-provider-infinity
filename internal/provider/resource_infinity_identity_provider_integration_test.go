@@ -19,7 +19,7 @@ import (
 
 	"github.com/pexip/terraform-provider-infinity/internal/test"
 
-	"github.com/pexip/go-infinity-sdk/v40"
+	"github.com/pexip/go-infinity-sdk/v41"
 )
 
 func TestInfinityIdentityProviderIntegration(t *testing.T) {
