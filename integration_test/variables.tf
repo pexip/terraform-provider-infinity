@@ -30,13 +30,13 @@ variable "dns_zone_name" {
 
 variable "vm_image_manager_name" {
   type        = string
-  default     = "pexip-mgr-v40"
+  default     = "pexip-mgr-v41rc3"
   description = "Pexip Infinity VM image to use"
 }
 
 variable "vm_image_node_name" {
   type        = string
-  default     = "pexip-cnf-v40"
+  default     = "pexip-cnf-v41rc3"
   description = "VM image to use"
 }
 
@@ -60,13 +60,13 @@ variable "infinity_ip_address" {
 
 variable "infinity_manager_machine_type" {
   type        = string
-  default     = "n2d-standard-16"
+  default     = "n2d-highcpu-4"
   description = "Machine type for Infinity Manager VM"
 }
 
 variable "infinity_node_machine_type" {
   type        = string
-  default     = "n2d-standard-16"
+  default     = "n2d-highcpu-8"
   description = "Machine type for Infinity nodes"
 }
 
