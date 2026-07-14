@@ -103,9 +103,15 @@ func (r *InfinityWebappAliasResource) Schema(ctx context.Context, req resource.S
 			"webapp_type": schema.StringAttribute{
 				Required: true,
 				Validators: []validator.String{
-					stringvalidator.OneOf("webapp1", "webapp2", "webapp3"),
+					stringvalidator.OneOf("webapp2", "webapp3"),
 				},
-				MarkdownDescription: "The type of webapp this alias serves. Valid values: webapp1, webapp2, webapp3.",
+				MarkdownDescription: "The type of webapp this alias serves. Valid values: webapp2, webapp3.",
+			},
+			"is_default": schema.BoolAttribute{
+				Computed:            true,
+				Optional:            true,
+				Default:             booldefault.StaticBool(false),
+				MarkdownDescription: "Select this option if you want /webapp to redirect to this particular path and associated branding. Default: false",
 			},
 			"is_default": schema.BoolAttribute{
 				Computed:            true,
@@ -148,6 +154,7 @@ func (r *InfinityWebappAliasResource) Create(ctx context.Context, req resource.C
 		Slug:        plan.Slug.ValueString(),
 		Description: plan.Description.ValueString(),
 		WebappType:  plan.WebappType.ValueString(),
+		IsDefault:   plan.IsDefault.ValueBool(),
 		IsEnabled:   plan.IsEnabled.ValueBool(),
 	}
 
