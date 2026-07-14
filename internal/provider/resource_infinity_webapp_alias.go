@@ -109,9 +109,7 @@ func (r *InfinityWebappAliasResource) Schema(ctx context.Context, req resource.S
 			},
 			"is_default": schema.BoolAttribute{
 				Computed:            true,
-				Optional:            true,
-				Default:             booldefault.StaticBool(false),
-				MarkdownDescription: "Select this option if you want /webapp to redirect to this particular path and associated branding. Default: false",
+				MarkdownDescription: "Select this option if you want /webapp to redirect to this particular path and associated branding.",
 			},
 			"is_enabled": schema.BoolAttribute{
 				Computed:            true,
@@ -275,11 +273,9 @@ func (r *InfinityWebappAliasResource) Update(ctx context.Context, req resource.U
 		Slug:        plan.Slug.ValueString(),
 		Description: plan.Description.ValueString(),
 		WebappType:  plan.WebappType.ValueString(),
-		IsDefault:   plan.IsDefault.ValueBool(),
 		IsEnabled:   plan.IsEnabled.ValueBool(),
 	}
 
-	// Handle optional pointer fields
 	if !plan.Bundle.IsNull() && !plan.Bundle.IsUnknown() {
 		bundle := plan.Bundle.ValueString()
 		updateRequest.Bundle = &bundle
