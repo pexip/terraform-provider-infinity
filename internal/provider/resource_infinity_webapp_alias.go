@@ -109,12 +109,6 @@ func (r *InfinityWebappAliasResource) Schema(ctx context.Context, req resource.S
 			},
 			"is_default": schema.BoolAttribute{
 				Computed:            true,
-				Optional:            true,
-				Default:             booldefault.StaticBool(false),
-				MarkdownDescription: "Select this option if you want /webapp to redirect to this particular path and associated branding. Default: false",
-			},
-			"is_default": schema.BoolAttribute{
-				Computed:            true,
 				MarkdownDescription: "Select this option if you want /webapp to redirect to this particular path and associated branding.",
 			},
 			"is_enabled": schema.BoolAttribute{
