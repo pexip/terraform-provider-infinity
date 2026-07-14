@@ -29,8 +29,8 @@ func TestInfinityManagementVM(t *testing.T) {
 	client := infinity.NewClientMock()
 
 	mockState := &config.ManagementVM{
-		ID:                        1,
-		ResourceURI:               "/api/admin/configuration/v1/management_vm/1/",
+		ID:                        42,
+		ResourceURI:               "/api/admin/configuration/v1/management_vm/42/",
 		Name:                      "management_vm-test",
 		Description:               "",
 		Address:                   "192.168.1.100",
@@ -50,7 +50,7 @@ func TestInfinityManagementVM(t *testing.T) {
 
 	// Delete mock — registered first so it takes priority over the general mock.
 	// Fingerprinted by Name == "" (delete does not set the name field).
-	client.On("PatchJSON", mock.Anything, "configuration/v1/management_vm/1/",
+	client.On("PatchJSON", mock.Anything, "configuration/v1/management_vm/42/",
 		mock.MatchedBy(func(req *config.ManagementVMUpdateRequest) bool {
 			return req.Name == ""
 		}), mock.Anything).Return(nil).Run(func(args mock.Arguments) {
@@ -100,7 +100,7 @@ func TestInfinityManagementVM(t *testing.T) {
 	}).Once()
 
 	// General PatchJSON mock — handles all create and update calls.
-	client.On("PatchJSON", mock.Anything, "configuration/v1/management_vm/1/",
+	client.On("PatchJSON", mock.Anything, "configuration/v1/management_vm/42/",
 		mock.Anything, mock.Anything).Return(nil).Run(func(args mock.Arguments) {
 		req := args.Get(2).(*config.ManagementVMUpdateRequest)
 		result := args.Get(3).(*config.ManagementVM)
@@ -146,12 +146,26 @@ func TestInfinityManagementVM(t *testing.T) {
 	client.On(
 		"GetJSON",
 		mock.Anything,
-		"configuration/v1/management_vm/1/",
+		"configuration/v1/management_vm/42/",
 		mock.Anything,
 		mock.AnythingOfType("*config.ManagementVM"),
 	).Return(nil).Run(func(args mock.Arguments) {
 		mv := args.Get(3).(*config.ManagementVM)
 		*mv = *mockState
+	}).Maybe()
+
+	// ListManagementVMs mock — called during Create to discover the resource ID.
+	client.On(
+		"GetJSON",
+		mock.Anything,
+		"configuration/v1/management_vm/",
+		mock.Anything,
+		mock.AnythingOfType("*config.ManagementVMListResponse"),
+	).Return(nil).Run(func(args mock.Arguments) {
+		result := args.Get(3).(*config.ManagementVMListResponse)
+		*result = config.ManagementVMListResponse{
+			Objects: []config.ManagementVM{{ID: 42, Primary: true}},
+		}
 	}).Maybe()
 
 	testInfinityManagementVM(t, client)

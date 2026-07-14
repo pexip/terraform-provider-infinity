@@ -451,7 +451,32 @@ func (r *InfinityManagementVMResource) Create(ctx context.Context, req resource.
 	updateRequest.EventSinks = eventSinks
 	updateRequest.SSHAuthorizedKeys = sshAuthorizedKeys
 
-	_, err := r.InfinityClient.Config().UpdateManagementVM(ctx, updateRequest)
+	// Discover the management VM's actual ID — it may not be 1 in all deployments.
+	listResp, err := r.InfinityClient.Config().ListManagementVMs(ctx, nil)
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error Finding Infinity Management VM",
+			fmt.Sprintf("Could not list management VMs to determine resource ID: %s", err),
+		)
+		return
+	}
+	if len(listResp.Objects) == 0 {
+		resp.Diagnostics.AddError(
+			"Error Finding Infinity Management VM",
+			"No management VMs found in the API response",
+		)
+		return
+	}
+	// Prefer the primary management VM; fall back to the first returned.
+	resourceID := listResp.Objects[0].ID
+	for _, vm := range listResp.Objects {
+		if vm.Primary {
+			resourceID = vm.ID
+			break
+		}
+	}
+
+	_, err = r.InfinityClient.Config().UpdateManagementVM(ctx, updateRequest, resourceID)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Updating Infinity Management VM",
@@ -461,7 +486,7 @@ func (r *InfinityManagementVMResource) Create(ctx context.Context, req resource.
 	}
 
 	// Re-read the resource to get the latest state
-	updatedModel, err := r.read(ctx, 1, plan.SNMPCommunity.ValueString(), plan.SecondaryConfigPassphrase.ValueString(), plan.SNMPAuthenticationPassword, plan.SNMPPrivacyPassword)
+	updatedModel, err := r.read(ctx, resourceID, plan.SNMPCommunity.ValueString(), plan.SecondaryConfigPassphrase.ValueString(), plan.SNMPAuthenticationPassword, plan.SNMPPrivacyPassword)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Reading Updated Infinity management VM",
@@ -476,7 +501,7 @@ func (r *InfinityManagementVMResource) Create(ctx context.Context, req resource.
 func (r *InfinityManagementVMResource) read(ctx context.Context, resourceID int, _snmpCommunity, _secondaryConfigPass string, _snmpAuthPass, _snmpPrivPass types.String) (*InfinityManagementVMResourceModel, error) {
 	var data InfinityManagementVMResourceModel
 
-	srv, err := r.InfinityClient.Config().GetManagementVM(ctx)
+	srv, err := r.InfinityClient.Config().GetManagementVM(ctx, resourceID)
 	if err != nil {
 		return nil, err
 	}
@@ -683,7 +708,15 @@ func (r *InfinityManagementVMResource) Update(ctx context.Context, req resource.
 	updateRequest.StaticRoutes = staticRoutes
 	updateRequest.EventSinks = eventSinks
 	updateRequest.SSHAuthorizedKeys = sshAuthorizedKeys
-	_, err := r.InfinityClient.Config().UpdateManagementVM(ctx, updateRequest)
+	if plan.ResourceID.IsNull() || plan.ResourceID.IsUnknown() || plan.ResourceID.ValueInt32() == 0 {
+		resp.Diagnostics.AddError(
+			"Missing Resource ID",
+			"Cannot update management VM: resource_id is missing or zero in state. Try re-importing the resource with the correct integer ID.",
+		)
+		return
+	}
+	resourceID := int(plan.ResourceID.ValueInt32())
+	_, err := r.InfinityClient.Config().UpdateManagementVM(ctx, updateRequest, resourceID)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Updating Infinity Management VM",
@@ -693,7 +726,7 @@ func (r *InfinityManagementVMResource) Update(ctx context.Context, req resource.
 	}
 
 	// Re-read the resource to get the latest state
-	updatedModel, err := r.read(ctx, 1, plan.SNMPCommunity.ValueString(), plan.SecondaryConfigPassphrase.ValueString(), plan.SNMPAuthenticationPassword, plan.SNMPPrivacyPassword)
+	updatedModel, err := r.read(ctx, resourceID, plan.SNMPCommunity.ValueString(), plan.SecondaryConfigPassphrase.ValueString(), plan.SNMPAuthenticationPassword, plan.SNMPPrivacyPassword)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Reading Updated Infinity management VM",
@@ -708,6 +741,19 @@ func (r *InfinityManagementVMResource) Update(ctx context.Context, req resource.
 func (r *InfinityManagementVMResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	tflog.Info(ctx, "Resetting Infinity management VM to defaults")
 
+	state := &InfinityManagementVMResourceModel{}
+	resp.Diagnostics.Append(req.State.Get(ctx, state)...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	if state.ResourceID.IsNull() || state.ResourceID.IsUnknown() || state.ResourceID.ValueInt32() == 0 {
+		resp.Diagnostics.AddError(
+			"Missing Resource ID",
+			"Cannot reset management VM: resource_id is missing or zero in state. Try re-importing the resource with the correct integer ID.",
+		)
+		return
+	}
+	resourceID := int(state.ResourceID.ValueInt32())
 	updateRequest := &config.ManagementVMUpdateRequest{
 		// Fields without omitempty — always sent in JSON
 		Description:                 "",
@@ -731,7 +777,7 @@ func (r *InfinityManagementVMResource) Delete(ctx context.Context, req resource.
 		SNMPSystemLocation: "Virtual machine",
 	}
 
-	_, err := r.InfinityClient.Config().UpdateManagementVM(ctx, updateRequest)
+	_, err := r.InfinityClient.Config().UpdateManagementVM(ctx, updateRequest, resourceID)
 	if err != nil && !isNotFoundError(err) && !isLookupError(err) {
 		resp.Diagnostics.AddError(
 			"Error Resetting Infinity management VM configuration",
