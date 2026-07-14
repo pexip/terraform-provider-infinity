@@ -34,6 +34,7 @@ func TestInfinityWebappAlias(t *testing.T) {
 		Slug:        "tf-test-alias-full",
 		Description: "tf-test webapp alias description",
 		WebappType:  "webapp3",
+		IsDefault:   false,
 		IsEnabled:   true,
 	}
 
@@ -71,9 +72,7 @@ func TestInfinityWebappAlias(t *testing.T) {
 		if updateReq.WebappType != "" {
 			mockState.WebappType = updateReq.WebappType
 		}
-		if updateReq.IsEnabled != nil {
-			mockState.IsEnabled = *updateReq.IsEnabled
-		}
+		mockState.IsEnabled = updateReq.IsEnabled
 		// Note: Bundle and Branding are sent as string URIs in requests,
 		// but returned as objects in responses. We don't update them in the mock
 		// since the test doesn't use these fields.
@@ -103,6 +102,7 @@ func testInfinityWebappAlias(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "slug", "tf-test-alias-full"),
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "description", "tf-test webapp alias description"),
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "webapp_type", "webapp3"),
+					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "is_default", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "is_enabled", "true"),
 				),
 			},
@@ -115,6 +115,7 @@ func testInfinityWebappAlias(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "slug", "tf-test-alias"),
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "description", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "webapp_type", "webapp1"),
+					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "is_default", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "is_enabled", "false"),
 				),
 			},
@@ -132,6 +133,7 @@ func testInfinityWebappAlias(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "slug", "tf-test-alias"),
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "description", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "webapp_type", "webapp1"),
+					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "is_default", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "is_enabled", "false"),
 				),
 			},
@@ -144,6 +146,7 @@ func testInfinityWebappAlias(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "slug", "tf-test-alias-full"),
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "description", "tf-test webapp alias description"),
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "webapp_type", "webapp3"),
+					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "is_default", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_webapp_alias.tf-test-webapp-alias", "is_enabled", "true"),
 				),
 			},

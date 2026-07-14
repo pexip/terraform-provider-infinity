@@ -39,6 +39,7 @@ type InfinityWebappAliasResourceModel struct {
 	Slug        types.String `tfsdk:"slug"`
 	Description types.String `tfsdk:"description"`
 	WebappType  types.String `tfsdk:"webapp_type"`
+	IsDefault   types.Bool   `tfsdk:"is_default"`
 	IsEnabled   types.Bool   `tfsdk:"is_enabled"`
 	Bundle      types.String `tfsdk:"bundle"`
 	Branding    types.String `tfsdk:"branding"`
@@ -105,6 +106,10 @@ func (r *InfinityWebappAliasResource) Schema(ctx context.Context, req resource.S
 					stringvalidator.OneOf("webapp1", "webapp2", "webapp3"),
 				},
 				MarkdownDescription: "The type of webapp this alias serves. Valid values: webapp1, webapp2, webapp3.",
+			},
+			"is_default": schema.BoolAttribute{
+				Computed:            true,
+				MarkdownDescription: "Select this option if you want /webapp to redirect to this particular path and associated branding.",
 			},
 			"is_enabled": schema.BoolAttribute{
 				Computed:            true,
@@ -206,6 +211,7 @@ func (r *InfinityWebappAliasResource) read(ctx context.Context, resourceID int) 
 	data.Slug = types.StringValue(srv.Slug)
 	data.Description = types.StringValue(srv.Description)
 	data.WebappType = types.StringValue(srv.WebappType)
+	data.IsDefault = types.BoolValue(srv.IsDefault)
 	data.IsEnabled = types.BoolValue(srv.IsEnabled)
 
 	// Handle optional pointer fields
@@ -266,12 +272,7 @@ func (r *InfinityWebappAliasResource) Update(ctx context.Context, req resource.U
 		Slug:        plan.Slug.ValueString(),
 		Description: plan.Description.ValueString(),
 		WebappType:  plan.WebappType.ValueString(),
-	}
-
-	// Handle optional pointer fields
-	if !plan.IsEnabled.IsNull() && !plan.IsEnabled.IsUnknown() {
-		isEnabled := plan.IsEnabled.ValueBool()
-		updateRequest.IsEnabled = &isEnabled
+		IsEnabled:   plan.IsEnabled.ValueBool(),
 	}
 
 	if !plan.Bundle.IsNull() && !plan.Bundle.IsUnknown() {
