@@ -22,7 +22,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
-	"github.com/pexip/go-infinity-sdk/v40/config"
+	"github.com/pexip/go-infinity-sdk/v41/config"
 
 	"github.com/pexip/terraform-provider-infinity/internal/provider/validators"
 )
@@ -246,10 +246,8 @@ func (r *InfinityAuthenticationResource) Schema(ctx context.Context, req resourc
 				MarkdownDescription: "Search the Active Directory Global Catalog instead of traditional LDAP.",
 			},
 			"ldap_permit_no_tls": schema.BoolAttribute{
-				Optional:            true,
 				Computed:            true,
 				MarkdownDescription: "This field is deprecated and will be ignored.",
-				Default:             booldefault.StaticBool(false),
 			},
 			"oidc_metadata_url": schema.StringAttribute{
 				Optional: true,
