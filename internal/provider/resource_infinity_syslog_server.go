@@ -42,6 +42,7 @@ type InfinitySyslogServerResourceModel struct {
 	Address     types.String `tfsdk:"address"`
 	Description types.String `tfsdk:"description"`
 	Port        types.Int64  `tfsdk:"port"`
+	ProtoFormat types.String `tfsdk:"proto_format"`
 	Transport   types.String `tfsdk:"transport"`
 	AuditLog    types.Bool   `tfsdk:"audit_log"`
 	SupportLog  types.Bool   `tfsdk:"support_log"`
@@ -111,6 +112,15 @@ func (r *InfinitySyslogServerResource) Schema(ctx context.Context, req resource.
 				},
 				MarkdownDescription: "The port on the remote syslog server. Range: 1 to 65535. Default: 514.",
 			},
+			"proto_format": schema.StringAttribute{
+				Optional: true,
+				Computed: true,
+				Default:  stringdefault.StaticString("rfc3164"),
+				Validators: []validator.String{
+					stringvalidator.OneOf("pexip", "rfc3164", "rfc5424"),
+				},
+				MarkdownDescription: "The format of the syslog protocol used when sending to the remote syslog server. Valid choices: pexip, rfc3164, rfc5424. Default: rfc3164.",
+			},
 			"transport": schema.StringAttribute{
 				Computed: true,
 				Optional: true,
@@ -159,6 +169,7 @@ func (r *InfinitySyslogServerResource) Create(ctx context.Context, req resource.
 		AuditLog:    plan.AuditLog.ValueBool(),
 		SupportLog:  plan.SupportLog.ValueBool(),
 		WebLog:      plan.WebLog.ValueBool(),
+		ProtoFormat: plan.ProtoFormat.ValueString(),
 	}
 
 	createResponse, err := r.InfinityClient.Config().CreateSyslogServer(ctx, createRequest)
@@ -214,6 +225,7 @@ func (r *InfinitySyslogServerResource) read(ctx context.Context, resourceID int)
 	data.AuditLog = types.BoolValue(srv.AuditLog)
 	data.SupportLog = types.BoolValue(srv.SupportLog)
 	data.WebLog = types.BoolValue(srv.WebLog)
+	data.ProtoFormat = types.StringValue(srv.ProtoFormat)
 
 	return &data, nil
 }
@@ -259,6 +271,7 @@ func (r *InfinitySyslogServerResource) Update(ctx context.Context, req resource.
 		Description: plan.Description.ValueString(),
 		Port:        int(plan.Port.ValueInt64()),
 		Transport:   plan.Transport.ValueString(),
+		ProtoFormat: plan.ProtoFormat.ValueString(),
 	}
 
 	// Handle optional pointer fields for booleans
