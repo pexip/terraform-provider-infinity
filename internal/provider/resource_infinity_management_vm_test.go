@@ -154,6 +154,20 @@ func TestInfinityManagementVM(t *testing.T) {
 		*mv = *mockState
 	}).Maybe()
 
+	// ListManagementVMs mock — called during Create to discover the resource ID.
+	client.On(
+		"GetJSON",
+		mock.Anything,
+		"configuration/v1/management_vm/",
+		mock.Anything,
+		mock.AnythingOfType("*config.ManagementVMListResponse"),
+	).Return(nil).Run(func(args mock.Arguments) {
+		result := args.Get(3).(*config.ManagementVMListResponse)
+		*result = config.ManagementVMListResponse{
+			Objects: []config.ManagementVM{{ID: 1}},
+		}
+	}).Maybe()
+
 	testInfinityManagementVM(t, client)
 }
 

@@ -451,7 +451,18 @@ func (r *InfinityManagementVMResource) Create(ctx context.Context, req resource.
 	updateRequest.EventSinks = eventSinks
 	updateRequest.SSHAuthorizedKeys = sshAuthorizedKeys
 
-	_, err := r.InfinityClient.Config().UpdateManagementVM(ctx, updateRequest)
+	// Discover the management VM's actual ID — it may not be 1 in all deployments.
+	listResp, err := r.InfinityClient.Config().ListManagementVMs(ctx, nil)
+	if err != nil || len(listResp.Objects) == 0 {
+		resp.Diagnostics.AddError(
+			"Error Finding Infinity Management VM",
+			fmt.Sprintf("Could not list management VMs to determine resource ID: %s", err),
+		)
+		return
+	}
+	resourceID := listResp.Objects[0].ID
+
+	_, err = r.InfinityClient.Config().UpdateManagementVM(ctx, updateRequest, resourceID)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Updating Infinity Management VM",
@@ -461,7 +472,7 @@ func (r *InfinityManagementVMResource) Create(ctx context.Context, req resource.
 	}
 
 	// Re-read the resource to get the latest state
-	updatedModel, err := r.read(ctx, 1, plan.SNMPCommunity.ValueString(), plan.SecondaryConfigPassphrase.ValueString(), plan.SNMPAuthenticationPassword, plan.SNMPPrivacyPassword)
+	updatedModel, err := r.read(ctx, resourceID, plan.SNMPCommunity.ValueString(), plan.SecondaryConfigPassphrase.ValueString(), plan.SNMPAuthenticationPassword, plan.SNMPPrivacyPassword)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Reading Updated Infinity management VM",
@@ -476,7 +487,7 @@ func (r *InfinityManagementVMResource) Create(ctx context.Context, req resource.
 func (r *InfinityManagementVMResource) read(ctx context.Context, resourceID int, _snmpCommunity, _secondaryConfigPass string, _snmpAuthPass, _snmpPrivPass types.String) (*InfinityManagementVMResourceModel, error) {
 	var data InfinityManagementVMResourceModel
 
-	srv, err := r.InfinityClient.Config().GetManagementVM(ctx)
+	srv, err := r.InfinityClient.Config().GetManagementVM(ctx, resourceID)
 	if err != nil {
 		return nil, err
 	}
@@ -683,7 +694,8 @@ func (r *InfinityManagementVMResource) Update(ctx context.Context, req resource.
 	updateRequest.StaticRoutes = staticRoutes
 	updateRequest.EventSinks = eventSinks
 	updateRequest.SSHAuthorizedKeys = sshAuthorizedKeys
-	_, err := r.InfinityClient.Config().UpdateManagementVM(ctx, updateRequest)
+	resourceID := int(plan.ResourceID.ValueInt32())
+	_, err := r.InfinityClient.Config().UpdateManagementVM(ctx, updateRequest, resourceID)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Updating Infinity Management VM",
@@ -693,7 +705,7 @@ func (r *InfinityManagementVMResource) Update(ctx context.Context, req resource.
 	}
 
 	// Re-read the resource to get the latest state
-	updatedModel, err := r.read(ctx, 1, plan.SNMPCommunity.ValueString(), plan.SecondaryConfigPassphrase.ValueString(), plan.SNMPAuthenticationPassword, plan.SNMPPrivacyPassword)
+	updatedModel, err := r.read(ctx, resourceID, plan.SNMPCommunity.ValueString(), plan.SecondaryConfigPassphrase.ValueString(), plan.SNMPAuthenticationPassword, plan.SNMPPrivacyPassword)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Reading Updated Infinity management VM",
