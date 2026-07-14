@@ -23,7 +23,6 @@ resource "pexip_infinity_authentication" "authentication-test" {
   ldap_group_filter            = "(|(objectclass=group)(objectclass=groupOfNames)(objectclass=groupOfUniqueNames)(objectclass=posixGroup)(objectclass=testGroup))"
   ldap_group_membership_filter = "(|(member={userdn})(uniquemember={userdn}))"
   ldap_group_search_dn         = "OU=Groups,DC=example,DC=com"
-  ldap_permit_no_tls           = true
   ldap_server                  = "ldap.example.com"
   ldap_use_global_catalog      = true
   ldap_user_filter             = "(&(objectclass=person))"

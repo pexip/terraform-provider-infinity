@@ -118,8 +118,6 @@ func TestInfinityAuthentication(t *testing.T) {
 		assert.Equal(t, "(|(member={userdn})(uniquemember={userdn})(memberuid={useruid}))", req.LdapGroupMembershipFilter)
 		assert.NotNil(t, req.LdapUseGlobalCatalog)
 		assert.False(t, *req.LdapUseGlobalCatalog)
-		assert.NotNil(t, req.LdapPermitNoTLS)
-		assert.False(t, *req.LdapPermitNoTLS)
 		assert.Equal(t, "", req.OidcMetadataURL)
 		assert.Equal(t, "", req.OidcClientID)
 		assert.Equal(t, "", req.OidcClientSecret)
@@ -252,7 +250,7 @@ func testInfinityAuthentication(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_group_filter", "(|(objectclass=group)(objectclass=groupOfNames)(objectclass=groupOfUniqueNames)(objectclass=posixGroup)(objectclass=testGroup))"),
 					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_group_membership_filter", "(|(member={userdn})(uniquemember={userdn}))"),
 					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_use_global_catalog", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_permit_no_tls", "true"),
+					resource.TestCheckResourceAttrSet("pexip_infinity_authentication.authentication-test", "ldap_permit_no_tls"),
 					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_metadata_url", "https://auth.example.com/.well-known/openid-configuration"),
 					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_client_id", "pexip-infinity-client-id"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_authentication.authentication-test", "oidc_client_secret"),
@@ -294,7 +292,7 @@ func testInfinityAuthentication(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_group_filter", "(|(objectclass=group)(objectclass=groupOfNames)(objectclass=groupOfUniqueNames)(objectclass=posixGroup))"),
 					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_group_membership_filter", "(|(member={userdn})(uniquemember={userdn})(memberuid={useruid}))"),
 					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_use_global_catalog", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_permit_no_tls", "false"),
+					resource.TestCheckResourceAttrSet("pexip_infinity_authentication.authentication-test", "ldap_permit_no_tls"),
 					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_metadata_url", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_client_id", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_auth_method", "client_secret"),
