@@ -38,6 +38,7 @@ func TestInfinitySyslogServer(t *testing.T) {
 		AuditLog:    true,
 		SupportLog:  true,
 		WebLog:      true,
+		ProtoFormat: "rfc5424",
 	}
 
 	// Mock the CreateSyslogserver API call
@@ -55,6 +56,7 @@ func TestInfinitySyslogServer(t *testing.T) {
 		mockState.AuditLog = createReq.AuditLog
 		mockState.SupportLog = createReq.SupportLog
 		mockState.WebLog = createReq.WebLog
+		mockState.ProtoFormat = createReq.ProtoFormat
 	}).Maybe()
 
 	// Mock the GetSyslogserver API call for Read operations
@@ -89,6 +91,9 @@ func TestInfinitySyslogServer(t *testing.T) {
 		if updateReq.WebLog != nil {
 			mockState.WebLog = *updateReq.WebLog
 		}
+		if updateReq.ProtoFormat != "" {
+			mockState.ProtoFormat = updateReq.ProtoFormat
+		}
 
 		// Return updated state
 		*syslog_server = *mockState
@@ -119,6 +124,7 @@ func testInfinitySyslogServer(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "audit_log", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "support_log", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "web_log", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "proto_format", "rfc5424"),
 				),
 			},
 			// Step 2: Update to min config
@@ -134,6 +140,7 @@ func testInfinitySyslogServer(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "audit_log", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "support_log", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "web_log", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "proto_format", "rfc3164"),
 				),
 			},
 			// Step 3: Destroy
@@ -154,6 +161,7 @@ func testInfinitySyslogServer(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "audit_log", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "support_log", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "web_log", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "proto_format", "rfc3164"),
 				),
 			},
 			// Step 5: Update to full config
@@ -169,6 +177,7 @@ func testInfinitySyslogServer(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "audit_log", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "support_log", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "web_log", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_syslog_server.tf-test-syslog-server", "proto_format", "rfc5424"),
 				),
 			},
 		},
