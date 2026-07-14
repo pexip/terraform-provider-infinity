@@ -6,5 +6,5 @@
 
 resource "pexip_infinity_webapp_alias" "tf-test-webapp-alias" {
   slug        = "tf-test-alias"
-  webapp_type = "webapp1"
+  webapp_type = "webapp2"
 }

@@ -26,13 +26,14 @@ resource "pexip_infinity_webapp_alias" "example" {
 ### Required
 
 - `slug` (String) The slug (URL path component) for this webapp alias. Maximum length: 100 characters.
-- `webapp_type` (String) The type of webapp this alias serves. Valid values: webapp1, webapp2, webapp3.
+- `webapp_type` (String) The type of webapp this alias serves. Valid values: webapp2, webapp3.
 
 ### Optional
 
 - `branding` (String) The branding URI associated with this webapp alias. Maximum length: 200 characters.
 - `bundle` (String) The bundle URI associated with this webapp alias. Maximum length: 200 characters.
 - `description` (String) Description of the webapp alias. Maximum length: 250 characters.
+- `is_default` (Boolean) Select this option if you want /webapp to redirect to this particular path and associated branding. Default: false
 - `is_enabled` (Boolean) Whether this webapp alias is enabled and active.
 
 ### Read-Only
