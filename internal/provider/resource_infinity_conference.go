@@ -286,7 +286,7 @@ func (r *InfinityConferenceResource) Schema(ctx context.Context, req resource.Sc
 				Validators: []validator.String{
 					stringvalidator.OneOf("default", "yes", "no"),
 				},
-				MarkdownDescription: "Enables relay of chat messages between conference participants using Skype for Business and Infinity Connect clients. You can use this option to override the global configuration setting. Valid choices: default, yes, no.",
+				MarkdownDescription: "Enables relay of chat messages between conference participants using supported clients such as the Pexip apps. You can use this option to override the global configuration setting. Valid choices: default, yes, no.",
 			},
 			"enable_overlay_text": schema.BoolAttribute{
 				Optional:            true,
@@ -425,7 +425,7 @@ func (r *InfinityConferenceResource) Schema(ctx context.Context, req resource.Sc
 				Validators: []validator.String{
 					stringvalidator.OneOf("allow_if_trusted", "disallow_all"),
 				},
-				MarkdownDescription: "Determines whether participants attempting to join from devices other than the Infinity Connect apps (for example, SIP or H.323 endpoints) are permitted to join the conference when authentication is required. Disallow all: these devices may not join the conference. Allow if trusted: these devices may join the conference if they are locally registered. Valid choices: allow_if_trusted, disallow_all.",
+				MarkdownDescription: "Determines whether participants attempting to join from devices other than Pexip apps (for example, SIP or H.323 endpoints) are permitted to join the conference when authentication is required. Disallow all: these devices may not join the conference. Allow if trusted: these devices may join the conference if they are locally registered. Valid choices: allow_if_trusted, disallow_all.",
 			},
 			"on_completion": schema.StringAttribute{
 				Optional:            true,

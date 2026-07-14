@@ -117,7 +117,7 @@ func (r *InfinityTURNServerResource) Schema(ctx context.Context, req resource.Sc
 				Validators: []validator.Int32{
 					int32validator.Between(1, 65535),
 				},
-				MarkdownDescription: "The IP port on the TURN server to which the Conferencing Node or Connect app will connect. Range: 1 to 65535. Default: 3478.",
+				MarkdownDescription: "The IP port on the TURN server to which the Conferencing Node or Pexip app will connect. Range: 1 to 65535. Default: 3478.",
 			},
 			"server_type": schema.StringAttribute{
 				Optional: true,

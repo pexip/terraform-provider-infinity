@@ -153,7 +153,7 @@ func (r *InfinityRegistrationResource) Schema(ctx context.Context, req resource.
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "When enabled, all calls from registered desktop clients are routed via the registrar, regardless of the domain being called. When disabled, calls are routed via normal DNS SRV lookups.",
+				MarkdownDescription: "When enabled, all calls from registered legacy Infinity Connect clients are routed via the registrar, regardless of the domain being called. When disabled, calls are routed via normal DNS SRV lookups.",
 			},
 			"enable_push_notifications": schema.BoolAttribute{
 				Optional:            true,
