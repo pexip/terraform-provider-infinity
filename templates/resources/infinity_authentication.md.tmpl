@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_authentication Resource - terraform-provider-pexip"
+page_title: "infinity_authentication Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages the Pexip Infinity authentication configuration.
 ---
 
-# pexip_infinity_authentication (Resource)
+# infinity_authentication (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,15 +13,15 @@ description: |-
 
 ### Local and LDAP Authentication
 
-{{tffile "examples/resources/pexip_infinity_authentication/ldap_authentication.tf"}}
+{{tffile "examples/resources/infinity_authentication/ldap_authentication.tf"}}
 
 ### OpenID Connect (OIDC) Authentication
 
-{{tffile "examples/resources/pexip_infinity_authentication/openid_connect_authentication.tf"}}
+{{tffile "examples/resources/infinity_authentication/openid_connect_authentication.tf"}}
 
 ### OpenID Connect (OIDC) Authentication with PKCE
 
-{{tffile "examples/resources/pexip_infinity_authentication/pkce_authentication.tf"}}
+{{tffile "examples/resources/infinity_authentication/pkce_authentication.tf"}}
 
 {{ .SchemaMarkdown }}
 ## Import
@@ -29,5 +29,5 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_authentication.example 1
+terraform import infinity_authentication.example 1
 ```

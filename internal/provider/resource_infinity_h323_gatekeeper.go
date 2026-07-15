@@ -44,7 +44,7 @@ type InfinityH323GatekeeperResourceModel struct {
 }
 
 func (r *InfinityH323GatekeeperResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_h323_gatekeeper"
+	resp.TypeName = req.ProviderTypeName + "_h323_gatekeeper"
 }
 
 func (r *InfinityH323GatekeeperResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_end_user Resource - terraform-provider-pexip"
+page_title: "infinity_end_user Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity end user account configuration.
 ---
 
-# pexip_infinity_end_user (Resource)
+# infinity_end_user (Resource)
 
 Manages an end user account.
 
@@ -14,7 +14,7 @@ Manages an end user account.
 ### Basic End User
 
 ```terraform
-resource "pexip_infinity_end_user" "john_doe" {
+resource "infinity_end_user" "john_doe" {
   primary_email_address = "john.doe@company.com"
 }
 ```
@@ -22,7 +22,7 @@ resource "pexip_infinity_end_user" "john_doe" {
 ### Complete User Profile
 
 ```terraform
-resource "pexip_infinity_end_user" "jane_smith" {
+resource "infinity_end_user" "jane_smith" {
   primary_email_address = "jane.smith@company.com"
   first_name            = "Jane"
   last_name             = "Smith"
@@ -39,7 +39,7 @@ resource "pexip_infinity_end_user" "jane_smith" {
 
 ```terraform
 # Assume user groups are defined elsewhere
-resource "pexip_infinity_end_user" "manager_user" {
+resource "infinity_end_user" "manager_user" {
   primary_email_address = "manager@company.com"
   first_name            = "John"
   last_name             = "Manager"
@@ -56,7 +56,7 @@ resource "pexip_infinity_end_user" "manager_user" {
 ### Exchange Integration User
 
 ```terraform
-resource "pexip_infinity_end_user" "exchange_user" {
+resource "infinity_end_user" "exchange_user" {
   primary_email_address = "exchange.user@company.com"
   first_name            = "Exchange"
   last_name             = "User"
@@ -71,7 +71,7 @@ resource "pexip_infinity_end_user" "exchange_user" {
 
 ```terraform
 # Create multiple users from variable
-resource "pexip_infinity_end_user" "department_users" {
+resource "infinity_end_user" "department_users" {
   for_each = var.department_users
 
   primary_email_address = each.value.email
@@ -88,7 +88,7 @@ resource "pexip_infinity_end_user" "department_users" {
 ### Users with Avatar and Contact Information
 
 ```terraform
-resource "pexip_infinity_end_user" "executive_user" {
+resource "infinity_end_user" "executive_user" {
   primary_email_address = "ceo@company.com"
   first_name            = "Chief"
   last_name             = "Executive"
@@ -140,7 +140,7 @@ resource "pexip_infinity_end_user" "executive_user" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_end_user.example 123
+terraform import infinity_end_user.example 123
 ```
 
 Where `123` is the numeric resource ID of the end user.

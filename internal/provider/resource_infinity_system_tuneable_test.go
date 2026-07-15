@@ -86,20 +86,20 @@ func testInfinitySystemTuneable(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_system_tuneable_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_system_tuneable.system_tuneable-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_system_tuneable.system_tuneable-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_system_tuneable.system_tuneable-test", "name", "tf-test-system-tuneable-full"),
-					resource.TestCheckResourceAttr("pexip_infinity_system_tuneable.system_tuneable-test", "setting", "full-test-value"),
+					resource.TestCheckResourceAttrSet("infinity_system_tuneable.system_tuneable-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_system_tuneable.system_tuneable-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_system_tuneable.system_tuneable-test", "name", "tf-test-system-tuneable-full"),
+					resource.TestCheckResourceAttr("infinity_system_tuneable.system_tuneable-test", "setting", "full-test-value"),
 				),
 			},
 			// Step 2: Update to min config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_system_tuneable_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_system_tuneable.system_tuneable-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_system_tuneable.system_tuneable-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_system_tuneable.system_tuneable-test", "name", "tf-test-system-tuneable"),
-					resource.TestCheckResourceAttr("pexip_infinity_system_tuneable.system_tuneable-test", "setting", "test-value"),
+					resource.TestCheckResourceAttrSet("infinity_system_tuneable.system_tuneable-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_system_tuneable.system_tuneable-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_system_tuneable.system_tuneable-test", "name", "tf-test-system-tuneable"),
+					resource.TestCheckResourceAttr("infinity_system_tuneable.system_tuneable-test", "setting", "test-value"),
 				),
 			},
 			// Step 3: Destroy
@@ -111,20 +111,20 @@ func testInfinitySystemTuneable(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_system_tuneable_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_system_tuneable.system_tuneable-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_system_tuneable.system_tuneable-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_system_tuneable.system_tuneable-test", "name", "tf-test-system-tuneable"),
-					resource.TestCheckResourceAttr("pexip_infinity_system_tuneable.system_tuneable-test", "setting", "test-value"),
+					resource.TestCheckResourceAttrSet("infinity_system_tuneable.system_tuneable-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_system_tuneable.system_tuneable-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_system_tuneable.system_tuneable-test", "name", "tf-test-system-tuneable"),
+					resource.TestCheckResourceAttr("infinity_system_tuneable.system_tuneable-test", "setting", "test-value"),
 				),
 			},
 			// Step 5: Update to full config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_system_tuneable_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_system_tuneable.system_tuneable-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_system_tuneable.system_tuneable-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_system_tuneable.system_tuneable-test", "name", "tf-test-system-tuneable-full"),
-					resource.TestCheckResourceAttr("pexip_infinity_system_tuneable.system_tuneable-test", "setting", "full-test-value"),
+					resource.TestCheckResourceAttrSet("infinity_system_tuneable.system_tuneable-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_system_tuneable.system_tuneable-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_system_tuneable.system_tuneable-test", "name", "tf-test-system-tuneable-full"),
+					resource.TestCheckResourceAttr("infinity_system_tuneable.system_tuneable-test", "setting", "full-test-value"),
 				),
 			},
 		},

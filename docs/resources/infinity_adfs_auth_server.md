@@ -5,7 +5,7 @@ Manages an ADFS OAuth 2.0 auth server configuration.
 ## Example Usage
 
 ```terraform
-resource "pexip_infinity_adfs_auth_server" "example" {
+resource "infinity_adfs_auth_server" "example" {
   name                               = "ADFS Server"
   description                        = "ADFS authentication server for corporate users"
   client_id                          = "12345678-1234-1234-1234-123456789012"
@@ -42,5 +42,5 @@ resource "pexip_infinity_adfs_auth_server" "example" {
 ADFS auth servers can be imported using their resource ID:
 
 ```bash
-terraform import pexip_infinity_adfs_auth_server.example 123
+terraform import infinity_adfs_auth_server.example 123
 ```

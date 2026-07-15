@@ -130,19 +130,19 @@ func testInfinityConferenceAlias(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_conference_alias_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_conference_alias.tf-test-conference-alias", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_conference_alias.tf-test-conference-alias", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_conference_alias.tf-test-conference-alias", "alias", "tf-test-alias"),
-					resource.TestCheckResourceAttr("pexip_infinity_conference_alias.tf-test-conference-alias", "description", "Test Conference Alias Description"),
+					resource.TestCheckResourceAttrSet("infinity_conference_alias.tf-test-conference-alias", "id"),
+					resource.TestCheckResourceAttrSet("infinity_conference_alias.tf-test-conference-alias", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_conference_alias.tf-test-conference-alias", "alias", "tf-test-alias"),
+					resource.TestCheckResourceAttr("infinity_conference_alias.tf-test-conference-alias", "description", "Test Conference Alias Description"),
 				),
 			},
 			// Step 2: Update to min config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_conference_alias_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_conference_alias.tf-test-conference-alias", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_conference_alias.tf-test-conference-alias", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_conference_alias.tf-test-conference-alias", "alias", "tf-test-alias"),
+					resource.TestCheckResourceAttrSet("infinity_conference_alias.tf-test-conference-alias", "id"),
+					resource.TestCheckResourceAttrSet("infinity_conference_alias.tf-test-conference-alias", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_conference_alias.tf-test-conference-alias", "alias", "tf-test-alias"),
 				),
 			},
 			// Step 3: Destroy
@@ -154,19 +154,19 @@ func testInfinityConferenceAlias(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_conference_alias_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_conference_alias.tf-test-conference-alias", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_conference_alias.tf-test-conference-alias", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_conference_alias.tf-test-conference-alias", "alias", "tf-test-alias"),
+					resource.TestCheckResourceAttrSet("infinity_conference_alias.tf-test-conference-alias", "id"),
+					resource.TestCheckResourceAttrSet("infinity_conference_alias.tf-test-conference-alias", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_conference_alias.tf-test-conference-alias", "alias", "tf-test-alias"),
 				),
 			},
 			// Step 5: Update to full config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_conference_alias_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_conference_alias.tf-test-conference-alias", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_conference_alias.tf-test-conference-alias", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_conference_alias.tf-test-conference-alias", "alias", "tf-test-alias"),
-					resource.TestCheckResourceAttr("pexip_infinity_conference_alias.tf-test-conference-alias", "description", "Test Conference Alias Description"),
+					resource.TestCheckResourceAttrSet("infinity_conference_alias.tf-test-conference-alias", "id"),
+					resource.TestCheckResourceAttrSet("infinity_conference_alias.tf-test-conference-alias", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_conference_alias.tf-test-conference-alias", "alias", "tf-test-alias"),
+					resource.TestCheckResourceAttr("infinity_conference_alias.tf-test-conference-alias", "description", "Test Conference Alias Description"),
 				),
 			},
 		},

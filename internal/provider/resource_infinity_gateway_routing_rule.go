@@ -83,7 +83,7 @@ type InfinityGatewayRoutingRuleResourceModel struct {
 }
 
 func (r *InfinityGatewayRoutingRuleResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_gateway_routing_rule"
+	resp.TypeName = req.ProviderTypeName + "_gateway_routing_rule"
 }
 
 func (r *InfinityGatewayRoutingRuleResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

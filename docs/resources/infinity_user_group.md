@@ -5,7 +5,7 @@ Manages a user group configuration.
 ## Example Usage
 
 ```terraform
-resource "pexip_infinity_user_group" "example" {
+resource "infinity_user_group" "example" {
   name        = "Administrators"
   description = "System administrators group"
   users = [
@@ -43,5 +43,5 @@ resource "pexip_infinity_user_group" "example" {
 User groups can be imported using their resource ID:
 
 ```bash
-terraform import pexip_infinity_user_group.example 123
+terraform import infinity_user_group.example 123
 ```

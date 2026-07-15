@@ -43,7 +43,7 @@ type InfinityLdapSyncFieldResourceModel struct {
 }
 
 func (r *InfinityLdapSyncFieldResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_ldap_sync_field"
+	resp.TypeName = req.ProviderTypeName + "_ldap_sync_field"
 }
 
 func (r *InfinityLdapSyncFieldResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -179,32 +179,32 @@ func testInfinityManagementVM(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_management_vm_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_management_vm.management_vm-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_management_vm.management_vm-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "name", "management_vm-test"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "description", "Test ManagementVM"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "address", "192.168.1.100"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "netmask", "255.255.255.0"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "gateway", "192.168.1.1"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "hostname", "management_vm-test"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "domain", "example.com"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "mtu", "1400"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "ipv6_address", "2001:db8::1"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "ipv6_gateway", "2001:db8::1"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "static_nat_address", "192.0.2.1"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "http_proxy", "http://proxy.example.com:8080"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "tls_certificate", "test-certificate"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "enable_ssh", "ON"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "ssh_authorized_keys_use_cloud", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_mode", "AUTHPRIV"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_community", "public"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_username", "management_vm-test"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_authentication_password", "test-auth-pass"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_privacy_password", "test-priv-pass"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_system_contact", "admin@example.com"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_system_location", "datacenter"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_network_management_system", "192.168.1.200"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "primary", "true"),
+					resource.TestCheckResourceAttrSet("infinity_management_vm.management_vm-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_management_vm.management_vm-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "name", "management_vm-test"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "description", "Test ManagementVM"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "address", "192.168.1.100"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "netmask", "255.255.255.0"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "gateway", "192.168.1.1"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "hostname", "management_vm-test"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "domain", "example.com"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "mtu", "1400"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "ipv6_address", "2001:db8::1"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "ipv6_gateway", "2001:db8::1"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "static_nat_address", "192.0.2.1"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "http_proxy", "http://proxy.example.com:8080"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "tls_certificate", "test-certificate"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "enable_ssh", "ON"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "ssh_authorized_keys_use_cloud", "false"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_mode", "AUTHPRIV"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_community", "public"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_username", "management_vm-test"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_authentication_password", "test-auth-pass"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_privacy_password", "test-priv-pass"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_system_contact", "admin@example.com"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_system_location", "datacenter"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_network_management_system", "192.168.1.200"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "primary", "true"),
 				),
 			},
 			// Step 2: Destroy — triggers the delete which resets all fields to defaults.
@@ -217,23 +217,23 @@ func testInfinityManagementVM(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_management_vm_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_management_vm.management_vm-test", "id"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "name", "management_vm-test"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "description", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "mtu", "1500"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "enable_ssh", "GLOBAL"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "ssh_authorized_keys_use_cloud", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_mode", "DISABLED"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_community", "public"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_username", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_system_contact", "admin@domain.com"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_system_location", "Virtual machine"),
-					resource.TestCheckNoResourceAttr("pexip_infinity_management_vm.management_vm-test", "ipv6_address"),
-					resource.TestCheckNoResourceAttr("pexip_infinity_management_vm.management_vm-test", "ipv6_gateway"),
-					resource.TestCheckNoResourceAttr("pexip_infinity_management_vm.management_vm-test", "static_nat_address"),
-					resource.TestCheckNoResourceAttr("pexip_infinity_management_vm.management_vm-test", "http_proxy"),
-					resource.TestCheckNoResourceAttr("pexip_infinity_management_vm.management_vm-test", "tls_certificate"),
-					resource.TestCheckNoResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_network_management_system"),
+					resource.TestCheckResourceAttrSet("infinity_management_vm.management_vm-test", "id"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "name", "management_vm-test"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "description", ""),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "mtu", "1500"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "enable_ssh", "GLOBAL"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "ssh_authorized_keys_use_cloud", "true"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_mode", "DISABLED"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_community", "public"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_username", ""),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_system_contact", "admin@domain.com"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_system_location", "Virtual machine"),
+					resource.TestCheckNoResourceAttr("infinity_management_vm.management_vm-test", "ipv6_address"),
+					resource.TestCheckNoResourceAttr("infinity_management_vm.management_vm-test", "ipv6_gateway"),
+					resource.TestCheckNoResourceAttr("infinity_management_vm.management_vm-test", "static_nat_address"),
+					resource.TestCheckNoResourceAttr("infinity_management_vm.management_vm-test", "http_proxy"),
+					resource.TestCheckNoResourceAttr("infinity_management_vm.management_vm-test", "tls_certificate"),
+					resource.TestCheckNoResourceAttr("infinity_management_vm.management_vm-test", "snmp_network_management_system"),
 				),
 			},
 		},
@@ -251,7 +251,7 @@ func TestInfinityManagementVMValidation(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name = ""
 }
 `,
@@ -259,7 +259,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name = "` + strings.Repeat("a", 33) + `"
 }
 `,
@@ -267,7 +267,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name        = "management_vm-test"
   description = "` + strings.Repeat("a", 251) + `"
 }
@@ -276,7 +276,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name             = "management_vm-test"
   alternative_fqdn = "` + strings.Repeat("a", 256) + `"
 }
@@ -285,7 +285,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name = "management_vm-test"
   mtu  = 511
 }
@@ -294,7 +294,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name = "management_vm-test"
   mtu  = 1501
 }
@@ -303,7 +303,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name       = "management_vm-test"
   enable_ssh = "INVALID"
 }
@@ -312,7 +312,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name      = "management_vm-test"
   snmp_mode = "INVALID"
 }
@@ -321,7 +321,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name           = "management_vm-test"
   snmp_community = "` + strings.Repeat("a", 17) + `"
 }
@@ -330,7 +330,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name          = "management_vm-test"
   snmp_username = "` + strings.Repeat("a", 101) + `"
 }
@@ -339,7 +339,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name                        = "management_vm-test"
   snmp_authentication_password = "1234567"
 }
@@ -348,7 +348,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name                        = "management_vm-test"
   snmp_authentication_password = "` + strings.Repeat("a", 101) + `"
 }
@@ -357,7 +357,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name                 = "management_vm-test"
   snmp_privacy_password = "1234567"
 }
@@ -366,7 +366,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name                 = "management_vm-test"
   snmp_privacy_password = "` + strings.Repeat("a", 101) + `"
 }
@@ -375,7 +375,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name                = "management_vm-test"
   snmp_system_contact = "` + strings.Repeat("a", 71) + `"
 }
@@ -384,7 +384,7 @@ resource "pexip_infinity_management_vm" "management_vm-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_management_vm" "management_vm-test" {
+resource "infinity_management_vm" "management_vm-test" {
   name                 = "management_vm-test"
   snmp_system_location = "` + strings.Repeat("a", 71) + `"
 }

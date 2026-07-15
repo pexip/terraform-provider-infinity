@@ -17,7 +17,7 @@ import (
 
 func getTestProtoV6ProviderFactories(client InfinityClient) map[string]func() (tfprotov6.ProviderServer, error) {
 	return map[string]func() (tfprotov6.ProviderServer, error){
-		"pexip": providerserver.NewProtocol6WithError(newTestProvider(client)),
+		"infinity": providerserver.NewProtocol6WithError(newTestProvider(client)),
 	}
 }
 

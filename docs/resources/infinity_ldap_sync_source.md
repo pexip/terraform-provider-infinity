@@ -5,7 +5,7 @@ Manages an LDAP synchronization source configuration.
 ## Example Usage
 
 ```terraform
-resource "pexip_infinity_ldap_sync_source" "example" {
+resource "infinity_ldap_sync_source" "example" {
   name                    = "Corporate AD"
   description             = "Corporate Active Directory synchronization"
   ldap_server             = "corp.example.com"
@@ -46,7 +46,7 @@ resource "pexip_infinity_ldap_sync_source" "example" {
 LDAP sync sources can be imported using their resource ID:
 
 ```bash
-terraform import pexip_infinity_ldap_sync_source.example 123
+terraform import infinity_ldap_sync_source.example 123
 ```
 
 ## Security Notes

@@ -64,7 +64,7 @@ type InfinityMjxExchangeDeploymentResourceModel struct {
 }
 
 func (r *InfinityMjxExchangeDeploymentResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_mjx_exchange_deployment"
+	resp.TypeName = req.ProviderTypeName + "_mjx_exchange_deployment"
 }
 
 func (r *InfinityMjxExchangeDeploymentResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

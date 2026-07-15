@@ -9,7 +9,7 @@ output "hostname" {
 }
 
 output "user_data" {
-  value = data.pexip_infinity_manager_config.conf.rendered
+  value = data.infinity_manager_config.conf.rendered
 }
 
 output "check_status_url" {
@@ -17,7 +17,7 @@ output "check_status_url" {
 }
 
 output "manager_cert" {
-  value = pexip_infinity_tls_certificate.tls-cert-test
+  value = infinity_tls_certificate.tls-cert-test
 }
 
 output "mgr-public-ip" {

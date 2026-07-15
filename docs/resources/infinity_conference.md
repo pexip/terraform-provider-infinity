@@ -1,4 +1,4 @@
-# pexip_infinity_conference (Resource)
+# infinity_conference (Resource)
 
 Manages a conference configuration.
 
@@ -9,7 +9,7 @@ There are multiple conference types in Infinity, each designed for different use
 ### Virtual Meeting Room
 
 ```terraform
-resource "pexip_infinity_conference" "vmr" {
+resource "infinity_conference" "vmr" {
   name         = "Example VMR"
   service_type = "conference"
   aliases = [
@@ -25,7 +25,7 @@ resource "pexip_infinity_conference" "vmr" {
 This IVR only matches four digits for routing to other conferences.
 
 ```terraform
-resource "pexip_infinity_conference" "ivr" {
+resource "infinity_conference" "ivr" {
   name         = "IVR Service"
   service_type = "two_stage_dialing"
   description  = "IVR example"
@@ -42,7 +42,7 @@ resource "pexip_infinity_conference" "ivr" {
 This VA will auto-mute all guests as they join.
 
 ```terraform
-resource "pexip_infinity_conference" "virtual_auditorium" {
+resource "infinity_conference" "virtual_auditorium" {
   name             = "company-webinar"
   service_type     = "lecture"
   description      = "Monthly company-wide webinar"
@@ -61,24 +61,24 @@ resource "pexip_infinity_conference" "virtual_auditorium" {
 Multiple resources are needed to create a media playback service. In this example, a single media file is added to a playlist. The service is configured to disconnect the participant once the playlist has finished.
 
 ```terraform
-resource "pexip_infinity_media_library_entry" "example" {
+resource "infinity_media_library_entry" "example" {
   name        = "example"
   media_file  = "${path.module}/example.mp4"
 }
 
-resource "pexip_infinity_media_library_playlist" "example_playlist" {
+resource "infinity_media_library_playlist" "example_playlist" {
   name        = "example_playlist"
 }
 
-resource "pexip_infinity_media_library_playlist_entry" "example_playlist_entry" {
-  playlist = pexip_infinity_media_library_playlist.example_playlist.id
-  media    = pexip_infinity_media_library_entry.example.id
+resource "infinity_media_library_playlist_entry" "example_playlist_entry" {
+  playlist = infinity_media_library_playlist.example_playlist.id
+  media    = infinity_media_library_entry.example.id
 }
 
-resource "pexip_infinity_conference" "media_playback" {
+resource "infinity_conference" "media_playback" {
   name        = "Media Playback Example"
   service_type = "media_playback"
-  media_playlist = pexip_infinity_media_library_playlist.example_playlist.id
+  media_playlist = infinity_media_library_playlist.example_playlist.id
   on_completion = jsonencode({
     disconnect = true
   })
@@ -92,7 +92,7 @@ resource "pexip_infinity_conference" "media_playback" {
 ### Test Call Service
 
 ```terraform
-resource "pexip_infinity_conference" "test_call" {
+resource "infinity_conference" "test_call" {
   name         = "Test Call Service"
   service_type = "test_call"
   description  = "Service for testing audio and video"
@@ -189,7 +189,7 @@ Read-Only:
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_conference.example 123
+terraform import infinity_conference.example 123
 ```
 
 Where `123` is the numeric resource ID of the conference.

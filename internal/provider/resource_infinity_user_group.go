@@ -42,7 +42,7 @@ type InfinityUserGroupResourceModel struct {
 }
 
 func (r *InfinityUserGroupResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_user_group"
+	resp.TypeName = req.ProviderTypeName + "_user_group"
 }
 
 func (r *InfinityUserGroupResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

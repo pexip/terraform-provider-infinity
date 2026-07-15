@@ -5,7 +5,7 @@ Manages an SSH authorized key configuration.
 ## Example Usage
 
 ```terraform
-resource "pexip_infinity_ssh_authorized_key" "example" {
+resource "infinity_ssh_authorized_key" "example" {
   keytype = "ssh-rsa"
   key     = "AAAAB3NzaC1yc2EAAAADAQABAAABgQC7vbqajDhA..."
   comment = "admin@example.com"
@@ -41,7 +41,7 @@ resource "pexip_infinity_ssh_authorized_key" "example" {
 SSH authorized keys can be imported using their resource ID:
 
 ```bash
-terraform import pexip_infinity_ssh_authorized_key.example 123
+terraform import infinity_ssh_authorized_key.example 123
 ```
 
 ## Key Format

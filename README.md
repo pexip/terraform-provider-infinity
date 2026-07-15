@@ -34,7 +34,7 @@ The official Terraform provider for [Pexip Infinity](https://docs.pexip.com/) en
 terraform {
   required_version = ">= 1.14"
   required_providers {
-    pexip = {
+    infinity = {
       source  = "pexip/infinity"
       version = "~> 0.9.11"
     }
@@ -111,9 +111,9 @@ make test
 
 # Acceptance tests (requires real Pexip environment)
 export TF_ACC=1
-export PEXIP_ADDRESS="https://your-manager.example.com"
-export PEXIP_USERNAME="admin" 
-export PEXIP_PASSWORD="your-password"
+export INFINITY_ADDRESS="https://your-manager.example.com"
+export INFINITY_USERNAME="admin" 
+export INFINITY_PASSWORD="your-password"
 make testacc
 
 # Test specific resource
@@ -137,7 +137,7 @@ terraform plan
 **TLS Certificate Issues**
 ```hcl
 # For development/testing with self-signed certificates
-provider "pexip" {
+provider "infinity" {
   address  = "https://manager.example.com"
   username = var.username
   password = var.password
@@ -158,7 +158,7 @@ nslookup manager.example.com
 curl -k -u admin:password "https://manager.example.com/api/admin/configuration/v1/conference/" | jq '.objects[] | {id, name}'
 
 # Import with correct ID
-terraform import pexip_infinity_conference.room 123
+terraform import infinity_conference.room 123
 ```
 
 ### Debug Logging
@@ -177,7 +177,7 @@ For large environments with many resources:
 
 ```hcl
 # Use for_each instead of count for better performance
-resource "pexip_infinity_conference" "rooms" {
+resource "infinity_conference" "rooms" {
   for_each = var.conference_rooms
   
   name        = each.key
@@ -186,12 +186,12 @@ resource "pexip_infinity_conference" "rooms" {
 }
 
 # Parallelize independent resources
-resource "pexip_infinity_system_location" "locations" {
+resource "infinity_system_location" "locations" {
   for_each = var.locations
   # ... configuration
 }
 
-resource "pexip_infinity_worker_vm" "workers" {
+resource "infinity_worker_vm" "workers" {
   for_each = var.worker_nodes
   
   name            = each.key

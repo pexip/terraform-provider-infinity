@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_tls_certificate Resource - terraform-provider-pexip"
+page_title: "infinity_tls_certificate Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity TLS certificate configuration.
 ---
 
-# pexip_infinity_tls_certificate (Resource)
+# infinity_tls_certificate (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,35 +13,35 @@ description: |-
 
 ### Basic TLS Certificate
 
-{{tffile "examples/resources/pexip_infinity_tls_certificate/basic_tls_certificate.tf"}}
+{{tffile "examples/resources/infinity_tls_certificate/basic_tls_certificate.tf"}}
 
 ### TLS Certificate with Encrypted Private Key
 
-{{tffile "examples/resources/pexip_infinity_tls_certificate/tls_certificate_with_encrypted_private_key.tf"}}
+{{tffile "examples/resources/infinity_tls_certificate/tls_certificate_with_encrypted_private_key.tf"}}
 
 ### TLS Certificate Deployed to Specific Nodes
 
-{{tffile "examples/resources/pexip_infinity_tls_certificate/tls_certificate_deployed_to_specific_nodes.tf"}}
+{{tffile "examples/resources/infinity_tls_certificate/tls_certificate_deployed_to_specific_nodes.tf"}}
 
 ### Wildcard Certificate for Multiple Services
 
-{{tffile "examples/resources/pexip_infinity_tls_certificate/wildcard_certificate_for_multiple_services.tf"}}
+{{tffile "examples/resources/infinity_tls_certificate/wildcard_certificate_for_multiple_services.tf"}}
 
 ### Let's Encrypt Certificate with Automated Renewal
 
-{{tffile "examples/resources/pexip_infinity_tls_certificate/let_s_encrypt_certificate_with_automated_renewal.tf"}}
+{{tffile "examples/resources/infinity_tls_certificate/let_s_encrypt_certificate_with_automated_renewal.tf"}}
 
 ### Enterprise Certificate with Full Chain
 
-{{tffile "examples/resources/pexip_infinity_tls_certificate/enterprise_certificate_with_full_chain.tf"}}
+{{tffile "examples/resources/infinity_tls_certificate/enterprise_certificate_with_full_chain.tf"}}
 
 ### Multiple Certificates for Different Purposes
 
-{{tffile "examples/resources/pexip_infinity_tls_certificate/multiple_certificates_for_different_purposes.tf"}}
+{{tffile "examples/resources/infinity_tls_certificate/multiple_certificates_for_different_purposes.tf"}}
 
 ### Certificate with Variables for Sensitive Data
 
-{{tffile "examples/resources/pexip_infinity_tls_certificate/certificate_with_variables_for_sensitive_data.tf"}}
+{{tffile "examples/resources/infinity_tls_certificate/certificate_with_variables_for_sensitive_data.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -50,7 +50,7 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_tls_certificate.example 123
+terraform import infinity_tls_certificate.example 123
 ```
 
 Where `123` is the numeric resource ID of the TLS certificate.

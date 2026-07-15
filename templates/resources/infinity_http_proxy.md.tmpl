@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_http_proxy Resource - terraform-provider-pexip"
+page_title: "infinity_http_proxy Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity HTTP proxy configuration.
 ---
 
-# pexip_infinity_http_proxy (Resource)
+# infinity_http_proxy (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,35 +13,35 @@ description: |-
 
 ### Basic HTTP Proxy
 
-{{tffile "examples/resources/pexip_infinity_http_proxy/basic_http_proxy.tf"}}
+{{tffile "examples/resources/infinity_http_proxy/basic_http_proxy.tf"}}
 
 ### HTTPS Proxy with Authentication
 
-{{tffile "examples/resources/pexip_infinity_http_proxy/https_proxy_with_authentication.tf"}}
+{{tffile "examples/resources/infinity_http_proxy/https_proxy_with_authentication.tf"}}
 
 ### Multiple HTTP Proxies for Different Environments
 
-{{tffile "examples/resources/pexip_infinity_http_proxy/multiple_http_proxies_for_different_environments.tf"}}
+{{tffile "examples/resources/infinity_http_proxy/multiple_http_proxies_for_different_environments.tf"}}
 
 ### Enterprise Proxy Configuration
 
-{{tffile "examples/resources/pexip_infinity_http_proxy/enterprise_proxy_configuration.tf"}}
+{{tffile "examples/resources/infinity_http_proxy/enterprise_proxy_configuration.tf"}}
 
 ### Proxy with Standard Ports
 
-{{tffile "examples/resources/pexip_infinity_http_proxy/proxy_with_standard_ports.tf"}}
+{{tffile "examples/resources/infinity_http_proxy/proxy_with_standard_ports.tf"}}
 
 ### Conditional Proxy Configuration
 
-{{tffile "examples/resources/pexip_infinity_http_proxy/conditional_proxy_configuration.tf"}}
+{{tffile "examples/resources/infinity_http_proxy/conditional_proxy_configuration.tf"}}
 
 ### Regional Proxy Configuration
 
-{{tffile "examples/resources/pexip_infinity_http_proxy/regional_proxy_configuration.tf"}}
+{{tffile "examples/resources/infinity_http_proxy/regional_proxy_configuration.tf"}}
 
 ### Failover Proxy Configuration
 
-{{tffile "examples/resources/pexip_infinity_http_proxy/failover_proxy_configuration.tf"}}
+{{tffile "examples/resources/infinity_http_proxy/failover_proxy_configuration.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -50,7 +50,7 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_http_proxy.example 123
+terraform import infinity_http_proxy.example 123
 ```
 
 Where `123` is the numeric resource ID of the HTTP proxy.

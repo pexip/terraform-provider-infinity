@@ -42,7 +42,7 @@ type InfinityRoleMappingResourceModel struct {
 }
 
 func (r *InfinityRoleMappingResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_role_mapping"
+	resp.TypeName = req.ProviderTypeName + "_role_mapping"
 }
 
 func (r *InfinityRoleMappingResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

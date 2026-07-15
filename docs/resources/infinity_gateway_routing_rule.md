@@ -5,7 +5,7 @@ Manages a gateway routing rule configuration.
 ## Example Usage
 
 ```terraform
-resource "pexip_infinity_gateway_routing_rule" "example" {
+resource "infinity_gateway_routing_rule" "example" {
   name               = "SIP Gateway Rule"
   description        = "Route calls to external SIP gateway"
   priority           = 100
@@ -78,5 +78,5 @@ resource "pexip_infinity_gateway_routing_rule" "example" {
 Gateway routing rules can be imported using their resource ID:
 
 ```bash
-terraform import pexip_infinity_gateway_routing_rule.example 123
+terraform import infinity_gateway_routing_rule.example 123
 ```

@@ -44,7 +44,7 @@ type InfinityStaticRouteResourceModel struct {
 }
 
 func (r *InfinityStaticRouteResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_static_route"
+	resp.TypeName = req.ProviderTypeName + "_static_route"
 }
 
 func (r *InfinityStaticRouteResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

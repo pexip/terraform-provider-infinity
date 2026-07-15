@@ -50,7 +50,7 @@ type InfinitySMTPServerResourceModel struct {
 }
 
 func (r *InfinitySMTPServerResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_smtp_server"
+	resp.TypeName = req.ProviderTypeName + "_smtp_server"
 }
 
 func (r *InfinitySMTPServerResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -80,9 +80,9 @@ func testInfinityLicence(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_licence"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_licence.licence-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_licence.licence-test", "entitlement_id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_licence.licence-test", "offline_mode"),
+					resource.TestCheckResourceAttrSet("infinity_licence.licence-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_licence.licence-test", "entitlement_id"),
+					resource.TestCheckResourceAttrSet("infinity_licence.licence-test", "offline_mode"),
 				),
 			},
 			// Licence doesn't support updates, so only test creation/read

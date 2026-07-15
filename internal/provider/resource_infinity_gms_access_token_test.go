@@ -80,17 +80,17 @@ func testInfinityGMSAccessToken(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_gms_access_token_basic"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_gms_access_token.gms_access_token-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_gms_access_token.gms_access_token-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_gms_access_token.gms_access_token-test", "name", "gms_access_token-test"),
+					resource.TestCheckResourceAttrSet("infinity_gms_access_token.gms_access_token-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_gms_access_token.gms_access_token-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_gms_access_token.gms_access_token-test", "name", "gms_access_token-test"),
 				),
 			},
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_gms_access_token_basic_updated"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_gms_access_token.gms_access_token-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_gms_access_token.gms_access_token-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_gms_access_token.gms_access_token-test", "name", "gms_access_token-test"),
+					resource.TestCheckResourceAttrSet("infinity_gms_access_token.gms_access_token-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_gms_access_token.gms_access_token-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_gms_access_token.gms_access_token-test", "name", "gms_access_token-test"),
 				),
 			},
 		},

@@ -135,7 +135,7 @@ func (m nullToUnknownInt32Modifier) PlanModifyInt32(_ context.Context, req planm
 }
 
 func (r *InfinityConferenceResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_conference"
+	resp.TypeName = req.ProviderTypeName + "_conference"
 }
 
 func (r *InfinityConferenceResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

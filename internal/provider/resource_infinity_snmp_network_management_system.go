@@ -45,7 +45,7 @@ type InfinitySnmpNetworkManagementSystemResourceModel struct {
 }
 
 func (r *InfinitySnmpNetworkManagementSystemResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_snmp_network_management_system"
+	resp.TypeName = req.ProviderTypeName + "_snmp_network_management_system"
 }
 
 func (r *InfinitySnmpNetworkManagementSystemResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

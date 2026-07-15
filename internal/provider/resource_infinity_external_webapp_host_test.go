@@ -73,18 +73,18 @@ func testInfinityExternalWebappHost(t *testing.T, client InfinityClient) {
 				// Step 1: Create
 				Config: test.LoadTestFolder(t, "resource_infinity_external_webapp_host_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_external_webapp_host.tf-test-external-webapp-host", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_external_webapp_host.tf-test-external-webapp-host", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_external_webapp_host.tf-test-external-webapp-host", "address", "tf-test-webapp.example.com"),
+					resource.TestCheckResourceAttrSet("infinity_external_webapp_host.tf-test-external-webapp-host", "id"),
+					resource.TestCheckResourceAttrSet("infinity_external_webapp_host.tf-test-external-webapp-host", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_external_webapp_host.tf-test-external-webapp-host", "address", "tf-test-webapp.example.com"),
 				),
 			},
 			{
 				// Step 2: Update
 				Config: test.LoadTestFolder(t, "resource_infinity_external_webapp_host_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_external_webapp_host.tf-test-external-webapp-host", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_external_webapp_host.tf-test-external-webapp-host", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_external_webapp_host.tf-test-external-webapp-host", "address", "tf-test-webapp-min.example.com"),
+					resource.TestCheckResourceAttrSet("infinity_external_webapp_host.tf-test-external-webapp-host", "id"),
+					resource.TestCheckResourceAttrSet("infinity_external_webapp_host.tf-test-external-webapp-host", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_external_webapp_host.tf-test-external-webapp-host", "address", "tf-test-webapp-min.example.com"),
 				),
 			},
 		},

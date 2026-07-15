@@ -5,7 +5,7 @@ Manages an SMTP server. SMTP servers are used for sending email notifications an
 ## Example Usage
 
 ```terraform
-resource "pexip_infinity_smtp_server" "example" {
+resource "infinity_smtp_server" "example" {
   name                = "Corporate SMTP Server"
   description         = "SMTP server for email notifications"
   address             = "smtp.example.com"
@@ -46,7 +46,7 @@ resource "pexip_infinity_smtp_server" "example" {
 SMTP servers can be imported using their resource ID:
 
 ```bash
-terraform import pexip_infinity_smtp_server.example 123
+terraform import infinity_smtp_server.example 123
 ```
 
 ## Security Notes

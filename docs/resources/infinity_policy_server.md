@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_policy_server Resource - terraform-provider-pexip"
+page_title: "infinity_policy_server Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity policy server configuration.
 ---
 
-# pexip_infinity_policy_server (Resource)
+# infinity_policy_server (Resource)
 
 Manages a policy server configuration.
 
@@ -14,7 +14,7 @@ Manages a policy server configuration.
 ### External Policy Server
 
 ```terraform
-resource "pexip_infinity_policy_server" "external_policy" {
+resource "infinity_policy_server" "external_policy" {
   name        = "External Policy Server"
   description = "Policy server with HTTP basic authentication"
   url         = "https://policy.example.com/pexip/api"
@@ -28,7 +28,7 @@ resource "pexip_infinity_policy_server" "external_policy" {
 While it is possible to put the text of the local policy templates directly in the resource definition, it is often more manageable to use separate template files. This allows for better organization and readability, especially for complex policies. The following example demonstrates how to reference external template files.
 
 ```terraform
-resource "pexip_infinity_policy_server" "local_policy" {
+resource "infinity_policy_server" "local_policy" {
   name                                           = "Local Policy Server"
   description                                    = "Local policy example using template files"
   enable_internal_service_policy                 = true
@@ -43,7 +43,7 @@ resource "pexip_infinity_policy_server" "local_policy" {
 When configuring overflow locations for high availability, using local media policy can help avoid circular dependencies. The following examples show how to configure local media policy.
 
 ```terraform
-resource "pexip_infinity_policy_server" "local_media_policy" {
+resource "infinity_policy_server" "local_media_policy" {
   name                                    = "Local Media Policy Server Overflow"
   internal_media_location_policy_template = <<-EOF
     {
@@ -68,7 +68,7 @@ resource "pexip_infinity_policy_server" "local_media_policy" {
 This example utilizes cloud bursting locations. It is important to note that when configuring overflow with cloud bursting, nodes in a bursting location are only automatically started up if that location is configured as a Primary overflow location of an always-on location that has reached its capacity threshold. For more details see [docs.pexip.com](https://docs.pexip.com/admin/bursting.htm#guidelines).
 
 ```terraform
-resource "pexip_infinity_policy_server" "local_media_policy_burst" {
+resource "infinity_policy_server" "local_media_policy_burst" {
   name                                    = "Local Media Policy Server Overflow with Burst Locations"
   internal_media_location_policy_template = <<-EOF
     {
@@ -128,7 +128,7 @@ resource "pexip_infinity_policy_server" "local_media_policy_burst" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_policy_server.example 123
+terraform import infinity_policy_server.example 123
 ```
 
 Where `123` is the numeric resource ID of the policy server.

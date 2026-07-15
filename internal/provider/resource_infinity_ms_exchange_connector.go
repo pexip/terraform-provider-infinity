@@ -145,7 +145,7 @@ type InfinityMsExchangeConnectorResourceModel struct {
 }
 
 func (r *InfinityMsExchangeConnectorResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_ms_exchange_connector"
+	resp.TypeName = req.ProviderTypeName + "_ms_exchange_connector"
 }
 
 func (r *InfinityMsExchangeConnectorResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

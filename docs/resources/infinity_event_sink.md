@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_event_sink Resource - terraform-provider-pexip"
+page_title: "infinity_event_sink Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity event sink configuration.
 ---
 
-# pexip_infinity_event_sink (Resource)
+# infinity_event_sink (Resource)
 
 Manages an event sink configuration.
 
@@ -14,7 +14,7 @@ Manages an event sink configuration.
 ### Basic Event Sink Configuration
 
 ```terraform
-resource "pexip_infinity_event_sink" "basic_sink" {
+resource "infinity_event_sink" "basic_sink" {
   name = "Basic Event Sink"
   url  = "https://events.example.com/webhook"
 }
@@ -23,7 +23,7 @@ resource "pexip_infinity_event_sink" "basic_sink" {
 ### Event Sink with Authentication
 
 ```terraform
-resource "pexip_infinity_event_sink" "authenticated_sink" {
+resource "infinity_event_sink" "authenticated_sink" {
   name        = "Authenticated Event Sink"
   description = "Event sink with HTTP basic authentication"
   url         = "https://events.company.com/api/pexip-events"
@@ -36,7 +36,7 @@ resource "pexip_infinity_event_sink" "authenticated_sink" {
 ### Advanced Event Sink with Bulk Support
 
 ```terraform
-resource "pexip_infinity_event_sink" "bulk_sink" {
+resource "infinity_event_sink" "bulk_sink" {
   name                   = "Bulk Event Sink"
   description            = "High-volume event sink with bulk processing"
   url                    = "https://analytics.company.com/events/bulk"
@@ -52,7 +52,7 @@ resource "pexip_infinity_event_sink" "bulk_sink" {
 
 ```terraform
 # Analytics event sink
-resource "pexip_infinity_event_sink" "analytics" {
+resource "infinity_event_sink" "analytics" {
   name                   = "Analytics Event Sink"
   description            = "Event sink for call analytics and reporting"
   url                    = "https://analytics.company.com/pexip/events"
@@ -64,7 +64,7 @@ resource "pexip_infinity_event_sink" "analytics" {
 }
 
 # Monitoring event sink
-resource "pexip_infinity_event_sink" "monitoring" {
+resource "infinity_event_sink" "monitoring" {
   name        = "Monitoring Event Sink"
   description = "Event sink for real-time monitoring"
   url         = "https://monitoring.company.com/webhooks/pexip"
@@ -74,7 +74,7 @@ resource "pexip_infinity_event_sink" "monitoring" {
 }
 
 # Billing event sink
-resource "pexip_infinity_event_sink" "billing" {
+resource "infinity_event_sink" "billing" {
   name                   = "Billing Event Sink"
   description            = "Event sink for usage tracking and billing"
   url                    = "https://billing.company.com/api/usage-events"
@@ -121,7 +121,7 @@ variable "event_sinks" {
   ]
 }
 
-resource "pexip_infinity_event_sink" "enterprise" {
+resource "infinity_event_sink" "enterprise" {
   count                  = length(var.event_sinks)
   name                   = var.event_sinks[count.index].name
   description            = var.event_sinks[count.index].description
@@ -137,7 +137,7 @@ resource "pexip_infinity_event_sink" "enterprise" {
 ### Development and Testing Event Sink
 
 ```terraform
-resource "pexip_infinity_event_sink" "development" {
+resource "infinity_event_sink" "development" {
   name                   = "Development Event Sink"
   description            = "Event sink for development and testing"
   url                    = "https://webhook.site/unique-id"
@@ -175,7 +175,7 @@ resource "pexip_infinity_event_sink" "development" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_event_sink.example 123
+terraform import infinity_event_sink.example 123
 ```
 
 Where `123` is the numeric resource ID of the event sink.

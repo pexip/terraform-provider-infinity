@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_management_vm Resource - terraform-provider-pexip"
+page_title: "infinity_management_vm Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity Management VM configuration.
 ---
 
-# pexip_infinity_management_vm (Resource)
+# infinity_management_vm (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,11 +13,11 @@ description: |-
 
 ### Basic Management VM
 
-{{tffile "examples/resources/pexip_infinity_management_vm/basic_management_vm.tf"}}
+{{tffile "examples/resources/infinity_management_vm/basic_management_vm.tf"}}
 
 ### Using an action to remove the default TLS certificate
 
-{{tffile "examples/resources/pexip_infinity_management_vm/management_vm_with_action.tf"}}
+{{tffile "examples/resources/infinity_management_vm/management_vm_with_action.tf"}}
 
 {{ .SchemaMarkdown }}
 ## Import
@@ -25,7 +25,7 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_management_vm.example 1
+terraform import infinity_management_vm.example 1
 ```
 
 Where `1` is the numeric resource ID of the management VM.

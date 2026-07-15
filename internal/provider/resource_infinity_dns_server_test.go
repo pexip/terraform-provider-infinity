@@ -100,20 +100,20 @@ func testInfinityDNSServer(t *testing.T, client InfinityClient) {
 				// Step 1: Create with full config
 				Config: test.LoadTestFolder(t, "resource_infinity_dns_server_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_dns_server.tf-test-dns", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_dns_server.tf-test-dns", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_dns_server.tf-test-dns", "address", "4.2.2.2"),
-					resource.TestCheckResourceAttr("pexip_infinity_dns_server.tf-test-dns", "description", "tf-test Level 3 DNS Server"),
+					resource.TestCheckResourceAttrSet("infinity_dns_server.tf-test-dns", "id"),
+					resource.TestCheckResourceAttrSet("infinity_dns_server.tf-test-dns", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_dns_server.tf-test-dns", "address", "4.2.2.2"),
+					resource.TestCheckResourceAttr("infinity_dns_server.tf-test-dns", "description", "tf-test Level 3 DNS Server"),
 				),
 			},
 			{
 				// Step 2: Update to min config (clear description)
 				Config: test.LoadTestFolder(t, "resource_infinity_dns_server_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_dns_server.tf-test-dns", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_dns_server.tf-test-dns", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_dns_server.tf-test-dns", "address", "4.2.2.1"),
-					resource.TestCheckResourceAttr("pexip_infinity_dns_server.tf-test-dns", "description", ""),
+					resource.TestCheckResourceAttrSet("infinity_dns_server.tf-test-dns", "id"),
+					resource.TestCheckResourceAttrSet("infinity_dns_server.tf-test-dns", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_dns_server.tf-test-dns", "address", "4.2.2.1"),
+					resource.TestCheckResourceAttr("infinity_dns_server.tf-test-dns", "description", ""),
 				),
 			},
 			{
@@ -125,20 +125,20 @@ func testInfinityDNSServer(t *testing.T, client InfinityClient) {
 				// Step 4: Create with min config (after destroy)
 				Config: test.LoadTestFolder(t, "resource_infinity_dns_server_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_dns_server.tf-test-dns", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_dns_server.tf-test-dns", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_dns_server.tf-test-dns", "address", "4.2.2.1"),
-					resource.TestCheckResourceAttr("pexip_infinity_dns_server.tf-test-dns", "description", ""),
+					resource.TestCheckResourceAttrSet("infinity_dns_server.tf-test-dns", "id"),
+					resource.TestCheckResourceAttrSet("infinity_dns_server.tf-test-dns", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_dns_server.tf-test-dns", "address", "4.2.2.1"),
+					resource.TestCheckResourceAttr("infinity_dns_server.tf-test-dns", "description", ""),
 				),
 			},
 			{
 				// Step 5: Update to full config
 				Config: test.LoadTestFolder(t, "resource_infinity_dns_server_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_dns_server.tf-test-dns", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_dns_server.tf-test-dns", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_dns_server.tf-test-dns", "address", "4.2.2.2"),
-					resource.TestCheckResourceAttr("pexip_infinity_dns_server.tf-test-dns", "description", "tf-test Level 3 DNS Server"),
+					resource.TestCheckResourceAttrSet("infinity_dns_server.tf-test-dns", "id"),
+					resource.TestCheckResourceAttrSet("infinity_dns_server.tf-test-dns", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_dns_server.tf-test-dns", "address", "4.2.2.2"),
+					resource.TestCheckResourceAttr("infinity_dns_server.tf-test-dns", "description", "tf-test Level 3 DNS Server"),
 				),
 			},
 		},

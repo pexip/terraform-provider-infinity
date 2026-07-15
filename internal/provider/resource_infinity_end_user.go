@@ -52,7 +52,7 @@ type InfinityEndUserResourceModel struct {
 }
 
 func (r *InfinityEndUserResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_end_user"
+	resp.TypeName = req.ProviderTypeName + "_end_user"
 }
 
 func (r *InfinityEndUserResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

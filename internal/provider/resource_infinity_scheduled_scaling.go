@@ -59,7 +59,7 @@ type InfinityScheduledScalingResourceModel struct {
 }
 
 func (r *InfinityScheduledScalingResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_scheduled_scaling"
+	resp.TypeName = req.ProviderTypeName + "_scheduled_scaling"
 }
 
 func (r *InfinityScheduledScalingResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

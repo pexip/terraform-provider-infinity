@@ -26,7 +26,7 @@ resource "tls_self_signed_cert" "test" {
   ]
 }
 
-resource "pexip_infinity_tls_certificate" "tls-cert-test" {
+resource "infinity_tls_certificate" "tls-cert-test" {
   certificate = tls_self_signed_cert.test.cert_pem
   private_key = tls_private_key.test.private_key_pem
 }

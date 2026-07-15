@@ -84,22 +84,22 @@ func testInfinitySIPCredential(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_sip_credential_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_sip_credential.tf-test-sip-credential", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_sip_credential.tf-test-sip-credential", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_sip_credential.tf-test-sip-credential", "realm", "tf-test-realm"),
-					resource.TestCheckResourceAttr("pexip_infinity_sip_credential.tf-test-sip-credential", "username", "tf-test-sip-credential"),
-					resource.TestCheckResourceAttr("pexip_infinity_sip_credential.tf-test-sip-credential", "password", "tf-test-password"),
+					resource.TestCheckResourceAttrSet("infinity_sip_credential.tf-test-sip-credential", "id"),
+					resource.TestCheckResourceAttrSet("infinity_sip_credential.tf-test-sip-credential", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_sip_credential.tf-test-sip-credential", "realm", "tf-test-realm"),
+					resource.TestCheckResourceAttr("infinity_sip_credential.tf-test-sip-credential", "username", "tf-test-sip-credential"),
+					resource.TestCheckResourceAttr("infinity_sip_credential.tf-test-sip-credential", "password", "tf-test-password"),
 				),
 			},
 			// Step 2: Update to min config (clearing password)
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_sip_credential_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_sip_credential.tf-test-sip-credential", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_sip_credential.tf-test-sip-credential", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_sip_credential.tf-test-sip-credential", "realm", "tf-test-realm"),
-					resource.TestCheckResourceAttr("pexip_infinity_sip_credential.tf-test-sip-credential", "username", "tf-test-sip-credential"),
-					resource.TestCheckResourceAttr("pexip_infinity_sip_credential.tf-test-sip-credential", "password", ""),
+					resource.TestCheckResourceAttrSet("infinity_sip_credential.tf-test-sip-credential", "id"),
+					resource.TestCheckResourceAttrSet("infinity_sip_credential.tf-test-sip-credential", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_sip_credential.tf-test-sip-credential", "realm", "tf-test-realm"),
+					resource.TestCheckResourceAttr("infinity_sip_credential.tf-test-sip-credential", "username", "tf-test-sip-credential"),
+					resource.TestCheckResourceAttr("infinity_sip_credential.tf-test-sip-credential", "password", ""),
 				),
 			},
 			// Step 3: Destroy
@@ -111,22 +111,22 @@ func testInfinitySIPCredential(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_sip_credential_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_sip_credential.tf-test-sip-credential", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_sip_credential.tf-test-sip-credential", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_sip_credential.tf-test-sip-credential", "realm", "tf-test-realm"),
-					resource.TestCheckResourceAttr("pexip_infinity_sip_credential.tf-test-sip-credential", "username", "tf-test-sip-credential"),
-					resource.TestCheckResourceAttr("pexip_infinity_sip_credential.tf-test-sip-credential", "password", ""),
+					resource.TestCheckResourceAttrSet("infinity_sip_credential.tf-test-sip-credential", "id"),
+					resource.TestCheckResourceAttrSet("infinity_sip_credential.tf-test-sip-credential", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_sip_credential.tf-test-sip-credential", "realm", "tf-test-realm"),
+					resource.TestCheckResourceAttr("infinity_sip_credential.tf-test-sip-credential", "username", "tf-test-sip-credential"),
+					resource.TestCheckResourceAttr("infinity_sip_credential.tf-test-sip-credential", "password", ""),
 				),
 			},
 			// Step 5: Update to full config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_sip_credential_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_sip_credential.tf-test-sip-credential", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_sip_credential.tf-test-sip-credential", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_sip_credential.tf-test-sip-credential", "realm", "tf-test-realm"),
-					resource.TestCheckResourceAttr("pexip_infinity_sip_credential.tf-test-sip-credential", "username", "tf-test-sip-credential"),
-					resource.TestCheckResourceAttr("pexip_infinity_sip_credential.tf-test-sip-credential", "password", "tf-test-password"),
+					resource.TestCheckResourceAttrSet("infinity_sip_credential.tf-test-sip-credential", "id"),
+					resource.TestCheckResourceAttrSet("infinity_sip_credential.tf-test-sip-credential", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_sip_credential.tf-test-sip-credential", "realm", "tf-test-realm"),
+					resource.TestCheckResourceAttr("infinity_sip_credential.tf-test-sip-credential", "username", "tf-test-sip-credential"),
+					resource.TestCheckResourceAttr("infinity_sip_credential.tf-test-sip-credential", "password", "tf-test-password"),
 				),
 			},
 		},

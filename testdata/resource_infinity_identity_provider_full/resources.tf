@@ -55,17 +55,17 @@ resource "tls_self_signed_cert" "service" {
 }
 
 # Create identity provider attributes for testing
-resource "pexip_infinity_identity_provider_attribute" "attr1" {
+resource "infinity_identity_provider_attribute" "attr1" {
   name        = "tf-test-displayName"
   description = "Test attribute for display name"
 }
 
-resource "pexip_infinity_identity_provider_attribute" "attr2" {
+resource "infinity_identity_provider_attribute" "attr2" {
   name        = "tf-test-email"
   description = "Test attribute for email"
 }
 
-resource "pexip_infinity_identity_provider" "test" {
+resource "infinity_identity_provider" "test" {
   # Required fields
   name                           = "tf-test Identity Provider full"
   uuid                           = local.uuid
@@ -118,7 +118,7 @@ resource "pexip_infinity_identity_provider" "test" {
 
   # Attributes
   attributes = [
-    pexip_infinity_identity_provider_attribute.attr1.id,
-    pexip_infinity_identity_provider_attribute.attr2.id,
+    infinity_identity_provider_attribute.attr1.id,
+    infinity_identity_provider_attribute.attr2.id,
   ]
 }

@@ -40,7 +40,7 @@ type InfinityConferenceAliasResourceModel struct {
 }
 
 func (r *InfinityConferenceAliasResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_conference_alias"
+	resp.TypeName = req.ProviderTypeName + "_conference_alias"
 }
 
 func (r *InfinityConferenceAliasResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

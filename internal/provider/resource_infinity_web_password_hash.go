@@ -42,7 +42,7 @@ type InfinityWebPasswordHashResourceModel struct {
 }
 
 func (r *InfinityWebPasswordHashResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_web_password_hash"
+	resp.TypeName = req.ProviderTypeName + "_web_password_hash"
 }
 
 func (r *InfinityWebPasswordHashResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

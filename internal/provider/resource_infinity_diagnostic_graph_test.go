@@ -80,15 +80,15 @@ func testInfinityDiagnosticGraph(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_diagnostic_graph_basic"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_diagnostic_graph.diagnostic_graph-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_diagnostic_graph.diagnostic_graph-test", "resource_id"),
+					resource.TestCheckResourceAttrSet("infinity_diagnostic_graph.diagnostic_graph-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_diagnostic_graph.diagnostic_graph-test", "resource_id"),
 				),
 			},
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_diagnostic_graph_basic_updated"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_diagnostic_graph.diagnostic_graph-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_diagnostic_graph.diagnostic_graph-test", "resource_id"),
+					resource.TestCheckResourceAttrSet("infinity_diagnostic_graph.diagnostic_graph-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_diagnostic_graph.diagnostic_graph-test", "resource_id"),
 				),
 			},
 		},

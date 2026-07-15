@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_device Resource - terraform-provider-pexip"
+page_title: "infinity_device Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity device configuration.
 ---
 
-# pexip_infinity_device (Resource)
+# infinity_device (Resource)
 
 Manages a device configuration.
 
@@ -14,7 +14,7 @@ Manages a device configuration.
 ### Basic Device Configuration
 
 ```terraform
-resource "pexip_infinity_device" "conference_room_a" {
+resource "infinity_device" "conference_room_a" {
   alias = "conference-room-a.company.com"
 }
 ```
@@ -22,7 +22,7 @@ resource "pexip_infinity_device" "conference_room_a" {
 ### SIP Device with Authentication
 
 ```terraform
-resource "pexip_infinity_device" "sip_phone" {
+resource "infinity_device" "sip_phone" {
   alias                       = "sip-phone-101"
   description                 = "Reception desk SIP phone"
   username                    = "phone101"
@@ -36,7 +36,7 @@ resource "pexip_infinity_device" "sip_phone" {
 ### Video Conferencing Room System
 
 ```terraform
-resource "pexip_infinity_device" "boardroom_system" {
+resource "infinity_device" "boardroom_system" {
   alias                       = "boardroom.company.com"
   description                 = "Main boardroom video system"
   username                    = "boardroom"
@@ -51,7 +51,7 @@ resource "pexip_infinity_device" "boardroom_system" {
 ### Infinity Connect Device with SSO
 
 ```terraform
-resource "pexip_infinity_device" "infinity_connect_device" {
+resource "infinity_device" "infinity_connect_device" {
   alias                       = "connect-device-01"
   description                 = "Infinity Connect device with SSO"
   primary_owner_email_address = "user@company.com"
@@ -66,7 +66,7 @@ resource "pexip_infinity_device" "infinity_connect_device" {
 
 ```terraform
 # Sales team devices
-resource "pexip_infinity_device" "sales_devices" {
+resource "infinity_device" "sales_devices" {
   count = length(var.sales_team_devices)
 
   alias                       = var.sales_team_devices[count.index].alias
@@ -84,7 +84,7 @@ resource "pexip_infinity_device" "sales_devices" {
 ### Device with Full Configuration
 
 ```terraform
-resource "pexip_infinity_device" "executive_room" {
+resource "infinity_device" "executive_room" {
   alias                       = "executive-suite.company.com"
   description                 = "Executive conference room with full capabilities"
   username                    = "executive_room"
@@ -141,7 +141,7 @@ resource "pexip_infinity_device" "executive_room" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_device.example 123
+terraform import infinity_device.example 123
 ```
 
 Where `123` is the numeric resource ID of the device.

@@ -78,19 +78,19 @@ func testInfinityIdentityProviderGroup(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_identity_provider_group_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "name", "tf-test-identity-provider-group"),
-					resource.TestCheckResourceAttr("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "description", "Test Identity Provider Group Description"),
+					resource.TestCheckResourceAttrSet("infinity_identity_provider_group.tf-test-identity-provider-group", "id"),
+					resource.TestCheckResourceAttrSet("infinity_identity_provider_group.tf-test-identity-provider-group", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_identity_provider_group.tf-test-identity-provider-group", "name", "tf-test-identity-provider-group"),
+					resource.TestCheckResourceAttr("infinity_identity_provider_group.tf-test-identity-provider-group", "description", "Test Identity Provider Group Description"),
 				),
 			},
 			// Step 2: Update to min config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_identity_provider_group_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "name", "tf-test-identity-provider-group"),
+					resource.TestCheckResourceAttrSet("infinity_identity_provider_group.tf-test-identity-provider-group", "id"),
+					resource.TestCheckResourceAttrSet("infinity_identity_provider_group.tf-test-identity-provider-group", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_identity_provider_group.tf-test-identity-provider-group", "name", "tf-test-identity-provider-group"),
 				),
 			},
 			// Step 3: Destroy
@@ -102,19 +102,19 @@ func testInfinityIdentityProviderGroup(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_identity_provider_group_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "name", "tf-test-identity-provider-group"),
+					resource.TestCheckResourceAttrSet("infinity_identity_provider_group.tf-test-identity-provider-group", "id"),
+					resource.TestCheckResourceAttrSet("infinity_identity_provider_group.tf-test-identity-provider-group", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_identity_provider_group.tf-test-identity-provider-group", "name", "tf-test-identity-provider-group"),
 				),
 			},
 			// Step 5: Update to full config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_identity_provider_group_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "name", "tf-test-identity-provider-group"),
-					resource.TestCheckResourceAttr("pexip_infinity_identity_provider_group.tf-test-identity-provider-group", "description", "Test Identity Provider Group Description"),
+					resource.TestCheckResourceAttrSet("infinity_identity_provider_group.tf-test-identity-provider-group", "id"),
+					resource.TestCheckResourceAttrSet("infinity_identity_provider_group.tf-test-identity-provider-group", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_identity_provider_group.tf-test-identity-provider-group", "name", "tf-test-identity-provider-group"),
+					resource.TestCheckResourceAttr("infinity_identity_provider_group.tf-test-identity-provider-group", "description", "Test Identity Provider Group Description"),
 				),
 			},
 		},

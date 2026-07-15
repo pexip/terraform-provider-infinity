@@ -149,7 +149,7 @@ type InfinityGlobalConfigurationResourceModel struct {
 }
 
 func (r *InfinityGlobalConfigurationResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_global_configuration"
+	resp.TypeName = req.ProviderTypeName + "_global_configuration"
 }
 
 func (r *InfinityGlobalConfigurationResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

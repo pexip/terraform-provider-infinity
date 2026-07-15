@@ -24,7 +24,7 @@ var (
 type InfinityManagerConfigDataSource struct{}
 
 func (d *InfinityManagerConfigDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_manager_config"
+	resp.TypeName = req.ProviderTypeName + "_manager_config"
 }
 
 func (d *InfinityManagerConfigDataSource) ValidateConfig(ctx context.Context, req datasource.ValidateConfigRequest, resp *datasource.ValidateConfigResponse) {

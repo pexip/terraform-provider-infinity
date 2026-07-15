@@ -1,18 +1,18 @@
 ---
-page_title: "pexip_infinity_manager_config Data Source - terraform-provider-pexip"
+page_title: "infinity_manager_config Data Source - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Generate bootstrap configuration for Pexip Infinity Manager.
 ---
 
-# pexip_infinity_manager_config (Data Source)
+# infinity_manager_config (Data Source)
 
 Generates bootstrap configuration for Pexip Infinity Manager. This data source creates a JSON configuration that can be used to bootstrap a new Pexip Infinity Manager instance.
 
 ## Example Usage
 
 ```terraform
-data "pexip_infinity_manager_config" "config" {
+data "infinity_manager_config" "config" {
   hostname              = "manager-01"
   domain                = "example.com"
   ip                    = "192.168.1.100"
@@ -30,7 +30,7 @@ data "pexip_infinity_manager_config" "config" {
 
 # Use the rendered configuration
 output "manager_config" {
-  value     = data.pexip_infinity_manager_config.config.rendered
+  value     = data.infinity_manager_config.config.rendered
   sensitive = true
 }
 ```

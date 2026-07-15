@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_mjx_integration" "test" {
+resource "infinity_mjx_integration" "test" {
   name                           = "tf-test mjx-integration full"
   description                    = "Test MJX integration description"
   display_upcoming_meetings      = 14

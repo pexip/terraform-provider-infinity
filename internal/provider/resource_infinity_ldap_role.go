@@ -40,7 +40,7 @@ type InfinityLdapRoleResourceModel struct {
 }
 
 func (r *InfinityLdapRoleResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_ldap_role"
+	resp.TypeName = req.ProviderTypeName + "_ldap_role"
 }
 
 func (r *InfinityLdapRoleResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

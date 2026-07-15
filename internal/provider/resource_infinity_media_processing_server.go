@@ -40,7 +40,7 @@ type InfinityMediaProcessingServerResourceModel struct {
 }
 
 func (r *InfinityMediaProcessingServerResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_media_processing_server"
+	resp.TypeName = req.ProviderTypeName + "_media_processing_server"
 }
 
 func (r *InfinityMediaProcessingServerResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

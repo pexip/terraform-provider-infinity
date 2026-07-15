@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_dns_server Resource - terraform-provider-pexip"
+page_title: "infinity_dns_server Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity DNS server configuration.
 ---
 
-# pexip_infinity_dns_server (Resource)
+# infinity_dns_server (Resource)
 
 Registers a DNS server.
 
@@ -13,7 +13,7 @@ Registers a DNS server.
 
 ```terraform
 # DNS Server resource example
-resource "pexip_infinity_dns_server" "primary_dns" {
+resource "infinity_dns_server" "primary_dns" {
   address     = "8.8.8.8"
   description = "Primary Google DNS server"
 }
@@ -42,7 +42,7 @@ resource "pexip_infinity_dns_server" "primary_dns" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_dns_server.example 123
+terraform import infinity_dns_server.example 123
 ```
 
 Where `123` is the numeric resource ID of the DNS server.

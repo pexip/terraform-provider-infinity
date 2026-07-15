@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_policy_server" "tf-test-policy-server" {
+resource "infinity_policy_server" "tf-test-policy-server" {
   name                                      = "tf-test-policy-server"
   description                               = "tf-test Policy Server Description"
   url                                       = "https://policy.example.com"

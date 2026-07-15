@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_tls_certificate Resource - terraform-provider-pexip"
+page_title: "infinity_tls_certificate Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity TLS certificate configuration.
 ---
 
-# pexip_infinity_tls_certificate (Resource)
+# infinity_tls_certificate (Resource)
 
 Manages a TLS certificate configuration.
 
@@ -14,7 +14,7 @@ Manages a TLS certificate configuration.
 ### Basic TLS Certificate
 
 ```terraform
-resource "pexip_infinity_tls_certificate" "example" {
+resource "infinity_tls_certificate" "example" {
   certificate = file("${path.module}/certificates/server.crt")
   private_key = file("${path.module}/certificates/server.key")
 }
@@ -23,7 +23,7 @@ resource "pexip_infinity_tls_certificate" "example" {
 ### TLS Certificate with Encrypted Private Key
 
 ```terraform
-resource "pexip_infinity_tls_certificate" "encrypted_cert" {
+resource "infinity_tls_certificate" "encrypted_cert" {
   certificate            = file("${path.module}/certificates/encrypted-server.crt")
   private_key            = file("${path.module}/certificates/encrypted-server.key")
   private_key_passphrase = var.private_key_passphrase
@@ -35,17 +35,17 @@ resource "pexip_infinity_tls_certificate" "encrypted_cert" {
 
 ```terraform
 # Get node resource URIs
-data "pexip_infinity_node" "conferencing_nodes" {
+data "infinity_node" "conferencing_nodes" {
   count = length(var.conferencing_node_ids)
   id    = var.conferencing_node_ids[count.index]
 }
 
-resource "pexip_infinity_tls_certificate" "node_specific" {
+resource "infinity_tls_certificate" "node_specific" {
   certificate = file("${path.module}/certificates/conferencing.crt")
   private_key = file("${path.module}/certificates/conferencing.key")
   parameters  = "TLS certificate for conferencing nodes"
   nodes = [
-    for node in data.pexip_infinity_node.conferencing_nodes : node.id
+    for node in data.infinity_node.conferencing_nodes : node.id
   ]
 }
 ```
@@ -53,7 +53,7 @@ resource "pexip_infinity_tls_certificate" "node_specific" {
 ### Wildcard Certificate for Multiple Services
 
 ```terraform
-resource "pexip_infinity_tls_certificate" "wildcard" {
+resource "infinity_tls_certificate" "wildcard" {
   certificate = file("${path.module}/certificates/wildcard.company.com.crt")
   private_key = file("${path.module}/certificates/wildcard.company.com.key")
   parameters  = "Wildcard certificate for *.company.com"
@@ -77,7 +77,7 @@ resource "acme_certificate" "letsencrypt" {
   }
 }
 
-resource "pexip_infinity_tls_certificate" "letsencrypt" {
+resource "infinity_tls_certificate" "letsencrypt" {
   certificate = "${acme_certificate.letsencrypt.certificate_pem}${acme_certificate.letsencrypt.issuer_pem}"
   private_key = acme_certificate.letsencrypt.private_key_pem
   parameters  = "Let's Encrypt certificate with automated renewal"
@@ -91,7 +91,7 @@ locals {
   certificate_chain = "${file("${path.module}/certificates/server.crt")}${file("${path.module}/certificates/intermediate.crt")}${file("${path.module}/certificates/root.crt")}"
 }
 
-resource "pexip_infinity_tls_certificate" "enterprise" {
+resource "infinity_tls_certificate" "enterprise" {
   certificate = local.certificate_chain
   private_key = file("${path.module}/certificates/server.key")
   parameters  = "Enterprise certificate with full trust chain"
@@ -102,21 +102,21 @@ resource "pexip_infinity_tls_certificate" "enterprise" {
 
 ```terraform
 # Web interface certificate
-resource "pexip_infinity_tls_certificate" "web_interface" {
+resource "infinity_tls_certificate" "web_interface" {
   certificate = file("${path.module}/certificates/web.crt")
   private_key = file("${path.module}/certificates/web.key")
   parameters  = "Certificate for web interface (HTTPS)"
 }
 
 # API certificate
-resource "pexip_infinity_tls_certificate" "api" {
+resource "infinity_tls_certificate" "api" {
   certificate = file("${path.module}/certificates/api.crt")
   private_key = file("${path.module}/certificates/api.key")
   parameters  = "Certificate for API access"
 }
 
 # SIP TLS certificate
-resource "pexip_infinity_tls_certificate" "sip_tls" {
+resource "infinity_tls_certificate" "sip_tls" {
   certificate = file("${path.module}/certificates/sip.crt")
   private_key = file("${path.module}/certificates/sip.key")
   parameters  = "Certificate for SIP over TLS"
@@ -145,7 +145,7 @@ variable "private_key_passphrase" {
   default     = ""
 }
 
-resource "pexip_infinity_tls_certificate" "from_variables" {
+resource "infinity_tls_certificate" "from_variables" {
   certificate            = var.tls_certificate
   private_key            = var.tls_private_key
   private_key_passphrase = var.private_key_passphrase != "" ? var.private_key_passphrase : null
@@ -192,7 +192,7 @@ resource "pexip_infinity_tls_certificate" "from_variables" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_tls_certificate.example 123
+terraform import infinity_tls_certificate.example 123
 ```
 
 Where `123` is the numeric resource ID of the TLS certificate.

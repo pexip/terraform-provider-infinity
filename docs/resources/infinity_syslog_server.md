@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_syslog_server Resource - terraform-provider-pexip"
+page_title: "infinity_syslog_server Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity syslog server configuration.
 ---
 
-# pexip_infinity_syslog_server (Resource)
+# infinity_syslog_server (Resource)
 
 Manages a syslog server. Syslog servers receive system logs and audit information from Pexip Infinity for centralized logging and monitoring.
 
@@ -14,7 +14,7 @@ Manages a syslog server. Syslog servers receive system logs and audit informatio
 ### Basic UDP Syslog Server
 
 ```terraform
-resource "pexip_infinity_syslog_server" "basic_syslog" {
+resource "infinity_syslog_server" "basic_syslog" {
   address   = "syslog.company.com"
   port      = 514
   transport = "udp"
@@ -24,7 +24,7 @@ resource "pexip_infinity_syslog_server" "basic_syslog" {
 ### Comprehensive Syslog Configuration
 
 ```terraform
-resource "pexip_infinity_syslog_server" "central_logging" {
+resource "infinity_syslog_server" "central_logging" {
   address     = "logs.company.com"
   description = "Central logging server for all Pexip logs"
   port        = 514
@@ -38,7 +38,7 @@ resource "pexip_infinity_syslog_server" "central_logging" {
 ### Secure TLS Syslog Server
 
 ```terraform
-resource "pexip_infinity_syslog_server" "secure_syslog" {
+resource "infinity_syslog_server" "secure_syslog" {
   address     = "secure-logs.company.com"
   description = "Secure syslog server with TLS encryption"
   port        = 6514
@@ -53,7 +53,7 @@ resource "pexip_infinity_syslog_server" "secure_syslog" {
 
 ```terraform
 # Audit logs to compliance system
-resource "pexip_infinity_syslog_server" "audit_logs" {
+resource "infinity_syslog_server" "audit_logs" {
   address     = "audit.company.com"
   description = "Compliance audit logging system"
   port        = 514
@@ -64,7 +64,7 @@ resource "pexip_infinity_syslog_server" "audit_logs" {
 }
 
 # Support logs to monitoring system
-resource "pexip_infinity_syslog_server" "support_logs" {
+resource "infinity_syslog_server" "support_logs" {
   address     = "monitoring.company.com"
   description = "Technical support and monitoring logs"
   port        = 514
@@ -75,7 +75,7 @@ resource "pexip_infinity_syslog_server" "support_logs" {
 }
 
 # High-priority logs to SIEM
-resource "pexip_infinity_syslog_server" "siem_logs" {
+resource "infinity_syslog_server" "siem_logs" {
   address     = "siem.company.com"
   description = "Security Information and Event Management"
   port        = 1514
@@ -90,7 +90,7 @@ resource "pexip_infinity_syslog_server" "siem_logs" {
 
 ```terraform
 # Different syslog servers per region
-resource "pexip_infinity_syslog_server" "regional_syslog" {
+resource "infinity_syslog_server" "regional_syslog" {
   for_each = var.regional_syslog_config
 
   address     = each.value.address
@@ -106,7 +106,7 @@ resource "pexip_infinity_syslog_server" "regional_syslog" {
 ### Load-Balanced Syslog Configuration
 
 ```terraform
-resource "pexip_infinity_syslog_server" "lb_syslog" {
+resource "infinity_syslog_server" "lb_syslog" {
   count = length(var.syslog_servers)
 
   address     = var.syslog_servers[count.index].address
@@ -147,7 +147,7 @@ resource "pexip_infinity_syslog_server" "lb_syslog" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_syslog_server.example 123
+terraform import infinity_syslog_server.example 123
 ```
 
 Where `123` is the numeric resource ID of the syslog server.

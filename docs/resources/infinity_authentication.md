@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_authentication Resource - terraform-provider-pexip"
+page_title: "infinity_authentication Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages the Pexip Infinity authentication configuration.
 ---
 
-# pexip_infinity_authentication (Resource)
+# infinity_authentication (Resource)
 
 Manages the authentication configuration.
 
@@ -16,7 +16,7 @@ Manages the authentication configuration.
 ### Local and LDAP Authentication
 
 ```terraform
-resource "pexip_infinity_authentication" "ldap_example" {
+resource "infinity_authentication" "ldap_example" {
   source                       = "LDAP+LOCAL"
   ldap_server                  = "ldaps://ldap.example.com:636"
   ldap_base_dn                 = "dc=example,dc=com"
@@ -35,7 +35,7 @@ resource "pexip_infinity_authentication" "ldap_example" {
 ### OpenID Connect (OIDC) Authentication
 
 ```terraform
-resource "pexip_infinity_authentication" "oidc_example" {
+resource "infinity_authentication" "oidc_example" {
   source                  = "OIDC+LOCAL"
   oidc_client_id          = var.azure_oidc_auth_app_client_id
   oidc_client_secret      = var.azure_oidc_auth_app_client_secret
@@ -49,7 +49,7 @@ resource "pexip_infinity_authentication" "oidc_example" {
 ### OpenID Connect (OIDC) Authentication with PKCE
 
 ```terraform
-resource "pexip_infinity_authentication" "pkce_example" {
+resource "infinity_authentication" "pkce_example" {
   source                  = "OIDC+LOCAL"
   oidc_auth_method        = "pkce"
   oidc_client_id          = var.oidc_client_id
@@ -109,5 +109,5 @@ resource "pexip_infinity_authentication" "pkce_example" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_authentication.example 1
+terraform import infinity_authentication.example 1
 ```

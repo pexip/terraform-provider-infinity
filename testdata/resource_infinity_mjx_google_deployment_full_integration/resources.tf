@@ -8,7 +8,7 @@ resource "tls_private_key" "test_full" {
   rsa_bits  = 2048
 }
 
-resource "pexip_infinity_mjx_google_deployment" "test" {
+resource "infinity_mjx_google_deployment" "test" {
   name                           = "tf-test mjx-google-deployment full"
   description                    = "Test MJX Google deployment description"
   client_email                   = "test-service@my-project.iam.gserviceaccount.com"

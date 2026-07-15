@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_static_route Resource - terraform-provider-pexip"
+page_title: "infinity_static_route Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity static route configuration.
 ---
 
-# pexip_infinity_static_route (Resource)
+# infinity_static_route (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,39 +13,39 @@ description: |-
 
 ### Basic Static Route
 
-{{tffile "examples/resources/pexip_infinity_static_route/basic_static_route.tf"}}
+{{tffile "examples/resources/infinity_static_route/basic_static_route.tf"}}
 
 ### Static Route to Remote Office
 
-{{tffile "examples/resources/pexip_infinity_static_route/static_route_to_remote_office.tf"}}
+{{tffile "examples/resources/infinity_static_route/static_route_to_remote_office.tf"}}
 
 ### Multiple Static Routes for Different Networks
 
-{{tffile "examples/resources/pexip_infinity_static_route/multiple_static_routes_for_different_networks.tf"}}
+{{tffile "examples/resources/infinity_static_route/multiple_static_routes_for_different_networks.tf"}}
 
 ### Host-specific Static Route
 
-{{tffile "examples/resources/pexip_infinity_static_route/host_specific_static_route.tf"}}
+{{tffile "examples/resources/infinity_static_route/host_specific_static_route.tf"}}
 
 ### Default Route Override
 
-{{tffile "examples/resources/pexip_infinity_static_route/default_route_override.tf"}}
+{{tffile "examples/resources/infinity_static_route/default_route_override.tf"}}
 
 ### Enterprise Network Routing
 
-{{tffile "examples/resources/pexip_infinity_static_route/enterprise_network_routing.tf"}}
+{{tffile "examples/resources/infinity_static_route/enterprise_network_routing.tf"}}
 
 ### Cloud Network Integration
 
-{{tffile "examples/resources/pexip_infinity_static_route/cloud_network_integration.tf"}}
+{{tffile "examples/resources/infinity_static_route/cloud_network_integration.tf"}}
 
 ### VPN Gateway Routes
 
-{{tffile "examples/resources/pexip_infinity_static_route/vpn_gateway_routes.tf"}}
+{{tffile "examples/resources/infinity_static_route/vpn_gateway_routes.tf"}}
 
 ### Conditional Static Routes
 
-{{tffile "examples/resources/pexip_infinity_static_route/conditional_static_routes.tf"}}
+{{tffile "examples/resources/infinity_static_route/conditional_static_routes.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -54,7 +54,7 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_static_route.example 123
+terraform import infinity_static_route.example 123
 ```
 
 Where `123` is the numeric resource ID of the static route.

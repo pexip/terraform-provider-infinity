@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_sip_proxy" "sip-proxy-test" {
+resource "infinity_sip_proxy" "sip-proxy-test" {
   name    = "tf-test-sip-proxy-min"
   address = "sip.pexvclab.com"
 }

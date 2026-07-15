@@ -5,7 +5,7 @@ Manages a role configuration.
 ## Example Usage
 
 ```terraform
-resource "pexip_infinity_role" "example" {
+resource "infinity_role" "example" {
   name = "Conference Manager"
   permissions = [
     "conference.create",
@@ -39,5 +39,5 @@ resource "pexip_infinity_role" "example" {
 Roles can be imported using their resource ID:
 
 ```bash
-terraform import pexip_infinity_role.example 123
+terraform import infinity_role.example 123
 ```

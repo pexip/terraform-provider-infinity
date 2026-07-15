@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_worker_vm Resource - terraform-provider-pexip"
+page_title: "infinity_worker_vm Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity worker VM configuration.
 ---
 
-# pexip_infinity_worker_vm (Resource)
+# infinity_worker_vm (Resource)
 
 Manages a worker VM configuration.
 
@@ -18,7 +18,7 @@ A conferencing node can perform one of two roles: transcoding or proxying. The r
 ### Basic Usage
 
 ```terraform
-resource "pexip_infinity_worker_vm" "worker" {
+resource "infinity_worker_vm" "worker" {
   name            = "worker-vm-01"
   hostname        = "worker-vm-01"
   domain          = "company.com"
@@ -26,7 +26,7 @@ resource "pexip_infinity_worker_vm" "worker" {
   netmask         = "255.255.255.0"
   gateway         = "10.0.1.1"
   password        = var.cli_password
-  system_location = pexip_infinity_system_location.example.id
+  system_location = infinity_system_location.example.id
 }
 ```
 
@@ -37,7 +37,7 @@ This example shows how to deploy a conferencing node in GCP with a static NAT ad
 For more info on deploying a VM in GCP with Terraform, see the [Google Compute Instance documentation](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance).
 
 ```terraform
-resource "pexip_infinity_worker_vm" "worker" {
+resource "infinity_worker_vm" "worker" {
   name               = var.hostname
   hostname           = var.hostname
   address            = var.prv_ip_address
@@ -55,7 +55,7 @@ resource "google_compute_instance" "infinity_worker" {
   machine_type = var.machine_type
 
   metadata = {
-    conferencing_node_config = pexip_infinity_worker_vm.worker.config
+    conferencing_node_config = infinity_worker_vm.worker.config
   }
 
   boot_disk {
@@ -138,7 +138,7 @@ resource "google_compute_instance" "infinity_worker" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_worker_vm.example 123
+terraform import infinity_worker_vm.example 123
 ```
 
 Where `123` is the numeric resource ID of the worker VM.

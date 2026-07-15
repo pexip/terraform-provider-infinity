@@ -4,6 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_identity_provider_group" "tf-test-identity-provider-group" {
+resource "infinity_identity_provider_group" "tf-test-identity-provider-group" {
   name = "tf-test-identity-provider-group"
 }
