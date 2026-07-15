@@ -116,20 +116,20 @@ func testInfinityUserGroup(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_user_group_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group.tf-test-user-group", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group.tf-test-user-group", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_user_group.tf-test-user-group", "name", "tf-test-user-group-full"),
-					resource.TestCheckResourceAttr("pexip_infinity_user_group.tf-test-user-group", "description", "tf-test user group description"),
+					resource.TestCheckResourceAttrSet("infinity_user_group.tf-test-user-group", "id"),
+					resource.TestCheckResourceAttrSet("infinity_user_group.tf-test-user-group", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_user_group.tf-test-user-group", "name", "tf-test-user-group-full"),
+					resource.TestCheckResourceAttr("infinity_user_group.tf-test-user-group", "description", "tf-test user group description"),
 				),
 			},
 			// Step 2: Update to min config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_user_group_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group.tf-test-user-group", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group.tf-test-user-group", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_user_group.tf-test-user-group", "name", "tf-test-user-group"),
-					resource.TestCheckResourceAttr("pexip_infinity_user_group.tf-test-user-group", "description", ""),
+					resource.TestCheckResourceAttrSet("infinity_user_group.tf-test-user-group", "id"),
+					resource.TestCheckResourceAttrSet("infinity_user_group.tf-test-user-group", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_user_group.tf-test-user-group", "name", "tf-test-user-group"),
+					resource.TestCheckResourceAttr("infinity_user_group.tf-test-user-group", "description", ""),
 				),
 			},
 			// Step 3: Destroy
@@ -141,20 +141,20 @@ func testInfinityUserGroup(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_user_group_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group.tf-test-user-group", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group.tf-test-user-group", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_user_group.tf-test-user-group", "name", "tf-test-user-group"),
-					resource.TestCheckResourceAttr("pexip_infinity_user_group.tf-test-user-group", "description", ""),
+					resource.TestCheckResourceAttrSet("infinity_user_group.tf-test-user-group", "id"),
+					resource.TestCheckResourceAttrSet("infinity_user_group.tf-test-user-group", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_user_group.tf-test-user-group", "name", "tf-test-user-group"),
+					resource.TestCheckResourceAttr("infinity_user_group.tf-test-user-group", "description", ""),
 				),
 			},
 			// Step 5: Update to full config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_user_group_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group.tf-test-user-group", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group.tf-test-user-group", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_user_group.tf-test-user-group", "name", "tf-test-user-group-full"),
-					resource.TestCheckResourceAttr("pexip_infinity_user_group.tf-test-user-group", "description", "tf-test user group description"),
+					resource.TestCheckResourceAttrSet("infinity_user_group.tf-test-user-group", "id"),
+					resource.TestCheckResourceAttrSet("infinity_user_group.tf-test-user-group", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_user_group.tf-test-user-group", "name", "tf-test-user-group-full"),
+					resource.TestCheckResourceAttr("infinity_user_group.tf-test-user-group", "description", "tf-test user group description"),
 				),
 			},
 		},

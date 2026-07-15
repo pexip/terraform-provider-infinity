@@ -1,23 +1,23 @@
-# pexip_infinity_conference_alias (Resource)
+# infinity_conference_alias (Resource)
 
 Manages a conference alias configuration.
 
 ## Example Usage
 
 ```terraform
-resource "pexip_infinity_conference_alias" "example_sip_alias" {
+resource "infinity_conference_alias" "example_sip_alias" {
   alias       = "meetingroom@example.com"
   description = "SIP alias"
-  conference  = pexip_infinity_conference.example.id
+  conference  = infinity_conference.example.id
 }
 
-resource "pexip_infinity_conference_alias" "example_alias" {
+resource "infinity_conference_alias" "example_alias" {
   alias       = "meetingroom"
   description = "Name only alias"
-  conference  = pexip_infinity_conference.example.id
+  conference  = infinity_conference.example.id
 }
 
-resource "pexip_infinity_conference" "example" {
+resource "infinity_conference" "example" {
   name = "Example Conference"
 }
 ```
@@ -46,7 +46,7 @@ resource "pexip_infinity_conference" "example" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_conference_alias.example 123
+terraform import infinity_conference_alias.example 123
 ```
 
 Where `123` is the numeric resource ID of the conference alias.

@@ -4,11 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_ivr_theme" "tf-test-theme" {
+resource "infinity_ivr_theme" "tf-test-theme" {
   name = "tf-test-gateway-routing-rule-theme"
 }
 
-resource "pexip_infinity_gateway_routing_rule" "tf-test-gateway-routing-rule" {
+resource "infinity_gateway_routing_rule" "tf-test-gateway-routing-rule" {
   name                            = "tf-test-gateway-routing-rule"
   description                     = "tf-test Gateway Routing Rule Description"
   match_string                    = ".*@example.com"
@@ -45,5 +45,5 @@ resource "pexip_infinity_gateway_routing_rule" "tf-test-gateway-routing-rule" {
   enable_participant_avatar_lookup = "yes"
   live_captions_enabled            = "yes"
   treat_as_trusted                 = true
-  ivr_theme                        = pexip_infinity_ivr_theme.tf-test-theme.id
+  ivr_theme                        = infinity_ivr_theme.tf-test-theme.id
 }

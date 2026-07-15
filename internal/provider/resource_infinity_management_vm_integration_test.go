@@ -46,7 +46,7 @@ func TestInfinityManagementVMIntegration(t *testing.T) {
 }
 
 func testInfinityManagementVMIntegration(t *testing.T, client InfinityClient) {
-	// pexip_infinity_management_vm is a singleton — its Delete operation sends a PATCH to reset
+	// infinity_management_vm is a singleton — its Delete operation sends a PATCH to reset
 	// all fields to API defaults, clearing any references to related resources. Once those
 	// references are cleared, the related resources can be deleted normally in the destroy step.
 	resource.Test(t, resource.TestCase{
@@ -61,25 +61,25 @@ func testInfinityManagementVMIntegration(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_management_vm_full_integration"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_management_vm.management_vm-test", "id"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "name", "tf-test-management-vm"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "description", "Integration test management VM"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "mtu", "1400"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "enable_ssh", "ON"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "ssh_authorized_keys_use_cloud", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_mode", "AUTHPRIV"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_community", "public"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_username", "tf-test-snmp-user"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_system_contact", "admin@example.com"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "snmp_system_location", "tf-test-datacenter"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "dns_servers.#", "1"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "ntp_servers.#", "1"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "syslog_servers.#", "1"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "ssh_authorized_keys.#", "1"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "event_sinks.#", "1"),
-					resource.TestCheckResourceAttr("pexip_infinity_management_vm.management_vm-test", "static_routes.#", "1"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_management_vm.management_vm-test", "http_proxy"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_management_vm.management_vm-test", "snmp_network_management_system"),
+					resource.TestCheckResourceAttrSet("infinity_management_vm.management_vm-test", "id"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "name", "tf-test-management-vm"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "description", "Integration test management VM"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "mtu", "1400"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "enable_ssh", "ON"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "ssh_authorized_keys_use_cloud", "false"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_mode", "AUTHPRIV"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_community", "public"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_username", "tf-test-snmp-user"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_system_contact", "admin@example.com"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "snmp_system_location", "tf-test-datacenter"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "dns_servers.#", "1"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "ntp_servers.#", "1"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "syslog_servers.#", "1"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "ssh_authorized_keys.#", "1"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "event_sinks.#", "1"),
+					resource.TestCheckResourceAttr("infinity_management_vm.management_vm-test", "static_routes.#", "1"),
+					resource.TestCheckResourceAttrSet("infinity_management_vm.management_vm-test", "http_proxy"),
+					resource.TestCheckResourceAttrSet("infinity_management_vm.management_vm-test", "snmp_network_management_system"),
 				),
 			},
 			// Step 2: Destroy — triggers Delete which resets all fields to API defaults and

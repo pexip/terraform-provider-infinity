@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_stun_server Resource - terraform-provider-pexip"
+page_title: "infinity_stun_server Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity STUN server configuration.
 ---
 
-# pexip_infinity_stun_server (Resource)
+# infinity_stun_server (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,31 +13,31 @@ description: |-
 
 ### Basic STUN Server
 
-{{tffile "examples/resources/pexip_infinity_stun_server/basic_stun_server.tf"}}
+{{tffile "examples/resources/infinity_stun_server/basic_stun_server.tf"}}
 
 ### Corporate STUN Server
 
-{{tffile "examples/resources/pexip_infinity_stun_server/corporate_stun_server.tf"}}
+{{tffile "examples/resources/infinity_stun_server/corporate_stun_server.tf"}}
 
 ### Public STUN Services
 
-{{tffile "examples/resources/pexip_infinity_stun_server/public_stun_services.tf"}}
+{{tffile "examples/resources/infinity_stun_server/public_stun_services.tf"}}
 
 ### Multiple STUN Servers for Redundancy
 
-{{tffile "examples/resources/pexip_infinity_stun_server/multiple_stun_servers_for_redundancy.tf"}}
+{{tffile "examples/resources/infinity_stun_server/multiple_stun_servers_for_redundancy.tf"}}
 
 ### Regional STUN Servers
 
-{{tffile "examples/resources/pexip_infinity_stun_server/regional_stun_servers.tf"}}
+{{tffile "examples/resources/infinity_stun_server/regional_stun_servers.tf"}}
 
 ### Load-Balanced STUN Configuration
 
-{{tffile "examples/resources/pexip_infinity_stun_server/load_balanced_stun_configuration.tf"}}
+{{tffile "examples/resources/infinity_stun_server/load_balanced_stun_configuration.tf"}}
 
 ### Mixed Internal and External STUN
 
-{{tffile "examples/resources/pexip_infinity_stun_server/mixed_internal_and_external_stun.tf"}}
+{{tffile "examples/resources/infinity_stun_server/mixed_internal_and_external_stun.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -46,7 +46,7 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_stun_server.example 123
+terraform import infinity_stun_server.example 123
 ```
 
 Where `123` is the numeric resource ID of the STUN server.

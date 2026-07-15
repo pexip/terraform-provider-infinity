@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_syslog_server Resource - terraform-provider-pexip"
+page_title: "infinity_syslog_server Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity syslog server configuration.
 ---
 
-# pexip_infinity_syslog_server (Resource)
+# infinity_syslog_server (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,27 +13,27 @@ description: |-
 
 ### Basic UDP Syslog Server
 
-{{tffile "examples/resources/pexip_infinity_syslog_server/basic_udp_syslog_server.tf"}}
+{{tffile "examples/resources/infinity_syslog_server/basic_udp_syslog_server.tf"}}
 
 ### Comprehensive Syslog Configuration
 
-{{tffile "examples/resources/pexip_infinity_syslog_server/comprehensive_syslog_configuration.tf"}}
+{{tffile "examples/resources/infinity_syslog_server/comprehensive_syslog_configuration.tf"}}
 
 ### Secure TLS Syslog Server
 
-{{tffile "examples/resources/pexip_infinity_syslog_server/secure_tls_syslog_server.tf"}}
+{{tffile "examples/resources/infinity_syslog_server/secure_tls_syslog_server.tf"}}
 
 ### Multiple Syslog Servers for Different Log Types
 
-{{tffile "examples/resources/pexip_infinity_syslog_server/multiple_syslog_servers_for_different_log_types.tf"}}
+{{tffile "examples/resources/infinity_syslog_server/multiple_syslog_servers_for_different_log_types.tf"}}
 
 ### Regional Syslog Servers
 
-{{tffile "examples/resources/pexip_infinity_syslog_server/regional_syslog_servers.tf"}}
+{{tffile "examples/resources/infinity_syslog_server/regional_syslog_servers.tf"}}
 
 ### Load-Balanced Syslog Configuration
 
-{{tffile "examples/resources/pexip_infinity_syslog_server/load_balanced_syslog_configuration.tf"}}
+{{tffile "examples/resources/infinity_syslog_server/load_balanced_syslog_configuration.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -42,7 +42,7 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_syslog_server.example 123
+terraform import infinity_syslog_server.example 123
 ```
 
 Where `123` is the numeric resource ID of the syslog server.

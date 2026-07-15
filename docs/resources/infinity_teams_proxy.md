@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_teams_proxy Resource - terraform-provider-pexip"
+page_title: "infinity_teams_proxy Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity Teams proxy configuration.
 ---
 
-# pexip_infinity_teams_proxy (Resource)
+# infinity_teams_proxy (Resource)
 
 Manages a Teams proxy configuration.
 
@@ -14,7 +14,7 @@ Manages a Teams proxy configuration.
 ### Basic Teams Proxy Configuration
 
 ```terraform
-resource "pexip_infinity_teams_proxy" "primary_teams_proxy" {
+resource "infinity_teams_proxy" "primary_teams_proxy" {
   name                    = "Primary Teams Proxy"
   address                 = "teams-proxy.example.com"
   port                    = 443
@@ -26,7 +26,7 @@ resource "pexip_infinity_teams_proxy" "primary_teams_proxy" {
 ### Teams Proxy with Event Hub Integration
 
 ```terraform
-resource "pexip_infinity_teams_proxy" "teams_proxy_with_events" {
+resource "infinity_teams_proxy" "teams_proxy_with_events" {
   name                    = "Teams Proxy with Events"
   description             = "Teams proxy with event hub integration"
   address                 = "teams-proxy.company.com"
@@ -42,7 +42,7 @@ resource "pexip_infinity_teams_proxy" "teams_proxy_with_events" {
 ### High Availability Teams Proxy
 
 ```terraform
-resource "pexip_infinity_teams_proxy" "ha_teams_proxy" {
+resource "infinity_teams_proxy" "ha_teams_proxy" {
   name                    = "HA Teams Proxy"
   description             = "High availability Teams proxy configuration"
   address                 = "teams-ha.example.com"
@@ -76,7 +76,7 @@ variable "teams_tenants" {
   ]
 }
 
-resource "pexip_infinity_teams_proxy" "multi_tenant" {
+resource "infinity_teams_proxy" "multi_tenant" {
   count                   = length(var.teams_tenants)
   name                    = var.teams_tenants[count.index].name
   description             = "Teams proxy for ${var.teams_tenants[count.index].azure_tenant}"
@@ -92,7 +92,7 @@ resource "pexip_infinity_teams_proxy" "multi_tenant" {
 
 ```terraform
 # Primary Teams proxy for production
-resource "pexip_infinity_teams_proxy" "production_teams" {
+resource "infinity_teams_proxy" "production_teams" {
   name                    = "Production Teams Proxy"
   description             = "Production Teams proxy for enterprise"
   address                 = "teams-prod.enterprise.com"
@@ -105,7 +105,7 @@ resource "pexip_infinity_teams_proxy" "production_teams" {
 }
 
 # Development Teams proxy
-resource "pexip_infinity_teams_proxy" "development_teams" {
+resource "infinity_teams_proxy" "development_teams" {
   name                    = "Development Teams Proxy"
   description             = "Development Teams proxy for testing"
   address                 = "teams-dev.enterprise.com"
@@ -146,7 +146,7 @@ resource "pexip_infinity_teams_proxy" "development_teams" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_teams_proxy.example 123
+terraform import infinity_teams_proxy.example 123
 ```
 
 Where `123` is the numeric resource ID of the Teams proxy.

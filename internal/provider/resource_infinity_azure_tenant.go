@@ -41,7 +41,7 @@ type InfinityAzureTenantResourceModel struct {
 }
 
 func (r *InfinityAzureTenantResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_azure_tenant"
+	resp.TypeName = req.ProviderTypeName + "_azure_tenant"
 }
 
 func (r *InfinityAzureTenantResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

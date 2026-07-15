@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_http_proxy Resource - terraform-provider-pexip"
+page_title: "infinity_http_proxy Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity HTTP proxy configuration.
 ---
 
-# pexip_infinity_http_proxy (Resource)
+# infinity_http_proxy (Resource)
 
 Manages an HTTP proxy configuration.
 
@@ -14,7 +14,7 @@ Manages an HTTP proxy configuration.
 ### Basic HTTP Proxy
 
 ```terraform
-resource "pexip_infinity_http_proxy" "corporate_proxy" {
+resource "infinity_http_proxy" "corporate_proxy" {
   name     = "Corporate HTTP Proxy"
   address  = "proxy.company.com"
   port     = 8080
@@ -25,7 +25,7 @@ resource "pexip_infinity_http_proxy" "corporate_proxy" {
 ### HTTPS Proxy with Authentication
 
 ```terraform
-resource "pexip_infinity_http_proxy" "secure_proxy" {
+resource "infinity_http_proxy" "secure_proxy" {
   name     = "Secure HTTP Proxy"
   address  = "secure-proxy.company.com"
   port     = 8443
@@ -39,7 +39,7 @@ resource "pexip_infinity_http_proxy" "secure_proxy" {
 
 ```terraform
 # Production proxy
-resource "pexip_infinity_http_proxy" "production" {
+resource "infinity_http_proxy" "production" {
   name     = "Production HTTP Proxy"
   address  = "proxy-prod.company.com"
   port     = 3128
@@ -49,7 +49,7 @@ resource "pexip_infinity_http_proxy" "production" {
 }
 
 # Development proxy
-resource "pexip_infinity_http_proxy" "development" {
+resource "infinity_http_proxy" "development" {
   name     = "Development HTTP Proxy"
   address  = "proxy-dev.company.com"
   port     = 3128
@@ -59,7 +59,7 @@ resource "pexip_infinity_http_proxy" "development" {
 }
 
 # Test proxy without authentication
-resource "pexip_infinity_http_proxy" "test" {
+resource "infinity_http_proxy" "test" {
   name     = "Test HTTP Proxy"
   address  = "proxy-test.company.com"
   port     = 8080
@@ -85,7 +85,7 @@ variable "proxy_config" {
   }
 }
 
-resource "pexip_infinity_http_proxy" "enterprise" {
+resource "infinity_http_proxy" "enterprise" {
   name     = "Enterprise HTTP Proxy"
   address  = var.proxy_config.address
   port     = var.proxy_config.port
@@ -99,14 +99,14 @@ resource "pexip_infinity_http_proxy" "enterprise" {
 
 ```terraform
 # HTTP proxy using standard port (implied port 80)
-resource "pexip_infinity_http_proxy" "standard_http" {
+resource "infinity_http_proxy" "standard_http" {
   name     = "Standard HTTP Proxy"
   address  = "http-proxy.company.com"
   protocol = "http"
 }
 
 # HTTPS proxy using standard port (implied port 443)
-resource "pexip_infinity_http_proxy" "standard_https" {
+resource "infinity_http_proxy" "standard_https" {
   name     = "Standard HTTPS Proxy"
   address  = "https-proxy.company.com"
   protocol = "https"
@@ -122,7 +122,7 @@ locals {
   use_proxy = var.environment == "production" || var.environment == "staging"
 }
 
-resource "pexip_infinity_http_proxy" "conditional" {
+resource "infinity_http_proxy" "conditional" {
   count    = local.use_proxy ? 1 : 0
   name     = "${title(var.environment)} HTTP Proxy"
   address  = var.proxy_address
@@ -165,7 +165,7 @@ variable "regional_proxies" {
   }
 }
 
-resource "pexip_infinity_http_proxy" "regional" {
+resource "infinity_http_proxy" "regional" {
   for_each = var.regional_proxies
   name     = each.value.name
   address  = each.value.address
@@ -180,7 +180,7 @@ resource "pexip_infinity_http_proxy" "regional" {
 
 ```terraform
 # Primary proxy
-resource "pexip_infinity_http_proxy" "primary" {
+resource "infinity_http_proxy" "primary" {
   name     = "Primary HTTP Proxy"
   address  = "proxy1.company.com"
   port     = 8080
@@ -190,7 +190,7 @@ resource "pexip_infinity_http_proxy" "primary" {
 }
 
 # Secondary proxy for failover
-resource "pexip_infinity_http_proxy" "secondary" {
+resource "infinity_http_proxy" "secondary" {
   name     = "Secondary HTTP Proxy"
   address  = "proxy2.company.com"
   port     = 8080
@@ -227,7 +227,7 @@ resource "pexip_infinity_http_proxy" "secondary" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_http_proxy.example 123
+terraform import infinity_http_proxy.example 123
 ```
 
 Where `123` is the numeric resource ID of the HTTP proxy.

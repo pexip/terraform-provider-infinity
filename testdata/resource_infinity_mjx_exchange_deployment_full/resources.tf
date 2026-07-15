@@ -1,4 +1,4 @@
-resource "pexip_infinity_mjx_exchange_deployment" "test" {
+resource "infinity_mjx_exchange_deployment" "test" {
   name                            = "tf-test mjx-exchange-deployment full"
   description                     = "Test MJX Exchange deployment description"
   service_account_username        = "exchange-service-full@example.com"

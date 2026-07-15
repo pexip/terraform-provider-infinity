@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_automatic_participant Resource - terraform-provider-pexip"
+page_title: "infinity_automatic_participant Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity automatic participant configuration.
 ---
 
-# pexip_infinity_automatic_participant (Resource)
+# infinity_automatic_participant (Resource)
 
 Manages an automatic participant configuration.
 
@@ -14,10 +14,10 @@ Manages an automatic participant configuration.
 ### Basic Recording Participant
 
 ```terraform
-resource "pexip_infinity_automatic_participant" "recorder" {
+resource "infinity_automatic_participant" "recorder" {
   alias                 = "conference-recorder"
   description           = "Automatic recording participant"
-  conference            = data.pexip_infinity_conference.meeting_room.id
+  conference            = data.infinity_conference.meeting_room.id
   protocol              = "sip"
   call_type             = "video"
   role                  = "guest"
@@ -31,10 +31,10 @@ resource "pexip_infinity_automatic_participant" "recorder" {
 ### Chair Participant for Persistent Conferences
 
 ```terraform
-resource "pexip_infinity_automatic_participant" "chair_bot" {
+resource "infinity_automatic_participant" "chair_bot" {
   alias                 = "meeting-chair"
   description           = "Automatic chair to keep conference active"
-  conference            = data.pexip_infinity_conference.persistent_meeting.id
+  conference            = data.infinity_conference.persistent_meeting.id
   protocol              = "webrtc"
   call_type             = "audio"
   role                  = "chair"
@@ -48,16 +48,16 @@ resource "pexip_infinity_automatic_participant" "chair_bot" {
 ### RTMP Streaming Participant
 
 ```terraform
-resource "pexip_infinity_automatic_participant" "rtmp_streamer" {
+resource "infinity_automatic_participant" "rtmp_streamer" {
   alias                 = "live-stream"
   description           = "RTMP streaming to social media"
-  conference            = data.pexip_infinity_conference.webinar.id
+  conference            = data.infinity_conference.webinar.id
   protocol              = "rtmp"
   call_type             = "video"
   role                  = "guest"
   keep_conference_alive = "end_conference_when_alone"
   routing               = "manual"
-  system_location       = data.pexip_infinity_system_location.streaming.id
+  system_location       = data.infinity_system_location.streaming.id
   streaming             = true
   remote_display_name   = "Live Stream"
   presentation_url      = "rtmp://streaming.example.com/live/stream-key"
@@ -67,16 +67,16 @@ resource "pexip_infinity_automatic_participant" "rtmp_streamer" {
 ### H.323 Gateway Participant
 
 ```terraform
-resource "pexip_infinity_automatic_participant" "h323_gateway" {
+resource "infinity_automatic_participant" "h323_gateway" {
   alias                 = "legacy-system"
   description           = "H.323 gateway for legacy video systems"
-  conference            = data.pexip_infinity_conference.hybrid_meeting.id
+  conference            = data.infinity_conference.hybrid_meeting.id
   protocol              = "h323"
   call_type             = "video"
   role                  = "guest"
   keep_conference_alive = "end_conference_when_alone"
   routing               = "manual"
-  system_location       = data.pexip_infinity_system_location.gateway.id
+  system_location       = data.infinity_system_location.gateway.id
   dtmf_sequence         = "12345#"
   remote_display_name   = "Legacy Video System"
 }
@@ -86,7 +86,7 @@ resource "pexip_infinity_automatic_participant" "h323_gateway" {
 
 ```terraform
 # Recording participant
-resource "pexip_infinity_automatic_participant" "recorder" {
+resource "infinity_automatic_participant" "recorder" {
   alias                 = "recorder-${var.conference_name}"
   description           = "Recording for ${var.conference_name}"
   conference            = var.conference_id
@@ -100,7 +100,7 @@ resource "pexip_infinity_automatic_participant" "recorder" {
 }
 
 # Streaming participant
-resource "pexip_infinity_automatic_participant" "streamer" {
+resource "infinity_automatic_participant" "streamer" {
   alias                 = "streamer-${var.conference_name}"
   description           = "Streaming for ${var.conference_name}"
   conference            = var.conference_id
@@ -115,7 +115,7 @@ resource "pexip_infinity_automatic_participant" "streamer" {
 }
 
 # Chair participant for persistent hosting
-resource "pexip_infinity_automatic_participant" "host" {
+resource "infinity_automatic_participant" "host" {
   alias                 = "host-${var.conference_name}"
   description           = "Persistent host for ${var.conference_name}"
   conference            = var.conference_id
@@ -173,11 +173,11 @@ variable "automatic_participants" {
   ]
 }
 
-resource "pexip_infinity_automatic_participant" "enterprise" {
+resource "infinity_automatic_participant" "enterprise" {
   count                 = length(var.automatic_participants)
   alias                 = var.automatic_participants[count.index].alias
   description           = var.automatic_participants[count.index].description
-  conference            = data.pexip_infinity_conference.enterprise_meeting.id
+  conference            = data.infinity_conference.enterprise_meeting.id
   protocol              = var.automatic_participants[count.index].protocol
   call_type             = var.automatic_participants[count.index].call_type
   role                  = var.automatic_participants[count.index].role
@@ -193,26 +193,26 @@ resource "pexip_infinity_automatic_participant" "enterprise" {
 
 ```terraform
 # Main presentation stream
-resource "pexip_infinity_automatic_participant" "webinar_stream" {
+resource "infinity_automatic_participant" "webinar_stream" {
   alias                 = "webinar-main-stream"
   description           = "Main webinar stream to CDN"
-  conference            = data.pexip_infinity_conference.webinar.id
+  conference            = data.infinity_conference.webinar.id
   protocol              = "rtmp"
   call_type             = "video"
   role                  = "guest"
   keep_conference_alive = "end_conference_when_alone"
   routing               = "manual"
-  system_location       = data.pexip_infinity_system_location.streaming_servers.id
+  system_location       = data.infinity_system_location.streaming_servers.id
   streaming             = true
   remote_display_name   = "Webinar Stream"
   presentation_url      = "rtmp://cdn.example.com/live/${var.webinar_stream_key}"
 }
 
 # Backup recording
-resource "pexip_infinity_automatic_participant" "webinar_backup" {
+resource "infinity_automatic_participant" "webinar_backup" {
   alias                 = "webinar-backup-recorder"
   description           = "Backup recording for webinar"
-  conference            = data.pexip_infinity_conference.webinar.id
+  conference            = data.infinity_conference.webinar.id
   protocol              = "sip"
   call_type             = "video"
   role                  = "guest"
@@ -223,10 +223,10 @@ resource "pexip_infinity_automatic_participant" "webinar_backup" {
 }
 
 # Webinar host bot
-resource "pexip_infinity_automatic_participant" "webinar_host" {
+resource "infinity_automatic_participant" "webinar_host" {
   alias                 = "webinar-host-bot"
   description           = "Automated webinar host"
-  conference            = data.pexip_infinity_conference.webinar.id
+  conference            = data.infinity_conference.webinar.id
   protocol              = "webrtc"
   call_type             = "audio"
   role                  = "chair"
@@ -240,10 +240,10 @@ resource "pexip_infinity_automatic_participant" "webinar_host" {
 ### Development and Testing
 
 ```terraform
-resource "pexip_infinity_automatic_participant" "test_participant" {
+resource "infinity_automatic_participant" "test_participant" {
   alias                 = "test-${random_id.test.hex}"
   description           = "Test automatic participant"
-  conference            = data.pexip_infinity_conference.test_conference.id
+  conference            = data.infinity_conference.test_conference.id
   protocol              = "webrtc"
   call_type             = "video"
   role                  = "guest"
@@ -293,7 +293,7 @@ resource "random_id" "test" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_automatic_participant.example 123
+terraform import infinity_automatic_participant.example 123
 ```
 
 Where `123` is the numeric resource ID of the automatic participant.

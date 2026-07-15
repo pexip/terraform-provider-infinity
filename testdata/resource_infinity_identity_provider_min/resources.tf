@@ -57,17 +57,17 @@ resource "tls_self_signed_cert" "service" {
 }
 
 # Keep attribute resources to avoid deletion before identity_provider is updated
-resource "pexip_infinity_identity_provider_attribute" "attr1" {
+resource "infinity_identity_provider_attribute" "attr1" {
   name        = "tf-test-displayName"
   description = "Test attribute for display name"
 }
 
-resource "pexip_infinity_identity_provider_attribute" "attr2" {
+resource "infinity_identity_provider_attribute" "attr2" {
   name        = "tf-test-email"
   description = "Test attribute for email"
 }
 
-resource "pexip_infinity_identity_provider" "test" {
+resource "infinity_identity_provider" "test" {
   name                           = "tf-test Identity Provider min"
   uuid                           = local.uuid
   assertion_consumer_service_url = "https://test.com/samlconsumer/${local.uuid}"

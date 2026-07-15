@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_sip_proxy Resource - terraform-provider-pexip"
+page_title: "infinity_sip_proxy Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity SIP proxy configuration.
 ---
 
-# pexip_infinity_sip_proxy (Resource)
+# infinity_sip_proxy (Resource)
 
 Manages a SIP proxy configuration.
 
@@ -14,7 +14,7 @@ Manages a SIP proxy configuration.
 ### Basic SIP Proxy Configuration
 
 ```terraform
-resource "pexip_infinity_sip_proxy" "primary_proxy" {
+resource "infinity_sip_proxy" "primary_proxy" {
   name      = "Primary SIP Proxy"
   address   = "sip-proxy.example.com"
   transport = "tcp"
@@ -24,7 +24,7 @@ resource "pexip_infinity_sip_proxy" "primary_proxy" {
 ### SIP Proxy with Custom Port
 
 ```terraform
-resource "pexip_infinity_sip_proxy" "custom_port_proxy" {
+resource "infinity_sip_proxy" "custom_port_proxy" {
   name        = "Custom Port SIP Proxy"
   description = "SIP proxy with custom port configuration"
   address     = "192.168.1.100"
@@ -36,7 +36,7 @@ resource "pexip_infinity_sip_proxy" "custom_port_proxy" {
 ### TLS-Secured SIP Proxy
 
 ```terraform
-resource "pexip_infinity_sip_proxy" "secure_proxy" {
+resource "infinity_sip_proxy" "secure_proxy" {
   name        = "Secure SIP Proxy"
   description = "TLS-secured SIP proxy for sensitive communications"
   address     = "secure-sip.example.com"
@@ -71,7 +71,7 @@ variable "sip_proxy_servers" {
   ]
 }
 
-resource "pexip_infinity_sip_proxy" "load_balanced_proxies" {
+resource "infinity_sip_proxy" "load_balanced_proxies" {
   count       = length(var.sip_proxy_servers)
   name        = var.sip_proxy_servers[count.index].name
   description = "Load balanced SIP proxy ${count.index + 1}"
@@ -85,7 +85,7 @@ resource "pexip_infinity_sip_proxy" "load_balanced_proxies" {
 
 ```terraform
 # Internal SIP proxy for corporate network
-resource "pexip_infinity_sip_proxy" "internal_sip_proxy" {
+resource "infinity_sip_proxy" "internal_sip_proxy" {
   name        = "Internal SIP Proxy"
   description = "Internal corporate SIP proxy server"
   address     = "10.1.1.50"
@@ -94,7 +94,7 @@ resource "pexip_infinity_sip_proxy" "internal_sip_proxy" {
 }
 
 # External SIP proxy for internet traffic
-resource "pexip_infinity_sip_proxy" "external_sip_proxy" {
+resource "infinity_sip_proxy" "external_sip_proxy" {
   name        = "External SIP Proxy"
   description = "External SIP proxy for internet-facing traffic"
   address     = "sip.company.com"
@@ -103,7 +103,7 @@ resource "pexip_infinity_sip_proxy" "external_sip_proxy" {
 }
 
 # SIP proxy for legacy systems
-resource "pexip_infinity_sip_proxy" "legacy_sip_proxy" {
+resource "infinity_sip_proxy" "legacy_sip_proxy" {
   name        = "Legacy SIP Proxy"
   description = "SIP proxy for legacy phone systems"
   address     = "legacy-pbx.internal.com"
@@ -138,7 +138,7 @@ resource "pexip_infinity_sip_proxy" "legacy_sip_proxy" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_sip_proxy.example 123
+terraform import infinity_sip_proxy.example 123
 ```
 
 Where `123` is the numeric resource ID of the SIP proxy.

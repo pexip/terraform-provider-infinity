@@ -77,7 +77,7 @@ func newTestProvider(client InfinityClient) provider.Provider {
 }
 
 func (p *PexipProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
-	resp.TypeName = "pexip"
+	resp.TypeName = "infinity"
 	resp.Version = version.Version().String()
 }
 
@@ -90,14 +90,14 @@ func (p *PexipProvider) Schema(ctx context.Context, req provider.SchemaRequest, 
 				Validators: []validator.String{
 					validators.URL(true),
 				},
-				MarkdownDescription: "URL of the Infinity Manager API, e.g. https://infinity.example.com. Can also be set via the `PEXIP_ADDRESS` environment variable.",
+				MarkdownDescription: "URL of the Infinity Manager API, e.g. https://infinity.example.com. Can also be set via the `INFINITY_ADDRESS` environment variable.",
 			},
 			"username": schema.StringAttribute{
 				Optional: true,
 				Validators: []validator.String{
 					stringvalidator.LengthAtLeast(4),
 				},
-				MarkdownDescription: "Pexip Infinity Manager username for authentication. Can also be set via the `PEXIP_USERNAME` environment variable.",
+				MarkdownDescription: "Pexip Infinity Manager username for authentication. Can also be set via the `INFINITY_USERNAME` environment variable.",
 			},
 			"password": schema.StringAttribute{
 				Optional:  true,
@@ -105,11 +105,11 @@ func (p *PexipProvider) Schema(ctx context.Context, req provider.SchemaRequest, 
 				Validators: []validator.String{
 					stringvalidator.LengthAtLeast(4),
 				},
-				MarkdownDescription: "Pexip Infinity Manager password for authentication. Can also be set via the `PEXIP_PASSWORD` environment variable.",
+				MarkdownDescription: "Pexip Infinity Manager password for authentication. Can also be set via the `INFINITY_PASSWORD` environment variable.",
 			},
 			"insecure": schema.BoolAttribute{
 				Optional:            true,
-				MarkdownDescription: "Trust self-signed or otherwise invalid certificates. Defaults to `false`. Can also be set via the `PEXIP_INSECURE` environment variable.",
+				MarkdownDescription: "Trust self-signed or otherwise invalid certificates. Defaults to `false`. Can also be set via the `INFINITY_INSECURE` environment variable.",
 			},
 		},
 	}
@@ -131,32 +131,32 @@ func (p *PexipProvider) Configure(ctx context.Context, req provider.ConfigureReq
 	address := data.Address.ValueString()
 	addressFromEnv := false
 	if data.Address.IsNull() {
-		address = os.Getenv("PEXIP_ADDRESS")
+		address = os.Getenv("INFINITY_ADDRESS")
 		addressFromEnv = true
 	}
 
 	username := data.Username.ValueString()
 	usernameFromEnv := false
 	if data.Username.IsNull() {
-		username = os.Getenv("PEXIP_USERNAME")
+		username = os.Getenv("INFINITY_USERNAME")
 		usernameFromEnv = true
 	}
 
 	password := data.Password.ValueString()
 	passwordFromEnv := false
 	if data.Password.IsNull() {
-		password = os.Getenv("PEXIP_PASSWORD")
+		password = os.Getenv("INFINITY_PASSWORD")
 		passwordFromEnv = true
 	}
 
 	insecure := data.Insecure.ValueBool()
 	if data.Insecure.IsNull() {
-		if val := os.Getenv("PEXIP_INSECURE"); val != "" {
+		if val := os.Getenv("INFINITY_INSECURE"); val != "" {
 			var err error
 			insecure, err = strconv.ParseBool(val)
 			if err != nil {
-				resp.Diagnostics.AddAttributeError(path.Root("insecure"), "Invalid PEXIP_INSECURE value",
-					fmt.Sprintf("Cannot parse PEXIP_INSECURE=%q as a boolean: %s", val, err))
+				resp.Diagnostics.AddAttributeError(path.Root("insecure"), "Invalid INFINITY_INSECURE value",
+					fmt.Sprintf("Cannot parse INFINITY_INSECURE=%q as a boolean: %s", val, err))
 				return
 			}
 		}
@@ -164,15 +164,15 @@ func (p *PexipProvider) Configure(ctx context.Context, req provider.ConfigureReq
 
 	if address == "" {
 		resp.Diagnostics.AddAttributeError(path.Root("address"), "Missing address",
-			"Expected address to be set in provider config or via the PEXIP_ADDRESS environment variable.")
+			"Expected address to be set in provider config or via the INFINITY_ADDRESS environment variable.")
 	}
 	if username == "" {
 		resp.Diagnostics.AddAttributeError(path.Root("username"), "Missing username",
-			"Expected username to be set in provider config or via the PEXIP_USERNAME environment variable.")
+			"Expected username to be set in provider config or via the INFINITY_USERNAME environment variable.")
 	}
 	if password == "" {
 		resp.Diagnostics.AddAttributeError(path.Root("password"), "Missing password",
-			"Expected password to be set in provider config or via the PEXIP_PASSWORD environment variable.")
+			"Expected password to be set in provider config or via the INFINITY_PASSWORD environment variable.")
 	}
 	if resp.Diagnostics.HasError() {
 		return
@@ -183,20 +183,20 @@ func (p *PexipProvider) Configure(ctx context.Context, req provider.ConfigureReq
 	if addressFromEnv {
 		u, err := url.ParseRequestURI(address)
 		if err != nil {
-			resp.Diagnostics.AddAttributeError(path.Root("address"), "Invalid PEXIP_ADDRESS value",
-				fmt.Sprintf("Cannot parse PEXIP_ADDRESS=%q as a URL: %s", address, err))
+			resp.Diagnostics.AddAttributeError(path.Root("address"), "Invalid INFINITY_ADDRESS value",
+				fmt.Sprintf("Cannot parse INFINITY_ADDRESS=%q as a URL: %s", address, err))
 		} else if u.Scheme != "https" {
-			resp.Diagnostics.AddAttributeError(path.Root("address"), "Invalid PEXIP_ADDRESS value",
-				fmt.Sprintf("PEXIP_ADDRESS=%q must be an HTTPS URL, but scheme is %q", address, u.Scheme))
+			resp.Diagnostics.AddAttributeError(path.Root("address"), "Invalid INFINITY_ADDRESS value",
+				fmt.Sprintf("INFINITY_ADDRESS=%q must be an HTTPS URL, but scheme is %q", address, u.Scheme))
 		}
 	}
 	if usernameFromEnv && len(username) < 4 {
-		resp.Diagnostics.AddAttributeError(path.Root("username"), "Invalid PEXIP_USERNAME value",
-			fmt.Sprintf("PEXIP_USERNAME must be at least 4 characters, got %d", len(username)))
+		resp.Diagnostics.AddAttributeError(path.Root("username"), "Invalid INFINITY_USERNAME value",
+			fmt.Sprintf("INFINITY_USERNAME must be at least 4 characters, got %d", len(username)))
 	}
 	if passwordFromEnv && len(password) < 4 {
-		resp.Diagnostics.AddAttributeError(path.Root("password"), "Invalid PEXIP_PASSWORD value",
-			fmt.Sprintf("PEXIP_PASSWORD must be at least 4 characters, got %d", len(password)))
+		resp.Diagnostics.AddAttributeError(path.Root("password"), "Invalid INFINITY_PASSWORD value",
+			fmt.Sprintf("INFINITY_PASSWORD must be at least 4 characters, got %d", len(password)))
 	}
 	if resp.Diagnostics.HasError() {
 		return

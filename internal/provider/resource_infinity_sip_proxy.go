@@ -45,7 +45,7 @@ type InfinitySIPProxyResourceModel struct {
 }
 
 func (r *InfinitySIPProxyResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_sip_proxy"
+	resp.TypeName = req.ProviderTypeName + "_sip_proxy"
 }
 
 func (r *InfinitySIPProxyResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

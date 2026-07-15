@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_global_configuration Resource - terraform-provider-pexip"
+page_title: "infinity_global_configuration Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages the Pexip Infinity global system configuration.
 ---
 
-# pexip_infinity_global_configuration (Resource)
+# infinity_global_configuration (Resource)
 
 Manages the global system configuration.
 
@@ -16,7 +16,7 @@ Manages the global system configuration.
 ### Basic Global Configuration
 
 ```terraform
-resource "pexip_infinity_global_configuration" "example" {
+resource "infinity_global_configuration" "example" {
   logon_banner  = "Welcome to Pexip Infinity"
   enable_webrtc = true
   enable_sip    = true
@@ -29,7 +29,7 @@ resource "pexip_infinity_global_configuration" "example" {
 ### Cloud Bursting with GCP
 
 ```terraform
-resource "pexip_infinity_global_configuration" "gcp_bursting" {
+resource "infinity_global_configuration" "gcp_bursting" {
   bursting_enabled = true
   cloud_provider   = "GCP"
   gcp_project_id   = var.gcp_project_id
@@ -140,5 +140,5 @@ resource "pexip_infinity_global_configuration" "gcp_bursting" {
 ## Import
 
 ```shell
-terraform import pexip_infinity_global_configuration.example 1
+terraform import infinity_global_configuration.example 1
 ```

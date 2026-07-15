@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-data "pexip_infinity_manager_config" "master" {
+data "infinity_manager_config" "master" {
   hostname              = "test-mgr1"
   domain                = "dev.vcops.tech"
   ip                    = "10.0.0.40"

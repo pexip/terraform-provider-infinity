@@ -87,7 +87,7 @@ func getStringList(ctx context.Context, set types.Set) ([]string, diag.Diagnosti
 }
 
 func (r *InfinitySystemLocationResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_system_location"
+	resp.TypeName = req.ProviderTypeName + "_system_location"
 }
 
 func (r *InfinitySystemLocationResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

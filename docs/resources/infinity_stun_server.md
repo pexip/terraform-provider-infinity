@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_stun_server Resource - terraform-provider-pexip"
+page_title: "infinity_stun_server Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity STUN server configuration.
 ---
 
-# pexip_infinity_stun_server (Resource)
+# infinity_stun_server (Resource)
 
 Manages a STUN server configuration.
 
@@ -14,7 +14,7 @@ Manages a STUN server configuration.
 ### Basic STUN Server
 
 ```terraform
-resource "pexip_infinity_stun_server" "basic_stun" {
+resource "infinity_stun_server" "basic_stun" {
   name    = "Basic STUN Server"
   address = "stun.company.com"
   port    = 3478
@@ -24,7 +24,7 @@ resource "pexip_infinity_stun_server" "basic_stun" {
 ### Corporate STUN Server
 
 ```terraform
-resource "pexip_infinity_stun_server" "corporate_stun" {
+resource "infinity_stun_server" "corporate_stun" {
   name        = "Corporate STUN Server"
   description = "Internal STUN server for NAT traversal"
   address     = "stun.company.com"
@@ -36,7 +36,7 @@ resource "pexip_infinity_stun_server" "corporate_stun" {
 
 ```terraform
 # Google STUN server
-resource "pexip_infinity_stun_server" "google_stun" {
+resource "infinity_stun_server" "google_stun" {
   name        = "Google STUN"
   description = "Google public STUN server"
   address     = "stun.l.google.com"
@@ -44,7 +44,7 @@ resource "pexip_infinity_stun_server" "google_stun" {
 }
 
 # Cloudflare STUN server
-resource "pexip_infinity_stun_server" "cloudflare_stun" {
+resource "infinity_stun_server" "cloudflare_stun" {
   name        = "Cloudflare STUN"
   description = "Cloudflare public STUN server"
   address     = "stun.cloudflare.com"
@@ -56,7 +56,7 @@ resource "pexip_infinity_stun_server" "cloudflare_stun" {
 
 ```terraform
 # Primary internal STUN server
-resource "pexip_infinity_stun_server" "internal_stun_primary" {
+resource "infinity_stun_server" "internal_stun_primary" {
   name        = "Internal STUN Primary"
   description = "Primary internal STUN server"
   address     = "stun1.company.com"
@@ -64,7 +64,7 @@ resource "pexip_infinity_stun_server" "internal_stun_primary" {
 }
 
 # Secondary internal STUN server
-resource "pexip_infinity_stun_server" "internal_stun_secondary" {
+resource "infinity_stun_server" "internal_stun_secondary" {
   name        = "Internal STUN Secondary"
   description = "Secondary internal STUN server for redundancy"
   address     = "stun2.company.com"
@@ -72,7 +72,7 @@ resource "pexip_infinity_stun_server" "internal_stun_secondary" {
 }
 
 # External backup STUN server
-resource "pexip_infinity_stun_server" "external_stun_backup" {
+resource "infinity_stun_server" "external_stun_backup" {
   name        = "External STUN Backup"
   description = "External STUN server for backup"
   address     = "stun.stunprotocol.org"
@@ -105,7 +105,7 @@ locals {
   }
 }
 
-resource "pexip_infinity_stun_server" "regional_stun" {
+resource "infinity_stun_server" "regional_stun" {
   for_each = local.regional_stun_servers
 
   name        = "STUN Server - ${each.key}"
@@ -119,7 +119,7 @@ resource "pexip_infinity_stun_server" "regional_stun" {
 
 ```terraform
 # STUN servers behind load balancer
-resource "pexip_infinity_stun_server" "lb_stun" {
+resource "infinity_stun_server" "lb_stun" {
   count = var.stun_server_count
 
   name        = "Load Balanced STUN ${count.index + 1}"
@@ -133,7 +133,7 @@ resource "pexip_infinity_stun_server" "lb_stun" {
 
 ```terraform
 # Internal STUN for office networks
-resource "pexip_infinity_stun_server" "internal_office_stun" {
+resource "infinity_stun_server" "internal_office_stun" {
   name        = "Office Internal STUN"
   description = "STUN server for internal office network"
   address     = "10.0.1.100"
@@ -141,7 +141,7 @@ resource "pexip_infinity_stun_server" "internal_office_stun" {
 }
 
 # External STUN for remote users
-resource "pexip_infinity_stun_server" "external_remote_stun" {
+resource "infinity_stun_server" "external_remote_stun" {
   name        = "Remote User STUN"
   description = "External STUN server for remote users"
   address     = "stun.external.company.com"
@@ -174,7 +174,7 @@ resource "pexip_infinity_stun_server" "external_remote_stun" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_stun_server.example 123
+terraform import infinity_stun_server.example 123
 ```
 
 Where `123` is the numeric resource ID of the STUN server.

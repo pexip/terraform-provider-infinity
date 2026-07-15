@@ -55,7 +55,7 @@ type InfinityMjxEndpointResourceModel struct {
 }
 
 func (r *InfinityMjxEndpointResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_mjx_endpoint"
+	resp.TypeName = req.ProviderTypeName + "_mjx_endpoint"
 }
 
 func (r *InfinityMjxEndpointResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

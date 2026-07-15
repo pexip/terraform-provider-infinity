@@ -30,7 +30,7 @@ func TestInfinityAutobackupValidator(t *testing.T) {
 		ProtoV6ProviderFactories: getTestProtoV6ProviderFactories(client),
 		Steps: []resource.TestStep{
 			{
-				Config: `resource "pexip_infinity_autobackup" "autobackup-test" {
+				Config: `resource "infinity_autobackup" "autobackup-test" {
   autobackup_enabled = true
 }`,
 				ExpectError: regexp.MustCompile(`autobackup_passphrase must be set when autobackup_enabled is true`),
@@ -93,28 +93,28 @@ func testInfinityAutobackup(t *testing.T, client InfinityClient) {
 				// Step 1: Create with full config
 				Config: test.LoadTestFolder(t, "resource_infinity_autobackup_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_autobackup.autobackup-test", "id"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_enabled", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_interval", "12"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_passphrase", "SecretPassphrase123"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_start_hour", "2"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_upload_url", "ftp://backup.example.com/pexip"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_upload_username", "backupuser"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_upload_password", "BackupPassword123"),
+					resource.TestCheckResourceAttrSet("infinity_autobackup.autobackup-test", "id"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_enabled", "true"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_interval", "12"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_passphrase", "SecretPassphrase123"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_start_hour", "2"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_upload_url", "ftp://backup.example.com/pexip"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_upload_username", "backupuser"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_upload_password", "BackupPassword123"),
 				),
 			},
 			{
 				// Step 2: Update to min config
 				Config: test.LoadTestFolder(t, "resource_infinity_autobackup_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_autobackup.autobackup-test", "id"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_enabled", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_interval", "24"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_passphrase", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_start_hour", "1"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_upload_url", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_upload_username", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_upload_password", ""),
+					resource.TestCheckResourceAttrSet("infinity_autobackup.autobackup-test", "id"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_enabled", "false"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_interval", "24"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_passphrase", ""),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_start_hour", "1"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_upload_url", ""),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_upload_username", ""),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_upload_password", ""),
 				),
 			},
 			{
@@ -126,24 +126,24 @@ func testInfinityAutobackup(t *testing.T, client InfinityClient) {
 				// Step 4: Recreate with min config (actually just updates since it's a singleton)
 				Config: test.LoadTestFolder(t, "resource_infinity_autobackup_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_autobackup.autobackup-test", "id"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_enabled", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_interval", "24"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_start_hour", "1"),
+					resource.TestCheckResourceAttrSet("infinity_autobackup.autobackup-test", "id"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_enabled", "false"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_interval", "24"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_start_hour", "1"),
 				),
 			},
 			{
 				// Step 5: Update to full config
 				Config: test.LoadTestFolder(t, "resource_infinity_autobackup_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_autobackup.autobackup-test", "id"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_enabled", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_interval", "12"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_passphrase", "SecretPassphrase123"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_start_hour", "2"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_upload_url", "ftp://backup.example.com/pexip"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_upload_username", "backupuser"),
-					resource.TestCheckResourceAttr("pexip_infinity_autobackup.autobackup-test", "autobackup_upload_password", "BackupPassword123"),
+					resource.TestCheckResourceAttrSet("infinity_autobackup.autobackup-test", "id"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_enabled", "true"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_interval", "12"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_passphrase", "SecretPassphrase123"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_start_hour", "2"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_upload_url", "ftp://backup.example.com/pexip"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_upload_username", "backupuser"),
+					resource.TestCheckResourceAttr("infinity_autobackup.autobackup-test", "autobackup_upload_password", "BackupPassword123"),
 				),
 			},
 		},

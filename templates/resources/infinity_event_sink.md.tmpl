@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_event_sink Resource - terraform-provider-pexip"
+page_title: "infinity_event_sink Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity event sink configuration.
 ---
 
-# pexip_infinity_event_sink (Resource)
+# infinity_event_sink (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,27 +13,27 @@ description: |-
 
 ### Basic Event Sink Configuration
 
-{{tffile "examples/resources/pexip_infinity_event_sink/basic_event_sink_configuration.tf"}}
+{{tffile "examples/resources/infinity_event_sink/basic_event_sink_configuration.tf"}}
 
 ### Event Sink with Authentication
 
-{{tffile "examples/resources/pexip_infinity_event_sink/event_sink_with_authentication.tf"}}
+{{tffile "examples/resources/infinity_event_sink/event_sink_with_authentication.tf"}}
 
 ### Advanced Event Sink with Bulk Support
 
-{{tffile "examples/resources/pexip_infinity_event_sink/advanced_event_sink_with_bulk_support.tf"}}
+{{tffile "examples/resources/infinity_event_sink/advanced_event_sink_with_bulk_support.tf"}}
 
 ### Multiple Event Sinks for Different Purposes
 
-{{tffile "examples/resources/pexip_infinity_event_sink/multiple_event_sinks_for_different_purposes.tf"}}
+{{tffile "examples/resources/infinity_event_sink/multiple_event_sinks_for_different_purposes.tf"}}
 
 ### Enterprise Event Integration
 
-{{tffile "examples/resources/pexip_infinity_event_sink/enterprise_event_integration.tf"}}
+{{tffile "examples/resources/infinity_event_sink/enterprise_event_integration.tf"}}
 
 ### Development and Testing Event Sink
 
-{{tffile "examples/resources/pexip_infinity_event_sink/development_and_testing_event_sink.tf"}}
+{{tffile "examples/resources/infinity_event_sink/development_and_testing_event_sink.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -42,7 +42,7 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_event_sink.example 123
+terraform import infinity_event_sink.example 123
 ```
 
 Where `123` is the numeric resource ID of the event sink.

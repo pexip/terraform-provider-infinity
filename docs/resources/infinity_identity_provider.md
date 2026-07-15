@@ -7,7 +7,7 @@ Manages an identity provider configuration.
 ### SAML Identity Provider
 
 ```terraform
-resource "pexip_infinity_identity_provider" "saml_example" {
+resource "infinity_identity_provider" "saml_example" {
   name                              = "Corporate SAML IdP"
   description                       = "Corporate SAML identity provider"
   idp_type                          = "saml"
@@ -26,7 +26,7 @@ resource "pexip_infinity_identity_provider" "saml_example" {
 ### OIDC Identity Provider
 
 ```terraform
-resource "pexip_infinity_identity_provider" "oidc_example" {
+resource "infinity_identity_provider" "oidc_example" {
   name                               = "Azure AD OIDC"
   description                        = "Azure Active Directory OIDC provider"
   idp_type                           = "oidc"
@@ -108,5 +108,5 @@ resource "pexip_infinity_identity_provider" "oidc_example" {
 Identity providers can be imported using their resource ID:
 
 ```bash
-terraform import pexip_infinity_identity_provider.example 123
+terraform import infinity_identity_provider.example 123
 ```

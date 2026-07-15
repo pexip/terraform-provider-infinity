@@ -5,7 +5,7 @@ Manages a Microsoft Teams Azure tenant. Azure tenants are used to configure Micr
 ## Example Usage
 
 ```terraform
-resource "pexip_infinity_azure_tenant" "example" {
+resource "infinity_azure_tenant" "example" {
   name        = "Contoso Corporation"
   description = "Azure tenant for Contoso Corporation Teams integration"
   tenant_id   = "12345678-1234-1234-1234-123456789012"
@@ -36,5 +36,5 @@ resource "pexip_infinity_azure_tenant" "example" {
 Azure tenants can be imported using their resource ID:
 
 ```bash
-terraform import pexip_infinity_azure_tenant.example 123
+terraform import infinity_azure_tenant.example 123
 ```

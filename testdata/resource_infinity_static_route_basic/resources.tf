@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_static_route" "static_route-test" {
+resource "infinity_static_route" "static_route-test" {
   name    = "static_route-test"
   address = "192.168.1.0"
   prefix  = 24

@@ -79,33 +79,33 @@ func testInfinityMediaProcessingServer(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_media_processing_server_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_media_processing_server.media_processing_server-test", "fqdn", "tf-test-mps-full.test.local"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "app_id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "public_jwt_key"),
+					resource.TestCheckResourceAttrSet("infinity_media_processing_server.media_processing_server-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_media_processing_server.media_processing_server-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_media_processing_server.media_processing_server-test", "fqdn", "tf-test-mps-full.test.local"),
+					resource.TestCheckResourceAttrSet("infinity_media_processing_server.media_processing_server-test", "app_id"),
+					resource.TestCheckResourceAttrSet("infinity_media_processing_server.media_processing_server-test", "public_jwt_key"),
 				),
 			},
 			// Test 2: Update with min config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_media_processing_server_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_media_processing_server.media_processing_server-test", "fqdn", "tf-test-mps.test.local"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "app_id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "public_jwt_key"),
+					resource.TestCheckResourceAttrSet("infinity_media_processing_server.media_processing_server-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_media_processing_server.media_processing_server-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_media_processing_server.media_processing_server-test", "fqdn", "tf-test-mps.test.local"),
+					resource.TestCheckResourceAttrSet("infinity_media_processing_server.media_processing_server-test", "app_id"),
+					resource.TestCheckResourceAttrSet("infinity_media_processing_server.media_processing_server-test", "public_jwt_key"),
 				),
 			},
 			// Test 3: Update with full config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_media_processing_server_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_media_processing_server.media_processing_server-test", "fqdn", "tf-test-mps-full.test.local"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "app_id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "public_jwt_key"),
+					resource.TestCheckResourceAttrSet("infinity_media_processing_server.media_processing_server-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_media_processing_server.media_processing_server-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_media_processing_server.media_processing_server-test", "fqdn", "tf-test-mps-full.test.local"),
+					resource.TestCheckResourceAttrSet("infinity_media_processing_server.media_processing_server-test", "app_id"),
+					resource.TestCheckResourceAttrSet("infinity_media_processing_server.media_processing_server-test", "public_jwt_key"),
 				),
 			},
 		},

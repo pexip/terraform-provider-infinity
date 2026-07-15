@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_device Resource - terraform-provider-pexip"
+page_title: "infinity_device Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity device configuration.
 ---
 
-# pexip_infinity_device (Resource)
+# infinity_device (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,27 +13,27 @@ description: |-
 
 ### Basic Device Configuration
 
-{{tffile "examples/resources/pexip_infinity_device/basic_device_configuration.tf"}}
+{{tffile "examples/resources/infinity_device/basic_device_configuration.tf"}}
 
 ### SIP Device with Authentication
 
-{{tffile "examples/resources/pexip_infinity_device/sip_device_with_authentication.tf"}}
+{{tffile "examples/resources/infinity_device/sip_device_with_authentication.tf"}}
 
 ### Video Conferencing Room System
 
-{{tffile "examples/resources/pexip_infinity_device/video_conferencing_room_system.tf"}}
+{{tffile "examples/resources/infinity_device/video_conferencing_room_system.tf"}}
 
 ### Infinity Connect Device with SSO
 
-{{tffile "examples/resources/pexip_infinity_device/infinity_connect_device_with_sso.tf"}}
+{{tffile "examples/resources/infinity_device/infinity_connect_device_with_sso.tf"}}
 
 ### Multiple Devices for Department
 
-{{tffile "examples/resources/pexip_infinity_device/multiple_devices_for_department.tf"}}
+{{tffile "examples/resources/infinity_device/multiple_devices_for_department.tf"}}
 
 ### Device with Full Configuration
 
-{{tffile "examples/resources/pexip_infinity_device/device_with_full_configuration.tf"}}
+{{tffile "examples/resources/infinity_device/device_with_full_configuration.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -42,7 +42,7 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_device.example 123
+terraform import infinity_device.example 123
 ```
 
 Where `123` is the numeric resource ID of the device.

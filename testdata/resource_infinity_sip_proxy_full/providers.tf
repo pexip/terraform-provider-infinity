@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-provider "pexip" {
+provider "infinity" {
   address  = "https://test.example.com"
   username = "admin"
   password = "password"

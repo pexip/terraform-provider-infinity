@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   aws_access_key                          = "non-default-aws-access-key"
   aws_secret_key                          = "non-default-aws-secret-key"
   azure_client_id                         = "11111111-2222-3333-4444-555555555555"

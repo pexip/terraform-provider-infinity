@@ -182,22 +182,22 @@ func testInfinityUserGroupEntityMapping(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_user_group_entity_mapping_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "description", "tf-test user group entity mapping description"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "entity_resource_uri"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "user_group"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "id"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_user_group_entity_mapping.tf-test-mapping", "description", "tf-test user group entity mapping description"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "entity_resource_uri"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "user_group"),
 				),
 			},
 			// Step 2: Update to min config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_user_group_entity_mapping_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "description", ""),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "entity_resource_uri"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "user_group"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "id"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_user_group_entity_mapping.tf-test-mapping", "description", ""),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "entity_resource_uri"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "user_group"),
 				),
 			},
 			// Step 3: Destroy
@@ -209,22 +209,22 @@ func testInfinityUserGroupEntityMapping(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_user_group_entity_mapping_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "description", ""),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "entity_resource_uri"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "user_group"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "id"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_user_group_entity_mapping.tf-test-mapping", "description", ""),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "entity_resource_uri"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "user_group"),
 				),
 			},
 			// Step 5: Update to full config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_user_group_entity_mapping_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "description", "tf-test user group entity mapping description"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "entity_resource_uri"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_user_group_entity_mapping.tf-test-mapping", "user_group"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "id"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_user_group_entity_mapping.tf-test-mapping", "description", "tf-test user group entity mapping description"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "entity_resource_uri"),
+					resource.TestCheckResourceAttrSet("infinity_user_group_entity_mapping.tf-test-mapping", "user_group"),
 				),
 			},
 		},

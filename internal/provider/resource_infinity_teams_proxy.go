@@ -51,7 +51,7 @@ type InfinityTeamsProxyResourceModel struct {
 }
 
 func (r *InfinityTeamsProxyResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_teams_proxy"
+	resp.TypeName = req.ProviderTypeName + "_teams_proxy"
 }
 
 func (r *InfinityTeamsProxyResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

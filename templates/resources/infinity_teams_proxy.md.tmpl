@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_teams_proxy Resource - terraform-provider-pexip"
+page_title: "infinity_teams_proxy Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity Teams proxy configuration.
 ---
 
-# pexip_infinity_teams_proxy (Resource)
+# infinity_teams_proxy (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,23 +13,23 @@ description: |-
 
 ### Basic Teams Proxy Configuration
 
-{{tffile "examples/resources/pexip_infinity_teams_proxy/basic_teams_proxy_configuration.tf"}}
+{{tffile "examples/resources/infinity_teams_proxy/basic_teams_proxy_configuration.tf"}}
 
 ### Teams Proxy with Event Hub Integration
 
-{{tffile "examples/resources/pexip_infinity_teams_proxy/teams_proxy_with_event_hub_integration.tf"}}
+{{tffile "examples/resources/infinity_teams_proxy/teams_proxy_with_event_hub_integration.tf"}}
 
 ### High Availability Teams Proxy
 
-{{tffile "examples/resources/pexip_infinity_teams_proxy/high_availability_teams_proxy.tf"}}
+{{tffile "examples/resources/infinity_teams_proxy/high_availability_teams_proxy.tf"}}
 
 ### Multi-Tenant Teams Proxy Setup
 
-{{tffile "examples/resources/pexip_infinity_teams_proxy/multi_tenant_teams_proxy_setup.tf"}}
+{{tffile "examples/resources/infinity_teams_proxy/multi_tenant_teams_proxy_setup.tf"}}
 
 ### Enterprise Teams Integration
 
-{{tffile "examples/resources/pexip_infinity_teams_proxy/enterprise_teams_integration.tf"}}
+{{tffile "examples/resources/infinity_teams_proxy/enterprise_teams_integration.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -38,7 +38,7 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_teams_proxy.example 123
+terraform import infinity_teams_proxy.example 123
 ```
 
 Where `123` is the numeric resource ID of the Teams proxy.

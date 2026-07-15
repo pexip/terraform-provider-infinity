@@ -232,39 +232,39 @@ func testInfinityAuthentication(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_authentication_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_authentication.authentication-test", "id"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "source", "LOCAL"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "client_certificate", "NO"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "api_oauth2_disable_basic", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "api_oauth2_allow_all_perms", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "api_oauth2_expiration", "7200"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_server", "ldap.example.com"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_base_dn", "dc=example,dc=com"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_bind_username", "CN=Service Account,OU=Service Accounts,DC=example,DC=com"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_authentication.authentication-test", "ldap_bind_password"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_user_search_dn", "OU=Users,DC=example,DC=com"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_user_filter", "(&(objectclass=person))"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_user_search_filter", "(|(uid={username}))"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_user_group_attributes", "memberOftest"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_group_search_dn", "OU=Groups,DC=example,DC=com"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_group_filter", "(|(objectclass=group)(objectclass=groupOfNames)(objectclass=groupOfUniqueNames)(objectclass=posixGroup)(objectclass=testGroup))"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_group_membership_filter", "(|(member={userdn})(uniquemember={userdn}))"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_use_global_catalog", "true"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_authentication.authentication-test", "ldap_permit_no_tls"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_metadata_url", "https://auth.example.com/.well-known/openid-configuration"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_client_id", "pexip-infinity-client-id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_authentication.authentication-test", "oidc_client_secret"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_auth_method", "private_key"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_authentication.authentication-test", "oidc_private_key"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_scope", "openid profile email groups"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_authorize_url", "https://auth.example.com/oauth2/authorize"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_token_endpoint_url", "https://auth.example.com/oauth2/token"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_username_field", "preferred_username_test"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_groups_field", "testgroups"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_required_key", "department"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_required_value", "IT"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_domain_hint", "example.com"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_login_button", "Sign in with Corporate SSO"),
+					resource.TestCheckResourceAttrSet("infinity_authentication.authentication-test", "id"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "source", "LOCAL"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "client_certificate", "NO"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "api_oauth2_disable_basic", "false"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "api_oauth2_allow_all_perms", "true"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "api_oauth2_expiration", "7200"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_server", "ldap.example.com"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_base_dn", "dc=example,dc=com"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_bind_username", "CN=Service Account,OU=Service Accounts,DC=example,DC=com"),
+					resource.TestCheckResourceAttrSet("infinity_authentication.authentication-test", "ldap_bind_password"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_user_search_dn", "OU=Users,DC=example,DC=com"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_user_filter", "(&(objectclass=person))"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_user_search_filter", "(|(uid={username}))"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_user_group_attributes", "memberOftest"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_group_search_dn", "OU=Groups,DC=example,DC=com"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_group_filter", "(|(objectclass=group)(objectclass=groupOfNames)(objectclass=groupOfUniqueNames)(objectclass=posixGroup)(objectclass=testGroup))"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_group_membership_filter", "(|(member={userdn})(uniquemember={userdn}))"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_use_global_catalog", "true"),
+					resource.TestCheckResourceAttrSet("infinity_authentication.authentication-test", "ldap_permit_no_tls"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_metadata_url", "https://auth.example.com/.well-known/openid-configuration"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_client_id", "pexip-infinity-client-id"),
+					resource.TestCheckResourceAttrSet("infinity_authentication.authentication-test", "oidc_client_secret"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_auth_method", "private_key"),
+					resource.TestCheckResourceAttrSet("infinity_authentication.authentication-test", "oidc_private_key"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_scope", "openid profile email groups"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_authorize_url", "https://auth.example.com/oauth2/authorize"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_token_endpoint_url", "https://auth.example.com/oauth2/token"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_username_field", "preferred_username_test"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_groups_field", "testgroups"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_required_key", "department"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_required_value", "IT"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_domain_hint", "example.com"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_login_button", "Sign in with Corporate SSO"),
 				),
 			},
 			// Step 2: Destroy — triggers Delete which must reset all fields to API defaults.
@@ -277,34 +277,34 @@ func testInfinityAuthentication(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_authentication_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_authentication.authentication-test", "id"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "source", "LOCAL"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "client_certificate", "NO"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "api_oauth2_disable_basic", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "api_oauth2_allow_all_perms", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "api_oauth2_expiration", "3600"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_server", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_base_dn", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_bind_username", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_user_filter", "(&(objectclass=person)(!(objectclass=computer)))"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_user_search_filter", "(|(uid={username})(sAMAccountName={username}))"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_user_group_attributes", "memberOf"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_group_filter", "(|(objectclass=group)(objectclass=groupOfNames)(objectclass=groupOfUniqueNames)(objectclass=posixGroup))"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_group_membership_filter", "(|(member={userdn})(uniquemember={userdn})(memberuid={useruid}))"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "ldap_use_global_catalog", "false"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_authentication.authentication-test", "ldap_permit_no_tls"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_metadata_url", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_client_id", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_auth_method", "client_secret"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_scope", "openid email profile"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_authorize_url", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_token_endpoint_url", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_username_field", "preferred_username"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_groups_field", "groups"),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_required_key", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_required_value", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_domain_hint", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_authentication.authentication-test", "oidc_login_button", ""),
+					resource.TestCheckResourceAttrSet("infinity_authentication.authentication-test", "id"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "source", "LOCAL"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "client_certificate", "NO"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "api_oauth2_disable_basic", "false"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "api_oauth2_allow_all_perms", "false"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "api_oauth2_expiration", "3600"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_server", ""),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_base_dn", ""),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_bind_username", ""),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_user_filter", "(&(objectclass=person)(!(objectclass=computer)))"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_user_search_filter", "(|(uid={username})(sAMAccountName={username}))"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_user_group_attributes", "memberOf"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_group_filter", "(|(objectclass=group)(objectclass=groupOfNames)(objectclass=groupOfUniqueNames)(objectclass=posixGroup))"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_group_membership_filter", "(|(member={userdn})(uniquemember={userdn})(memberuid={useruid}))"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "ldap_use_global_catalog", "false"),
+					resource.TestCheckResourceAttrSet("infinity_authentication.authentication-test", "ldap_permit_no_tls"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_metadata_url", ""),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_client_id", ""),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_auth_method", "client_secret"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_scope", "openid email profile"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_authorize_url", ""),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_token_endpoint_url", ""),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_username_field", "preferred_username"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_groups_field", "groups"),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_required_key", ""),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_required_value", ""),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_domain_hint", ""),
+					resource.TestCheckResourceAttr("infinity_authentication.authentication-test", "oidc_login_button", ""),
 				),
 			},
 		},
@@ -322,7 +322,7 @@ func TestInfinityAuthenticationValidation(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   source = "INVALID"
 }
 `,
@@ -330,7 +330,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   client_certificate = "INVALID"
 }
 `,
@@ -338,7 +338,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   oidc_auth_method = "INVALID"
 }
 `,
@@ -346,7 +346,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   ldap_server = "` + strings.Repeat("a", 256) + `"
 }
 `,
@@ -354,7 +354,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   ldap_base_dn = "` + strings.Repeat("a", 256) + `"
 }
 `,
@@ -362,7 +362,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   ldap_bind_username = "` + strings.Repeat("a", 256) + `"
 }
 `,
@@ -370,7 +370,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   ldap_bind_password = "` + strings.Repeat("a", 101) + `"
 }
 `,
@@ -378,7 +378,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   ldap_user_search_dn = "` + strings.Repeat("a", 256) + `"
 }
 `,
@@ -386,7 +386,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   ldap_user_filter = "` + strings.Repeat("a", 1025) + `"
 }
 `,
@@ -394,7 +394,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   ldap_user_search_filter = "` + strings.Repeat("a", 1025) + `"
 }
 `,
@@ -402,7 +402,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   ldap_user_group_attributes = "` + strings.Repeat("a", 101) + `"
 }
 `,
@@ -410,7 +410,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   ldap_group_search_dn = "` + strings.Repeat("a", 256) + `"
 }
 `,
@@ -418,7 +418,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   ldap_group_filter = "` + strings.Repeat("a", 1025) + `"
 }
 `,
@@ -426,7 +426,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   ldap_group_membership_filter = "` + strings.Repeat("a", 1025) + `"
 }
 `,
@@ -434,7 +434,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   oidc_domain_hint = "` + strings.Repeat("a", 256) + `"
 }
 `,
@@ -442,7 +442,7 @@ resource "pexip_infinity_authentication" "authentication-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   oidc_login_button = "` + strings.Repeat("a", 129) + `"
 }
 `,

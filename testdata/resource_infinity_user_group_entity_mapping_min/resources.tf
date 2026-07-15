@@ -4,21 +4,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_user_group" "tf-test-group" {
+resource "infinity_user_group" "tf-test-group" {
   name = "tf-test-user-group"
 }
 
-resource "pexip_infinity_conference" "tf-test-conference" {
+resource "infinity_conference" "tf-test-conference" {
   name         = "tf-test-conference"
   service_type = "conference"
 }
 
-resource "pexip_infinity_user_group_entity_mapping" "tf-test-mapping" {
-  entity_resource_uri = pexip_infinity_conference.tf-test-conference.id
-  user_group          = pexip_infinity_user_group.tf-test-group.id
+resource "infinity_user_group_entity_mapping" "tf-test-mapping" {
+  entity_resource_uri = infinity_conference.tf-test-conference.id
+  user_group          = infinity_user_group.tf-test-group.id
 
   depends_on = [
-    pexip_infinity_user_group.tf-test-group,
-    pexip_infinity_conference.tf-test-conference
+    infinity_user_group.tf-test-group,
+    infinity_conference.tf-test-conference
   ]
 }

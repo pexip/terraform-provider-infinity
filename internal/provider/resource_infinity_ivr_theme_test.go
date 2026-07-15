@@ -73,42 +73,42 @@ func testInfinityIvrTheme(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_ivr_theme_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_ivr_theme.ivr_theme-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_ivr_theme.ivr_theme-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme-full"),
+					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme-full"),
 				),
 			},
 			// Step 2: Update to min config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_ivr_theme_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_ivr_theme.ivr_theme-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_ivr_theme.ivr_theme-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme"),
+					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme"),
 				),
 			},
 			// Step 3: Delete
 			{
 				Config:       test.LoadTestFolder(t, "resource_infinity_ivr_theme_min"),
-				ResourceName: "pexip_infinity_ivr_theme.ivr_theme-test",
+				ResourceName: "infinity_ivr_theme.ivr_theme-test",
 				Destroy:      true,
 			},
 			// Step 4: Create with min config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_ivr_theme_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_ivr_theme.ivr_theme-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_ivr_theme.ivr_theme-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme"),
+					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme"),
 				),
 			},
 			// Step 5: Update to full config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_ivr_theme_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_ivr_theme.ivr_theme-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_ivr_theme.ivr_theme-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme-full"),
+					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme-full"),
 				),
 			},
 		},

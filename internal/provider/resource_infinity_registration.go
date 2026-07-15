@@ -50,7 +50,7 @@ type InfinityRegistrationResourceModel struct {
 }
 
 func (r *InfinityRegistrationResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_registration"
+	resp.TypeName = req.ProviderTypeName + "_registration"
 }
 
 func (r *InfinityRegistrationResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

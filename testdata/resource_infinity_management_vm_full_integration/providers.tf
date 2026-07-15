@@ -6,8 +6,8 @@
 
 terraform {
   required_providers {
-    pexip = {
-      source  = "pexip"
+    infinity = {
+      source  = "hashicorp/infinity"
       version = "0.0.1"
     }
     tls = {
@@ -17,7 +17,7 @@ terraform {
   }
 }
 
-provider "pexip" {
+provider "infinity" {
   address  = "https://dev-manager.dev.pexip.network"
   username = "admin"
   password = "admin"

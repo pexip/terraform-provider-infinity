@@ -33,19 +33,19 @@ func testInfinitySSHPasswordHash(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_ssh_password_hash_basic"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_ssh_password_hash.ssh_password_hash-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_ssh_password_hash.ssh_password_hash-test", "hash"),
-					resource.TestCheckResourceAttr("pexip_infinity_ssh_password_hash.ssh_password_hash-test", "rounds", "5000"),
-					resource.TestCheckResourceAttr("pexip_infinity_ssh_password_hash.ssh_password_hash-test", "salt", "abcdefghijklmnop"),
+					resource.TestCheckResourceAttrSet("infinity_ssh_password_hash.ssh_password_hash-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_ssh_password_hash.ssh_password_hash-test", "hash"),
+					resource.TestCheckResourceAttr("infinity_ssh_password_hash.ssh_password_hash-test", "rounds", "5000"),
+					resource.TestCheckResourceAttr("infinity_ssh_password_hash.ssh_password_hash-test", "salt", "abcdefghijklmnop"),
 				),
 			},
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_ssh_password_hash_basic_updated"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_ssh_password_hash.ssh_password_hash-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_ssh_password_hash.ssh_password_hash-test", "hash"),
-					resource.TestCheckResourceAttr("pexip_infinity_ssh_password_hash.ssh_password_hash-test", "rounds", "6000"),
-					resource.TestCheckResourceAttr("pexip_infinity_ssh_password_hash.ssh_password_hash-test", "salt", "qrstuvwxyzabcdef"),
+					resource.TestCheckResourceAttrSet("infinity_ssh_password_hash.ssh_password_hash-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_ssh_password_hash.ssh_password_hash-test", "hash"),
+					resource.TestCheckResourceAttr("infinity_ssh_password_hash.ssh_password_hash-test", "rounds", "6000"),
+					resource.TestCheckResourceAttr("infinity_ssh_password_hash.ssh_password_hash-test", "salt", "qrstuvwxyzabcdef"),
 				),
 			},
 		},

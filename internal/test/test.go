@@ -19,9 +19,9 @@ import (
 )
 
 var (
-	INFINITY_USERNAME = helpers.GetEnvStringOrDefault("PEXIP_USERNAME", "admin")
-	INFINITY_PASSWORD = helpers.GetEnvStringOrDefault("PEXIP_PASSWORD", "admin")
-	INFINITY_BASE_URL = helpers.GetEnvStringOrDefault("PEXIP_ADDRESS", "https://dev-manager.dev.pexip.network")
+	INFINITY_USERNAME = helpers.GetEnvStringOrDefault("INFINITY_USERNAME", "admin")
+	INFINITY_PASSWORD = helpers.GetEnvStringOrDefault("INFINITY_PASSWORD", "admin")
+	INFINITY_BASE_URL = helpers.GetEnvStringOrDefault("INFINITY_ADDRESS", "https://dev-manager.dev.pexip.network")
 )
 
 func GetTestdataLocation() (string, error) {

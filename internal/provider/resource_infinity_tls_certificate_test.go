@@ -94,19 +94,19 @@ func testInfinityTLSCertificate(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_tls_certificate"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_tls_certificate.tls-cert-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_tls_certificate.tls-cert-test", "resource_id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_tls_certificate.tls-cert-test", "certificate"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_tls_certificate.tls-cert-test", "private_key"),
+					resource.TestCheckResourceAttrSet("infinity_tls_certificate.tls-cert-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_tls_certificate.tls-cert-test", "resource_id"),
+					resource.TestCheckResourceAttrSet("infinity_tls_certificate.tls-cert-test", "certificate"),
+					resource.TestCheckResourceAttrSet("infinity_tls_certificate.tls-cert-test", "private_key"),
 				),
 			},
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_tls_certificate_updated"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_tls_certificate.tls-cert-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_tls_certificate.tls-cert-test", "resource_id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_tls_certificate.tls-cert-test", "certificate"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_tls_certificate.tls-cert-test", "private_key"),
+					resource.TestCheckResourceAttrSet("infinity_tls_certificate.tls-cert-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_tls_certificate.tls-cert-test", "resource_id"),
+					resource.TestCheckResourceAttrSet("infinity_tls_certificate.tls-cert-test", "certificate"),
+					resource.TestCheckResourceAttrSet("infinity_tls_certificate.tls-cert-test", "private_key"),
 				),
 			},
 		},

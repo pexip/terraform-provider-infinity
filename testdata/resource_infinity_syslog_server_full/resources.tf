@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-resource "pexip_infinity_syslog_server" "tf-test-syslog-server" {
+resource "infinity_syslog_server" "tf-test-syslog-server" {
   address      = "syslog-full.example.com"
   description  = "tf-test syslog server description"
   port         = 1514

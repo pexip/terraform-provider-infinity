@@ -77,7 +77,7 @@ type InfinityManagementVMResourceModel struct {
 }
 
 func (r *InfinityManagementVMResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_management_vm"
+	resp.TypeName = req.ProviderTypeName + "_management_vm"
 }
 
 func (r *InfinityManagementVMResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

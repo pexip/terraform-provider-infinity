@@ -10,9 +10,9 @@ page_title: "Common Issues and FAQs"
 When deploying the management node for the first time, `insecure` must be set to `true` for the provider. This is because the manager is initially configured with a self-signed certificate. Once a cert signed by a trusted CA has been assigned to the manager, then `insecure` can be set to `false`.
 
 #### DNS & NTP
-The DNS and NTP servers defined in the `pexip_infinity_manager_config` are added to the DNS and NTP servers in Infinity, but they are not added to the Terraform state. This means if the same DNS and NTP servers are also configured as resources in the Terraform configuration, and error will occur when the configuration is applied because the resources already exist in Infinity. 
+The DNS and NTP servers defined in the `infinity_manager_config` are added to the DNS and NTP servers in Infinity, but they are not added to the Terraform state. This means if the same DNS and NTP servers are also configured as resources in the Terraform configuration, and error will occur when the configuration is applied because the resources already exist in Infinity. 
 
-There are two ways to address this. First, use temporary values in the `pexip_infinity_manager_config`. Then add the DNS and NTP servers that should be used in the Terraform config and assign them to the management node in the `management_vm` resource. The second option would be to import the DNS and NTP servers set in the `pexip_infinity_manager_config` into the Terraform config.
+There are two ways to address this. First, use temporary values in the `infinity_manager_config`. Then add the DNS and NTP servers that should be used in the Terraform config and assign them to the management node in the `management_vm` resource. The second option would be to import the DNS and NTP servers set in the `infinity_manager_config` into the Terraform config.
 
 ### Circular references
 

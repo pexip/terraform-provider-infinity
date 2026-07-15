@@ -86,20 +86,20 @@ func testInfinityLogLevel(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_log_level_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_log_level.log_level-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_log_level.log_level-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_log_level.log_level-test", "name", "tf-test-log-level-full"),
-					resource.TestCheckResourceAttr("pexip_infinity_log_level.log_level-test", "level", "CRITICAL"),
+					resource.TestCheckResourceAttrSet("infinity_log_level.log_level-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_log_level.log_level-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_log_level.log_level-test", "name", "tf-test-log-level-full"),
+					resource.TestCheckResourceAttr("infinity_log_level.log_level-test", "level", "CRITICAL"),
 				),
 			},
 			// Step 2: Update to min config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_log_level_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_log_level.log_level-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_log_level.log_level-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_log_level.log_level-test", "name", "tf-test-log-level"),
-					resource.TestCheckResourceAttr("pexip_infinity_log_level.log_level-test", "level", "NOTSET"),
+					resource.TestCheckResourceAttrSet("infinity_log_level.log_level-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_log_level.log_level-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_log_level.log_level-test", "name", "tf-test-log-level"),
+					resource.TestCheckResourceAttr("infinity_log_level.log_level-test", "level", "NOTSET"),
 				),
 			},
 			// Step 3: Destroy
@@ -111,20 +111,20 @@ func testInfinityLogLevel(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_log_level_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_log_level.log_level-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_log_level.log_level-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_log_level.log_level-test", "name", "tf-test-log-level"),
-					resource.TestCheckResourceAttr("pexip_infinity_log_level.log_level-test", "level", "NOTSET"),
+					resource.TestCheckResourceAttrSet("infinity_log_level.log_level-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_log_level.log_level-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_log_level.log_level-test", "name", "tf-test-log-level"),
+					resource.TestCheckResourceAttr("infinity_log_level.log_level-test", "level", "NOTSET"),
 				),
 			},
 			// Step 5: Update to full config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_log_level_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_log_level.log_level-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_log_level.log_level-test", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_log_level.log_level-test", "name", "tf-test-log-level-full"),
-					resource.TestCheckResourceAttr("pexip_infinity_log_level.log_level-test", "level", "CRITICAL"),
+					resource.TestCheckResourceAttrSet("infinity_log_level.log_level-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_log_level.log_level-test", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_log_level.log_level-test", "name", "tf-test-log-level-full"),
+					resource.TestCheckResourceAttr("infinity_log_level.log_level-test", "level", "CRITICAL"),
 				),
 			},
 		},

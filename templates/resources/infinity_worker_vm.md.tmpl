@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_worker_vm Resource - terraform-provider-pexip"
+page_title: "infinity_worker_vm Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity worker VM configuration.
 ---
 
-# pexip_infinity_worker_vm (Resource)
+# infinity_worker_vm (Resource)
 
 {{ .Description | trimspace }}
 
@@ -17,7 +17,7 @@ A conferencing node can perform one of two roles: transcoding or proxying. The r
 
 ### Basic Usage
 
-{{tffile "examples/resources/pexip_infinity_worker_vm/basic_usage.tf"}}
+{{tffile "examples/resources/infinity_worker_vm/basic_usage.tf"}}
 
 ### Deploy a Conferencing Node in GCP
 
@@ -25,7 +25,7 @@ This example shows how to deploy a conferencing node in GCP with a static NAT ad
 
 For more info on deploying a VM in GCP with Terraform, see the [Google Compute Instance documentation](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance).
 
-{{tffile "examples/resources/pexip_infinity_worker_vm/gcp_basic.tf"}}
+{{tffile "examples/resources/infinity_worker_vm/gcp_basic.tf"}}
 
 {{ .SchemaMarkdown }}
 ## Import
@@ -33,7 +33,7 @@ For more info on deploying a VM in GCP with Terraform, see the [Google Compute I
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_worker_vm.example 123
+terraform import infinity_worker_vm.example 123
 ```
 
 Where `123` is the numeric resource ID of the worker VM.

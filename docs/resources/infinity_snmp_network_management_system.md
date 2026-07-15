@@ -5,7 +5,7 @@ Manages an SNMP network management system. SNMP network management systems recei
 ## Example Usage
 
 ```terraform
-resource "pexip_infinity_snmp_network_management_system" "example" {
+resource "infinity_snmp_network_management_system" "example" {
   name                = "Primary NMS"
   description         = "Primary network management system for monitoring"
   address             = "nms.example.com"
@@ -40,7 +40,7 @@ resource "pexip_infinity_snmp_network_management_system" "example" {
 SNMP network management systems can be imported using their resource ID:
 
 ```bash
-terraform import pexip_infinity_snmp_network_management_system.example 123
+terraform import infinity_snmp_network_management_system.example 123
 ```
 
 ## Security Notes

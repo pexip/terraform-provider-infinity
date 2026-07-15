@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_mjx_graph_deployment" "test" {
+resource "infinity_mjx_graph_deployment" "test" {
   name             = "tf-test mjx-graph-deployment full"
   description      = "Test MJX Graph deployment description"
   client_id        = "a1b2c3d4-e5f6-7890-abcd-ef1234567890"

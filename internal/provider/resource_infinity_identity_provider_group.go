@@ -41,7 +41,7 @@ type InfinityIdentityProviderGroupResourceModel struct {
 }
 
 func (r *InfinityIdentityProviderGroupResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_identity_provider_group"
+	resp.TypeName = req.ProviderTypeName + "_identity_provider_group"
 }
 
 func (r *InfinityIdentityProviderGroupResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

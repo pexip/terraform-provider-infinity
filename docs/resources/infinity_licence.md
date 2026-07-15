@@ -5,7 +5,7 @@ Manages a licence configuration. This resource activates licences using entitlem
 ## Example Usage
 
 ```terraform
-resource "pexip_infinity_licence" "example" {
+resource "infinity_licence" "example" {
   entitlement_id = "ENT123456-7890-ABCD-EF01-234567890123"
 }
 ```
@@ -49,7 +49,7 @@ resource "pexip_infinity_licence" "example" {
 Licences can be imported using their fulfillment ID:
 
 ```bash
-terraform import pexip_infinity_licence.example FUL123456-7890-ABCD-EF01-234567890123
+terraform import infinity_licence.example FUL123456-7890-ABCD-EF01-234567890123
 ```
 
 ## Notes

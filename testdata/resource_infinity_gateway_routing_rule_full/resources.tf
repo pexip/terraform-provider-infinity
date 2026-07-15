@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_gateway_routing_rule" "tf-test-gateway-routing-rule" {
+resource "infinity_gateway_routing_rule" "tf-test-gateway-routing-rule" {
   name                            = "tf-test-gateway-routing-rule"
   description                     = "tf-test Gateway Routing Rule Description"
   match_string                    = ".*@example.com"
@@ -44,7 +44,7 @@ resource "pexip_infinity_gateway_routing_rule" "tf-test-gateway-routing-rule" {
   ivr_theme                        = "/api/admin/configuration/v1/ivr_theme/2/"
 }
 
-resource "pexip_infinity_gateway_routing_rule" "tf-test-gateway-routing-rule-registered" {
+resource "infinity_gateway_routing_rule" "tf-test-gateway-routing-rule-registered" {
   name                              = "tf-test-gateway-routing-rule-registered"
   match_string                      = ".*@registered.com"
   priority                          = 67

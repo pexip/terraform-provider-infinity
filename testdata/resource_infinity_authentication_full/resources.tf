@@ -10,7 +10,7 @@ resource "tls_private_key" "oidc" {
   rsa_bits  = 4096
 }
 
-resource "pexip_infinity_authentication" "authentication-test" {
+resource "infinity_authentication" "authentication-test" {
   # For testing purposes, we set all fields to non-default values but leave the source as LOCAL, otherwise all the other settings would be validated.
   #source = "LOCAL"
   # client_certificate and api_oauth2_disable_basic should not be set or Terraform will not be able to access the mgmt API

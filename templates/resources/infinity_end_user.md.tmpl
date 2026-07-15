@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_end_user Resource - terraform-provider-pexip"
+page_title: "infinity_end_user Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity end user account configuration.
 ---
 
-# pexip_infinity_end_user (Resource)
+# infinity_end_user (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,27 +13,27 @@ description: |-
 
 ### Basic End User
 
-{{tffile "examples/resources/pexip_infinity_end_user/basic_end_user.tf"}}
+{{tffile "examples/resources/infinity_end_user/basic_end_user.tf"}}
 
 ### Complete User Profile
 
-{{tffile "examples/resources/pexip_infinity_end_user/complete_user_profile.tf"}}
+{{tffile "examples/resources/infinity_end_user/complete_user_profile.tf"}}
 
 ### User with Group Memberships
 
-{{tffile "examples/resources/pexip_infinity_end_user/user_with_group_memberships.tf"}}
+{{tffile "examples/resources/infinity_end_user/user_with_group_memberships.tf"}}
 
 ### Exchange Integration User
 
-{{tffile "examples/resources/pexip_infinity_end_user/exchange_integration_user.tf"}}
+{{tffile "examples/resources/infinity_end_user/exchange_integration_user.tf"}}
 
 ### Bulk User Creation
 
-{{tffile "examples/resources/pexip_infinity_end_user/bulk_user_creation.tf"}}
+{{tffile "examples/resources/infinity_end_user/bulk_user_creation.tf"}}
 
 ### Users with Avatar and Contact Information
 
-{{tffile "examples/resources/pexip_infinity_end_user/users_with_avatar_and_contact_information.tf"}}
+{{tffile "examples/resources/infinity_end_user/users_with_avatar_and_contact_information.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -42,7 +42,7 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_end_user.example 123
+terraform import infinity_end_user.example 123
 ```
 
 Where `123` is the numeric resource ID of the end user.

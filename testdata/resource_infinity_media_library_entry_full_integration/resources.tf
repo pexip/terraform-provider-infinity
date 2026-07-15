@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_media_library_entry" "media_library_entry-test" {
+resource "infinity_media_library_entry" "media_library_entry-test" {
   name        = "tf-test-media-library-entry"
   description = "tf-test media library entry description"
   media_file  = "${path.module}/rain.mp4"

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_ldap_sync_source" "ldap_sync_source-test" {
+resource "infinity_ldap_sync_source" "ldap_sync_source-test" {
   name                    = "ldap_sync_source-test"
   description             = "Updated Test LdapSyncSource" // Updated description
   ldap_server             = "updated-value"               // Updated value

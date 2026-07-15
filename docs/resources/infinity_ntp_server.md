@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_ntp_server Resource - terraform-provider-pexip"
+page_title: "infinity_ntp_server Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity NTP server configuration.
 ---
 
-# pexip_infinity_ntp_server (Resource)
+# infinity_ntp_server (Resource)
 
 Registers a NTP server.
 
@@ -14,7 +14,7 @@ Registers a NTP server.
 ### Basic Usage
 
 ```terraform
-resource "pexip_infinity_ntp_server" "primary_ntp" {
+resource "infinity_ntp_server" "primary_ntp" {
   address = "pool.ntp.org"
 }
 ```
@@ -22,12 +22,12 @@ resource "pexip_infinity_ntp_server" "primary_ntp" {
 ### NTP Server with Description
 
 ```terraform
-resource "pexip_infinity_ntp_server" "primary_ntp" {
+resource "infinity_ntp_server" "primary_ntp" {
   address     = "pool.ntp.org"
   description = "Primary NTP pool server"
 }
 
-resource "pexip_infinity_ntp_server" "secondary_ntp" {
+resource "infinity_ntp_server" "secondary_ntp" {
   address     = "time.cloudflare.com"
   description = "Cloudflare NTP server"
 }
@@ -36,18 +36,18 @@ resource "pexip_infinity_ntp_server" "secondary_ntp" {
 ### Corporate NTP Configuration
 
 ```terraform
-resource "pexip_infinity_ntp_server" "internal_ntp_primary" {
+resource "infinity_ntp_server" "internal_ntp_primary" {
   address     = "ntp1.company.com"
   description = "Primary internal NTP server"
 }
 
-resource "pexip_infinity_ntp_server" "internal_ntp_secondary" {
+resource "infinity_ntp_server" "internal_ntp_secondary" {
   address     = "ntp2.company.com"
   description = "Secondary internal NTP server"
 }
 
 # IP address based NTP server
-resource "pexip_infinity_ntp_server" "ip_based_ntp" {
+resource "infinity_ntp_server" "ip_based_ntp" {
   address     = "10.0.1.100"
   description = "Internal NTP server by IP"
 }
@@ -57,7 +57,7 @@ resource "pexip_infinity_ntp_server" "ip_based_ntp" {
 
 ```terraform
 # Public NTP servers
-resource "pexip_infinity_ntp_server" "public_ntp" {
+resource "infinity_ntp_server" "public_ntp" {
   count       = length(var.ntp_servers)
   address     = var.ntp_servers[count.index]
   description = "Public NTP server ${count.index + 1}"
@@ -72,7 +72,7 @@ locals {
   }
 }
 
-resource "pexip_infinity_ntp_server" "regional_ntp" {
+resource "infinity_ntp_server" "regional_ntp" {
   for_each    = toset(local.regional_ntp_servers[var.region])
   address     = each.value
   description = "Regional NTP server for ${var.region} - ${each.value}"
@@ -83,7 +83,7 @@ resource "pexip_infinity_ntp_server" "regional_ntp" {
 
 ```terraform
 # Stratum 1 NTP servers (high accuracy)
-resource "pexip_infinity_ntp_server" "stratum1_ntp" {
+resource "infinity_ntp_server" "stratum1_ntp" {
   for_each = toset([
     "time.nist.gov",
     "time-a.nist.gov",
@@ -117,7 +117,7 @@ resource "pexip_infinity_ntp_server" "stratum1_ntp" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_ntp_server.example 123
+terraform import infinity_ntp_server.example 123
 ```
 
 Where `123` is the numeric resource ID of the NTP server.

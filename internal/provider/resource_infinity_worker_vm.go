@@ -94,7 +94,7 @@ type InfinityWorkerVMResourceModel struct {
 }
 
 func (r *InfinityWorkerVMResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_worker_vm"
+	resp.TypeName = req.ProviderTypeName + "_worker_vm"
 }
 
 func (r *InfinityWorkerVMResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -7,7 +7,7 @@ Manages webapp branding configuration. Webapp branding allows customization of t
 ### With Auto-Generated UUID
 
 ```terraform
-resource "pexip_infinity_webapp_branding" "example" {
+resource "infinity_webapp_branding" "example" {
   name          = "Corporate Branding"
   description   = "Corporate branding for Pexip web applications"
   webapp_type   = "webapp1"
@@ -20,7 +20,7 @@ resource "pexip_infinity_webapp_branding" "example" {
 ### With Custom UUID
 
 ```terraform
-resource "pexip_infinity_webapp_branding" "example_custom_uuid" {
+resource "infinity_webapp_branding" "example_custom_uuid" {
   name          = "Corporate Branding"
   description   = "Corporate branding for Pexip web applications"
   uuid          = "12345678-1234-1234-1234-123456789012"
@@ -57,7 +57,7 @@ resource "pexip_infinity_webapp_branding" "example_custom_uuid" {
 Webapp branding configurations can be imported using their UUID:
 
 ```bash
-terraform import pexip_infinity_webapp_branding.example "12345678-1234-1234-1234-123456789012"
+terraform import infinity_webapp_branding.example "12345678-1234-1234-1234-123456789012"
 ```
 
 ## Webapp Types

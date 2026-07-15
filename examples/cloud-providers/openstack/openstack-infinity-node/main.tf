@@ -6,22 +6,22 @@
 
 locals {
   hostname         = "${var.environment}-worker-${var.index}"
-  check_status_url = "https://${var.mgr_public_ip}/api/admin/status/v1/worker_vm/${pexip_infinity_worker_vm.worker.resource_id}/"
-  user_data        = jsonencode(pexip_infinity_worker_vm.worker.config)
+  check_status_url = "https://${var.mgr_public_ip}/api/admin/status/v1/worker_vm/${infinity_worker_vm.worker.resource_id}/"
+  user_data        = jsonencode(infinity_worker_vm.worker.config)
 }
 
-resource "pexip_infinity_ssh_password_hash" "default" {
+resource "infinity_ssh_password_hash" "default" {
   password = var.password
 }
 
-resource "pexip_infinity_worker_vm" "worker" {
+resource "infinity_worker_vm" "worker" {
   name               = local.hostname
   hostname           = local.hostname
   address            = openstack_networking_port_v2.infinity-cnf-port.all_fixed_ips.0
   netmask            = cidrnetmask(data.openstack_networking_subnet_v2.cnf-private-subnet.cidr)
   gateway            = data.openstack_networking_subnet_v2.cnf-private-subnet.gateway_ip
   domain             = var.domain
-  password           = pexip_infinity_ssh_password_hash.default.hash
+  password           = infinity_ssh_password_hash.default.hash
   node_type          = var.node_type
   system_location    = var.system_location
   transcoding        = var.transcoding

@@ -5,7 +5,7 @@ Manages an MJX integration (One-Touch Join Profile). An MJX integration connects
 ## Example Usage
 
 ```terraform
-resource "pexip_infinity_mjx_integration" "example" {
+resource "infinity_mjx_integration" "example" {
   name                          = "Corporate MJX Integration"
   description                   = "MJX integration for corporate calendar systems"
   display_upcoming_meetings     = 5
@@ -72,5 +72,5 @@ resource "pexip_infinity_mjx_integration" "example" {
 MJX integrations can be imported using their resource ID:
 
 ```bash
-terraform import pexip_infinity_mjx_integration.example 123
+terraform import infinity_mjx_integration.example 123
 ```

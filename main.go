@@ -14,11 +14,11 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 
-	pexipProvider "github.com/pexip/terraform-provider-infinity/internal/provider"
+	infinityProvider "github.com/pexip/terraform-provider-infinity/internal/provider"
 )
 
 func createProvider() func() provider.Provider {
-	return pexipProvider.New
+	return infinityProvider.New
 }
 
 func main() {

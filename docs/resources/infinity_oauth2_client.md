@@ -5,7 +5,7 @@ Manages an OAuth2 client. OAuth2 clients are used for API access and automation,
 ## Example Usage
 
 ```terraform
-resource "pexip_infinity_oauth2_client" "example" {
+resource "infinity_oauth2_client" "example" {
   client_name = "API Automation Client"
   role        = "/configuration/v1/system_location/1/role/1/"
 }
@@ -33,7 +33,7 @@ resource "pexip_infinity_oauth2_client" "example" {
 OAuth2 clients can be imported using their client ID:
 
 ```bash
-terraform import pexip_infinity_oauth2_client.example 12345
+terraform import infinity_oauth2_client.example 12345
 ```
 
 Note: The `private_key_jwt` field will not be available for imported resources as it's only provided during initial creation.

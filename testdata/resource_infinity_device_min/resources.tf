@@ -4,6 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_device" "tf-test-device" {
+resource "infinity_device" "tf-test-device" {
   alias = "tf-test-device"
 }

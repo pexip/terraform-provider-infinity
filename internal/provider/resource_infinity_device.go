@@ -51,7 +51,7 @@ type InfinityDeviceResourceModel struct {
 }
 
 func (r *InfinityDeviceResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_device"
+	resp.TypeName = req.ProviderTypeName + "_device"
 }
 
 func (r *InfinityDeviceResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

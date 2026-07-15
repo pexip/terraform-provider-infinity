@@ -17,14 +17,14 @@ When performing the initial deployment of the mangement node, the Infinity provi
 ```terraform
 terraform {
   required_providers {
-    pexip = {
+    infinity = {
       source  = "pexip/infinity"
       version = "~> 0.9.11"
     }
   }
 }
 
-provider "pexip" {
+provider "infinity" {
   address  = "https://manager.example.com"
   username = "admin"
   password = "secure_password"
@@ -37,10 +37,10 @@ provider "pexip" {
 You can also configure the provider using environment variables:
 
 ```bash
-export PEXIP_ADDRESS="https://manager.example.com"
-export PEXIP_USERNAME="admin"
-export PEXIP_PASSWORD="secure_password"
-export PEXIP_INSECURE="true"
+export INFINITY_ADDRESS="https://manager.example.com"
+export INFINITY_USERNAME="admin"
+export INFINITY_PASSWORD="secure_password"
+export INFINITY_INSECURE="true"
 ```
 
 ## Example Usage
@@ -50,14 +50,14 @@ export PEXIP_INSECURE="true"
 Here is a configuration example that deploys a managment node into GCP. There are several resources that must be configured.
 
 #### SSH and web passwords
-The deployment of the management node requires that both the `admin_password` and the `pass` need to be hashed a particular way. The `admin_passowrd` is used when accessing the cli of the management node either via the console or SSH. The `pass` is the web admin account password. Both passwords have a resource in the provider that hashes the passwords in the correct way. `pexip_infinity_ssh_password_hash` is for `admin_password` and `pexip_infinity_web_password_hash` is for the `pass`.
+The deployment of the management node requires that both the `admin_password` and the `pass` need to be hashed a particular way. The `admin_passowrd` is used when accessing the cli of the management node either via the console or SSH. The `pass` is the web admin account password. Both passwords have a resource in the provider that hashes the passwords in the correct way. `infinity_ssh_password_hash` is for `admin_password` and `infinity_web_password_hash` is for the `pass`.
 
 #### Manager config
-To deploy the management node, the data resource `pexip_infinity_manager_config` must be created. This data holds the settings that would normally be entered in the installation wizard that runs when the management node is booted up for the first time. The manager config is then used by the VM that is deployed into the cloud provider.
+To deploy the management node, the data resource `infinity_manager_config` must be created. This data holds the settings that would normally be entered in the installation wizard that runs when the management node is booted up for the first time. The manager config is then used by the VM that is deployed into the cloud provider.
 
 #### GCP VM
 Next is the actual VM. This is created as a typical `google_compute_instance` resource. Some items to note: 
-* `metadata` refers to the `pexip_infinity_manager_config`.
+* `metadata` refers to the `infinity_manager_config`.
 * `image` refers to the GCP custom disk image. [For details on creating this image see here](https://docs.pexip.com/admin/gcp_disk_images.htm).
 * The `lifecycle` block ignores changes to `metadata["management_node_config"]` and `bootdisk[0]`. `metadata["management_node_config"]` is only used when the VM is created and should be removed after deployment (more on this below). `boot_disk[0].initialize_params[0].image` is ignored so that the Infinity image can be updated in the configuration without affecting the manager.
 * Network tags have been applied to allow HTTPS access to the manager and allow IPsec between other nodes.
@@ -66,18 +66,18 @@ Next is the actual VM. This is created as a typical `google_compute_instance` re
 There are two null resources. `wait_for_infinity_manager_http` is used to determine when the management node is up and ready to accept management requests. Infinity resources must have an explicit dependency on this resource, otherwise Terraform will attempt to create them before the management node is fully up and running. `remove_metadata_key` automates the removal of the `management_node_config` from the VM metadata.
 
 #### Infinity license resource
-Finally there is a `pexip_infinity_licence` resource. Note the `depends_on` statement that references the `wait_for_infinity_manager_http` null resource. All Infinity resources must have the same explicit dependency, otherwise an error may occur during deployment.
+Finally there is a `infinity_licence` resource. Note the `depends_on` statement that references the `wait_for_infinity_manager_http` null resource. All Infinity resources must have the same explicit dependency, otherwise an error may occur during deployment.
 
 ```terraform
-resource "pexip_infinity_ssh_password_hash" "default" {
+resource "infinity_ssh_password_hash" "default" {
   password = var.admin_password
 }
 
-resource "pexip_infinity_web_password_hash" "default" {
+resource "infinity_web_password_hash" "default" {
   password = var.password
 }
 
-data "pexip_infinity_manager_config" "config" {
+data "infinity_manager_config" "config" {
   hostname              = var.mgr_hostname
   domain                = var.domain
   ip                    = var.mgr_prv_ip_address
@@ -86,8 +86,8 @@ data "pexip_infinity_manager_config" "config" {
   dns                   = var.dns_server
   ntp                   = var.ntp_server
   user                  = var.username
-  pass                  = pexip_infinity_web_password_hash.default.hash
-  admin_password        = pexip_infinity_ssh_password_hash.default.hash
+  pass                  = infinity_web_password_hash.default.hash
+  admin_password        = infinity_ssh_password_hash.default.hash
   error_reports         = var.report_errors
   enable_analytics      = var.enable_analytics
   contact_email_address = var.contact_email_address
@@ -103,7 +103,7 @@ resource "google_compute_instance" "infinity_manager" {
   labels                    = var.labels
 
   metadata = {
-    management_node_config = data.pexip_infinity_manager_config.config.management_node_config
+    management_node_config = data.infinity_manager_config.config.management_node_config
   }
 
   boot_disk {
@@ -176,7 +176,7 @@ resource "null_resource" "remove_metadata_key" {
   }
 }
 
-resource "pexip_infinity_licence" "license" {
+resource "infinity_licence" "license" {
   entitlement_id = var.license_key
 
   depends_on = [
@@ -208,31 +208,31 @@ The VM is also deployed using as GCP VM. Some items to note:
 There are two null resources that are used to remove the `metadata["conferencing_node_config"]`. Before removing the metadata, the conferencing node must sync with the manager. `wait_for_infinity_node_http` is used to determine when the conferencing node has synced with the management node. Once the node has synced, `remove_metadata_key_cnf` automates the removal of the `conferencing_node_config` from the VM metadata.
 
 ```
-resource "pexip_infinity_dns_server" "gcp_dns" {
+resource "infinity_dns_server" "gcp_dns" {
   address    = "169.254.169.254"
   depends_on = [null_resource.wait_for_infinity_manager_http]
 }
 
-resource "pexip_infinity_ntp_server" "gcp_ntp" {
+resource "infinity_ntp_server" "gcp_ntp" {
   address    = "169.254.169.254"
   depends_on = [null_resource.wait_for_infinity_manager_http]
 }
 
-resource "pexip_infinity_system_location" "dc1" {
+resource "infinity_system_location" "dc1" {
   name        = "DC1"
-  dns_servers = [pexip_infinity_dns_server.gcp.id]
-  ntp_servers = [pexip_infinity_ntp_server.gcp.id]
+  dns_servers = [infinity_dns_server.gcp.id]
+  ntp_servers = [infinity_ntp_server.gcp.id]
   mtu         = 1460 # GCP default
 }
 
-resource "pexip_infinity_worker_vm" "worker" {
+resource "infinity_worker_vm" "worker" {
   name                        = var.cnf_hostname
   hostname                    = var.cnf_hostname
   address                     = var.cnf_prv_ip_address
   netmask                     = "255.255.255.255" # GCP requires /32
   domain                      = var.domain
   gateway                     = var.default_gateway
-  system_location             = pexip_infinity_system_location.dc1.id
+  system_location             = infinity_system_location.dc1.id
   description                 = var.description
   password                    = var.admin_password
   node_type                   = "CONFERENCING" # Set to "PROXYING" for edge nodes
@@ -246,7 +246,7 @@ resource "google_compute_instance" "infinity_worker" {
   machine_type = var.cnf_machine_type
 
   metadata = {
-    conferencing_node_config = pexip_infinity_worker_vm.worker.config
+    conferencing_node_config = infinity_worker_vm.worker.config
   }
 
   boot_disk {
@@ -300,7 +300,7 @@ resource "null_resource" "wait_for_infinity_node_http" {
         while [ $attempts -lt 3 ]; do
           status=$(curl --silent --show-error --insecure --location \
             -u ${var.username}:$PASSWORD \
-            https://${var.mgr_pub_ip_address}/api/admin/status/v1/worker_vm/${pexip_infinity_worker_vm.worker.resource_id}/ | jq -r '.sync_status')
+            https://${var.mgr_pub_ip_address}/api/admin/status/v1/worker_vm/${infinity_worker_vm.worker.resource_id}/ | jq -r '.sync_status')
 
           if [ -n "$status" ]; then
             break  # success, exit retry loop

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_licence" "licence-test" {
+resource "infinity_licence" "licence-test" {
   fulfillment_id   = "updated-value" // Updated value
   entitlement_id   = "updated-value" // Updated value
   fulfillment_type = "updated-value" // Updated value

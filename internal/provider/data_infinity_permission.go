@@ -30,7 +30,7 @@ type InfinityPermissionModel struct {
 }
 
 func (d *InfinityPermissionDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_permission"
+	resp.TypeName = req.ProviderTypeName + "_permission"
 }
 
 func (d *InfinityPermissionDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {

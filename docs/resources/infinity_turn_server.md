@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_turn_server Resource - terraform-provider-pexip"
+page_title: "infinity_turn_server Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity TURN server configuration.
 ---
 
-# pexip_infinity_turn_server (Resource)
+# infinity_turn_server (Resource)
 
 Manages a TURN server configuration.
 
@@ -14,7 +14,7 @@ Manages a TURN server configuration.
 ### Basic TURN Server
 
 ```terraform
-resource "pexip_infinity_turn_server" "basic_turn" {
+resource "infinity_turn_server" "basic_turn" {
   name    = "Basic TURN Server"
   address = "turn.company.com"
 }
@@ -23,7 +23,7 @@ resource "pexip_infinity_turn_server" "basic_turn" {
 ### TURN Server with Authentication
 
 ```terraform
-resource "pexip_infinity_turn_server" "authenticated_turn" {
+resource "infinity_turn_server" "authenticated_turn" {
   name           = "Corporate TURN Server"
   description    = "TURN server with username/password authentication"
   address        = "turn.company.com"
@@ -38,7 +38,7 @@ resource "pexip_infinity_turn_server" "authenticated_turn" {
 ### Secure TURN Server with TLS
 
 ```terraform
-resource "pexip_infinity_turn_server" "secure_turn" {
+resource "infinity_turn_server" "secure_turn" {
   name           = "Secure TURN Server"
   description    = "TLS-encrypted TURN server"
   address        = "turns.company.com"
@@ -53,7 +53,7 @@ resource "pexip_infinity_turn_server" "secure_turn" {
 ### Shared Secret TURN Server
 
 ```terraform
-resource "pexip_infinity_turn_server" "shared_secret_turn" {
+resource "infinity_turn_server" "shared_secret_turn" {
   name           = "Shared Secret TURN"
   description    = "TURN server using shared secret authentication"
   address        = "turn-shared.company.com"
@@ -68,7 +68,7 @@ resource "pexip_infinity_turn_server" "shared_secret_turn" {
 
 ```terraform
 # Primary TURN server
-resource "pexip_infinity_turn_server" "turn_primary" {
+resource "infinity_turn_server" "turn_primary" {
   name           = "Primary TURN Server"
   description    = "Primary TURN server for main office"
   address        = "turn1.company.com"
@@ -80,7 +80,7 @@ resource "pexip_infinity_turn_server" "turn_primary" {
 }
 
 # Secondary TURN server
-resource "pexip_infinity_turn_server" "turn_secondary" {
+resource "infinity_turn_server" "turn_secondary" {
   name           = "Secondary TURN Server"
   description    = "Secondary TURN server for redundancy"
   address        = "turn2.company.com"
@@ -96,7 +96,7 @@ resource "pexip_infinity_turn_server" "turn_secondary" {
 
 ```terraform
 # TURN servers for different regions
-resource "pexip_infinity_turn_server" "regional_turn" {
+resource "infinity_turn_server" "regional_turn" {
   for_each = var.regional_turn_servers
 
   name           = "TURN Server - ${each.key}"
@@ -113,7 +113,7 @@ resource "pexip_infinity_turn_server" "regional_turn" {
 ### Public TURN Service Integration
 
 ```terraform
-resource "pexip_infinity_turn_server" "public_turn" {
+resource "infinity_turn_server" "public_turn" {
   name           = "Public TURN Service"
   description    = "External TURN service provider"
   address        = "global-turn.example.com"
@@ -155,7 +155,7 @@ resource "pexip_infinity_turn_server" "public_turn" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_turn_server.example 123
+terraform import infinity_turn_server.example 123
 ```
 
 Where `123` is the numeric resource ID of the TURN server.

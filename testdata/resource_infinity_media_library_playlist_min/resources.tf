@@ -4,6 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_media_library_playlist" "media_library_playlist-test" {
+resource "infinity_media_library_playlist" "media_library_playlist-test" {
   name = "tf-test-media-library-playlist"
 }

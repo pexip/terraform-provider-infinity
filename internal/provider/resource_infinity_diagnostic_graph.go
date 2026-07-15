@@ -41,7 +41,7 @@ type InfinityDiagnosticGraphResourceModel struct {
 }
 
 func (r *InfinityDiagnosticGraphResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_diagnostic_graph"
+	resp.TypeName = req.ProviderTypeName + "_diagnostic_graph"
 }
 
 func (r *InfinityDiagnosticGraphResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

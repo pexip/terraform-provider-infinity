@@ -425,45 +425,45 @@ func testInfinityGlobalConfiguration(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_global_configuration_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_global_configuration.global_configuration-test", "id"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "bursting_enabled", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "bursting_min_lifetime", "123"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "bursting_threshold", "77"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "crypto_mode", "on"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "max_pixels_per_second", "fullhd"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_analytics", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_webrtc", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_sip", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_h323", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_rtmp", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_sip_udp", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_application_api", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_breakout_rooms", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_chat", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_ssh", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "session_timeout_enabled", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "bdpm_pin_checks_enabled", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "bdpm_scan_quarantine_enabled", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "external_participant_avatar_lookup", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "liveview_show_conferences", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "guests_only_timeout", "999"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "max_callrate_in", "888"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "max_callrate_out", "999"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "media_ports_start", "40123"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "media_ports_end", "49999"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "min_pin_length", "10"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "signalling_ports_start", "33001"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "signalling_ports_end", "39998"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "ocsp_state", "ON"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "sip_tls_cert_verify_mode", "ON"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "site_banner", "notdefaultsitebanner"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "site_banner_bg", "#ffffff"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "site_banner_fg", "#ff0000"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "logon_banner", "notdefaultbanner"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "default_theme", "dark"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "disabled_codecs.#", "2"),
-					resource.TestCheckTypeSetElemAttr("pexip_infinity_global_configuration.global_configuration-test", "disabled_codecs.*", "H264_H_1"),
-					resource.TestCheckTypeSetElemAttr("pexip_infinity_global_configuration.global_configuration-test", "disabled_codecs.*", "VP9"),
+					resource.TestCheckResourceAttrSet("infinity_global_configuration.global_configuration-test", "id"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "bursting_enabled", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "bursting_min_lifetime", "123"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "bursting_threshold", "77"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "crypto_mode", "on"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "max_pixels_per_second", "fullhd"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_analytics", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_webrtc", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_sip", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_h323", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_rtmp", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_sip_udp", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_application_api", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_breakout_rooms", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_chat", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_ssh", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "session_timeout_enabled", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "bdpm_pin_checks_enabled", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "bdpm_scan_quarantine_enabled", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "external_participant_avatar_lookup", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "liveview_show_conferences", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "guests_only_timeout", "999"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "max_callrate_in", "888"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "max_callrate_out", "999"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "media_ports_start", "40123"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "media_ports_end", "49999"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "min_pin_length", "10"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "signalling_ports_start", "33001"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "signalling_ports_end", "39998"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "ocsp_state", "ON"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "sip_tls_cert_verify_mode", "ON"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "site_banner", "notdefaultsitebanner"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "site_banner_bg", "#ffffff"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "site_banner_fg", "#ff0000"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "logon_banner", "notdefaultbanner"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "default_theme", "dark"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "disabled_codecs.#", "2"),
+					resource.TestCheckTypeSetElemAttr("infinity_global_configuration.global_configuration-test", "disabled_codecs.*", "H264_H_1"),
+					resource.TestCheckTypeSetElemAttr("infinity_global_configuration.global_configuration-test", "disabled_codecs.*", "VP9"),
 				),
 			},
 			// Step 2: Destroy — triggers Delete which must reset all fields to schema defaults.
@@ -477,37 +477,37 @@ func testInfinityGlobalConfiguration(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_global_configuration_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_global_configuration.global_configuration-test", "id"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "logon_banner", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "bursting_enabled", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "crypto_mode", "besteffort"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "max_pixels_per_second", "hd"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_analytics", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_webrtc", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_sip", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_h323", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_rtmp", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_sip_udp", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_application_api", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_breakout_rooms", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_chat", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_ssh", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "session_timeout_enabled", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "bdpm_pin_checks_enabled", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "bdpm_scan_quarantine_enabled", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "external_participant_avatar_lookup", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "liveview_show_conferences", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "guests_only_timeout", "60"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "media_ports_start", "40000"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "media_ports_end", "49999"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "min_pin_length", "6"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "signalling_ports_start", "33000"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "signalling_ports_end", "39999"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "ocsp_state", "OFF"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "sip_tls_cert_verify_mode", "OFF"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "site_banner", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "site_banner_bg", "#c0c0c0"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "site_banner_fg", "#000000"),
+					resource.TestCheckResourceAttrSet("infinity_global_configuration.global_configuration-test", "id"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "logon_banner", ""),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "bursting_enabled", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "crypto_mode", "besteffort"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "max_pixels_per_second", "hd"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_analytics", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_webrtc", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_sip", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_h323", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_rtmp", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_sip_udp", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_application_api", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_breakout_rooms", "false"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_chat", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "enable_ssh", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "session_timeout_enabled", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "bdpm_pin_checks_enabled", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "bdpm_scan_quarantine_enabled", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "external_participant_avatar_lookup", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "liveview_show_conferences", "true"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "guests_only_timeout", "60"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "media_ports_start", "40000"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "media_ports_end", "49999"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "min_pin_length", "6"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "signalling_ports_start", "33000"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "signalling_ports_end", "39999"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "ocsp_state", "OFF"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "sip_tls_cert_verify_mode", "OFF"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "site_banner", ""),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "site_banner_bg", "#c0c0c0"),
+					resource.TestCheckResourceAttr("infinity_global_configuration.global_configuration-test", "site_banner_fg", "#000000"),
 				),
 			},
 		},
@@ -526,7 +526,7 @@ func TestInfinityGlobalConfigurationValidation(t *testing.T) {
 			{
 				// bursting_enabled=true with no cloud_provider (defaults to AWS) but no AWS keys — expect errors
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   bursting_enabled = true
 }
 `,
@@ -535,7 +535,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// bursting_enabled=true with cloud_provider=AWS but no AWS keys — expect errors for both missing keys
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   bursting_enabled = true
   cloud_provider   = "AWS"
 }
@@ -545,7 +545,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// bursting_enabled=true with cloud_provider=AWS and only the access key — expect error for missing secret key
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   bursting_enabled = true
   cloud_provider   = "AWS"
   aws_access_key   = "test-access-key"
@@ -556,7 +556,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// bursting_enabled=true with cloud_provider=AZURE but no Azure credentials — expect errors for all four fields
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   bursting_enabled = true
   cloud_provider   = "AZURE"
 }
@@ -566,7 +566,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// bursting_enabled=true with cloud_provider=AZURE and only some credentials — expect errors for missing fields
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   bursting_enabled        = true
   cloud_provider          = "AZURE"
   azure_client_id         = "11111111-2222-3333-4444-555555555555"
@@ -578,7 +578,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// bursting_enabled=true with cloud_provider=GCP but no GCP credentials — expect errors for all three fields
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   bursting_enabled = true
   cloud_provider   = "GCP"
 }
@@ -588,7 +588,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// bursting_enabled=true with cloud_provider=GCP and only some credentials — expect errors for missing fields
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   bursting_enabled  = true
   cloud_provider    = "GCP"
   gcp_client_email  = "tf-test@project.iam.gserviceaccount.com"
@@ -599,7 +599,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// eject_last_participant_backstop_timeout must be 0 or 60-86400 — value of 1 is invalid
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   eject_last_participant_backstop_timeout = 1
 }
 `,
@@ -608,7 +608,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// aws_access_key exceeds 40-character maximum
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   aws_access_key = "this-key-is-way-too-long-and-exceeds-the-forty-character-limit"
 }
 `,
@@ -617,7 +617,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// bdpm_max_pin_failures_per_window below minimum of 5
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   bdpm_max_pin_failures_per_window = 4
 }
 `,
@@ -626,7 +626,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// bdpm_max_pin_failures_per_window above maximum of 200
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   bdpm_max_pin_failures_per_window = 201
 }
 `,
@@ -635,7 +635,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// bdpm_max_scan_attempts_per_window below minimum of 5
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   bdpm_max_scan_attempts_per_window = 4
 }
 `,
@@ -644,7 +644,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// bursting_min_lifetime below minimum of 5
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   bursting_min_lifetime = 4
 }
 `,
@@ -653,7 +653,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// bursting_threshold below minimum of 1
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   bursting_threshold = 0
 }
 `,
@@ -662,7 +662,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// management_qos above maximum of 63
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   management_qos = 64
 }
 `,
@@ -671,7 +671,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// management_session_timeout below minimum of 5
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   management_session_timeout = 4
 }
 `,
@@ -680,7 +680,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// management_session_timeout above maximum of 1440
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   management_session_timeout = 1441
 }
 `,
@@ -689,7 +689,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// max_callrate_in below minimum of 128
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   max_callrate_in = 127
 }
 `,
@@ -698,7 +698,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// max_callrate_out above maximum of 8192
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   max_callrate_out = 8193
 }
 `,
@@ -707,7 +707,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// max_presentation_bandwidth_ratio below minimum of 25
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   max_presentation_bandwidth_ratio = 24
 }
 `,
@@ -716,7 +716,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// media_ports_start below minimum of 10000
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   media_ports_start = 9999
 }
 `,
@@ -725,7 +725,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// media_ports_end above maximum of 49999
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   media_ports_end = 50000
 }
 `,
@@ -734,7 +734,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// pin_entry_timeout below minimum of 30
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   pin_entry_timeout = 29
 }
 `,
@@ -743,7 +743,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
 			{
 				// site_banner exceeds 255-character maximum (256 'a' chars)
 				Config: `
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   site_banner = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 }
 `,

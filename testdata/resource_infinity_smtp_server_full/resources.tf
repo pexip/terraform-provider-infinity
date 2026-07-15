@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_smtp_server" "smtp_server-test" {
+resource "infinity_smtp_server" "smtp_server-test" {
   name                = "tf-test SMTP Server full"
   description         = "full Test SMTPServer"       // Updated description
   address             = "updated-server.example.com" // Updated address

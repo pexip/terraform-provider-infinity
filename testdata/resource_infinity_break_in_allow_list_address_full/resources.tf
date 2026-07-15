@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_break_in_allow_list_address" "tf-test-break-in-allow-list-address" {
+resource "infinity_break_in_allow_list_address" "tf-test-break-in-allow-list-address" {
   name                     = "tf-test-break-in-allow-list-address"
   description              = "Full test configuration for break-in allow list address"
   address                  = "10.0.0.0"

@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_turn_server Resource - terraform-provider-pexip"
+page_title: "infinity_turn_server Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity TURN server configuration.
 ---
 
-# pexip_infinity_turn_server (Resource)
+# infinity_turn_server (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,31 +13,31 @@ description: |-
 
 ### Basic TURN Server
 
-{{tffile "examples/resources/pexip_infinity_turn_server/basic_turn_server.tf"}}
+{{tffile "examples/resources/infinity_turn_server/basic_turn_server.tf"}}
 
 ### TURN Server with Authentication
 
-{{tffile "examples/resources/pexip_infinity_turn_server/turn_server_with_authentication.tf"}}
+{{tffile "examples/resources/infinity_turn_server/turn_server_with_authentication.tf"}}
 
 ### Secure TURN Server with TLS
 
-{{tffile "examples/resources/pexip_infinity_turn_server/secure_turn_server_with_tls.tf"}}
+{{tffile "examples/resources/infinity_turn_server/secure_turn_server_with_tls.tf"}}
 
 ### Shared Secret TURN Server
 
-{{tffile "examples/resources/pexip_infinity_turn_server/shared_secret_turn_server.tf"}}
+{{tffile "examples/resources/infinity_turn_server/shared_secret_turn_server.tf"}}
 
 ### Multiple TURN Servers for Load Distribution
 
-{{tffile "examples/resources/pexip_infinity_turn_server/multiple_turn_servers_for_load_distribution.tf"}}
+{{tffile "examples/resources/infinity_turn_server/multiple_turn_servers_for_load_distribution.tf"}}
 
 ### Regional TURN Servers
 
-{{tffile "examples/resources/pexip_infinity_turn_server/regional_turn_servers.tf"}}
+{{tffile "examples/resources/infinity_turn_server/regional_turn_servers.tf"}}
 
 ### Public TURN Service Integration
 
-{{tffile "examples/resources/pexip_infinity_turn_server/public_turn_service_integration.tf"}}
+{{tffile "examples/resources/infinity_turn_server/public_turn_service_integration.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -46,7 +46,7 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_turn_server.example 123
+terraform import infinity_turn_server.example 123
 ```
 
 Where `123` is the numeric resource ID of the TURN server.

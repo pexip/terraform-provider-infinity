@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_sip_proxy Resource - terraform-provider-pexip"
+page_title: "infinity_sip_proxy Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity SIP proxy configuration.
 ---
 
-# pexip_infinity_sip_proxy (Resource)
+# infinity_sip_proxy (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,23 +13,23 @@ description: |-
 
 ### Basic SIP Proxy Configuration
 
-{{tffile "examples/resources/pexip_infinity_sip_proxy/basic_sip_proxy_configuration.tf"}}
+{{tffile "examples/resources/infinity_sip_proxy/basic_sip_proxy_configuration.tf"}}
 
 ### SIP Proxy with Custom Port
 
-{{tffile "examples/resources/pexip_infinity_sip_proxy/sip_proxy_with_custom_port.tf"}}
+{{tffile "examples/resources/infinity_sip_proxy/sip_proxy_with_custom_port.tf"}}
 
 ### TLS-Secured SIP Proxy
 
-{{tffile "examples/resources/pexip_infinity_sip_proxy/tls_secured_sip_proxy.tf"}}
+{{tffile "examples/resources/infinity_sip_proxy/tls_secured_sip_proxy.tf"}}
 
 ### Multiple SIP Proxies for Load Balancing
 
-{{tffile "examples/resources/pexip_infinity_sip_proxy/multiple_sip_proxies_for_load_balancing.tf"}}
+{{tffile "examples/resources/infinity_sip_proxy/multiple_sip_proxies_for_load_balancing.tf"}}
 
 ### Enterprise SIP Infrastructure
 
-{{tffile "examples/resources/pexip_infinity_sip_proxy/enterprise_sip_infrastructure.tf"}}
+{{tffile "examples/resources/infinity_sip_proxy/enterprise_sip_infrastructure.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -38,7 +38,7 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_sip_proxy.example 123
+terraform import infinity_sip_proxy.example 123
 ```
 
 Where `123` is the numeric resource ID of the SIP proxy.

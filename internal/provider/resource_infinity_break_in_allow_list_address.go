@@ -49,7 +49,7 @@ type InfinityBreakInAllowListAddressResourceModel struct {
 }
 
 func (r *InfinityBreakInAllowListAddressResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_break_in_allow_list_address"
+	resp.TypeName = req.ProviderTypeName + "_break_in_allow_list_address"
 }
 
 func (r *InfinityBreakInAllowListAddressResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
