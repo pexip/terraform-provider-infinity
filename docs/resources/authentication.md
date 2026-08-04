@@ -75,7 +75,6 @@ resource "infinity_authentication" "pkce_example" {
 - `ldap_group_filter` (String) The LDAP filter used to match group records in the directory. Default: (|(objectclass=group)(objectclass=groupOfNames)(objectclass=groupOfUniqueNames)(objectclass=posixGroup)). Maximum length: 1024 characters.
 - `ldap_group_membership_filter` (String) The LDAP filter used to search for group membership of a user. The filter may contain {userdn} to indicate locations into which the user DN is substituted. The filter may contain {useruid} to indicate locations into which the user UID is substituted. This filter will be applied in conjunction with the LDAP group filter and must contain at least one substitution. Default: (|(member={userdn})(uniquemember={userdn})(memberuid={useruid})). Maximum length: 1024 characters.
 - `ldap_group_search_dn` (String) The DN relative to the base DN to query for group records (e.g. ou=groups). If blank, the base DN will be used. Maximum length: 255 characters.
-- `ldap_permit_no_tls` (Boolean) This field is deprecated and will be ignored.
 - `ldap_server` (String) The hostname of the LDAP server. Enter a domain name for DNS SRV lookup or an FQDN for DNS A/AAAA lookup, and ensure that it is resolvable over DNS. Maximum length: 255 characters.
 - `ldap_use_global_catalog` (Boolean) Search the Active Directory Global Catalog instead of traditional LDAP.
 - `ldap_user_filter` (String) The LDAP filter used to match user records in the directory. Default: (&(objectclass=person)(!(objectclass=computer))). Maximum length: 1024 characters.
@@ -101,6 +100,7 @@ resource "infinity_authentication" "pkce_example" {
 ### Read-Only
 
 - `id` (String) Resource URI for the authentication.
+- `ldap_permit_no_tls` (Boolean) This field is deprecated and will be ignored.
 - `oidc_metadata` (String) The OpenID Connect configuration metadata.  This will be loaded from the Metadata URL if provided.
 
 

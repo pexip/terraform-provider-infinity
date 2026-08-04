@@ -120,7 +120,7 @@ resource "infinity_device" "executive_room" {
 - `description` (String) A description of the device alias. Note that this description may be displayed on phones and other equipment. Maximum length: 250 characters.
 - `enable_h323` (Boolean) Whether H.323 is enabled for this device. Defaults to false.
 - `enable_infinity_connect_non_sso` (Boolean) Whether Infinity Connect without SSO is enabled. Defaults to false.
-- `enable_infinity_connect_sso` (Boolean) Allows a Pexip Infinity Connect client to register using this alias, using AD authentication if required.
+- `enable_infinity_connect_sso` (Boolean) Allows a legacy Infinity Connect client to register using this alias, using AD authentication if required.
 - `enable_sip` (Boolean) Whether SIP is enabled for this device. Defaults to false.
 - `enable_standard_sso` (Boolean) Whether standard SSO is enabled. Defaults to false.
 - `password` (String, Sensitive) The password for device authentication. Maximum length: 100 characters.

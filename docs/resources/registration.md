@@ -40,7 +40,7 @@ resource "infinity_registration" "example" {
 - `natted_min_refresh` (Number) The minimum interval in seconds before a device's registration must be refreshed, for a SIP endpoint behind a NAT. Range: 60 to 3600. Default: 60.
 - `push_token` (String, Sensitive) Customizes the Google Cloud Messaging push token. You should only change this setting if you are using a custom Pexip mobile application.
 - `refresh_strategy` (String) Defines which strategy to use when calculating the expiry time of a SIP or H.323 registration. Adaptive: Infinity automatically adjusts the refresh interval depending on the number of current registrations on the Conferencing Node handling the request, in order to spread the load of registration refreshes. Maximum (Basic): Infinity simply uses the configured minimum and maximum settings, along with the requested value, to determine the refresh interval. Valid choices: maximum, adaptive.
-- `route_via_registrar` (Boolean) When enabled, all calls from registered desktop clients are routed via the registrar, regardless of the domain being called. When disabled, calls are routed via normal DNS SRV lookups.
+- `route_via_registrar` (Boolean) When enabled, all calls from registered legacy Infinity Connect clients are routed via the registrar, regardless of the domain being called. When disabled, calls are routed via normal DNS SRV lookups.
 
 ### Read-Only
 

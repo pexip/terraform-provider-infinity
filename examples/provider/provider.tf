@@ -1,5 +1,5 @@
 provider "infinity" {
   address  = "https://manager.example.com"
-  username = var.pexip_username
-  password = var.pexip_password
+  username = var.infinity_username
+  password = var.infinity_password
 }

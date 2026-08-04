@@ -27,7 +27,7 @@ resource "infinity_mjx_meeting_processing_rule" "example" {
 
 ### Required
 
-- `meeting_type` (String) The meeting type of this Meeting Processing Rule. Valid values: `pexipinfinity`, `pexipservice`, `teams`, `teamssipguestjoin`, `polyteamsbody`, `ciscoteamsbody`, `pexipserviceteamsbody`, `pexipinfinityteamsbody`, `hangouts`, `googlemeetsipguestjoin`, `s4b`, `polys4bbody`, `webex`, `zoom`, `gotomeeting`, `domain`, `regex`, `custom`.
+- `meeting_type` (String) The meeting type of this Meeting Processing Rule. Valid values: `pexipinfinity`, `pexipservice`, `teams`, `teamssipguestjoin`, `polyteamsbody`, `ciscoteamsbody`, `pexipserviceteamsbody`, `pexipinfinityteamsbody`, `hangouts`, `googlemeetsipguestjoin`, `s4b`, `polys4bbody`, `webex`, `zoom`, `gotomeeting`, `domain`, `regex`, `regex_re2`, `custom`.
 - `mjx_integration` (String) The One-Touch Join Profile associated with this Meeting Processing Rule.
 - `name` (String) The name of this Meeting Processing Rule. Maximum length: 250 characters.
 - `priority` (Number) The priority of this rule. Rules are checked in ascending priority order until the first matching rule is found, and it is then applied. Range: 1 to 200.

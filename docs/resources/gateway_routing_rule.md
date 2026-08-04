@@ -45,10 +45,10 @@ resource "infinity_gateway_routing_rule" "example" {
 - `match_incoming_calls` (Boolean) Applies this rule to incoming calls that have not been routed to a Virtual Meeting Room or Virtual Reception, and should be routed via the Pexip Distributed Gateway service.
 - `match_incoming_h323` (Boolean) Select whether this rule should apply to incoming H.323 calls.
 - `match_incoming_mssip` (Boolean) Select whether this rule should apply to incoming Skype for Business (MS-SIP) calls.
-- `match_incoming_only_if_registered` (Boolean) Only apply this rule to incoming calls from devices, videoconferencing endpoints, soft clients or Infinity Connect clients t…aced from non-registered clients or devices, or from the Infinity web app will not be routed by this rule if it is enabled.
+- `match_incoming_only_if_registered` (Boolean) Only apply this rule to incoming calls from devices, videoconferencing endpoints, soft clients or Pexip apps that are registered to Pexip Infinity. Note that the call must also match one of the selected protocols below. Calls placed from non-registered clients or devices, or from the Pexip web app will not be routed by this rule if it is enabled.
 - `match_incoming_sip` (Boolean) Select whether this rule should apply to incoming SIP calls.
 - `match_incoming_teams` (Boolean) Select whether this rule should apply to incoming Teams calls.
-- `match_incoming_webrtc` (Boolean) Select whether this rule should apply to incoming calls from Infinity Connect clients (WebRTC / RTMP).
+- `match_incoming_webrtc` (Boolean) Select whether this rule should apply to incoming calls from Pexip apps (WebRTC / RTMP).
 - `match_outgoing_calls` (Boolean) Applies this rule to outgoing calls placed from a conference service (e.g. when adding a participant to a Virtual Meeting Room) where Automatic routing has been selected.
 - `match_source_location` (String) Applies the rule only if the incoming call is being handled by a Conferencing Node in the selected location or the outgoing call is being initiated from the selected location. To apply the rule regardless of the location, select Any Location.
 - `match_string_full` (Boolean) This setting is for advanced use cases and will not normally be required. By default, Pexip Infinity matches against a parsed version of the destination alias (e.g. if the alias is "alice@example.com", by default the rule will match against "alice@example.com". Select this option to match against the full, unparsed alias instead.
