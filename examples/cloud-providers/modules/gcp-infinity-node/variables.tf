@@ -46,7 +46,7 @@ variable "vm_image_name" {
 
 variable "vm_image_project" {
   type        = string
-  default     = "vc-operations"
+  default     = "pexip-product-images"
   description = "Project ID where the VM image is located"
 }
 
