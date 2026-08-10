@@ -32,13 +32,46 @@ jobs:
             echo "Error: Version must be in format v0.0.0 or v0.0.0-suffix (e.g., v1.2.3, v1.2.3-beta.1)"
             exit 1
           fi
+
       - name: Checkout
         uses: actions/checkout@v6
-      - uses: pexip/shared-github-actions/release-action@f596d7f32b05fa5ffebbb6634734860d5d1d6c2c
+
+      - name: Create release branch
+        shell: bash
+        run: |
+          VERSION="${{ inputs.version }}"
+          BRANCH_NAME="releases/${VERSION}"
+
+          git config user.name "GitHub Actions"
+          git config user.email noreply@github.com
+
+          git checkout -b "${BRANCH_NAME}"
+          git push origin "${BRANCH_NAME}"
+
+          echo "Created and pushed branch: ${BRANCH_NAME}"
+
+      - name: Create release
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 #v9.0.0
         with:
-          version: ${{ inputs.version }}
-          pre_release: ${{ inputs.pre_release }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            try {
+              const version = '${{ inputs.version }}'
+              const response = await github.rest.repos.createRelease({
+                draft: false,
+                generate_release_notes: true,
+                name: `Release ${version}`,
+                owner: context.repo.owner,
+                prerelease: ${{ inputs.pre_release == 'true' }},
+                repo: context.repo.repo,
+                tag_name: version,
+                target_commitish: context.sha,
+              });
+              core.exportVariable('RELEASE_ID', response.data.id);
+              core.exportVariable('RELEASE_UPLOAD_URL', response.data.upload_url);
+            } catch (error) {
+              core.setFailed(error.message);
+            }
 
   upload-assets:
     needs: release

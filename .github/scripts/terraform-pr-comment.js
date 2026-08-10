@@ -1,0 +1,214 @@
+const fs = require('fs');
+const path = require('path');
+const crypto = require('crypto');
+
+module.exports = {
+  /**
+   * Create or update a PR comment with Terraform plan results
+   * @param {Object} params - Parameters object
+   * @param {Object} params.github - GitHub API client
+   * @param {Object} params.context - GitHub Actions context
+   * @param {Object} params.core - GitHub Actions core
+   * @param {string} params.directory - Terraform directory path
+   * @param {string} params.platform - Platform name (gcp or openstack)
+   * @param {Object} params.outcomes - Step outcomes object
+   * @param {string} params.validationOutput - Validation output text
+   */
+  async createOrUpdatePRComment({
+    github,
+    context,
+    core,
+    directory,
+    platform,
+    outcomes,
+    validationOutput
+  }) {
+    try {
+      // Read plan from file (more reliable than stdout)
+      const planPath = path.join(directory, 'terraform.plan.txt');
+      let planOutput = '';
+
+      try {
+        planOutput = fs.readFileSync(planPath, 'utf8');
+      } catch (err) {
+        planOutput = 'Plan file not found. Check Terraform Plan step for errors.';
+      }
+
+      // Extract plan summary (resources to add/change/destroy)
+      const summaryMatch = planOutput.match(/Plan: (\d+) to add, (\d+) to change, (\d+) to destroy/);
+      const planSummary = summaryMatch
+        ? {
+            add: parseInt(summaryMatch[1]),
+            change: parseInt(summaryMatch[2]),
+            destroy: parseInt(summaryMatch[3])
+          }
+        : null;
+
+      // Truncate if too large (GitHub limit is 65536 chars)
+      const MAX_LENGTH = 60000;
+      let truncated = false;
+      if (planOutput.length > MAX_LENGTH) {
+        planOutput = planOutput.substring(0, MAX_LENGTH);
+        truncated = true;
+      }
+
+      // Generate comment content
+      const output = this.generateComment({
+        platform,
+        directory,
+        planOutput,
+        planSummary,
+        truncated,
+        outcomes,
+        validationOutput,
+        commitSha: context.sha.substring(0, 7),
+        timestamp: new Date().toISOString()
+      });
+
+      // Update or create comment
+      await this.updateOrCreateComment({ github, context, output, platform, directory });
+
+    } catch (error) {
+      // Don't fail the workflow if comment fails
+      console.error('Failed to post PR comment:', error);
+      core.warning(`Failed to post PR comment: ${error.message}`);
+    }
+  },
+
+  /**
+   * Generate the formatted comment body
+   * @param {Object} params - Parameters for comment generation
+   * @returns {string} Formatted markdown comment
+   */
+  generateComment({
+    platform,
+    planOutput,
+    planSummary,
+    truncated,
+    outcomes,
+    validationOutput,
+    commitSha,
+    timestamp,
+    directory
+  }) {
+    // Create unique identifier based on platform and directory to support multiple deployments
+    const dirHash = crypto.createHash('md5').update(directory).digest('hex').substring(0, 8);
+    const identifier = `<!-- terraform-deploy-${platform}-${dirHash}-comment -->`;
+
+    // Platform-specific emoji/branding
+    const platformInfo = {
+      gcp: { emoji: '☁️', name: 'Google Cloud Platform' },
+      openstack: { emoji: '🔓', name: 'OpenStack' }
+    };
+
+    const { emoji, name } = platformInfo[platform] || { emoji: '🏗️', name: platform };
+
+    // Format plan summary
+    const summaryText = planSummary
+      ? `**${planSummary.add}** to add, **${planSummary.change}** to change, **${planSummary.destroy}** to destroy`
+      : 'No changes';
+
+    // If the plan will destroy resources, add a prominent warning to alert reviewers to potential impact
+    const destroyWarning = planSummary && planSummary.destroy > 0
+      ? `\n> ⚠️ **Warning:** This plan will **destroy ${planSummary.destroy}** resource(s). Review carefully before applying.\n`
+      : '';
+
+    // Detect sensitive values
+    const hasSensitiveValues = planOutput.match(/(password|secret|token|key|private_key)/i);
+    const sensitiveWarning = hasSensitiveValues
+      ? '\n> 🔒 **Security Alert:** Plan may contain sensitive values. Review carefully before applying.\n'
+      : '';
+
+    return `${identifier}
+## ${emoji} Terraform Plan Results - ${name}
+
+**Directory:** \`${directory}\` | **Commit:** \`${commitSha}\` | **Triggered:** ${timestamp}
+
+### Step Results
+
+| Step | Status |
+|------|--------|
+| 🖌 Format | \`${outcomes.fmt}\` |
+| ⚙️  Initialization | \`${outcomes.init}\` |
+| 🤖 Validation | \`${outcomes.validate}\` |
+| 🔒 Security Scan | \`${outcomes.trivy}\` |
+| 📖 Plan | \`${outcomes.plan}\` |
+
+### Plan Summary
+
+${summaryText}
+
+${destroyWarning}${sensitiveWarning}
+
+<details><summary>Show Validation Output</summary>
+
+\`\`\`
+${validationOutput}
+\`\`\`
+
+</details>
+
+<details><summary>Show Full Plan</summary>
+
+\`\`\`terraform
+${planOutput}
+\`\`\`
+
+${truncated ? '\n⚠️ **Plan truncated due to size limits. View full plan in workflow logs.**\n' : ''}
+
+</details>
+
+---
+*Terraform plan generated by terraform-deploy-${platform}*
+`;
+  },
+
+  /**
+   * Update existing comment or create new one
+   * @param {Object} params - Parameters object
+   */
+  async updateOrCreateComment({ github, context, output, platform, directory }) {
+    // Create unique identifier based on platform and directory to support multiple comments for different deployments in the same PR
+    const dirHash = crypto.createHash('md5').update(directory).digest('hex').substring(0, 8);
+    const identifier = `<!-- terraform-deploy-${platform}-${dirHash}-comment -->`;
+
+    // Find existing comment by unique identifier
+    const { data: comments } = await github.rest.issues.listComments({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: context.issue.number,
+    });
+
+    const botComment = comments.find(comment =>
+      comment.body && comment.body.includes(identifier)
+    );
+
+    // Generate hash to check if update is needed
+    const contentHash = crypto.createHash('md5').update(output).digest('hex');
+
+    if (botComment) {
+      // Check if content actually changed
+      const existingHash = crypto.createHash('md5').update(botComment.body).digest('hex');
+
+      if (existingHash !== contentHash) {
+        await github.rest.issues.updateComment({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          comment_id: botComment.id,
+          body: output
+        });
+        console.log('Updated existing PR comment');
+      } else {
+        console.log('Comment unchanged, skipping update');
+      }
+    } else {
+      await github.rest.issues.createComment({
+        issue_number: context.issue.number,
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        body: output
+      });
+      console.log('Created new PR comment');
+    }
+  }
+};
