@@ -1,0 +1,45 @@
+name: Terraform destroy
+description: Destroys resources to GCP using Terraform
+author: "havard.bakke@pexip.com"
+
+inputs:
+  directory:
+    required: false
+    default: ./deploy
+    description: The directory within the repo containing the Terraform code
+
+runs:
+  using: "composite"
+  steps:
+    - name: Validate inputs
+      shell: bash
+      run: |
+        if [ ! -d "${{ inputs.directory }}" ]; then
+          echo "Error: Terraform directory not found at ${{ inputs.directory }}"
+          exit 1
+        fi
+
+    - name: Setup gcloud SDK
+      uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
+
+    - name: Terraform Init
+      id: init
+      working-directory: ${{ inputs.directory }}
+      shell: bash
+      run: terraform init
+
+    - name: Terraform Validate
+      id: validate
+      working-directory: ${{ inputs.directory }}
+      shell: bash
+      run: terraform validate -no-color
+      continue-on-error: true
+
+    - name: Terraform Destroy
+      id: destroy
+      working-directory: ${{ inputs.directory }}
+      shell: bash
+      run: terraform destroy -auto-approve
