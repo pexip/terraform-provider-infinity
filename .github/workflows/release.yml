@@ -36,6 +36,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      # Steps inlined from pexip/shared-github-actions/release-action
+      - name: Validate inputs
+        shell: bash
+        run: |
+          if [ -z "${{ inputs.version }}" ]; then
+            echo "Error: version is required"
+            exit 1
+          fi
+          if [ -z "${{ secrets.GITHUB_TOKEN }}" ]; then
+            echo "Error: github_token is required"
+            exit 1
+          fi
+
       - name: Create release branch
         shell: bash
         run: |
@@ -72,6 +85,14 @@ jobs:
             } catch (error) {
               core.setFailed(error.message);
             }
+
+      - name: Create Jira release
+        if: false # jira_project_key not provided
+        uses: GeoWerkstatt/create-jira-release@66a6a3a84ddaf7349c47ee0aa20f252b80420146 #v1.0.9
+        with:
+          jira-project-key: ''
+          jira-automation-webhook: ''
+          build-version: ''
 
   upload-assets:
     needs: release

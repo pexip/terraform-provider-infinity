@@ -31,10 +31,49 @@ jobs:
           echo "TF_VAR_infinity_password=${{ secrets.INFINITY_ADMIN_PASSWORD }}" >> $GITHUB_ENV
           echo "TF_VAR_infinity_license_key=${{ secrets.INFINITY_LICENSE_KEY }}" >> $GITHUB_ENV
 
-      - name: Authenticate towards Google
+      # Steps inlined from pexip/shared-github-actions/auth-gcp-action
+      - name: Validate authentication inputs
+        shell: bash
+        run: |
+          if [ -z "${{ secrets.DEPLOY_SERVICE_ACCOUNT_KEY }}" ] && [ -z "" ]; then
+            echo "Error: Either service_account_key or workload_identity_provider must be provided"
+            exit 1
+          fi
+          if [ -n "" ] && [ -z "" ]; then
+            echo "Error: service_account is required when using workload_identity_provider"
+            exit 1
+          fi
+
+      - name: Authenticate towards Google (service account key)
         uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 #v3.0.0
         with:
           credentials_json: ${{ secrets.DEPLOY_SERVICE_ACCOUNT_KEY }}
+
+      - name: Authenticate towards Google (workload identity)
+        if: false # workload_identity_provider not provided
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 #v3.0.0
+        with:
+          token_format: access_token
+          workload_identity_provider: ''
+          service_account: ''
+
+      - name: Setup gcloud SDK
+        if: false # repository not provided
+        uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
+
+      - name: Configure Docker repository
+        if: false # repository not provided
+        shell: bash
+        run: gcloud auth configure-docker ''
+
+      # Steps inlined from pexip/shared-github-actions/terraform-destroy-gcp-action
+      - name: Validate inputs
+        shell: bash
+        run: |
+          if [ ! -d "${{ inputs.path }}" ]; then
+            echo "Error: Terraform directory not found at ${{ inputs.path }}"
+            exit 1
+          fi
 
       - name: Setup gcloud SDK
         uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
@@ -56,6 +95,7 @@ jobs:
         continue-on-error: true
 
       - name: Terraform Destroy
+        id: destroy
         working-directory: ${{ inputs.path }}
         shell: bash
         run: terraform destroy -auto-approve
