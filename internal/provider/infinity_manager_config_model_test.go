@@ -37,36 +37,36 @@ func TestInfinityManagerConfigModel(t *testing.T) {
 		contactEmailAddress types.String
 		expectError         bool
 	}{
-	{
-		name:                "error_reports true with valid email",
-		errorReports:        types.BoolValue(true),
-		contactEmailAddress: types.StringValue("test@example.com"),
-		expectError:         false,
-	},
-	{
-		name:                "error_reports true with no email",
-		errorReports:        types.BoolValue(true),
-		contactEmailAddress: types.StringNull(),
-		expectError:         true,
-	},
-	{
-		name:                "error_reports true with empty email",
-		errorReports:        types.BoolValue(true),
-		contactEmailAddress: types.StringValue(""),
-		expectError:         true,
-	},
-	{
-		name:                "error_reports true with invalid email",
-		errorReports:        types.BoolValue(true),
-		contactEmailAddress: types.StringValue("not-an-email"),
-		expectError:         true,
-	},
-	{
-		name:                "error_reports false with no email",
-		errorReports:        types.BoolValue(false),
-		contactEmailAddress: types.StringNull(),
-		expectError:         false,
-	},
+		{
+			name:                "error_reports true with valid email",
+			errorReports:        types.BoolValue(true),
+			contactEmailAddress: types.StringValue("test@example.com"),
+			expectError:         false,
+		},
+		{
+			name:                "error_reports true with no email",
+			errorReports:        types.BoolValue(true),
+			contactEmailAddress: types.StringNull(),
+			expectError:         true,
+		},
+		{
+			name:                "error_reports true with empty email",
+			errorReports:        types.BoolValue(true),
+			contactEmailAddress: types.StringValue(""),
+			expectError:         true,
+		},
+		{
+			name:                "error_reports true with invalid email",
+			errorReports:        types.BoolValue(true),
+			contactEmailAddress: types.StringValue("not-an-email"),
+			expectError:         true,
+		},
+		{
+			name:                "error_reports false with no email",
+			errorReports:        types.BoolValue(false),
+			contactEmailAddress: types.StringNull(),
+			expectError:         false,
+		},
 		{
 			name:                "error_reports false with no email",
 			errorReports:        types.BoolValue(false),
