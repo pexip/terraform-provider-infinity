@@ -53,6 +53,23 @@ func testInfinityManagerConfig(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttrSet("data.pexip_infinity_manager_config.master", "contact_email_address"),
 				),
 			},
+			{
+				Config: test.LoadTestFolder(t, "data_infinity_manager_config_min"),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttrSet("data.pexip_infinity_manager_config.master", "hostname"),
+					resource.TestCheckResourceAttrSet("data.pexip_infinity_manager_config.master", "domain"),
+					resource.TestCheckResourceAttrSet("data.pexip_infinity_manager_config.master", "ip"),
+					resource.TestCheckResourceAttrSet("data.pexip_infinity_manager_config.master", "mask"),
+					resource.TestCheckResourceAttrSet("data.pexip_infinity_manager_config.master", "gw"),
+					resource.TestCheckResourceAttrSet("data.pexip_infinity_manager_config.master", "dns"),
+					resource.TestCheckResourceAttrSet("data.pexip_infinity_manager_config.master", "ntp"),
+					resource.TestCheckResourceAttrSet("data.pexip_infinity_manager_config.master", "user"),
+					resource.TestCheckResourceAttrSet("data.pexip_infinity_manager_config.master", "pass"),
+					resource.TestCheckResourceAttrSet("data.pexip_infinity_manager_config.master", "admin_password"),
+					resource.TestCheckResourceAttr("data.pexip_infinity_manager_config.master", "error_reports", "false"),
+					resource.TestCheckNoResourceAttr("data.pexip_infinity_manager_config.master", "contact_email_address"),
+				),
+			},
 		},
 	})
 }

@@ -124,11 +124,11 @@ func (d *InfinityManagerConfigDataSource) Schema(ctx context.Context, req dataso
 				MarkdownDescription: "Pexip Infinity Manager enable analytics",
 			},
 			"contact_email_address": schema.StringAttribute{
-				Required: true,
+				Optional: true,
 				Validators: []validator.String{
 					validators.Email(),
 				},
-				MarkdownDescription: "Pexip Infinity Manager contact email address for notifications",
+				MarkdownDescription: "Pexip Infinity Manager contact email address for notifications. Required when `error_reports` is `true`.",
 			},
 			"rendered": schema.StringAttribute{
 				Computed:            true,
