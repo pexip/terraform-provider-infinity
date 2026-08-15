@@ -33,12 +33,12 @@ resource "pexip_infinity_webapp_alias" "example" {
 - `branding` (String) The branding URI associated with this webapp alias. Maximum length: 200 characters.
 - `bundle` (String) The bundle URI associated with this webapp alias. Maximum length: 200 characters.
 - `description` (String) Description of the webapp alias. Maximum length: 250 characters.
-- `is_default` (Boolean) Select this option if you want /webapp to redirect to this particular path and associated branding. Default: false
 - `is_enabled` (Boolean) Whether this webapp alias is enabled and active.
 
 ### Read-Only
 
 - `id` (String) Resource URI for the webapp alias
+- `is_default` (Boolean) Select this option if you want /webapp to redirect to this particular path and associated branding.
 - `resource_id` (Number) The resource integer identifier for the webapp alias
 
 

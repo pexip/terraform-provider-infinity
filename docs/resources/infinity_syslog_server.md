@@ -132,6 +132,7 @@ resource "pexip_infinity_syslog_server" "lb_syslog" {
 - `audit_log` (Boolean) Enable sending of audit log entries.
 - `description` (String) A description of the Syslog server. Maximum length: 250 characters.
 - `port` (Number) The port on the remote syslog server. Range: 1 to 65535. Default: 514.
+- `proto_format` (String) The format of the syslog protocol used when sending to the remote syslog server. Valid choices: pexip, rfc3164, rfc5424. Default: rfc3164.
 - `support_log` (Boolean) Enable sending of support and administrator log entries.
 - `transport` (String) The IP transport used to connect to the remote syslog server. Valid choices: udp, tcp, tls.
 - `web_log` (Boolean) Enable sending of web server log entries.
