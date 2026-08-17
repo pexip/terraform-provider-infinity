@@ -250,8 +250,9 @@ jobs:
 
     - name: Check for uncommitted changes
       run: |
-        if ! git diff --exit-code; then
+        if [ -n "$(git status --porcelain)" ]; then
           echo "Generated docs are out of date. Run 'tfplugindocs generate --provider-name pexip' locally and commit the changes."
+          git status --porcelain
           exit 1
         fi
 
