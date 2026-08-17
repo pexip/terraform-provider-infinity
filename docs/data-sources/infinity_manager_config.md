@@ -42,7 +42,6 @@ output "manager_config" {
 ### Required
 
 - `admin_password` (String, Sensitive) Pexip Infinity Manager admin password for authentication
-- `contact_email_address` (String) Pexip Infinity Manager contact email address for notifications
 - `dns` (String) Pexip Infinity Manager DNS server IP address
 - `domain` (String) Pexip Infinity Manager domain, e.g. `example.com`
 - `gw` (String) Pexip Infinity Manager gateway IP address
@@ -55,6 +54,7 @@ output "manager_config" {
 
 ### Optional
 
+- `contact_email_address` (String) Pexip Infinity Manager contact email address for notifications. Required when `error_reports` is `true`.
 - `enable_analytics` (Boolean) Pexip Infinity Manager enable analytics
 - `error_reports` (Boolean) Pexip Infinity Manager error reports
 

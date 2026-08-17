@@ -187,11 +187,11 @@ func (c *InfinityManagerConfigModel) validate() diag.Diagnostics {
 			"Admin Password must be set to a valid value.",
 		)
 	}
-	if c.ContactEmailAddress.IsNull() && !c.ContactEmailAddress.IsUnknown() {
+	if c.ErrorReports.ValueBool() && !c.ContactEmailAddress.IsUnknown() && (c.ContactEmailAddress.IsNull() || c.ContactEmailAddress.ValueString() == "") {
 		diags.AddAttributeError(
 			path.Root("contact_email_address"),
-			"Contact Email Address is required",
-			"Contact Email Address must be set to a valid value.",
+			"Contact Email Address is required when error reports is enabled",
+			"contact_email_address must be set when error_reports is true.",
 		)
 	} else if !c.ContactEmailAddress.IsUnknown() && c.ContactEmailAddress.ValueString() != "" {
 		if _, err := mail.ParseAddress(c.ContactEmailAddress.ValueString()); err != nil {
