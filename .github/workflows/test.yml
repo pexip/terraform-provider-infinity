@@ -243,7 +243,7 @@ jobs:
       run: go mod download
 
     - name: Install tfplugindocs
-      run: go install github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@latest
+      run: go install github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@v0.25.0
 
     - name: Generate docs
       run: tfplugindocs generate --provider-name pexip
