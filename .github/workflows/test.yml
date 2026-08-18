@@ -12,6 +12,7 @@ on:
       - '**.md'
       - LICENSE
   workflow_call:
+  workflow_dispatch:
 
 permissions: {}
 
@@ -208,14 +209,51 @@ jobs:
           exit 1
         fi
 
-    - name: Check for generated files
+  check-docs:
+    name: Check Generated Docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Authenticate git for private modules
+      run: git config --global url."https://${GH_PAT}@github.com/pexip/go-infinity-sdk".insteadOf "https://github.com/pexip/go-infinity-sdk"
+      env:
+        GH_PAT: ${{ secrets.GH_PAT }}
+
+    - name: Set up Go
+      uses: actions/setup-go@v6
+      with:
+        go-version: ${{ env.GO_VERSION }}
+
+    - name: Go cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/go-build
+          ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ env.GO_VERSION }}-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-${{ env.GO_VERSION }}-
+
+    - name: Download dependencies
+      run: go mod download
+
+    - name: Install tfplugindocs
+      run: go install github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@v0.25.0
+
+    - name: Generate docs
+      run: tfplugindocs generate --provider-name pexip
+
+    - name: Check for uncommitted changes
       run: |
-        if command -v terraform-docs &> /dev/null; then
-          make docs
-          if ! git diff --exit-code; then
-            echo "Generated documentation is out of date. Run 'make docs' locally."
-            exit 1
-          fi
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "Generated docs are out of date. Run 'tfplugindocs generate --provider-name pexip' locally and commit the changes."
+          git status --porcelain
+          exit 1
         fi
 
   # Dependency review for PRs
