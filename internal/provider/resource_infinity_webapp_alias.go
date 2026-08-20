@@ -108,6 +108,7 @@ func (r *InfinityWebappAliasResource) Schema(ctx context.Context, req resource.S
 				MarkdownDescription: "The type of webapp this alias serves. Valid values: webapp2, webapp3.",
 			},
 			"is_default": schema.BoolAttribute{
+				Optional: 		     true,
 				Computed:            true,
 				MarkdownDescription: "Select this option if you want /webapp to redirect to this particular path and associated branding.",
 			},
