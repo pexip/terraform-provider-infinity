@@ -133,7 +133,7 @@ func (r *InfinityWebappAliasResource) Schema(ctx context.Context, req resource.S
 				MarkdownDescription: "The branding URI associated with this webapp alias. Maximum length: 200 characters.",
 			},
 		},
-		MarkdownDescription: "Manages a webapp alias. Webapp aliases provide alternative URL paths to access different web applications within Pexip Infinity, allowing for customized branding and user experiences.",
+		MarkdownDescription: "Manages a webapp alias. Webapp aliases provide alternative URL paths to access different web applications within Pexip Infinity, allowing for customized branding and user experiences. Only one webapp alias should be set as the default.",
 	}
 }
 
