@@ -17,6 +17,7 @@ resource "pexip_infinity_ms_exchange_connector" "tf-test-ms-exchange-connector" 
   password                                         = "test-value"
   authentication_method                            = "OAUTH"
   auth_provider                                    = "AZURE"
+  uuid                                             = "test-uuid"
   scheduled_alias_prefix                           = "test-value"
   scheduled_alias_domain                           = "example.com"
   enable_dynamic_vmrs                              = true

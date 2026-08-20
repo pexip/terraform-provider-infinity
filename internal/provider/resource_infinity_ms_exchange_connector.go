@@ -251,7 +251,11 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "The method by which users will sign into the Outlook add-in.",
 			},
 			"uuid": schema.StringAttribute{
-				Computed:            true,
+				Optional: true,
+				Computed: true,
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
 				MarkdownDescription: "UUID for the Exchange connector.",
 			},
 			"scheduled_alias_prefix": schema.StringAttribute{
@@ -829,6 +833,7 @@ func (r *InfinityMsExchangeConnectorResource) Create(ctx context.Context, req re
 		Password:                       plan.Password.ValueString(),
 		AuthenticationMethod:           plan.AuthenticationMethod.ValueString(),
 		AuthProvider:                   plan.AuthProvider.ValueString(),
+		UUID:                           plan.UUID.ValueString(),
 		ScheduledAliasDomain:           plan.ScheduledAliasDomain.ValueString(),
 		ScheduledAliasSuffixLength:     int(plan.ScheduledAliasSuffixLength.ValueInt64()),
 		MeetingBufferBefore:            int(plan.MeetingBufferBefore.ValueInt64()),
@@ -1237,6 +1242,7 @@ func (r *InfinityMsExchangeConnectorResource) Update(ctx context.Context, req re
 		Password:                      plan.Password.ValueString(),
 		AuthenticationMethod:          plan.AuthenticationMethod.ValueString(),
 		AuthProvider:                  plan.AuthProvider.ValueString(),
+		UUID:                          plan.UUID.ValueString(),
 		ScheduledAliasDomain:          plan.ScheduledAliasDomain.ValueString(),
 		OauthClientSecret:             plan.OauthClientSecret.ValueString(),
 		OauthAuthEndpoint:             plan.OauthAuthEndpoint.ValueString(),
