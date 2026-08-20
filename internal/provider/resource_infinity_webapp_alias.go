@@ -274,6 +274,7 @@ func (r *InfinityWebappAliasResource) Update(ctx context.Context, req resource.U
 		Slug:        plan.Slug.ValueString(),
 		Description: plan.Description.ValueString(),
 		WebappType:  plan.WebappType.ValueString(),
+		IsDefault:   plan.IsDefault.ValueBool(),
 		IsEnabled:   plan.IsEnabled.ValueBool(),
 	}
 
