@@ -62,7 +62,6 @@ resource "pexip_infinity_global_configuration" "gcp_bursting" {
 - `content_security_policy_state` (Boolean) Enable HTTP Content-Security-Policy for Conferencing Nodes.
 - `crypto_mode` (String) Controls the media encryption requirements for participants connecting to Pexip Infinity services. `on`: All participants must use media encryption. `besteffort`: Each participant will use media encryption if their device supports it. `off`: All H.323, SIP and MS-SIP participants must use unencrypted media. You can override this global setting for each individual service.
 - `default_theme` (String) The theme to use for services that have no specific theme selected.
-- `default_webapp_alias` (String) The web app path to use by default on conferencing nodes.
 - `disabled_codecs` (Set of String) Choose codecs to disable.
 - `eject_last_participant_backstop_timeout` (Number) The length of time (in seconds) for which a conference will continue with only one participant remaining (independent of Host/Guest role). Must be 0 (never eject) or between 60 and 86400. Default: 0.
 - `enable_analytics` (Boolean) Select this option to allow submission of deployment and usage statistics to Pexip. This will help us improve the product.
@@ -132,6 +131,7 @@ resource "pexip_infinity_global_configuration" "gcp_bursting" {
 
 ### Read-Only
 
+- `default_webapp_alias` (String) The web app path to use by default on conferencing nodes. To change this value, set `is_default` to true on the desired web app alias resource.
 - `deployment_uuid` (String) The ID of the deployment.
 - `id` (String) Resource URI for the global configuration
 - `resource_uri` (String) The URI that identifies this resource.
