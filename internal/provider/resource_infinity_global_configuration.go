@@ -311,7 +311,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 			},
 			"default_webapp_alias": schema.StringAttribute{
 				Computed: true,
-				MarkdownDescription: "The web app path to use by default on conferencing nodes.",
+				MarkdownDescription: "The web app path to use by default on conferencing nodes. To change this value, set `is_default` to true on the desired web app alias resource.",
 			},
 			// unique for each deployment, not update by users
 			"deployment_uuid": schema.StringAttribute{
