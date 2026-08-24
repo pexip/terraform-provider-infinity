@@ -127,6 +127,7 @@ resource "pexip_infinity_ms_exchange_connector" "example" {
 - `url` (String) Exchange server URL for connectivity.
 - `use_custom_add_in_sources` (Boolean) Enable this to specify custom locations to serve add-in JavaScript and CSS from. This can be used to support offline deployments.
 - `username` (String) Username for Exchange authentication.
+- `uuid` (String) UUID for the Exchange connector.
 
 ### Read-Only
 
@@ -135,6 +136,5 @@ resource "pexip_infinity_ms_exchange_connector" "example" {
 - `private_key` (String, Sensitive) The private key used by this Secure Scheduler for Exchange Integration. Maximum length: 12288 characters.
 - `public_key` (String) The public key used by this Secure Scheduler for Exchange Integration. Maximum length: 12288 characters.
 - `resource_id` (Number) The resource integer identifier for the Microsoft Exchange connector
-- `uuid` (String) UUID for the Exchange connector.
 
 
