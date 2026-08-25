@@ -158,6 +158,7 @@ func TestInfinityMsExchangeConnector(t *testing.T) {
 		mockState.Password = req.Password
 		mockState.AuthenticationMethod = req.AuthenticationMethod
 		mockState.AuthProvider = req.AuthProvider
+		mockState.UUID = req.UUID
 		mockState.ScheduledAliasDomain = req.ScheduledAliasDomain
 		mockState.OauthClientSecret = req.OauthClientSecret
 		mockState.OauthAuthEndpoint = req.OauthAuthEndpoint
@@ -258,6 +259,7 @@ func testInfinityMsExchangeConnector(t *testing.T, client InfinityClient) {
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "scheduled_alias_suffix_length", "8"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "authentication_method", "OAUTH"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "auth_provider", "AZURE"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "uuid", "test-uuid"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_dynamic_vmrs", "true"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_personal_vmrs", "true"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "allow_new_users", "false"),
@@ -281,8 +283,11 @@ func testInfinityMsExchangeConnector(t *testing.T, client InfinityClient) {
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "scheduled_alias_suffix_length", "6"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "authentication_method", "BASIC"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "auth_provider", "ADFS"),
-		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_dynamic_vmrs", "true"),
-		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_personal_vmrs", "false"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_dynamic_vmrs", "false"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_personal_vmrs", "true"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "personal_vmr_oauth_auth_endpoint", "https://tf-test.example.com/personal/oauth/auth"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "personal_vmr_oauth_token_endpoint", "https://tf-test.example.com/personal/oauth/token"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "personal_vmr_adfs_relying_party_trust_identifier", "https://tf-test.example.com/adfs"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "allow_new_users", "true"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "disable_proxy", "false"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "use_custom_add_in_sources", "false"),
