@@ -111,24 +111,9 @@ func (r *InfinityIvrThemeResource) Create(ctx context.Context, req resource.Crea
 		Name: plan.Name.ValueString(),
 	}
 
-	var filename string
-	var packageFile *os.File
-	if !plan.Package.IsNull() && !plan.Package.IsUnknown() && plan.Package.ValueString() != "" {
-		packagePath := plan.Package.ValueString()
-		var err error
-		packageFile, err = os.Open(packagePath) // #nosec G304 -- File path provided by user in Terraform configuration
-		if err != nil {
-			resp.Diagnostics.AddError(
-				"Error Opening Package File",
-				fmt.Sprintf("Could not open package file at path '%s': %s", packagePath, err),
-			)
-			return
-		}
-		defer func() { _ = packageFile.Close() }()
-		filename = filepath.Base(packagePath)
-	}
-
-	createResponse, err := r.InfinityClient.Config().CreateIVRTheme(ctx, createRequest, filename, packageFile)
+	// The Pexip API does not accept a package file during the initial POST.
+	// Create the theme first (name only), then upload the package via PATCH if provided.
+	createResponse, err := r.InfinityClient.Config().CreateIVRTheme(ctx, createRequest, "", nil)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Creating Infinity IVR theme",
@@ -144,6 +129,32 @@ func (r *InfinityIvrThemeResource) Create(ctx context.Context, req resource.Crea
 			fmt.Sprintf("Could not retrieve ID for created Infinity IVR theme: %s", err),
 		)
 		return
+	}
+
+	// Upload the package via PATCH if one was provided
+	if !plan.Package.IsNull() && !plan.Package.IsUnknown() && plan.Package.ValueString() != "" {
+		packagePath := plan.Package.ValueString()
+		packageFile, openErr := os.Open(packagePath) // #nosec G304 -- File path provided by user in Terraform configuration
+		if openErr != nil {
+			resp.Diagnostics.AddError(
+				"Error Opening Package File",
+				fmt.Sprintf("Could not open package file at path '%s': %s", packagePath, openErr),
+			)
+			return
+		}
+		defer func() { _ = packageFile.Close() }()
+
+		updateRequest := &config.IVRThemeUpdateRequest{
+			Name: plan.Name.ValueString(),
+		}
+		_, updateErr := r.InfinityClient.Config().UpdateIVRTheme(ctx, resourceID, updateRequest, filepath.Base(packagePath), packageFile)
+		if updateErr != nil {
+			resp.Diagnostics.AddError(
+				"Error Uploading IVR Theme Package",
+				fmt.Sprintf("Could not upload package for Infinity IVR theme with ID %d: %s", resourceID, updateErr),
+			)
+			return
+		}
 	}
 
 	// Read the state from the API to get all computed values
