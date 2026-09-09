@@ -1,0 +1,26 @@
+name: Authenticate to GitHub Container Registry
+description: Authenticate with GitHub Container Registry (ghcr.io) for Docker operations
+author: "havard.bakke@pexip.com"
+
+inputs:
+  github_token:
+    required: true
+    description: The GitHub token used to login to the GitHub Container Registry
+
+runs:
+  using: "composite"
+  steps:
+    - name: Validate inputs
+      shell: bash
+      run: |
+        if [ -z "${{ inputs.github_token }}" ]; then
+          echo "Error: github_token is required"
+          exit 1
+        fi
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 #v4.1.0
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ inputs.github_token }}
