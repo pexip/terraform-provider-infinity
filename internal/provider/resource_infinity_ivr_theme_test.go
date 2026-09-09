@@ -37,8 +37,9 @@ func TestInfinityIvrTheme(t *testing.T) {
 		ResourceURI: "/api/admin/configuration/v1/ivr_theme/123/",
 	}
 
+	// POST must never include the package file — the Pexip API ignores it on creation.
 	client.On("PostMultipartFormWithFieldsAndResponse", mock.Anything, "configuration/v1/ivr_theme/",
-		mock.Anything, "package", mock.Anything, mock.Anything, mock.Anything).Return(createResponse, nil).Run(func(args mock.Arguments) {
+		mock.Anything, "package", "", nil, mock.Anything).Return(createResponse, nil).Run(func(args mock.Arguments) {
 		fields := args.Get(2).(map[string]string)
 		if name, ok := fields["name"]; ok {
 			mockState.Name = name
@@ -50,8 +51,20 @@ func TestInfinityIvrTheme(t *testing.T) {
 		*result = *mockState
 	}).Maybe()
 
+	// PATCH with a file — called when package is configured (steps 1 and 5).
 	client.On("PatchMultipartFormWithFieldsAndResponse", mock.Anything, "configuration/v1/ivr_theme/123/",
-		mock.Anything, "package", mock.Anything, mock.Anything, mock.Anything).Return(nil, nil).Run(func(args mock.Arguments) {
+		mock.Anything, "package", mock.MatchedBy(func(s string) bool { return s != "" }), mock.Anything, mock.Anything).Return(nil, nil).Run(func(args mock.Arguments) {
+		fields := args.Get(2).(map[string]string)
+		result := args.Get(6).(*config.IVRTheme)
+		if name, ok := fields["name"]; ok && name != "" {
+			mockState.Name = name
+		}
+		*result = *mockState
+	}).Maybe()
+
+	// PATCH without a file — called when package is not configured (step 2).
+	client.On("PatchMultipartFormWithFieldsAndResponse", mock.Anything, "configuration/v1/ivr_theme/123/",
+		mock.Anything, "package", "", mock.Anything, mock.Anything).Return(nil, nil).Run(func(args mock.Arguments) {
 		fields := args.Get(2).(map[string]string)
 		result := args.Get(6).(*config.IVRTheme)
 		if name, ok := fields["name"]; ok && name != "" {
