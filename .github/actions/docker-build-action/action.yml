@@ -1,0 +1,122 @@
+name: Build and publish a Docker image
+description: Builds and pushes a docker image to a docker repository
+author: "havard.bakke@pexip.com"
+
+inputs:
+  repository:
+    required: true
+    description: The Docker repository to push the image to
+  image_name:
+    required: true
+    description: Name of Docker image to build and publish
+  context:
+    required: false
+    description: The context to use when building the image
+    default: .
+  push_image:
+    required: false
+    description: Should the image be pushed to the repository
+    default: "true"
+  tag:
+    required: false
+    description: Optional tag to apply to the Docker image
+  dockerfile:
+    required: false
+    default: ./Dockerfile
+    description: The Dockerfile to use when building the image
+  gh_token:
+    required: false
+    description: A GitHub token used by the Dockerfile (passed as build secret)
+  build_args:
+    required: false
+    description: Newline-delimited list of build-time variables (e.g. "FOO=bar")
+
+outputs:
+  image:
+    description: "Full docker image name"
+    value: ${{ steps.primary-image.outputs.primary_image }}
+  dockerfile:
+    description: "Dockerfile used to build docker image"
+    value: ${{ inputs.dockerfile }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Validate inputs
+      shell: bash
+      run: |
+        if [ -z "${{ inputs.repository }}" ]; then
+          echo "Error: repository is required"
+          exit 1
+        fi
+        if [ -z "${{ inputs.image_name }}" ]; then
+          echo "Error: image_name is required"
+          exit 1
+        fi
+        if [ ! -f "${{ inputs.dockerfile }}" ]; then
+          echo "Error: Dockerfile not found at ${{ inputs.dockerfile }}"
+          exit 1
+        fi
+        if [ ! -d "${{ inputs.context }}" ]; then
+          echo "Error: Context directory not found at ${{ inputs.context }}"
+          exit 1
+        fi
+
+    - name: Setup gcloud SDK
+      if: contains(inputs.repository, 'pkg.dev') || contains(inputs.repository, 'gcr.io')
+      uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
+
+    - name: Docker metadata
+      id: metadata
+      uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
+      with:
+        images: "${{ inputs.repository }}/${{ inputs.image_name }}"
+        tags: |
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=raw,value=${{ inputs.tag }},enable=${{ inputs.tag != '' }}
+          type=raw,value=latest,enable={{is_default_branch}}
+          type=sha,enable=true,priority=100,prefix=,suffix=,format=long
+
+    - name: Extract primary image tag
+      id: primary-image
+      shell: bash
+      run: |
+        PRIMARY_IMAGE=$(echo "${{ steps.metadata.outputs.tags }}" | tail -n1)
+        echo "primary_image=$PRIMARY_IMAGE" >> $GITHUB_OUTPUT
+
+    - name: Set up Docker Buildx to enable caching
+      uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5 # v4.1.0
+
+    - name: Show Dockerfile
+      shell: bash
+      run: |
+        echo ########################################
+        echo  Dockerfile: ${{ inputs.dockerfile }}
+        echo ########################################
+        cat ${{ inputs.dockerfile }}
+        echo ########################################
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
+      with:
+        context: ${{ inputs.context }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        secrets: |
+          gh_token=${{ inputs.gh_token }}
+        file: ${{ inputs.dockerfile }}
+        push: ${{ inputs.push_image }}
+        tags: ${{ steps.metadata.outputs.tags }}
+        build-args: ${{ inputs.build_args }}
+        labels: ${{ steps.metadata.outputs.labels }}
+        annotations: ${{ steps.metadata.outputs.annotations }}
+
+    - name: Generate job summary
+      shell: bash
+      run: |
+        echo "# Docker Build image" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY # this is a blank line
+        echo "- Name: ${{ steps.primary-image.outputs.primary_image }}" >> $GITHUB_STEP_SUMMARY
+        echo -e "- TAGS: \n${{ steps.metadata.outputs.tags }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY # this is a blank line
