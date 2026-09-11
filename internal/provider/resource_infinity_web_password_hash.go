@@ -88,6 +88,7 @@ func (r *InfinityWebPasswordHashResource) Schema(ctx context.Context, req resour
 			},
 			"hash": schema.StringAttribute{
 				Computed:            true,
+				Sensitive:           true,
 				MarkdownDescription: "The hash of the password, generated using the provided salt and rounds.",
 			},
 		},

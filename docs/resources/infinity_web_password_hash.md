@@ -30,7 +30,7 @@ resource "pexip_infinity_web_password_hash" "example" {
 
 ### Read-Only
 
-- `hash` (String) The hash of the password, generated using the provided salt and rounds.
+- `hash` (String, Sensitive) The hash of the password, generated using the provided salt and rounds.
 - `id` (String) Resource identifier
 
 
