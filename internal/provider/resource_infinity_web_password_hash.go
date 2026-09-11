@@ -60,8 +60,9 @@ func (r *InfinityWebPasswordHashResource) Schema(ctx context.Context, req resour
 				},
 			},
 			"password": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
+				Optional:  true,
+				Computed:  true,
+				Sensitive: true,
 				Validators: []validator.String{
 					stringvalidator.LengthAtLeast(2),
 					stringvalidator.LengthAtMost(255),

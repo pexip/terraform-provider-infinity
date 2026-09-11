@@ -543,7 +543,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 			"gcp_private_key": schema.StringAttribute{
 				Optional:  true,
 				Computed:  true,
-				Sensitive: false,
+				Sensitive: true,
 				Default:   stringdefault.StaticString(""),
 				Validators: []validator.String{
 					stringvalidator.LengthAtMost(12288),
@@ -574,7 +574,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 			},
 			"legacy_api_password": schema.StringAttribute{
 				Optional: true,
-				//Sensitive:           true,
+				Sensitive:           true,
 				Computed: true,
 				Default:  stringdefault.StaticString(""),
 				Validators: []validator.String{
