@@ -108,7 +108,9 @@ func (r *InfinityWebappAliasResource) Schema(ctx context.Context, req resource.S
 				MarkdownDescription: "The type of webapp this alias serves. Valid values: webapp2, webapp3.",
 			},
 			"is_default": schema.BoolAttribute{
+				Optional:            true,
 				Computed:            true,
+				Default:             booldefault.StaticBool(false),
 				MarkdownDescription: "Select this option if you want /webapp to redirect to this particular path and associated branding.",
 			},
 			"is_enabled": schema.BoolAttribute{
@@ -132,7 +134,7 @@ func (r *InfinityWebappAliasResource) Schema(ctx context.Context, req resource.S
 				MarkdownDescription: "The branding URI associated with this webapp alias. Maximum length: 200 characters.",
 			},
 		},
-		MarkdownDescription: "Manages a webapp alias. Webapp aliases provide alternative URL paths to access different web applications within Pexip Infinity, allowing for customized branding and user experiences.",
+		MarkdownDescription: "Manages a webapp alias. Webapp aliases provide alternative URL paths to access different web applications within Pexip Infinity, allowing for customized branding and user experiences. Only one webapp alias should be set as the default.",
 	}
 }
 
@@ -273,6 +275,7 @@ func (r *InfinityWebappAliasResource) Update(ctx context.Context, req resource.U
 		Slug:        plan.Slug.ValueString(),
 		Description: plan.Description.ValueString(),
 		WebappType:  plan.WebappType.ValueString(),
+		IsDefault:   plan.IsDefault.ValueBool(),
 		IsEnabled:   plan.IsEnabled.ValueBool(),
 	}
 

@@ -310,11 +310,8 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "The theme to use for services that have no specific theme selected.",
 			},
 			"default_webapp_alias": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-				// The Infinity API schema erroneously shows the default as null
-				Default:             stringdefault.StaticString("/api/admin/configuration/v1/webapp_alias/3/"),
-				MarkdownDescription: "The web app path to use by default on conferencing nodes.",
+				Computed:            true,
+				MarkdownDescription: "The web app path to use by default on conferencing nodes. To change this value, set `is_default` to true on the desired web app alias resource.",
 			},
 			// unique for each deployment, not update by users
 			"deployment_uuid": schema.StringAttribute{
