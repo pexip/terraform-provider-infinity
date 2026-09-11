@@ -97,10 +97,10 @@ resource "pexip_infinity_global_configuration" "gcp_bursting" {
 - `es_short_term_memory_expiration` (Number) Internal cache expiration time in seconds. Used to briefly store 'participant_disconnected' events in order to gather end-of-call media statistics.
 - `external_participant_avatar_lookup` (Boolean) Determines whether or not avatars for external participants will be retrieved using the method appropriate for the external meeting type.
 - `gcp_client_email` (String) The GCP service account ID.
-- `gcp_private_key` (String) The private key for the Google Cloud Platform service account user that the Pexip Infinity Management Node will use to log in to GCP and start and stop the node instances. Maximum length: 12288 characters.
+- `gcp_private_key` (String, Sensitive) The private key for the Google Cloud Platform service account user that the Pexip Infinity Management Node will use to log in to GCP and start and stop the node instances. Maximum length: 12288 characters.
 - `gcp_project_id` (String) The ID of the GCP project containing bursting nodes.
 - `guests_only_timeout` (Number) The length of time (in seconds) for which a conference will continue with only Guest participants, after all Host participants have left. Range: 0 to 86400. Default: 60.
-- `legacy_api_password` (String) The password presented to Pexip Infinity by external systems attempting to authenticate with it. Maximum length: 100 characters.
+- `legacy_api_password` (String, Sensitive) The password presented to Pexip Infinity by external systems attempting to authenticate with it. Maximum length: 100 characters.
 - `legacy_api_username` (String) The username presented to Pexip Infinity by external systems attempting to authenticate with it. Maximum length: 100 characters.
 - `live_captions_vmr_default` (Boolean) This option controls whether live captions are enabled by default on all VMRs, Virtual Auditoriums and Call Routing Rules. You can override this setting on each service individually.
 - `liveview_show_conferences` (Boolean) Whether to show conferences and backplanes in Live View.
