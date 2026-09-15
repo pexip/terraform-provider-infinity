@@ -24,13 +24,13 @@ resource "pexip_infinity_ssh_password_hash" "example" {
 
 ### Optional
 
-- `password` (String) The password to hash. This should be a strong password, ideally at least 12 characters long.
+- `password` (String, Sensitive) The password to hash. This should be a strong password, ideally at least 12 characters long.
 - `rounds` (Number) The number of rounds to use for hashing the password. This is used to increase the security of the password hash.
 - `salt` (String) The hostname of the Infinity node. This should be resolvable within the Infinity cluster.
 
 ### Read-Only
 
-- `hash` (String) The hash of the password, generated using the provided salt and rounds.
+- `hash` (String, Sensitive) The hash of the password, generated using the provided salt and rounds.
 - `id` (String) Resource identifier
 
 

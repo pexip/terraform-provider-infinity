@@ -543,7 +543,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 			"gcp_private_key": schema.StringAttribute{
 				Optional:  true,
 				Computed:  true,
-				Sensitive: false,
+				Sensitive: true,
 				Default:   stringdefault.StaticString(""),
 				Validators: []validator.String{
 					stringvalidator.LengthAtMost(12288),
@@ -573,10 +573,10 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "The username presented to Pexip Infinity by external systems attempting to authenticate with it. Maximum length: 100 characters.",
 			},
 			"legacy_api_password": schema.StringAttribute{
-				Optional: true,
-				//Sensitive:           true,
-				Computed: true,
-				Default:  stringdefault.StaticString(""),
+				Optional:  true,
+				Sensitive: true,
+				Computed:  true,
+				Default:   stringdefault.StaticString(""),
 				Validators: []validator.String{
 					stringvalidator.LengthAtMost(100),
 				},
