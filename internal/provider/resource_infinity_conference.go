@@ -86,6 +86,7 @@ type InfinityConferenceResourceModel struct {
 	SystemLocation                  types.String `tfsdk:"system_location"`
 	Tag                             types.String `tfsdk:"tag"`
 	TeamsProxy                      types.String `tfsdk:"teams_proxy"`
+	TranscriptMode                  types.String `tfsdk:"transcript_mode"`
 	TwoStageDialType                types.String `tfsdk:"two_stage_dial_type"`
 	// ScheduledConferences            types.Set    `tfsdk:"scheduled_conferences"`
 	// ScheduledConferencesCount       types.Int32  `tfsdk:"scheduled_conferences_count"` # Read-only field
@@ -544,6 +545,15 @@ func (r *InfinityConferenceResource) Schema(ctx context.Context, req resource.Sc
 				Optional:            true,
 				MarkdownDescription: "The Teams Connector to use to resolve the Conference ID entered by the user.",
 			},
+			"transcript_mode": schema.StringAttribute{
+				Optional: true,
+				Computed: true,
+				Default:  stringdefault.StaticString("default"),
+				Validators: []validator.String{
+					stringvalidator.OneOf("default", "besteffort", "ondemand", "disallowed"),
+				},
+				MarkdownDescription: "Controls the transcript requirements for this service. Valid choices: default, besteffort, ondemand, disallowed.",
+			},
 			"two_stage_dial_type": schema.StringAttribute{
 				Optional: true,
 				Computed: true,
@@ -596,6 +606,7 @@ func (r *InfinityConferenceResource) Create(ctx context.Context, req resource.Cr
 		SoftmuteEnabled:                 plan.SoftmuteEnabled.ValueBool(),
 		SyncTag:                         plan.SyncTag.ValueString(),
 		Tag:                             plan.Tag.ValueString(),
+		TranscriptMode:                  plan.TranscriptMode.ValueString(),
 		TwoStageDialType:                plan.TwoStageDialType.ValueString(),
 	}
 
@@ -842,6 +853,7 @@ func (r *InfinityConferenceResource) read(ctx context.Context, resourceID int) (
 	data.SystemLocation = types.StringPointerValue(srv.SystemLocation)
 	data.Tag = types.StringValue(srv.Tag)
 	data.TeamsProxy = types.StringPointerValue(srv.TeamsProxy)
+	data.TranscriptMode = types.StringValue(srv.TranscriptMode)
 	data.TwoStageDialType = types.StringValue(srv.TwoStageDialType)
 
 	// Handle nullable integer fields
@@ -980,6 +992,7 @@ func (r *InfinityConferenceResource) Update(ctx context.Context, req resource.Up
 		SoftmuteEnabled:                 plan.SoftmuteEnabled.ValueBool(),
 		SyncTag:                         plan.SyncTag.ValueString(),
 		Tag:                             plan.Tag.ValueString(),
+		TranscriptMode:                  plan.TranscriptMode.ValueString(),
 		TwoStageDialType:                plan.TwoStageDialType.ValueString(),
 	}
 
