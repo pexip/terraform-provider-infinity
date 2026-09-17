@@ -35,8 +35,9 @@ type InfinityMediaProcessingServerResourceModel struct {
 	ID           types.String `tfsdk:"id"`
 	ResourceID   types.Int32  `tfsdk:"resource_id"`
 	FQDN         types.String `tfsdk:"fqdn"`
-	AppID        types.String `tfsdk:"app_id"`
-	PublicJWTKey types.String `tfsdk:"public_jwt_key"`
+	AppID                  types.String `tfsdk:"app_id"`
+	PublicJWTKey           types.String `tfsdk:"public_jwt_key"`
+	RegistrationPrivateKey types.String `tfsdk:"registration_private_key"`
 }
 
 func (r *InfinityMediaProcessingServerResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -92,6 +93,14 @@ func (r *InfinityMediaProcessingServerResource) Schema(ctx context.Context, req 
 			"public_jwt_key": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "The public JWT key used for authentication with the media processing server.",
+			},
+			"registration_private_key": schema.StringAttribute{
+				Computed:  true,
+				Sensitive: true,
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
+				MarkdownDescription: "The JWT private key used for registration to the media processing server.",
 			},
 		},
 		MarkdownDescription: "Manages a media processing server. Media processing servers provide advanced media handling capabilities for conferencing, such as transcoding, recording, and streaming services that extend beyond the core Pexip Infinity functionality.",
@@ -158,6 +167,7 @@ func (r *InfinityMediaProcessingServerResource) read(ctx context.Context, resour
 	data.ResourceID = types.Int32Value(int32(resourceID)) // #nosec G115 -- API values are expected to be within int32 range
 	data.FQDN = types.StringValue(srv.FQDN)
 	data.PublicJWTKey = types.StringValue(srv.PublicJWTKey)
+	data.RegistrationPrivateKey = types.StringValue(srv.RegistrationPrivateKey)
 	data.AppID = types.StringValue(srv.AppID)
 
 	return &data, nil
