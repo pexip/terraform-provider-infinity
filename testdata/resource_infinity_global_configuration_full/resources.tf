@@ -81,6 +81,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
   ocsp_responder_url                      = "notdefaultocsp"
   ocsp_state                              = "ON"
   pin_entry_timeout                       = 321
+  restrict_cors_origins                   = false
   session_timeout_enabled                 = false
   signalling_ports_end                    = 39998
   signalling_ports_start                  = 33001
@@ -89,5 +90,6 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
   site_banner_bg                          = "#ffffff"
   site_banner_fg                          = "#ff0000"
   teams_enable_powerpoint_render          = true
+  transcript_mode_vmr_default             = "besteffort"
   waiting_for_chair_timeout               = 901
 }

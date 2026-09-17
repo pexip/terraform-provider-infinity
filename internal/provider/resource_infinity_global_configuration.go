@@ -140,6 +140,7 @@ type InfinityGlobalConfigurationResourceModel struct {
 	OcspState                           types.String `tfsdk:"ocsp_state"`
 	PinEntryTimeout                     types.Int64  `tfsdk:"pin_entry_timeout"`
 	ResourceURI                         types.String `tfsdk:"resource_uri"`
+	RestrictCORSOrigins                 types.Bool   `tfsdk:"restrict_cors_origins"`
 	SessionTimeoutEnabled               types.Bool   `tfsdk:"session_timeout_enabled"`
 	SignallingPortsEnd                  types.Int64  `tfsdk:"signalling_ports_end"`
 	SignallingPortsStart                types.Int64  `tfsdk:"signalling_ports_start"`
@@ -148,6 +149,7 @@ type InfinityGlobalConfigurationResourceModel struct {
 	SiteBannerBg                        types.String `tfsdk:"site_banner_bg"`
 	SiteBannerFg                        types.String `tfsdk:"site_banner_fg"`
 	TeamsEnablePowerpointRender         types.Bool   `tfsdk:"teams_enable_powerpoint_render"`
+	TranscriptModeVMRDefault            types.String `tfsdk:"transcript_mode_vmr_default"`
 	WaitingForChairTimeout              types.Int64  `tfsdk:"waiting_for_chair_timeout"`
 }
 
@@ -754,6 +756,12 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				},
 				MarkdownDescription: "The URI that identifies this resource.",
 			},
+			"restrict_cors_origins": schema.BoolAttribute{
+				Optional:            true,
+				Computed:            true,
+				Default:             booldefault.StaticBool(true),
+				MarkdownDescription: "When enabled, Access-Control-Allow-Origin is only set for recognised HTTP Origins: the node's own address, its Configured FQDN, and any configured External Webapp Hosts.",
+			},
 			"session_timeout_enabled": schema.BoolAttribute{
 				Optional:            true,
 				Computed:            true,
@@ -814,6 +822,15 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Default:             booldefault.StaticBool(true),
 				MarkdownDescription: "Determines whether PowerPoint Live content is enabled for Microsoft Teams calls. Default: true.",
 			},
+			"transcript_mode_vmr_default": schema.StringAttribute{
+				Optional: true,
+				Computed: true,
+				Default:  stringdefault.StaticString("ondemand"),
+				Validators: []validator.String{
+					stringvalidator.OneOf("besteffort", "ondemand", "disallowed"),
+				},
+				MarkdownDescription: "Controls the default transcript requirements. You can override this setting on each service individually.",
+			},
 			"waiting_for_chair_timeout": schema.Int64Attribute{
 				Optional: true,
 				Computed: true,
@@ -853,6 +870,7 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 		SiteBannerBg:                        plan.SiteBannerBg.ValueString(),
 		SiteBannerFg:                        plan.SiteBannerFg.ValueString(),
 		TeamsEnablePowerpointRender:         plan.TeamsEnablePowerpointRender.ValueBool(),
+		TranscriptModeVMRDefault:            plan.TranscriptModeVMRDefault.ValueString(),
 		EnableWebRTC:                        plan.EnableWebRTC.ValueBool(),
 		EnableSIP:                           plan.EnableSIP.ValueBool(),
 		EnableH323:                          plan.EnableH323.ValueBool(),
@@ -887,6 +905,7 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 		LiveCaptionsVMRDefault:              plan.LiveCaptionsVMRDefault.ValueBool(),
 		LogsMaxAge:                          int(plan.LogsMaxAge.ValueInt64()),
 		ManagementSessionTimeout:            int(plan.ManagementSessionTimeout.ValueInt64()),
+		RestrictCORSOrigins:                 plan.RestrictCORSOrigins.ValueBool(),
 		SessionTimeoutEnabled:               plan.SessionTimeoutEnabled.ValueBool(),
 		WaitingForChairTimeout:              int(plan.WaitingForChairTimeout.ValueInt64()),
 		EjectLastParticipantBackstopTimeout: int(plan.EjectLastParticipantBackstopTimeout.ValueInt64()),
@@ -1060,6 +1079,7 @@ func (r *InfinityGlobalConfigurationResource) read(ctx context.Context, awsSecre
 	data.SiteBannerBg = types.StringValue(srv.SiteBannerBg)
 	data.SiteBannerFg = types.StringValue(srv.SiteBannerFg)
 	data.TeamsEnablePowerpointRender = types.BoolValue(srv.TeamsEnablePowerpointRender)
+	data.TranscriptModeVMRDefault = types.StringValue(srv.TranscriptModeVMRDefault)
 	data.EnableWebRTC = types.BoolValue(srv.EnableWebRTC)
 	data.EnableSIP = types.BoolValue(srv.EnableSIP)
 	data.EnableH323 = types.BoolValue(srv.EnableH323)
@@ -1099,6 +1119,7 @@ func (r *InfinityGlobalConfigurationResource) read(ctx context.Context, awsSecre
 	data.LiveCaptionsVMRDefault = types.BoolValue(srv.LiveCaptionsVMRDefault)
 	data.LogsMaxAge = types.Int64Value(int64(srv.LogsMaxAge))
 	data.ManagementSessionTimeout = types.Int64Value(int64(srv.ManagementSessionTimeout))
+	data.RestrictCORSOrigins = types.BoolValue(srv.RestrictCORSOrigins)
 	data.SessionTimeoutEnabled = types.BoolValue(srv.SessionTimeoutEnabled)
 	data.WaitingForChairTimeout = types.Int64Value(int64(srv.WaitingForChairTimeout))
 	data.EjectLastParticipantBackstopTimeout = types.Int64Value(int64(srv.EjectLastParticipantBackstopTimeout))
@@ -1295,6 +1316,7 @@ func (r *InfinityGlobalConfigurationResource) Delete(ctx context.Context, req re
 		OcspResponderURL:                    "",
 		OcspState:                           "OFF",
 		PinEntryTimeout:                     120,
+		RestrictCORSOrigins:                 true,
 		SessionTimeoutEnabled:               true,
 		SignallingPortsEnd:                  39999,
 		SignallingPortsStart:                33000,
@@ -1303,6 +1325,7 @@ func (r *InfinityGlobalConfigurationResource) Delete(ctx context.Context, req re
 		SiteBannerBg:                        "#c0c0c0",
 		SiteBannerFg:                        "#000000",
 		TeamsEnablePowerpointRender:         true,
+		TranscriptModeVMRDefault:            "ondemand",
 		WaitingForChairTimeout:              900,
 	}
 

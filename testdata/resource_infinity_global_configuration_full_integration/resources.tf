@@ -90,6 +90,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
   ocsp_responder_url                      = "https://ocsp.tf-test.example.com"
   ocsp_state                              = "ON"
   pin_entry_timeout                       = 321
+  restrict_cors_origins                   = false
   session_timeout_enabled                 = false
   signalling_ports_end                    = 39998
   signalling_ports_start                  = 33001
@@ -98,5 +99,6 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
   site_banner_bg                          = "#123456"
   site_banner_fg                          = "#ffffff"
   teams_enable_powerpoint_render          = true
+  transcript_mode_vmr_default             = "besteffort"
   waiting_for_chair_timeout               = 901
 }

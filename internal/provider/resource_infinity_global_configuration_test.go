@@ -114,6 +114,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		OcspResponderURL:                    "notdefaultocsp",
 		OcspState:                           "ON",  // default: "OFF"
 		PinEntryTimeout:                     321,   // default: 120
+		RestrictCORSOrigins:                 false, // default: true
 		SessionTimeoutEnabled:               false, // default: true
 		SignallingPortsEnd:                  39998, // default: 39999
 		SignallingPortsStart:                33001, // default: 33000
@@ -122,7 +123,8 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		SiteBannerBg:                        "#ffffff", // default: "#c0c0c0"
 		SiteBannerFg:                        "#ff0000", // default: "#000000"
 		TeamsEnablePowerpointRender:         true,
-		WaitingForChairTimeout:              901, // default: 900
+		TranscriptModeVMRDefault:            "besteffort", // default: "ondemand"
+		WaitingForChairTimeout:              901,          // default: 900
 	}
 
 	// Mock the GetGlobalconfiguration API call for Read operations
@@ -222,6 +224,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		assert.Equal(t, "", req.OcspResponderURL)
 		assert.Equal(t, "OFF", req.OcspState)
 		assert.Equal(t, 120, req.PinEntryTimeout)
+		assert.True(t, req.RestrictCORSOrigins)
 		assert.True(t, req.SessionTimeoutEnabled)
 		assert.Equal(t, 39999, req.SignallingPortsEnd)
 		assert.Equal(t, 33000, req.SignallingPortsStart)
@@ -230,6 +233,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		assert.Equal(t, "#c0c0c0", req.SiteBannerBg)
 		assert.Equal(t, "#000000", req.SiteBannerFg)
 		assert.True(t, req.TeamsEnablePowerpointRender)
+		assert.Equal(t, "ondemand", req.TranscriptModeVMRDefault)
 		assert.Equal(t, 900, req.WaitingForChairTimeout)
 
 		// Update mockState to reflect the reset defaults so subsequent reads are correct.
@@ -309,6 +313,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		mockState.OcspResponderURL = ""
 		mockState.OcspState = "OFF"
 		mockState.PinEntryTimeout = 120
+		mockState.RestrictCORSOrigins = true
 		mockState.SessionTimeoutEnabled = true
 		mockState.SignallingPortsEnd = 39999
 		mockState.SignallingPortsStart = 33000
@@ -317,6 +322,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		mockState.SiteBannerBg = "#c0c0c0"
 		mockState.SiteBannerFg = "#000000"
 		mockState.TeamsEnablePowerpointRender = true
+		mockState.TranscriptModeVMRDefault = "ondemand"
 		mockState.WaitingForChairTimeout = 900
 	}).Once()
 
@@ -405,6 +411,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		mockState.OcspResponderURL = updateRequest.OcspResponderURL
 		mockState.OcspState = updateRequest.OcspState
 		mockState.PinEntryTimeout = updateRequest.PinEntryTimeout
+		mockState.RestrictCORSOrigins = updateRequest.RestrictCORSOrigins
 		mockState.SessionTimeoutEnabled = updateRequest.SessionTimeoutEnabled
 		mockState.SignallingPortsEnd = updateRequest.SignallingPortsEnd
 		mockState.SignallingPortsStart = updateRequest.SignallingPortsStart
@@ -413,6 +420,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		mockState.SiteBannerBg = updateRequest.SiteBannerBg
 		mockState.SiteBannerFg = updateRequest.SiteBannerFg
 		mockState.TeamsEnablePowerpointRender = updateRequest.TeamsEnablePowerpointRender
+		mockState.TranscriptModeVMRDefault = updateRequest.TranscriptModeVMRDefault
 		mockState.WaitingForChairTimeout = updateRequest.WaitingForChairTimeout
 
 		// Return updated state
@@ -447,6 +455,7 @@ func testInfinityGlobalConfiguration(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_breakout_rooms", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_chat", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_ssh", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "restrict_cors_origins", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "session_timeout_enabled", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "bdpm_pin_checks_enabled", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "bdpm_scan_quarantine_enabled", "false"),
@@ -499,6 +508,7 @@ func testInfinityGlobalConfiguration(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_breakout_rooms", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_chat", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_ssh", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "restrict_cors_origins", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "session_timeout_enabled", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "bdpm_pin_checks_enabled", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "bdpm_scan_quarantine_enabled", "true"),
