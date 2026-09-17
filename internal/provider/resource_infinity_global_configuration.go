@@ -285,7 +285,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 			"content_security_policy_header": schema.StringAttribute{
 				Optional: true,
 				Computed: true,
-				Default:  stringdefault.StaticString("upgrade-insecure-requests; default-src 'self'; frame-ancestors 'self'; frame-src 'self' https://telemetryservice.firstpartyapps.oaspapps.com/telemetryservice/telemetryproxy.html https://*.microsoft.com https://*.office.com; style-src 'self' 'unsafe-inline' https://*.microsoft.com https://*.office.com; object-src 'self'; font-src 'self' https://*.microsoft.com https://*.office.com; img-src 'self' https://www.adobe.com data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.microsoft.com https://*.office.com https://ajax.aspnetcdn.com https://api.keen.io; media-src 'self' blob:; connect-src 'self' https://*.microsoft.com https://*.office.com https://example.com;"),
+				Default:  stringdefault.StaticString("upgrade-insecure-requests; default-src 'self'; frame-ancestors 'self'; frame-src 'self' https://*.microsoft.com; style-src 'self' 'unsafe-inline' https://*.microsoft.com https://*.office.com; object-src 'self'; font-src 'self' https://*.microsoft.com https://*.office.com; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.microsoft.com https://*.office.com https://ajax.aspnetcdn.com; media-src 'self' blob:; connect-src 'self' https://*.microsoft.com https://*.office.com;"),
 				Validators: []validator.String{
 					stringvalidator.LengthAtMost(4096),
 				},
