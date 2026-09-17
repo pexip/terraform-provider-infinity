@@ -75,6 +75,7 @@ func TestInfinityIdentityProvider(t *testing.T) {
 		mockState.SignatureAlgorithm = createReq.SignatureAlgorithm
 		mockState.DigestAlgorithm = createReq.DigestAlgorithm
 		mockState.DisplayNameAttributeName = createReq.DisplayNameAttributeName
+		mockState.EmailAttributeName = createReq.EmailAttributeName
 		mockState.RegistrationAliasAttributeName = createReq.RegistrationAliasAttributeName
 		mockState.AssertionConsumerServiceURL = createReq.AssertionConsumerServiceURL
 		mockState.AssertionConsumerServiceURL2 = createReq.AssertionConsumerServiceURL2
@@ -97,6 +98,7 @@ func TestInfinityIdentityProvider(t *testing.T) {
 		mockState.OidcTokenEndpointAuthScheme = createReq.OidcTokenEndpointAuthScheme
 		mockState.OidcTokenSignatureScheme = createReq.OidcTokenSignatureScheme
 		mockState.OidcDisplayNameClaimName = createReq.OidcDisplayNameClaimName
+		mockState.OidcEmailClaimName = createReq.OidcEmailClaimName
 		mockState.OidcRegistrationAliasClaimName = createReq.OidcRegistrationAliasClaimName
 		mockState.OidcAdditionalScopes = createReq.OidcAdditionalScopes
 		mockState.OidcFranceConnectRequiredEidasLevel = createReq.OidcFranceConnectRequiredEidasLevel
@@ -195,6 +197,7 @@ func TestInfinityIdentityProvider(t *testing.T) {
 		mockState.SignatureAlgorithm = updateRequest.SignatureAlgorithm
 		mockState.DigestAlgorithm = updateRequest.DigestAlgorithm
 		mockState.DisplayNameAttributeName = updateRequest.DisplayNameAttributeName
+		mockState.EmailAttributeName = updateRequest.EmailAttributeName
 		mockState.RegistrationAliasAttributeName = updateRequest.RegistrationAliasAttributeName
 		mockState.AssertionConsumerServiceURL = updateRequest.AssertionConsumerServiceURL
 		mockState.AssertionConsumerServiceURL2 = updateRequest.AssertionConsumerServiceURL2
@@ -221,6 +224,7 @@ func TestInfinityIdentityProvider(t *testing.T) {
 		mockState.OidcTokenEndpointAuthScheme = updateRequest.OidcTokenEndpointAuthScheme
 		mockState.OidcTokenSignatureScheme = updateRequest.OidcTokenSignatureScheme
 		mockState.OidcDisplayNameClaimName = updateRequest.OidcDisplayNameClaimName
+		mockState.OidcEmailClaimName = updateRequest.OidcEmailClaimName
 		mockState.OidcRegistrationAliasClaimName = updateRequest.OidcRegistrationAliasClaimName
 		mockState.OidcAdditionalScopes = updateRequest.OidcAdditionalScopes
 		mockState.OidcFranceConnectRequiredEidasLevel = updateRequest.OidcFranceConnectRequiredEidasLevel
@@ -296,6 +300,7 @@ func testInfinityIdentityProvider(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "signature_algorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "digest_algorithm", "http://www.w3.org/2001/04/xmldsig-more#sha384"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "display_name_attribute_name", "displayName"),
+					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "email_attribute_name", "email"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "registration_alias_attribute_name", "userPrincipalName"),
 
 					// Additional assertion consumer service URLs
@@ -323,6 +328,7 @@ func testInfinityIdentityProvider(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_token_endpoint_auth_scheme", "client_secret_basic"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_token_signature_scheme", "hs256"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_display_name_claim_name", "full_name"),
+					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_email_claim_name", "email"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_registration_alias_claim_name", "preferred_username"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_additional_scopes", "profile email phone address"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_france_connect_required_eidas_level", "eidas3"),
@@ -355,6 +361,7 @@ func testInfinityIdentityProvider(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "signature_algorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "digest_algorithm", "http://www.w3.org/2001/04/xmlenc#sha256"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "display_name_attribute_name", "NameId"),
+					resource.TestCheckNoResourceAttr("pexip_infinity_identity_provider.test", "email_attribute_name"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "registration_alias_attribute_name", "NameId"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "assertion_consumer_service_url2", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "assertion_consumer_service_url3", ""),
@@ -376,6 +383,7 @@ func testInfinityIdentityProvider(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_token_endpoint_auth_scheme", "client_secret_post"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_token_signature_scheme", "rs256"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_display_name_claim_name", "name"),
+					resource.TestCheckNoResourceAttr("pexip_infinity_identity_provider.test", "oidc_email_claim_name"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_registration_alias_claim_name", "sub"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_additional_scopes", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_france_connect_required_eidas_level", "disabled"),
@@ -403,6 +411,7 @@ func testInfinityIdentityProvider(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "signature_algorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "digest_algorithm", "http://www.w3.org/2001/04/xmlenc#sha256"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "display_name_attribute_name", "NameId"),
+					resource.TestCheckNoResourceAttr("pexip_infinity_identity_provider.test", "email_attribute_name"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "registration_alias_attribute_name", "NameId"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "worker_fqdn_acs_urls", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "disable_popup_flow", "false"),
@@ -410,6 +419,7 @@ func testInfinityIdentityProvider(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_token_endpoint_auth_scheme", "client_secret_post"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_token_signature_scheme", "rs256"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_display_name_claim_name", "name"),
+					resource.TestCheckNoResourceAttr("pexip_infinity_identity_provider.test", "oidc_email_claim_name"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_registration_alias_claim_name", "sub"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_france_connect_required_eidas_level", "disabled"),
 				),
@@ -439,6 +449,7 @@ func testInfinityIdentityProvider(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "signature_algorithm", "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "digest_algorithm", "http://www.w3.org/2001/04/xmldsig-more#sha384"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "display_name_attribute_name", "displayName"),
+					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "email_attribute_name", "email"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "registration_alias_attribute_name", "userPrincipalName"),
 
 					// Additional assertion consumer service URLs
@@ -466,6 +477,7 @@ func testInfinityIdentityProvider(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_token_endpoint_auth_scheme", "client_secret_basic"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_token_signature_scheme", "hs256"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_display_name_claim_name", "full_name"),
+					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_email_claim_name", "email"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_registration_alias_claim_name", "preferred_username"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_additional_scopes", "profile email phone address"),
 					resource.TestCheckResourceAttr("pexip_infinity_identity_provider.test", "oidc_france_connect_required_eidas_level", "eidas3"),

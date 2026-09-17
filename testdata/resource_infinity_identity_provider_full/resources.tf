@@ -85,6 +85,7 @@ resource "pexip_infinity_identity_provider" "test" {
   signature_algorithm               = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"
   digest_algorithm                  = "http://www.w3.org/2001/04/xmldsig-more#sha384"
   display_name_attribute_name       = "displayName"
+  email_attribute_name              = "email"
   registration_alias_attribute_name = "userPrincipalName"
 
   # Additional assertion consumer service URLs
@@ -112,6 +113,7 @@ resource "pexip_infinity_identity_provider" "test" {
   oidc_token_endpoint_auth_scheme          = "client_secret_basic"
   oidc_token_signature_scheme              = "hs256"
   oidc_display_name_claim_name             = "full_name"
+  oidc_email_claim_name                    = "email"
   oidc_registration_alias_claim_name       = "preferred_username"
   oidc_additional_scopes                   = "profile email phone address"
   oidc_france_connect_required_eidas_level = "eidas3"

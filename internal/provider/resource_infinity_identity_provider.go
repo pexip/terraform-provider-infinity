@@ -49,6 +49,7 @@ type InfinityIdentityProviderResourceModel struct {
 	SignatureAlgorithm                  types.String `tfsdk:"signature_algorithm"`
 	DigestAlgorithm                     types.String `tfsdk:"digest_algorithm"`
 	DisplayNameAttributeName            types.String `tfsdk:"display_name_attribute_name"`
+	EmailAttributeName                  types.String `tfsdk:"email_attribute_name"`
 	RegistrationAliasAttributeName      types.String `tfsdk:"registration_alias_attribute_name"`
 	AssertionConsumerServiceURL         types.String `tfsdk:"assertion_consumer_service_url"`
 	AssertionConsumerServiceURL2        types.String `tfsdk:"assertion_consumer_service_url2"`
@@ -71,6 +72,7 @@ type InfinityIdentityProviderResourceModel struct {
 	OidcTokenEndpointAuthScheme         types.String `tfsdk:"oidc_token_endpoint_auth_scheme"`
 	OidcTokenSignatureScheme            types.String `tfsdk:"oidc_token_signature_scheme"`
 	OidcDisplayNameClaimName            types.String `tfsdk:"oidc_display_name_claim_name"`
+	OidcEmailClaimName                  types.String `tfsdk:"oidc_email_claim_name"`
 	OidcRegistrationAliasClaimName      types.String `tfsdk:"oidc_registration_alias_claim_name"`
 	OidcAdditionalScopes                types.String `tfsdk:"oidc_additional_scopes"`
 	OidcFranceConnectRequiredEidasLevel types.String `tfsdk:"oidc_france_connect_required_eidas_level"`
@@ -220,6 +222,13 @@ func (r *InfinityIdentityProviderResource) Schema(ctx context.Context, req resou
 				},
 				MarkdownDescription: "The SAML 2.0 attribute name from which the user's display name will be extracted. If one is not specified, participants are able to enter their own display name. Default: NameId. Maximum length: 250 characters.",
 			},
+			"email_attribute_name": schema.StringAttribute{
+				Optional: true,
+				Validators: []validator.String{
+					stringvalidator.LengthAtMost(250),
+				},
+				MarkdownDescription: "The SAML 2.0 attribute name from which the user's email address will be extracted. If one is not specified, this IdP will not be usable for scheduling. Maximum length: 250 characters.",
+			},
 			"registration_alias_attribute_name": schema.StringAttribute{
 				Optional: true,
 				Computed: true,
@@ -318,7 +327,7 @@ func (r *InfinityIdentityProviderResource) Schema(ctx context.Context, req resou
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(false),
-				MarkdownDescription: "Disable pop-up windows used during Single Sign On",
+				MarkdownDescription: "Disable pop-up windows used during Single Sign On. Note that this does not effect scheduling.",
 			},
 			"oidc_flow": schema.StringAttribute{
 				Optional: true,
@@ -385,9 +394,9 @@ func (r *InfinityIdentityProviderResource) Schema(ctx context.Context, req resou
 				Computed: true,
 				Default:  stringdefault.StaticString("rs256"),
 				Validators: []validator.String{
-					stringvalidator.OneOf("rs256", "hs256"),
+					stringvalidator.OneOf("rs256", "rs512", "hs256"),
 				},
-				MarkdownDescription: "The algorithm used by the Identity Provider to sign the contents of the token. Valid choices: rs256, hs256.",
+				MarkdownDescription: "The algorithm used by the Identity Provider to sign the contents of the token. RS256 and RS512 use asymmetric RSA keys (requires a JWKS URL). HS256 uses a shared client secret.",
 			},
 			"oidc_display_name_claim_name": schema.StringAttribute{
 				Optional: true,
@@ -397,6 +406,13 @@ func (r *InfinityIdentityProviderResource) Schema(ctx context.Context, req resou
 					stringvalidator.LengthAtMost(250),
 				},
 				MarkdownDescription: "The claim name from which the user's display name will be extracted. This can come from either the JWT, or data from the UserInfo endpoint (if one is configured). Maximum length: 250 characters.",
+			},
+			"oidc_email_claim_name": schema.StringAttribute{
+				Optional: true,
+				Validators: []validator.String{
+					stringvalidator.LengthAtMost(250),
+				},
+				MarkdownDescription: "The claim name from which the user's email address will be extracted. This can come from either the JWT, or data from the UserInfo endpoint (if one is configured). Required for scheduling. Maximum length: 250 characters.",
 			},
 			"oidc_registration_alias_claim_name": schema.StringAttribute{
 				Optional: true,
@@ -498,6 +514,7 @@ func (r *InfinityIdentityProviderResource) Create(ctx context.Context, req resou
 	if !plan.DisplayNameAttributeName.IsNull() {
 		createRequest.DisplayNameAttributeName = plan.DisplayNameAttributeName.ValueString()
 	}
+	createRequest.EmailAttributeName = plan.EmailAttributeName.ValueStringPointer()
 	if !plan.RegistrationAliasAttributeName.IsNull() {
 		createRequest.RegistrationAliasAttributeName = plan.RegistrationAliasAttributeName.ValueString()
 	}
@@ -555,6 +572,7 @@ func (r *InfinityIdentityProviderResource) Create(ctx context.Context, req resou
 	if !plan.OidcDisplayNameClaimName.IsNull() {
 		createRequest.OidcDisplayNameClaimName = plan.OidcDisplayNameClaimName.ValueString()
 	}
+	createRequest.OidcEmailClaimName = plan.OidcEmailClaimName.ValueStringPointer()
 	if !plan.OidcRegistrationAliasClaimName.IsNull() {
 		createRequest.OidcRegistrationAliasClaimName = plan.OidcRegistrationAliasClaimName.ValueString()
 	}
@@ -632,6 +650,7 @@ func (r *InfinityIdentityProviderResource) read(ctx context.Context, resourceID 
 	data.SignatureAlgorithm = types.StringValue(srv.SignatureAlgorithm)
 	data.DigestAlgorithm = types.StringValue(srv.DigestAlgorithm)
 	data.DisplayNameAttributeName = types.StringValue(srv.DisplayNameAttributeName)
+	data.EmailAttributeName = types.StringPointerValue(srv.EmailAttributeName)
 	data.RegistrationAliasAttributeName = types.StringValue(srv.RegistrationAliasAttributeName)
 	data.AssertionConsumerServiceURL = types.StringValue(srv.AssertionConsumerServiceURL)
 	data.AssertionConsumerServiceURL2 = types.StringValue(srv.AssertionConsumerServiceURL2)
@@ -654,6 +673,7 @@ func (r *InfinityIdentityProviderResource) read(ctx context.Context, resourceID 
 	data.OidcTokenEndpointAuthScheme = types.StringValue(srv.OidcTokenEndpointAuthScheme)
 	data.OidcTokenSignatureScheme = types.StringValue(srv.OidcTokenSignatureScheme)
 	data.OidcDisplayNameClaimName = types.StringValue(srv.OidcDisplayNameClaimName)
+	data.OidcEmailClaimName = types.StringPointerValue(srv.OidcEmailClaimName)
 	data.OidcRegistrationAliasClaimName = types.StringValue(srv.OidcRegistrationAliasClaimName)
 	data.OidcAdditionalScopes = types.StringValue(srv.OidcAdditionalScopes)
 	data.OidcFranceConnectRequiredEidasLevel = types.StringValue(srv.OidcFranceConnectRequiredEidasLevel)
@@ -771,6 +791,7 @@ func (r *InfinityIdentityProviderResource) Update(ctx context.Context, req resou
 	if !plan.DisplayNameAttributeName.IsNull() {
 		updateRequest.DisplayNameAttributeName = plan.DisplayNameAttributeName.ValueString()
 	}
+	updateRequest.EmailAttributeName = plan.EmailAttributeName.ValueStringPointer()
 	if !plan.RegistrationAliasAttributeName.IsNull() {
 		updateRequest.RegistrationAliasAttributeName = plan.RegistrationAliasAttributeName.ValueString()
 	}
@@ -805,6 +826,7 @@ func (r *InfinityIdentityProviderResource) Update(ctx context.Context, req resou
 	if !plan.OidcDisplayNameClaimName.IsNull() {
 		updateRequest.OidcDisplayNameClaimName = plan.OidcDisplayNameClaimName.ValueString()
 	}
+	updateRequest.OidcEmailClaimName = plan.OidcEmailClaimName.ValueStringPointer()
 	if !plan.OidcRegistrationAliasClaimName.IsNull() {
 		updateRequest.OidcRegistrationAliasClaimName = plan.OidcRegistrationAliasClaimName.ValueString()
 	}
