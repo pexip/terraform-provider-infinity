@@ -94,6 +94,7 @@ func testInfinityGlobalConfigurationIntegration(t *testing.T, client InfinityCli
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_mlvad", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_rtmp", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_sip", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_sip_tcp", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_sip_udp", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_softmute", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_ssh", "false"),

@@ -74,6 +74,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		EnableMlvad:                         true,  // default: false
 		EnableRTMP:                          false, // default: true
 		EnableSIP:                           false, // default: true
+		EnableSIPTCP:                        true,  // default: false
 		EnableSIPUDP:                        true,  // default: false
 		EnableSoftmute:                      false, // default: true
 		EnableSSH:                           false, // default: true
@@ -186,6 +187,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		assert.False(t, req.EnableMlvad)
 		assert.True(t, req.EnableRTMP)
 		assert.True(t, req.EnableSIP)
+		assert.False(t, req.EnableSIPTCP)
 		assert.False(t, req.EnableSIPUDP)
 		assert.True(t, req.EnableSoftmute)
 		assert.True(t, req.EnableSSH)
@@ -265,6 +267,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		mockState.EnableMlvad = false
 		mockState.EnableRTMP = true
 		mockState.EnableSIP = true
+		mockState.EnableSIPTCP = false
 		mockState.EnableSIPUDP = false
 		mockState.EnableSoftmute = true
 		mockState.EnableSSH = true
@@ -361,6 +364,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		mockState.EnableLyncAutoEscalate = updateRequest.EnableLyncAutoEscalate
 		mockState.EnableLyncVbss = updateRequest.EnableLyncVbss
 		mockState.EnableMlvad = updateRequest.EnableMlvad
+		mockState.EnableSIPTCP = updateRequest.EnableSIPTCP
 		mockState.EnableSIPUDP = updateRequest.EnableSIPUDP
 		mockState.EnableSoftmute = updateRequest.EnableSoftmute
 		mockState.EnableSSH = updateRequest.EnableSSH
@@ -431,6 +435,7 @@ func testInfinityGlobalConfiguration(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_analytics", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_webrtc", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_sip", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_sip_tcp", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_h323", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_rtmp", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_sip_udp", "true"),
@@ -482,6 +487,7 @@ func testInfinityGlobalConfiguration(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_analytics", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_webrtc", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_sip", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_sip_tcp", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_h323", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_rtmp", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_sip_udp", "false"),

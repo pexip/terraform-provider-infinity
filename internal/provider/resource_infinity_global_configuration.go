@@ -98,6 +98,7 @@ type InfinityGlobalConfigurationResourceModel struct {
 	EnableMlvad                         types.Bool   `tfsdk:"enable_mlvad"`
 	EnableRTMP                          types.Bool   `tfsdk:"enable_rtmp"`
 	EnableSIP                           types.Bool   `tfsdk:"enable_sip"`
+	EnableSIPTCP                        types.Bool   `tfsdk:"enable_sip_tcp"`
 	EnableSIPUDP                        types.Bool   `tfsdk:"enable_sip_udp"`
 	EnableSoftmute                      types.Bool   `tfsdk:"enable_softmute"`
 	EnableSSH                           types.Bool   `tfsdk:"enable_ssh"`
@@ -445,7 +446,13 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "Enable the SIP protocol over TCP and TLS on all Conferencing Nodes.",
+				MarkdownDescription: "Enable the SIP protocol over TLS on all Conferencing Nodes.",
+			},
+			"enable_sip_tcp": schema.BoolAttribute{
+				Optional:            true,
+				Computed:            true,
+				Default:             booldefault.StaticBool(false),
+				MarkdownDescription: "Enable the SIP protocol over TCP on all Conferencing Nodes.",
 			},
 			"enable_sip_udp": schema.BoolAttribute{
 				Optional:            true,
@@ -816,6 +823,7 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 		CryptoMode:                          plan.CryptoMode.ValueString(),
 		DeploymentUUID:                      plan.DeploymentUUID.ValueString(),
 		ErrorReportingURL:                   plan.ErrorReportingURL.ValueString(),
+		EnableSIPTCP:                        plan.EnableSIPTCP.ValueBool(),
 		EnableSIPUDP:                        plan.EnableSIPUDP.ValueBool(),
 		LegacyAPIUsername:                   plan.LegacyAPIUsername.ValueString(),
 		LegacyAPIPassword:                   plan.LegacyAPIPassword.ValueString(),
@@ -1055,6 +1063,7 @@ func (r *InfinityGlobalConfigurationResource) read(ctx context.Context, awsSecre
 	data.EnableLyncAutoEscalate = types.BoolValue(srv.EnableLyncAutoEscalate)
 	data.EnableLyncVbss = types.BoolValue(srv.EnableLyncVbss)
 	data.EnableMlvad = types.BoolValue(srv.EnableMlvad)
+	data.EnableSIPTCP = types.BoolValue(srv.EnableSIPTCP)
 	data.EnableSIPUDP = types.BoolValue(srv.EnableSIPUDP)
 	data.EnableSoftmute = types.BoolValue(srv.EnableSoftmute)
 	data.EnableSSH = types.BoolValue(srv.EnableSSH)
@@ -1236,6 +1245,7 @@ func (r *InfinityGlobalConfigurationResource) Delete(ctx context.Context, req re
 		EnableMlvad:                         false,
 		EnableRTMP:                          true,
 		EnableSIP:                           true,
+		EnableSIPTCP:                        false,
 		EnableSIPUDP:                        false,
 		EnableSoftmute:                      true,
 		EnableSSH:                           true,

@@ -41,6 +41,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
   enable_mlvad                            = true
   enable_rtmp                             = false
   enable_sip                              = false
+  enable_sip_tcp                          = true
   enable_sip_udp                          = true
   enable_softmute                         = false
   enable_ssh                              = false
