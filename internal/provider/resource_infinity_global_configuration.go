@@ -96,6 +96,7 @@ type InfinityGlobalConfigurationResourceModel struct {
 	EnableLyncAutoEscalate              types.Bool   `tfsdk:"enable_lync_auto_escalate"`
 	EnableLyncVbss                      types.Bool   `tfsdk:"enable_lync_vbss"`
 	EnableMlvad                         types.Bool   `tfsdk:"enable_mlvad"`
+	EnableMSSIP                         types.Bool   `tfsdk:"enable_mssip"`
 	EnableRTMP                          types.Bool   `tfsdk:"enable_rtmp"`
 	EnableSIP                           types.Bool   `tfsdk:"enable_sip"`
 	EnableSIPTCP                        types.Bool   `tfsdk:"enable_sip_tcp"`
@@ -435,6 +436,12 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Computed:            true,
 				Default:             booldefault.StaticBool(false),
 				MarkdownDescription: "Enable Voice Focus for advanced voice activity detection.",
+			},
+			"enable_mssip": schema.BoolAttribute{
+				Optional:            true,
+				Computed:            true,
+				Default:             booldefault.StaticBool(false),
+				MarkdownDescription: "Enable support for Skype for Business within the SIP protocol on all Conferencing Nodes.",
 			},
 			"enable_rtmp": schema.BoolAttribute{
 				Optional:            true,
@@ -857,6 +864,7 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 		EnableLyncAutoEscalate:              plan.EnableLyncAutoEscalate.ValueBool(),
 		EnableLyncVbss:                      plan.EnableLyncVbss.ValueBool(),
 		EnableMlvad:                         plan.EnableMlvad.ValueBool(),
+		EnableMSSIP:                         plan.EnableMSSIP.ValueBool(),
 		EnableSoftmute:                      plan.EnableSoftmute.ValueBool(),
 		EnableSSH:                           plan.EnableSSH.ValueBool(),
 		EnableTurn443:                       plan.EnableTurn443.ValueBool(),
@@ -1063,6 +1071,7 @@ func (r *InfinityGlobalConfigurationResource) read(ctx context.Context, awsSecre
 	data.EnableLyncAutoEscalate = types.BoolValue(srv.EnableLyncAutoEscalate)
 	data.EnableLyncVbss = types.BoolValue(srv.EnableLyncVbss)
 	data.EnableMlvad = types.BoolValue(srv.EnableMlvad)
+	data.EnableMSSIP = types.BoolValue(srv.EnableMSSIP)
 	data.EnableSIPTCP = types.BoolValue(srv.EnableSIPTCP)
 	data.EnableSIPUDP = types.BoolValue(srv.EnableSIPUDP)
 	data.EnableSoftmute = types.BoolValue(srv.EnableSoftmute)
@@ -1243,6 +1252,7 @@ func (r *InfinityGlobalConfigurationResource) Delete(ctx context.Context, req re
 		EnableLyncAutoEscalate:              false,
 		EnableLyncVbss:                      false,
 		EnableMlvad:                         false,
+		EnableMSSIP:                         false,
 		EnableRTMP:                          true,
 		EnableSIP:                           true,
 		EnableSIPTCP:                        false,

@@ -72,6 +72,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		EnableLyncAutoEscalate:              true,  // default: false
 		EnableLyncVbss:                      true,  // default: false
 		EnableMlvad:                         true,  // default: false
+		EnableMSSIP:                         true,  // default: false
 		EnableRTMP:                          false, // default: true
 		EnableSIP:                           false, // default: true
 		EnableSIPTCP:                        true,  // default: false
@@ -185,6 +186,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		assert.False(t, req.EnableLyncAutoEscalate)
 		assert.False(t, req.EnableLyncVbss)
 		assert.False(t, req.EnableMlvad)
+		assert.False(t, req.EnableMSSIP)
 		assert.True(t, req.EnableRTMP)
 		assert.True(t, req.EnableSIP)
 		assert.False(t, req.EnableSIPTCP)
@@ -265,6 +267,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		mockState.EnableLyncAutoEscalate = false
 		mockState.EnableLyncVbss = false
 		mockState.EnableMlvad = false
+		mockState.EnableMSSIP = false
 		mockState.EnableRTMP = true
 		mockState.EnableSIP = true
 		mockState.EnableSIPTCP = false
@@ -364,6 +367,7 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		mockState.EnableLyncAutoEscalate = updateRequest.EnableLyncAutoEscalate
 		mockState.EnableLyncVbss = updateRequest.EnableLyncVbss
 		mockState.EnableMlvad = updateRequest.EnableMlvad
+		mockState.EnableMSSIP = updateRequest.EnableMSSIP
 		mockState.EnableSIPTCP = updateRequest.EnableSIPTCP
 		mockState.EnableSIPUDP = updateRequest.EnableSIPUDP
 		mockState.EnableSoftmute = updateRequest.EnableSoftmute

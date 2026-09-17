@@ -48,6 +48,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
   enable_lync_auto_escalate               = true
   enable_lync_vbss                        = true
   enable_mlvad                            = true
+  enable_mssip                            = true
   enable_rtmp                             = false
   enable_sip                              = false
   enable_sip_tcp                          = true
