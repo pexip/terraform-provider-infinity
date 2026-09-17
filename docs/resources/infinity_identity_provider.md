@@ -72,8 +72,9 @@ resource "pexip_infinity_identity_provider" "oidc_example" {
 - `attributes` (Set of String) List of identity provider attribute resource URIs.
 - `description` (String) A description of the Identity Provider. Maximum length: 250 characters.
 - `digest_algorithm` (String) Digest algorithm used to sign SAML authentication request messages and service metadata. Valid choices: http://www.w3.org/2000/09/xmldsig#sha1, http://www.w3.org/2001/04/xmlenc#sha256, http://www.w3.org/2001/04/xmldsig-more#sha384, http://www.w3.org/2001/04/xmlenc#sha512.
-- `disable_popup_flow` (Boolean) Disable pop-up windows used during Single Sign On
+- `disable_popup_flow` (Boolean) Disable pop-up windows used during Single Sign On. Note that this does not effect scheduling.
 - `display_name_attribute_name` (String) The SAML 2.0 attribute name from which the user's display name will be extracted. If one is not specified, participants are able to enter their own display name. Default: NameId. Maximum length: 250 characters.
+- `email_attribute_name` (String) The SAML 2.0 attribute name from which the user's email address will be extracted. If one is not specified, this IdP will not be usable for scheduling. Maximum length: 250 characters.
 - `idp_entity_id` (String) The identifier for this Identity Provider integration. For SAML IdPs this is the Entity ID and for OpenID Connect IdPs this is the Issuer for returned JWTs.  Maximum length: 250 characters.
 - `idp_public_key` (String) The public key used  to verify assertions signed by this Identity Provider. Maximum length: 4096 characters.
 - `idp_type` (String) Select the protocol used by this Identity Provider. Valid choices: saml, oidc.
@@ -81,12 +82,13 @@ resource "pexip_infinity_identity_provider" "oidc_example" {
 - `oidc_client_id` (String) The client identifier provided by the OpenID Connect Identity Provider. Maximum length: 250 characters.
 - `oidc_client_secret` (String, Sensitive) The client secret provided by the OpenID Connect Identity Provider. Maximum length: 100 characters.
 - `oidc_display_name_claim_name` (String) The claim name from which the user's display name will be extracted. This can come from either the JWT, or data from the UserInfo endpoint (if one is configured). Maximum length: 250 characters.
+- `oidc_email_claim_name` (String) The claim name from which the user's email address will be extracted. This can come from either the JWT, or data from the UserInfo endpoint (if one is configured). Required for scheduling. Maximum length: 250 characters.
 - `oidc_flow` (String) The flow used by the OpenID Connect Identity Provider. Valid choices: implicit, code.
 - `oidc_france_connect_required_eidas_level` (String) The eIDAS level to use in requests and responses. This should not be changed from the default "Disabled" unless advised by your Pexip support representative. Valid choices: disabled, eidas1, eidas2, eidas3.
 - `oidc_jwks_url` (String) Download location for your Identity Provider's JSON Web Key Set (JWKS) to enable signature verification. Not required when using HS256 signatures. Maximum length: 255 characters.
 - `oidc_registration_alias_claim_name` (String) The claim name from which the user's registration alias will be extracted. This can come from either the JWT, or data from the UserInfo endpoint (if one is configured). Maximum length: 250 characters.
 - `oidc_token_endpoint_auth_scheme` (String) The authentication method used by Infinity to authenticate when using the token endpoint. Valid choices: client_secret_basic, client_secret_post.
-- `oidc_token_signature_scheme` (String) The algorithm used by the Identity Provider to sign the contents of the token. Valid choices: rs256, hs256.
+- `oidc_token_signature_scheme` (String) The algorithm used by the Identity Provider to sign the contents of the token. RS256 and RS512 use asymmetric RSA keys (requires a JWKS URL). HS256 uses a shared client secret.
 - `oidc_token_url` (String) OpenID Connect Token Endpoint URL used for exchanging codes for tokens in the Authorization Code Flow. Not required when using the Implicit Flow. Maximum length: 255 characters.
 - `oidc_user_info_url` (String) You can optionally enter here the URL of an OpenID Connect UserInfo Endpoint if you wish to use this to retrieve information about the user. Maximum length: 255 characters.
 - `registration_alias_attribute_name` (String) The SAML 2.0 attribute name from which the user's registration alias will be extracted. If one is not specified, the user will not be able to register. Default: NameId. Maximum length: 250 characters.
