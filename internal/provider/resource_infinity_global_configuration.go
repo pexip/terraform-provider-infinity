@@ -372,10 +372,8 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "Enables relay of chat messages between conference participants using supported clients such as the Pexip apps. You can also configure this setting on individual Virtual Meeting Rooms and Virtual Auditoriums.",
 			},
 			"enable_clock": schema.BoolAttribute{
-				Optional:            true,
 				Computed:            true,
-				Default:             booldefault.StaticBool(false),
-				MarkdownDescription: "Enables support for displaying an in-conference timer or countdown clock.",
+				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"enable_denoise": schema.BoolAttribute{
 				Optional:            true,

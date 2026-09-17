@@ -174,7 +174,6 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		assert.True(t, req.EnableApplicationAPI)
 		assert.False(t, req.EnableBreakoutRooms)
 		assert.True(t, req.EnableChat)
-		assert.False(t, req.EnableClock)
 		assert.True(t, req.EnableDenoise)
 		assert.True(t, req.EnableDialout)
 		assert.True(t, req.EnableDirectory)
@@ -254,7 +253,6 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		mockState.EnableApplicationAPI = true
 		mockState.EnableBreakoutRooms = false
 		mockState.EnableChat = true
-		mockState.EnableClock = false
 		mockState.EnableDenoise = true
 		mockState.EnableDialout = true
 		mockState.EnableDirectory = true
@@ -354,7 +352,6 @@ func TestInfinityGlobalConfiguration(t *testing.T) {
 		mockState.EnableApplicationAPI = updateRequest.EnableApplicationAPI
 		mockState.EnableBreakoutRooms = updateRequest.EnableBreakoutRooms
 		mockState.EnableChat = updateRequest.EnableChat
-		mockState.EnableClock = updateRequest.EnableClock
 		mockState.EnableDenoise = updateRequest.EnableDenoise
 		mockState.EnableDialout = updateRequest.EnableDialout
 		mockState.EnableDirectory = updateRequest.EnableDirectory

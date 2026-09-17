@@ -38,7 +38,6 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
   enable_application_api                  = false
   enable_breakout_rooms                   = true
   enable_chat                             = false
-  enable_clock                            = true
   enable_denoise                          = false
   enable_dialout                          = false
   enable_directory                        = false

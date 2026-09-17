@@ -82,7 +82,6 @@ func testInfinityGlobalConfigurationIntegration(t *testing.T, client InfinityCli
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_application_api", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_breakout_rooms", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_chat", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_clock", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_denoise", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_dialout", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_global_configuration.global_configuration-test", "enable_directory", "false"),
