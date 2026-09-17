@@ -17,6 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64default"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 
@@ -374,7 +375,10 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "Enables relay of chat messages between conference participants using supported clients such as the Pexip apps. You can also configure this setting on individual Virtual Meeting Rooms and Virtual Auditoriums.",
 			},
 			"enable_clock": schema.BoolAttribute{
-				Computed:            true,
+				Computed: true,
+				PlanModifiers: []planmodifier.Bool{
+					boolplanmodifier.UseStateForUnknown(),
+				},
 				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"enable_denoise": schema.BoolAttribute{
@@ -744,7 +748,10 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "The length of time (in seconds) for which a participant will be permitted to remain at the PIN entry screen before being disconnected. Range: 30 to 86400. Default: 120.",
 			},
 			"resource_uri": schema.StringAttribute{
-				Computed:            true,
+				Computed: true,
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
 				MarkdownDescription: "The URI that identifies this resource.",
 			},
 			"session_timeout_enabled": schema.BoolAttribute{
