@@ -72,6 +72,7 @@ func TestInfinityConference(t *testing.T) {
 		ReplaceString:                   "replaced",
 		SoftmuteEnabled:                 true,
 		SyncTag:                         "sync-123",
+		TranscriptMode:                  "besteffort",
 		TwoStageDialType:                "regular",
 		ServiceType:                     "conference",
 		PIN:                             "123456",
@@ -124,6 +125,7 @@ func TestInfinityConference(t *testing.T) {
 		mockState.SoftmuteEnabled = updateRequest.SoftmuteEnabled
 		mockState.SyncTag = updateRequest.SyncTag
 		mockState.Tag = updateRequest.Tag
+		mockState.TranscriptMode = updateRequest.TranscriptMode
 		mockState.TwoStageDialType = updateRequest.TwoStageDialType
 
 		// Handle pointer fields
@@ -302,6 +304,7 @@ func testInfinityConference(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "replace_string", "replaced"),
 					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "softmute_enabled", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "sync_tag", "sync-123"),
+					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "transcript_mode", "besteffort"),
 					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "two_stage_dial_type", "regular"),
 					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "automatic_participants.#", "2"),
 					resource.TestCheckTypeSetElemAttr("pexip_infinity_conference.tf-test-conference", "automatic_participants.*", "/api/admin/configuration/v1/automatic_participant/1/"),
@@ -383,6 +386,7 @@ func testInfinityConference(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "replace_string", "replaced"),
 					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "softmute_enabled", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "sync_tag", "sync-123"),
+					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "transcript_mode", "besteffort"),
 					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "two_stage_dial_type", "regular"),
 					resource.TestCheckResourceAttr("pexip_infinity_conference.tf-test-conference", "automatic_participants.#", "2"),
 					resource.TestCheckTypeSetElemAttr("pexip_infinity_conference.tf-test-conference", "automatic_participants.*", "/api/admin/configuration/v1/automatic_participant/1/"),
