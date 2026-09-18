@@ -47,6 +47,7 @@ type InfinityEventSinkResourceModel struct {
 	BulkSupport          types.Bool   `tfsdk:"bulk_support"`
 	VerifyTLSCertificate types.Bool   `tfsdk:"verify_tls_certificate"`
 	Version              types.Int32  `tfsdk:"version"`
+	Events               types.Set    `tfsdk:"events"`
 }
 
 func (r *InfinityEventSinkResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -150,6 +151,11 @@ func (r *InfinityEventSinkResource) Schema(ctx context.Context, req resource.Sch
 				Default:             int32default.StaticInt32(1),
 				MarkdownDescription: "The version of the event sink API. Must be at least 1.",
 			},
+			"events": schema.SetAttribute{
+				ElementType:         types.StringType,
+				Optional:            true,
+				MarkdownDescription: "The list of events to send to this event sink.",
+			},
 		},
 		MarkdownDescription: "Manages an event sink configuration.",
 	}
@@ -183,6 +189,16 @@ func (r *InfinityEventSinkResource) Create(ctx context.Context, req resource.Cre
 	if !plan.Password.IsNull() {
 		password := plan.Password.ValueString()
 		createRequest.Password = &password
+	}
+
+	if !plan.Events.IsNull() && !plan.Events.IsUnknown() {
+		eventNames, diags := getStringList(ctx, plan.Events)
+		resp.Diagnostics.Append(diags...)
+		events := make([]config.EventSinkEvent, len(eventNames))
+		for i, name := range eventNames {
+			events[i] = config.EventSinkEvent{Name: name}
+		}
+		createRequest.Events = &events
 	}
 
 	createResponse, err := r.InfinityClient.Config().CreateEventSink(ctx, createRequest)
@@ -250,6 +266,20 @@ func (r *InfinityEventSinkResource) read(ctx context.Context, resourceID int, pa
 		data.Username = types.StringNull()
 	}
 
+	if srv.Events != nil {
+		eventNames := make([]string, len(*srv.Events))
+		for i, e := range *srv.Events {
+			eventNames[i] = e.Name
+		}
+		eventsSet, diags := types.SetValueFrom(ctx, types.StringType, eventNames)
+		if diags.HasError() {
+			return nil, fmt.Errorf("error converting events: %v", diags)
+		}
+		data.Events = eventsSet
+	} else {
+		data.Events = types.SetNull(types.StringType)
+	}
+
 	return &data, nil
 }
 
@@ -314,6 +344,16 @@ func (r *InfinityEventSinkResource) Update(ctx context.Context, req resource.Upd
 	if !plan.Password.IsNull() {
 		password := plan.Password.ValueString()
 		updateRequest.Password = &password
+	}
+
+	if !plan.Events.IsNull() && !plan.Events.IsUnknown() {
+		eventNames, diags := getStringList(ctx, plan.Events)
+		resp.Diagnostics.Append(diags...)
+		events := make([]config.EventSinkEvent, len(eventNames))
+		for i, name := range eventNames {
+			events[i] = config.EventSinkEvent{Name: name}
+		}
+		updateRequest.Events = &events
 	}
 
 	_, err := r.InfinityClient.Config().UpdateEventSink(ctx, resourceID, updateRequest)
