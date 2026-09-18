@@ -51,11 +51,6 @@ func TestInfinityMjxExchangeDeployment(t *testing.T) {
 			KerberosEnableTLS:              createReq.KerberosEnableTLS,
 			KerberosKDCHTTPSProxy:          createReq.KerberosKDCHTTPSProxy,
 			KerberosVerifyTLSUsingCustomCA: createReq.KerberosVerifyTLSUsingCustomCA,
-			OAuthClientID:                  createReq.OAuthClientID,
-			OAuthAuthEndpoint:              createReq.OAuthAuthEndpoint,
-			OAuthTokenEndpoint:             createReq.OAuthTokenEndpoint,
-			OAuthRedirectURI:               createReq.OAuthRedirectURI,
-			OAuthState:                     createReq.OAuthState,
 			MjxIntegrations:                createReq.MjxIntegrations,
 		}
 	})
@@ -77,11 +72,6 @@ func TestInfinityMjxExchangeDeployment(t *testing.T) {
 		mockState.KerberosKDC = updateReq.KerberosKDC
 		mockState.KerberosExchangeSPN = updateReq.KerberosExchangeSPN
 		mockState.KerberosKDCHTTPSProxy = updateReq.KerberosKDCHTTPSProxy
-		mockState.OAuthAuthEndpoint = updateReq.OAuthAuthEndpoint
-		mockState.OAuthTokenEndpoint = updateReq.OAuthTokenEndpoint
-		mockState.OAuthRedirectURI = updateReq.OAuthRedirectURI
-		mockState.OAuthClientID = updateReq.OAuthClientID
-		mockState.OAuthState = updateReq.OAuthState
 		mockState.MjxIntegrations = updateReq.MjxIntegrations
 		if updateReq.FindItemsRequestQuota != 0 {
 			mockState.FindItemsRequestQuota = updateReq.FindItemsRequestQuota
@@ -130,10 +120,6 @@ func testInfinityMjxExchangeDeployment(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "kerberos_enable_tls", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "kerberos_kdc_https_proxy", "https://kdc-proxy.example.com"),
 					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "kerberos_verify_tls_using_custom_ca", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "oauth_client_id", "a1b2c3d4-e5f6-7890-abcd-ef1234567890"),
-					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "oauth_auth_endpoint", "https://login.microsoftonline.com/tenant/oauth2/v2.0/authorize"),
-					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "oauth_token_endpoint", "https://login.microsoftonline.com/tenant/oauth2/v2.0/token"),
-					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "oauth_redirect_uri", "https://pexip.example.com/admin/platform/mjxexchangedeployment/oauth_redirect/"),
 				),
 			},
 			// Step 2: Update with min config
@@ -157,10 +143,6 @@ func testInfinityMjxExchangeDeployment(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "kerberos_enable_tls", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "kerberos_kdc_https_proxy", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "kerberos_verify_tls_using_custom_ca", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "oauth_client_id", "12345678-1234-1234-1234-123456789012"),
-					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "oauth_auth_endpoint", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "oauth_token_endpoint", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "oauth_redirect_uri", ""),
 				),
 			},
 			// Step 3: Destroy
@@ -182,7 +164,6 @@ func testInfinityMjxExchangeDeployment(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "disable_proxy", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "find_items_request_quota", "1000000"),
 					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "kerberos_enable_tls", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "oauth_client_id", "12345678-1234-1234-1234-123456789012"),
 				),
 			},
 			// Step 5: Update to full config
@@ -206,10 +187,6 @@ func testInfinityMjxExchangeDeployment(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "kerberos_enable_tls", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "kerberos_kdc_https_proxy", "https://kdc-proxy.example.com"),
 					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "kerberos_verify_tls_using_custom_ca", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "oauth_client_id", "a1b2c3d4-e5f6-7890-abcd-ef1234567890"),
-					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "oauth_auth_endpoint", "https://login.microsoftonline.com/tenant/oauth2/v2.0/authorize"),
-					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "oauth_token_endpoint", "https://login.microsoftonline.com/tenant/oauth2/v2.0/token"),
-					resource.TestCheckResourceAttr("pexip_infinity_mjx_exchange_deployment.test", "oauth_redirect_uri", "https://pexip.example.com/admin/platform/mjxexchangedeployment/oauth_redirect/"),
 				),
 			},
 		},

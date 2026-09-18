@@ -221,44 +221,53 @@ func (r *InfinityMjxExchangeDeploymentResource) Schema(ctx context.Context, req 
 				MarkdownDescription: "If enabled, use the configured Root Trust CA Certificates to verify the KDC HTTPS proxy SSL certificate. If disabled, the HTTPS proxy SSL certificate is verified using the system-wide default set of trusted certificates.",
 			},
 			"oauth_client_id": schema.StringAttribute{
-				Optional:            true,
-				MarkdownDescription: "The Application ID which was generated when creating an App Registration in Azure Active Directory.",
+				Computed:           true,
+				DeprecationMessage: "This attribute is deprecated and will be removed in a future version.",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
+				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"oauth_auth_endpoint": schema.StringAttribute{
-				Computed: true,
-				Optional: true,
-				Default:  stringdefault.StaticString(""),
-				Validators: []validator.String{
-					stringvalidator.LengthAtMost(255),
+				Computed:           true,
+				DeprecationMessage: "This attribute is deprecated and will be removed in a future version.",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
 				},
-				MarkdownDescription: "The URI of the OAuth authorization endpoint. This should be copied from the 'Endpoints' section in Azure Active Directory App Registrations. Maximum length: 255 characters.",
+				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"oauth_token_endpoint": schema.StringAttribute{
-				Computed: true,
-				Optional: true,
-				Default:  stringdefault.StaticString(""),
-				Validators: []validator.String{
-					stringvalidator.LengthAtMost(255),
+				Computed:           true,
+				DeprecationMessage: "This attribute is deprecated and will be removed in a future version.",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
 				},
-				MarkdownDescription: "The URI of the OAuth token endpoint. This should be copied from the 'Endpoints' section in Azure Active Directory App Registrations. Maximum length: 255 characters.",
+				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"oauth_redirect_uri": schema.StringAttribute{
-				Computed: true,
-				Optional: true,
-				Default:  stringdefault.StaticString(""),
-				Validators: []validator.String{
-					stringvalidator.LengthAtMost(255),
+				Computed:           true,
+				DeprecationMessage: "This attribute is deprecated and will be removed in a future version.",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
 				},
-				MarkdownDescription: "The redirect URI you entered when creating an App Registration in Azure Active Directory. It should be in the format 'https://[Management Node Address]/admin/platform/mjxexchangedeployment/oauth_redirect/'. Maximum length: 255 characters.",
+				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"oauth_refresh_token": schema.StringAttribute{
-				Computed:            true,
-				Sensitive:           true,
-				MarkdownDescription: "The OAuth refresh token which is obtained after successfully signing in via the OAuth flow.",
+				Computed:           true,
+				Sensitive:          true,
+				DeprecationMessage: "This attribute is deprecated and will be removed in a future version.",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
+				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"oauth_state": schema.StringAttribute{
-				Optional:            true,
-				MarkdownDescription: "A unique state which is used during the OAuth sign-in flow.",
+				Computed:           true,
+				DeprecationMessage: "This attribute is deprecated and will be removed in a future version.",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
+				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"autodiscover_urls": schema.SetAttribute{
 				Computed:            true,
@@ -299,19 +308,6 @@ func (r *InfinityMjxExchangeDeploymentResource) Create(ctx context.Context, req 
 		KerberosEnableTLS:              plan.KerberosEnableTLS.ValueBool(),
 		KerberosKDCHTTPSProxy:          plan.KerberosKDCHTTPSProxy.ValueString(),
 		KerberosVerifyTLSUsingCustomCA: plan.KerberosVerifyTLSUsingCustomCA.ValueBool(),
-		OAuthAuthEndpoint:              plan.OAuthAuthEndpoint.ValueString(),
-		OAuthTokenEndpoint:             plan.OAuthTokenEndpoint.ValueString(),
-		OAuthRedirectURI:               plan.OAuthRedirectURI.ValueString(),
-	}
-
-	if !plan.OAuthClientID.IsNull() && !plan.OAuthClientID.IsUnknown() {
-		v := plan.OAuthClientID.ValueString()
-		createRequest.OAuthClientID = &v
-	}
-
-	if !plan.OAuthState.IsNull() && !plan.OAuthState.IsUnknown() {
-		v := plan.OAuthState.ValueString()
-		createRequest.OAuthState = &v
 	}
 
 	createResponse, err := r.InfinityClient.Config().CreateMjxExchangeDeployment(ctx, createRequest)
@@ -488,19 +484,6 @@ func (r *InfinityMjxExchangeDeploymentResource) Update(ctx context.Context, req 
 		KerberosEnableTLS:              &kerberosEnableTLS,
 		KerberosKDCHTTPSProxy:          plan.KerberosKDCHTTPSProxy.ValueString(),
 		KerberosVerifyTLSUsingCustomCA: &kerberosVerifyTLS,
-		OAuthAuthEndpoint:              plan.OAuthAuthEndpoint.ValueString(),
-		OAuthTokenEndpoint:             plan.OAuthTokenEndpoint.ValueString(),
-		OAuthRedirectURI:               plan.OAuthRedirectURI.ValueString(),
-	}
-
-	if !plan.OAuthClientID.IsNull() && !plan.OAuthClientID.IsUnknown() {
-		v := plan.OAuthClientID.ValueString()
-		updateRequest.OAuthClientID = &v
-	}
-
-	if !plan.OAuthState.IsNull() && !plan.OAuthState.IsUnknown() {
-		v := plan.OAuthState.ValueString()
-		updateRequest.OAuthState = &v
 	}
 
 	resourceID := int(state.ResourceID.ValueInt32())
