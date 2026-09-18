@@ -142,6 +142,12 @@ type InfinityMsExchangeConnectorResourceModel struct {
 	AddinPaneSuccessHeading                          types.String `tfsdk:"addin_pane_success_heading"`
 	AddinPaneSuccessMessage                          types.String `tfsdk:"addin_pane_success_message"`
 	AddinPaneTitle                                   types.String `tfsdk:"addin_pane_title"`
+	ExchangeAPIType                                  types.String `tfsdk:"exchange_api_type"`
+	GraphAPIDomain                                   types.String `tfsdk:"graph_api_domain"`
+	GraphAuthenticationMethod                        types.String `tfsdk:"graph_authentication_method"`
+	OauthCertificate                                 types.String `tfsdk:"oauth_certificate"`
+	OauthPrivateKey                                  types.String `tfsdk:"oauth_private_key"`
+	PersonalVmrIDP                                   types.String `tfsdk:"personal_vmr_idp"`
 }
 
 func (r *InfinityMsExchangeConnectorResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -204,13 +210,13 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				Validators: []validator.String{
 					validators.Email(),
 				},
-				MarkdownDescription: "Room mailbox email address for Exchange integration.",
+				MarkdownDescription: "The email address of the equipment resource or room resource that is to be used by the scheduling service. Maximum length: 100 characters.",
 			},
 			"room_mailbox_name": schema.StringAttribute{
 				Optional:            true,
 				Computed:            true,
 				Default:             stringdefault.StaticString(""),
-				MarkdownDescription: "Room mailbox name for Exchange integration.",
+				MarkdownDescription: "The name of the equipment resource or room resource that is to be used by the scheduling service. Maximum length: 250 characters.",
 			},
 			"url": schema.StringAttribute{
 				Optional: true,
@@ -219,18 +225,18 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				Validators: []validator.String{
 					validators.URL(false),
 				},
-				MarkdownDescription: "Exchange server URL for connectivity.",
+				MarkdownDescription: "The URL used to connect to Exchange Web Services (EWS) on the Exchange server. Maximum length: 255 characters.",
 			},
 			"username": schema.StringAttribute{
 				Computed:            true,
 				Optional:            true,
 				Default:             stringdefault.StaticString(""),
-				MarkdownDescription: "Username for Exchange authentication.",
+				MarkdownDescription: "The username of the service account to be used by the scheduling service. Maximum length: 100 characters.",
 			},
 			"password": schema.StringAttribute{
 				Optional:            true,
 				Sensitive:           true,
-				MarkdownDescription: "Password for Exchange authentication. This field is sensitive.",
+				MarkdownDescription: "The password of the service account to be used by the scheduling service. Maximum length: 100 characters. This field is sensitive.",
 			},
 			"authentication_method": schema.StringAttribute{
 				Optional: true,
@@ -239,7 +245,7 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				Validators: []validator.String{
 					stringvalidator.OneOf("BASIC", "NTLM", "KERBEROS", "OAUTH", "APP_PERM"),
 				},
-				MarkdownDescription: "The method used to authenticate to Exchange Valid choices: BASIC, NTLM, KERBEROS, OAUTH, APP_PERM.",
+				MarkdownDescription: "The method used to authenticate to Exchange. Valid values: BASIC, NTLM, KERBEROS, OAUTH, APP_PERM. Default: BASIC.",
 			},
 			"auth_provider": schema.StringAttribute{
 				Optional: true,
@@ -248,7 +254,7 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				Validators: []validator.String{
 					stringvalidator.OneOf("ADFS", "AZURE"),
 				},
-				MarkdownDescription: "The method by which users will sign into the Outlook add-in.",
+				MarkdownDescription: "The method by which users will sign into the Outlook add-in. Valid values: ADFS, AZURE. Default: ADFS.",
 			},
 			"uuid": schema.StringAttribute{
 				Optional: true,
@@ -256,11 +262,11 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
-				MarkdownDescription: "UUID for the Exchange connector.",
+				MarkdownDescription: "The unique identifier of the Secure Scheduler for Exchange Integration.",
 			},
 			"scheduled_alias_prefix": schema.StringAttribute{
 				Optional:            true,
-				MarkdownDescription: "Prefix for scheduled conference aliases.",
+				MarkdownDescription: "The prefix to use when generating aliases for scheduled conferences. Minimum length: 1 character. Maximum length: 8 characters.",
 			},
 			"scheduled_alias_domain": schema.StringAttribute{
 				Optional: true,
@@ -269,7 +275,7 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				Validators: []validator.String{
 					validators.Domain(),
 				},
-				MarkdownDescription: "Domain for scheduled conference aliases.",
+				MarkdownDescription: "The domain to use when generating aliases for scheduled conferences. Maximum length: 192 characters.",
 			},
 			"scheduled_alias_suffix_length": schema.Int64Attribute{
 				Optional: true,
@@ -344,10 +350,12 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "The OAuth Client Secret which was generated when creating an App Registration in Microsoft Entra",
 			},
 			"oauth_auth_endpoint": schema.StringAttribute{
-				Optional:            true,
 				Computed:            true,
-				Default:             stringdefault.StaticString(""),
-				MarkdownDescription: "The URI of the OAuth authorization endpoint. This should be copied from the 'Endpoints' section in Azure Active Directory App Registrations. Maximum length: 255 characters.",
+				DeprecationMessage:  "This attribute is deprecated and will be removed in a future version.",
+				MarkdownDescription: "This field is deprecated and will be ignored.",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
 			},
 			"oauth_token_endpoint": schema.StringAttribute{
 				Optional:            true,
@@ -356,19 +364,66 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "The URI of the OAuth token endpoint. This should be copied from the 'Endpoints' section in Azure Active Directory App Registrations. Maximum length: 255 characters.",
 			},
 			"oauth_redirect_uri": schema.StringAttribute{
-				Optional:            true,
 				Computed:            true,
-				Default:             stringdefault.StaticString(""),
-				MarkdownDescription: "The redirect URI you entered when creating an App Registration in Azure Active Directory. It should be in the format 'https://[Management Node Address]/admin/platform/msexchangeconnector/oauth_redirect/'. Maximum length: 255 characters.",
+				DeprecationMessage:  "This attribute is deprecated and will be removed in a future version.",
+				MarkdownDescription: "This field is deprecated and will be ignored.",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
 			},
 			"oauth_refresh_token": schema.StringAttribute{
 				Computed:            true,
 				Sensitive:           true,
-				MarkdownDescription: "The OAuth refresh token which is obtained after successfully signing in via the OAuth flow. Maximum length: 4096 characters.",
+				DeprecationMessage:  "This attribute is deprecated and will be removed in a future version.",
+				MarkdownDescription: "This field is deprecated and will be ignored.",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
 			},
 			"oauth_state": schema.StringAttribute{
+				Computed:            true,
+				DeprecationMessage:  "This attribute is deprecated and will be removed in a future version.",
+				MarkdownDescription: "This field is deprecated and will be ignored.",
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
+			},
+			"exchange_api_type": schema.StringAttribute{
+				Optional: true,
+				Computed: true,
+				Default:  stringdefault.StaticString("EWS"),
+				Validators: []validator.String{
+					stringvalidator.OneOf("EWS", "GRAPH"),
+				},
+				MarkdownDescription: "The API that should be used to communicate with the Exchange server. Valid values: EWS, GRAPH. Default: EWS.",
+			},
+			"graph_api_domain": schema.StringAttribute{
 				Optional:            true,
-				MarkdownDescription: "A unique state which is used during the OAuth sign-in flow.",
+				Computed:            true,
+				Default:             stringdefault.StaticString("graph.microsoft.com"),
+				MarkdownDescription: "The FQDN to use when connecting to the Graph API. Maximum length: 192 characters. Default: \"graph.microsoft.com\".",
+			},
+			"graph_authentication_method": schema.StringAttribute{
+				Optional: true,
+				Computed: true,
+				Default:  stringdefault.StaticString("APP_PERM"),
+				Validators: []validator.String{
+					stringvalidator.OneOf("APP_PERM", "APP_PERM_PK"),
+				},
+				MarkdownDescription: "The method used to authenticate to the Graph API. Valid values: APP_PERM, APP_PERM_PK. Default: APP_PERM.",
+			},
+			"oauth_certificate": schema.StringAttribute{
+				Optional:            true,
+				MarkdownDescription: "The certificate which was generated when creating an App Registration in Microsoft Entra.",
+			},
+			"oauth_private_key": schema.StringAttribute{
+				Optional:            true,
+				Sensitive:           true,
+				MarkdownDescription: "The private key which was generated when creating an App Registration in Microsoft Entra. Maximum length: 12288 characters.",
+			},
+			"personal_vmr_idp": schema.StringAttribute{
+				Optional:            true,
+				MarkdownDescription: "The Identity Providers that will be accepted when this Identity Provider Group is in use.",
 			},
 			"kerberos_realm": schema.StringAttribute{
 				Optional:            true,
@@ -833,6 +888,7 @@ func (r *InfinityMsExchangeConnectorResource) Create(ctx context.Context, req re
 		Password:                       plan.Password.ValueString(),
 		AuthenticationMethod:           plan.AuthenticationMethod.ValueString(),
 		AuthProvider:                   plan.AuthProvider.ValueString(),
+		ExchangeAPIType:                plan.ExchangeAPIType.ValueString(),
 		UUID:                           plan.UUID.ValueString(),
 		ScheduledAliasDomain:           plan.ScheduledAliasDomain.ValueString(),
 		ScheduledAliasSuffixLength:     int(plan.ScheduledAliasSuffixLength.ValueInt64()),
@@ -845,9 +901,9 @@ func (r *InfinityMsExchangeConnectorResource) Create(ctx context.Context, req re
 		UseCustomAddInSources:          plan.UseCustomAddInSources.ValueBool(),
 		EnableAddinDebugLogs:           plan.EnableAddinDebugLogs.ValueBool(),
 		OauthClientSecret:              plan.OauthClientSecret.ValueString(),
-		OauthAuthEndpoint:              plan.OauthAuthEndpoint.ValueString(),
 		OauthTokenEndpoint:             plan.OauthTokenEndpoint.ValueString(),
-		OauthRedirectURI:               plan.OauthRedirectURI.ValueString(),
+		GraphAPIDomain:                 plan.GraphAPIDomain.ValueString(),
+		GraphAuthenticationMethod:      plan.GraphAuthenticationMethod.ValueString(),
 		KerberosRealm:                  plan.KerberosRealm.ValueString(),
 		KerberosKdc:                    plan.KerberosKdc.ValueString(),
 		KerberosKdcHttpsProxy:          plan.KerberosKdcHttpsProxy.ValueString(),
@@ -932,6 +988,16 @@ func (r *InfinityMsExchangeConnectorResource) Create(ctx context.Context, req re
 		createRequest.OauthClientID = &clientID
 	}
 
+	if !plan.OauthCertificate.IsNull() && !plan.OauthCertificate.IsUnknown() {
+		cert := plan.OauthCertificate.ValueString()
+		createRequest.OauthCertificate = &cert
+	}
+
+	if !plan.OauthPrivateKey.IsNull() && !plan.OauthPrivateKey.IsUnknown() {
+		key := plan.OauthPrivateKey.ValueString()
+		createRequest.OauthPrivateKey = &key
+	}
+
 	if !plan.AddinApplicationID.IsNull() && !plan.AddinApplicationID.IsUnknown() {
 		appID := plan.AddinApplicationID.ValueString()
 		createRequest.AddinApplicationID = &appID
@@ -960,6 +1026,11 @@ func (r *InfinityMsExchangeConnectorResource) Create(ctx context.Context, req re
 	if !plan.IvrTheme.IsNull() && !plan.IvrTheme.IsUnknown() {
 		theme := plan.IvrTheme.ValueString()
 		createRequest.IvrTheme = &theme
+	}
+
+	if !plan.PersonalVmrIDP.IsNull() && !plan.PersonalVmrIDP.IsUnknown() {
+		vmrIdp := plan.PersonalVmrIDP.ValueString()
+		createRequest.PersonalVmrIDP = &vmrIdp
 	}
 
 	createResponse, err := r.InfinityClient.Config().CreateMsExchangeConnector(ctx, createRequest)
@@ -1033,6 +1104,9 @@ func (r *InfinityMsExchangeConnectorResource) read(ctx context.Context, resource
 	data.DisableProxy = types.BoolValue(srv.DisableProxy)
 	data.UseCustomAddInSources = types.BoolValue(srv.UseCustomAddInSources)
 	data.EnableAddinDebugLogs = types.BoolValue(srv.EnableAddinDebugLogs)
+	data.ExchangeAPIType = types.StringValue(srv.ExchangeAPIType)
+	data.GraphAPIDomain = types.StringValue(srv.GraphAPIDomain)
+	data.GraphAuthenticationMethod = types.StringValue(srv.GraphAuthenticationMethod)
 	// OauthClientSecret is write-only and not returned by the API, will be preserved from state/plan
 	data.OauthAuthEndpoint = types.StringValue(srv.OauthAuthEndpoint)
 	data.OauthTokenEndpoint = types.StringValue(srv.OauthTokenEndpoint)
@@ -1086,6 +1160,18 @@ func (r *InfinityMsExchangeConnectorResource) read(ctx context.Context, resource
 		data.OauthClientID = types.StringNull()
 	}
 
+	if srv.OauthCertificate != nil {
+		data.OauthCertificate = types.StringValue(*srv.OauthCertificate)
+	} else {
+		data.OauthCertificate = types.StringNull()
+	}
+
+	if srv.OauthPrivateKey != nil {
+		data.OauthPrivateKey = types.StringValue(*srv.OauthPrivateKey)
+	} else {
+		data.OauthPrivateKey = types.StringNull()
+	}
+
 	if srv.OauthState != nil {
 		data.OauthState = types.StringValue(*srv.OauthState)
 	} else {
@@ -1135,6 +1221,12 @@ func (r *InfinityMsExchangeConnectorResource) read(ctx context.Context, resource
 		data.IvrTheme = types.StringValue(*srv.IvrTheme)
 	} else {
 		data.IvrTheme = types.StringNull()
+	}
+
+	if srv.PersonalVmrIDP != nil {
+		data.PersonalVmrIDP = types.StringValue(*srv.PersonalVmrIDP)
+	} else {
+		data.PersonalVmrIDP = types.StringNull()
 	}
 
 	if srv.PrivateKey != nil {
@@ -1242,12 +1334,13 @@ func (r *InfinityMsExchangeConnectorResource) Update(ctx context.Context, req re
 		Password:                      plan.Password.ValueString(),
 		AuthenticationMethod:          plan.AuthenticationMethod.ValueString(),
 		AuthProvider:                  plan.AuthProvider.ValueString(),
+		ExchangeAPIType:               plan.ExchangeAPIType.ValueString(),
 		UUID:                          plan.UUID.ValueString(),
 		ScheduledAliasDomain:          plan.ScheduledAliasDomain.ValueString(),
 		OauthClientSecret:             plan.OauthClientSecret.ValueString(),
-		OauthAuthEndpoint:             plan.OauthAuthEndpoint.ValueString(),
 		OauthTokenEndpoint:            plan.OauthTokenEndpoint.ValueString(),
-		OauthRedirectURI:              plan.OauthRedirectURI.ValueString(),
+		GraphAPIDomain:                plan.GraphAPIDomain.ValueString(),
+		GraphAuthenticationMethod:     plan.GraphAuthenticationMethod.ValueString(),
 		KerberosRealm:                 plan.KerberosRealm.ValueString(),
 		KerberosKdc:                   plan.KerberosKdc.ValueString(),
 		KerberosKdcHttpsProxy:         plan.KerberosKdcHttpsProxy.ValueString(),
@@ -1375,6 +1468,11 @@ func (r *InfinityMsExchangeConnectorResource) Update(ctx context.Context, req re
 		updateRequest.OauthClientID = &clientID
 	}
 
+	// OauthCertificate and OauthPrivateKey are pointer fields without omitempty in the update request,
+	// so passing nil will clear them on the server.
+	updateRequest.OauthCertificate = plan.OauthCertificate.ValueStringPointer()
+	updateRequest.OauthPrivateKey = plan.OauthPrivateKey.ValueStringPointer()
+
 	if !plan.KerberosEnableTls.IsNull() && !plan.KerberosEnableTls.IsUnknown() {
 		enableTls := plan.KerberosEnableTls.ValueBool()
 		updateRequest.KerberosEnableTls = &enableTls
@@ -1421,6 +1519,10 @@ func (r *InfinityMsExchangeConnectorResource) Update(ctx context.Context, req re
 		theme := plan.IvrTheme.ValueString()
 		updateRequest.IvrTheme = &theme
 	}
+
+	// PersonalVmrIDP is a pointer field without omitempty in the update request,
+	// so passing nil will clear it on the server.
+	updateRequest.PersonalVmrIDP = plan.PersonalVmrIDP.ValueStringPointer()
 
 	resourceID := int(state.ResourceID.ValueInt32())
 	_, err := r.InfinityClient.Config().UpdateMsExchangeConnector(ctx, resourceID, updateRequest)

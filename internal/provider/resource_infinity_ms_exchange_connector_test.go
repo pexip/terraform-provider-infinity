@@ -59,12 +59,17 @@ func TestInfinityMsExchangeConnector(t *testing.T) {
 		UseCustomAddInSources:          true,
 		EnableAddinDebugLogs:           true,
 		OauthClientID:                  stringPtr("test-value"),
+		OauthCertificate:               stringPtr("test-certificate"),
+		OauthPrivateKey:                stringPtr("test-private-key"),
 		OauthClientSecret:              "test-value",
 		OauthAuthEndpoint:              "test-value",
 		OauthTokenEndpoint:             "test-value",
 		OauthRedirectURI:               "test-value",
 		OauthRefreshToken:              "",
 		OauthState:                     nil,
+		ExchangeAPIType:                "GRAPH",
+		GraphAPIDomain:                 "test-graph.microsoft.com",
+		GraphAuthenticationMethod:      "APP_PERM_PK",
 		KerberosRealm:                  "test-value",
 		KerberosKdc:                    "test-value",
 		KerberosKdcHttpsProxy:          "test-value",
@@ -96,6 +101,7 @@ func TestInfinityMsExchangeConnector(t *testing.T) {
 		AdditionalAddInScriptSources: "test-value",
 		HostIdentityProviderGroup:    stringPtr("test-server.example.com"),
 		IvrTheme:                     stringPtr("test-value"),
+		PersonalVmrIDP:               stringPtr("test-personal-vmr-idp"),
 		NonIdpParticipants:           "disallow_all",
 		// Template fields with API defaults
 		AcceptEditedOccurrenceTemplate:      "<div style=\"font-size:11.0pt; color:#000000; font-family:Calibri,Arial,Helvetica,sans-serif;\">\r\nThis meeting occurrence in a recurring series has been successfully rescheduled using the aliases: {{alias}} and {{numeric_alias}}.<br>\r\n</div>",
@@ -158,12 +164,13 @@ func TestInfinityMsExchangeConnector(t *testing.T) {
 		mockState.Password = req.Password
 		mockState.AuthenticationMethod = req.AuthenticationMethod
 		mockState.AuthProvider = req.AuthProvider
+		mockState.ExchangeAPIType = req.ExchangeAPIType
 		mockState.UUID = req.UUID
 		mockState.ScheduledAliasDomain = req.ScheduledAliasDomain
 		mockState.OauthClientSecret = req.OauthClientSecret
-		mockState.OauthAuthEndpoint = req.OauthAuthEndpoint
 		mockState.OauthTokenEndpoint = req.OauthTokenEndpoint
-		mockState.OauthRedirectURI = req.OauthRedirectURI
+		mockState.GraphAPIDomain = req.GraphAPIDomain
+		mockState.GraphAuthenticationMethod = req.GraphAuthenticationMethod
 		mockState.KerberosRealm = req.KerberosRealm
 		mockState.KerberosKdc = req.KerberosKdc
 		mockState.KerberosKdcHttpsProxy = req.KerberosKdcHttpsProxy
@@ -193,11 +200,14 @@ func TestInfinityMsExchangeConnector(t *testing.T) {
 		mockState.RoomMailboxEmailAddress = req.RoomMailboxEmailAddress
 		mockState.ScheduledAliasPrefix = req.ScheduledAliasPrefix
 		mockState.OauthClientID = req.OauthClientID
+		mockState.OauthCertificate = req.OauthCertificate
+		mockState.OauthPrivateKey = req.OauthPrivateKey
 		mockState.AddinApplicationID = req.AddinApplicationID
 		mockState.AddinNaaWebApiApplicationID = req.AddinNaaWebApiApplicationID
 		mockState.PersonalVmrOauthClientID = req.PersonalVmrOauthClientID
 		mockState.HostIdentityProviderGroup = req.HostIdentityProviderGroup
 		mockState.IvrTheme = req.IvrTheme
+		mockState.PersonalVmrIDP = req.PersonalVmrIDP
 
 		// Int/bool pointer fields (always set via schema defaults)
 		if req.ScheduledAliasSuffixLength != nil {
@@ -259,6 +269,9 @@ func testInfinityMsExchangeConnector(t *testing.T, client InfinityClient) {
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "scheduled_alias_suffix_length", "8"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "authentication_method", "OAUTH"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "auth_provider", "AZURE"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "exchange_api_type", "GRAPH"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "graph_api_domain", "test-graph.microsoft.com"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "graph_authentication_method", "APP_PERM_PK"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "uuid", "test-uuid"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_dynamic_vmrs", "true"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_personal_vmrs", "true"),
@@ -283,6 +296,9 @@ func testInfinityMsExchangeConnector(t *testing.T, client InfinityClient) {
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "scheduled_alias_suffix_length", "6"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "authentication_method", "BASIC"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "auth_provider", "ADFS"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "exchange_api_type", "EWS"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "graph_api_domain", "graph.microsoft.com"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "graph_authentication_method", "APP_PERM"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_dynamic_vmrs", "false"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "enable_personal_vmrs", "true"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "personal_vmr_oauth_auth_endpoint", "https://tf-test.example.com/personal/oauth/auth"),
