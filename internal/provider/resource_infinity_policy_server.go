@@ -40,6 +40,7 @@ type InfinityPolicyServerResourceModel struct {
 	Name                                types.String `tfsdk:"name"`
 	Description                         types.String `tfsdk:"description"`
 	URL                                 types.String `tfsdk:"url"`
+	AllowHTTP                           types.Bool   `tfsdk:"allow_http"`
 	Username                            types.String `tfsdk:"username"`
 	Password                            types.String `tfsdk:"password"`
 	EnableServiceLookup                 types.Bool   `tfsdk:"enable_service_lookup"`
@@ -119,6 +120,12 @@ func (r *InfinityPolicyServerResource) Schema(ctx context.Context, req resource.
 					stringvalidator.LengthAtMost(255),
 				},
 				MarkdownDescription: "The URL of the external policy server. Maximum length: 255 characters. ",
+			},
+			"allow_http": schema.BoolAttribute{
+				Optional:            true,
+				Computed:            true,
+				Default:             booldefault.StaticBool(false),
+				MarkdownDescription: "Allow the External Policy URL to use HTTP. This is insecure and should only be used for testing purposes.",
 			},
 			"username": schema.StringAttribute{
 				Optional: true,
@@ -241,6 +248,7 @@ func (r *InfinityPolicyServerResource) Create(ctx context.Context, req resource.
 
 	createRequest := &config.PolicyServerCreateRequest{
 		Name:                              plan.Name.ValueString(),
+		AllowHTTP:                         plan.AllowHTTP.ValueBool(),
 		EnableServiceLookup:               plan.EnableServiceLookup.ValueBool(),
 		EnableParticipantLookup:           plan.EnableParticipantLookup.ValueBool(),
 		EnableRegistrationLookup:          plan.EnableRegistrationLookup.ValueBool(),
@@ -325,6 +333,7 @@ func (r *InfinityPolicyServerResource) read(ctx context.Context, resourceID int,
 	data.Name = types.StringValue(srv.Name)
 	data.Description = types.StringValue(srv.Description)
 	data.URL = types.StringValue(srv.URL)
+	data.AllowHTTP = types.BoolValue(srv.AllowHTTP)
 	data.Username = types.StringValue(srv.Username)
 	data.Password = types.StringValue(password) // The password property of the policy server is returned in hashed format, so we need to ignore it by setting it to the input string
 	data.EnableServiceLookup = types.BoolValue(srv.EnableServiceLookup)
@@ -382,6 +391,7 @@ func (r *InfinityPolicyServerResource) Update(ctx context.Context, req resource.
 
 	resourceID := int(state.ResourceID.ValueInt32())
 
+	allowHTTP := plan.AllowHTTP.ValueBool()
 	enableServiceLookup := plan.EnableServiceLookup.ValueBool()
 	enableParticipantLookup := plan.EnableParticipantLookup.ValueBool()
 	enableRegistrationLookup := plan.EnableRegistrationLookup.ValueBool()
@@ -395,6 +405,7 @@ func (r *InfinityPolicyServerResource) Update(ctx context.Context, req resource.
 
 	updateRequest := &config.PolicyServerUpdateRequest{
 		Name:                              plan.Name.ValueString(),
+		AllowHTTP:                         &allowHTTP,
 		EnableServiceLookup:               &enableServiceLookup,
 		EnableParticipantLookup:           &enableParticipantLookup,
 		EnableRegistrationLookup:          &enableRegistrationLookup,

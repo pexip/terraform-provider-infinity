@@ -31,6 +31,7 @@ func TestInfinityPolicyServer(t *testing.T) {
 		ID:                                  1,
 		ResourceURI:                         "/api/admin/configuration/v1/policy_server/1/",
 		Name:                                "tf-test-policy-server",
+		AllowHTTP:                           false,
 		Description:                         "",
 		URL:                                 "",
 		Username:                            "",
@@ -57,6 +58,7 @@ func TestInfinityPolicyServer(t *testing.T) {
 	}, nil).Run(func(args mock.Arguments) {
 		req := args.Get(2).(*config.PolicyServerCreateRequest)
 		mockState.Name = req.Name
+		mockState.AllowHTTP = req.AllowHTTP
 		mockState.Description = req.Description
 		mockState.URL = req.URL
 		mockState.Username = req.Username
@@ -80,6 +82,9 @@ func TestInfinityPolicyServer(t *testing.T) {
 	client.On("PutJSON", mock.Anything, "configuration/v1/policy_server/1/", mock.Anything, mock.Anything).Return(nil).Run(func(args mock.Arguments) {
 		req := args.Get(2).(*config.PolicyServerUpdateRequest)
 		mockState.Name = req.Name
+		if req.AllowHTTP != nil {
+			mockState.AllowHTTP = *req.AllowHTTP
+		}
 		mockState.Description = req.Description
 		mockState.URL = req.URL
 		mockState.Username = req.Username
@@ -133,6 +138,7 @@ func TestInfinityPolicyServer(t *testing.T) {
 	}, nil).Run(func(args mock.Arguments) {
 		req := args.Get(2).(*config.PolicyServerCreateRequest)
 		mockState.Name = req.Name
+		mockState.AllowHTTP = req.AllowHTTP
 		mockState.Description = req.Description
 		mockState.URL = req.URL
 		mockState.Username = req.Username
@@ -156,6 +162,9 @@ func TestInfinityPolicyServer(t *testing.T) {
 	client.On("PutJSON", mock.Anything, "configuration/v1/policy_server/1/", mock.Anything, mock.Anything).Return(nil).Run(func(args mock.Arguments) {
 		req := args.Get(2).(*config.PolicyServerUpdateRequest)
 		mockState.Name = req.Name
+		if req.AllowHTTP != nil {
+			mockState.AllowHTTP = *req.AllowHTTP
+		}
 		mockState.Description = req.Description
 		mockState.URL = req.URL
 		mockState.Username = req.Username
@@ -221,6 +230,7 @@ func testInfinityPolicyServer(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "name", "tf-test-policy-server"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "description", "tf-test Policy Server Description"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "url", "https://policy.example.com"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "allow_http", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "username", "tf-test-user"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "password", "tf-test-password"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_service_lookup", "true"),
@@ -247,6 +257,7 @@ func testInfinityPolicyServer(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "name", "tf-test-policy-server"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "description", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "url", ""),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "allow_http", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "username", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "password", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_service_lookup", "false"),
@@ -278,6 +289,7 @@ func testInfinityPolicyServer(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "name", "tf-test-policy-server"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "description", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "url", ""),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "allow_http", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "username", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "password", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_service_lookup", "false"),
@@ -304,6 +316,7 @@ func testInfinityPolicyServer(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "name", "tf-test-policy-server"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "description", "tf-test Policy Server Description"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "url", "https://policy.example.com"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "allow_http", "true"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "username", "tf-test-user"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "password", "tf-test-password"),
 					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_service_lookup", "true"),
