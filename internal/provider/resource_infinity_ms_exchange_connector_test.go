@@ -47,7 +47,7 @@ func TestInfinityMsExchangeConnector(t *testing.T) {
 		URL:                            "https://example.com",
 		Username:                       "tf-test-ms-exchange-connector",
 		Password:                       "test-value",
-		AuthenticationMethod:           "OAUTH",
+		AuthenticationMethod:           "APP_PERM",
 		AuthProvider:                   "AZURE",
 		UUID:                           "test-uuid",
 		ScheduledAliasPrefix:           stringPtr("test-value"),
