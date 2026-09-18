@@ -243,9 +243,9 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				Computed: true,
 				Default:  stringdefault.StaticString("BASIC"),
 				Validators: []validator.String{
-					stringvalidator.OneOf("BASIC", "NTLM", "KERBEROS", "OAUTH", "APP_PERM"),
+					stringvalidator.OneOf("BASIC", "NTLM", "KERBEROS", "APP_PERM"),
 				},
-				MarkdownDescription: "The method used to authenticate to Exchange. Valid values: BASIC, NTLM, KERBEROS, OAUTH, APP_PERM. Default: BASIC.",
+				MarkdownDescription: "The method used to authenticate to Exchange. Valid values: BASIC, NTLM, KERBEROS, APP_PERM. Default: BASIC.",
 			},
 			"auth_provider": schema.StringAttribute{
 				Optional: true,

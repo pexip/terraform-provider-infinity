@@ -59,7 +59,7 @@ func testInfinityMsExchangeConnectorIntegration(t *testing.T, client InfinityCli
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "scheduled_alias_suffix_length", "8"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "room_mailbox_email_address", "tf-test@example.com"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "url", "https://tf-test.example.com/ews/exchange.asmx"),
-		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "authentication_method", "OAUTH"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "authentication_method", "APP_PERM"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "auth_provider", "AZURE"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "uuid", "12345678-1234-1234-1234-123456789012"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "scheduled_alias_domain", "tf-test.example.com"),
