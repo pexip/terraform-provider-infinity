@@ -925,10 +925,8 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 		val := plan.DefaultTheme.ValueString()
 		updateRequest.DefaultTheme = &config.IVRTheme{Name: val}
 	}
-	if !plan.DefaultWebappAlias.IsNull() && !plan.DefaultWebappAlias.IsUnknown() {
-		val := plan.DefaultWebappAlias.ValueString()
-		updateRequest.DefaultWebappAlias = &val
-	}
+	// default_webapp_alias is read-only; it is managed via is_default on
+	// pexip_infinity_webapp_alias, so it must never be sent in update requests.
 	if !plan.GcpClientEmail.IsNull() && !plan.GcpClientEmail.IsUnknown() {
 		val := plan.GcpClientEmail.ValueString()
 		updateRequest.GcpClientEmail = &val
