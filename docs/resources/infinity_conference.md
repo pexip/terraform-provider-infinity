@@ -159,6 +159,7 @@ resource "pexip_infinity_conference" "test_call" {
 - `system_location` (String) If selected, a Conferencing Node in this system location will perform the Lync / Skype for Business Conference ID lookup on the Lync / Skype for Business server. If a location is not selected, the IVR ingress node will perform the lookup.
 - `tag` (String) A unique identifier used to track usage of this service. Maximum length: 250 characters.
 - `teams_proxy` (String) The Teams Connector to use to resolve the Conference ID entered by the user.
+- `transcript_mode` (String) Controls the transcript requirements for this service. Valid choices: default, besteffort, ondemand, disallowed.
 - `two_stage_dial_type` (String) The type of this Virtual Reception. Select Skype for Business if this Virtual Reception is to act as an IVR gateway to scheduled and ad hoc Skype for Business meetings. Select Google Meet if this Virtual Reception is to act as an IVR gateway to Google Meet meetings. Skype for Business meetings. Otherwise, select Regular. Valid choices: regular, mssip, gms, teams.
 
 ### Read-Only
