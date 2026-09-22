@@ -1045,6 +1045,7 @@ func (r *InfinityGlobalConfigurationResource) read(ctx context.Context, awsSecre
 	}
 
 	data.ID = types.StringValue(srv.ResourceURI)
+	data.ResourceURI = types.StringValue(srv.ResourceURI)
 	data.AWSAccessKey = types.StringPointerValue(srv.AWSAccessKey)
 	data.AWSSecretKey = types.StringPointerValue(awsSecretKey)
 	data.AzureClientID = types.StringPointerValue(srv.AzureClientID)
