@@ -69,7 +69,6 @@ resource "pexip_infinity_global_configuration" "gcp_bursting" {
 - `enable_application_api` (Boolean) Enable or disable support for Pexip Infinity Client API. This is required for integration with Pexip's browser-based, desktop and mobile apps, and any other third-party applications that use the client API, as well as for integration with Microsoft Teams.
 - `enable_breakout_rooms` (Boolean) Enable the Breakout Rooms feature on VMRs.
 - `enable_chat` (Boolean) Enables relay of chat messages between conference participants using supported clients such as the Pexip apps. You can also configure this setting on individual Virtual Meeting Rooms and Virtual Auditoriums.
-- `enable_clock` (Boolean) Enables support for displaying an in-conference timer or countdown clock.
 - `enable_denoise` (Boolean) Enable server side denoising for speech from noisy participants (see documentation for ways to enable it for a VMR).
 - `enable_dialout` (Boolean) Enables calls via the Distributed Gateway, and allows users of Pexip apps and the Pexip management web interface to add participants to a conference.
 - `enable_directory` (Boolean) When disabled, Pexip apps will display aliases from their own call history only. When enabled, registered Pexip apps will additionally display the aliases of VMRs, Virtual Auditoriums, Virtual Receptions, and devices registered to the Pexip Infinity deployment.
@@ -80,8 +79,10 @@ resource "pexip_infinity_global_configuration" "gcp_bursting" {
 - `enable_lync_auto_escalate` (Boolean) Determines whether a Skype for Business audio call is automatically escalated so that it receives video from a conference.
 - `enable_lync_vbss` (Boolean) Determines whether Video-based Screen Sharing (VbSS) is enabled for Skype for Business calls.
 - `enable_mlvad` (Boolean) Enable Voice Focus for advanced voice activity detection.
+- `enable_mssip` (Boolean) Enable support for Skype for Business within the SIP protocol on all Conferencing Nodes.
 - `enable_rtmp` (Boolean) Enables RTMP calls on all Conferencing Nodes. This allows Pexip apps that use RTMP to access Pexip Infinity services, and allows conference content to be output to streaming and recording services.
-- `enable_sip` (Boolean) Enable the SIP protocol over TCP and TLS on all Conferencing Nodes.
+- `enable_sip` (Boolean) Enable the SIP protocol over TLS on all Conferencing Nodes.
+- `enable_sip_tcp` (Boolean) Enable the SIP protocol over TCP on all Conferencing Nodes.
 - `enable_sip_udp` (Boolean) Enable incoming calls using the SIP protocol over UDP on all Conferencing Nodes. If changing from enabled to disabled, all Conferencing Nodes must be rebooted.
 - `enable_softmute` (Boolean) Enable Softmute for advance speech-aware audio gating (see documentation for ways to enable it for a VMR). Note that this does not remove any noise from the audio.
 - `enable_ssh` (Boolean) Allows an administrator to log in to the Management and Conferencing Nodes over SSH. This setting can be overridden on individual nodes.
@@ -120,6 +121,7 @@ resource "pexip_infinity_global_configuration" "gcp_bursting" {
 - `ocsp_responder_url` (String) The URL to which OCSP requests will be sent either if the OCSP state is set to Override, or if the OCSP state is set to On but there is no URL specified in the TLS certificate. Maximum length: 255 characters.
 - `ocsp_state` (String) Whether to use OCSP when checking the validity of TLS certificates. `ON`: An OCSP request will be sent to the URL specified in the TLS certificate. `OVERRIDE`: An OCSP request will be sent to the URL specified in the OCSP responder URL field. Valid values: `OFF`, `ON`, `OVERRIDE`.
 - `pin_entry_timeout` (Number) The length of time (in seconds) for which a participant will be permitted to remain at the PIN entry screen before being disconnected. Range: 30 to 86400. Default: 120.
+- `restrict_cors_origins` (Boolean) When enabled, Access-Control-Allow-Origin is only set for recognised HTTP Origins: the node's own address, its Configured FQDN, and any configured External Webapp Hosts.
 - `session_timeout_enabled` (Boolean) Determines whether inactive users are automatically logged out of the Management Node administration interface after a period of time. If disabled, users of the administrator interface are never timed out.
 - `signalling_ports_end` (Number) The end value for the range of ports (UDP and TCP) that all Conferencing Nodes will use to send signaling (for H.323, H.245 and SIP). Range: 10000 to 49999. Default: 39999.
 - `signalling_ports_start` (Number) The start value for the range of ports (UDP and TCP) that all Conferencing Nodes will use to send signaling (for H.323, H.245 and SIP). Range: 10000 to 49999. Default: 33000.
@@ -128,11 +130,13 @@ resource "pexip_infinity_global_configuration" "gcp_bursting" {
 - `site_banner_bg` (String) The background color for the site banner.
 - `site_banner_fg` (String) The text color for the site banner.
 - `teams_enable_powerpoint_render` (Boolean) Determines whether PowerPoint Live content is enabled for Microsoft Teams calls. Default: true.
+- `transcript_mode_vmr_default` (String) Controls the default transcript requirements. You can override this setting on each service individually.
 - `waiting_for_chair_timeout` (Number) The length of time (in seconds) for which a Guest participant will remain at the waiting screen if a Host does not join, before being disconnected. Range: 0 to 86400. Default: 900.
 
 ### Read-Only
 
 - `deployment_uuid` (String) The ID of the deployment.
+- `enable_clock` (Boolean) This field is deprecated and will be ignored.
 - `id` (String) Resource URI for the global configuration
 - `resource_uri` (String) The URI that identifies this resource.
 
