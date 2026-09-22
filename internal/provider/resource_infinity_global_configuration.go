@@ -879,7 +879,6 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 		EnableApplicationAPI:                plan.EnableApplicationAPI.ValueBool(),
 		EnableBreakoutRooms:                 plan.EnableBreakoutRooms.ValueBool(),
 		EnableChat:                          plan.EnableChat.ValueBool(),
-		EnableClock:                         plan.EnableClock.ValueBool(),
 		EnableDenoise:                       plan.EnableDenoise.ValueBool(),
 		EnableDialout:                       plan.EnableDialout.ValueBool(),
 		EnableDirectory:                     plan.EnableDirectory.ValueBool(),
