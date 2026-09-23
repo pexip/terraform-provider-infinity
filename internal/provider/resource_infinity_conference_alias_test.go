@@ -68,6 +68,7 @@ func TestInfinityConferenceAlias(t *testing.T) {
 		SoftmuteEnabled:                 false,
 		SyncTag:                         "",
 		Tag:                             "",
+		TranscriptMode:                  "default",
 		TwoStageDialType:                "regular",
 	}
 
