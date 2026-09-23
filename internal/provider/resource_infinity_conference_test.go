@@ -28,13 +28,6 @@ func TestInfinityConference(t *testing.T) {
 	// Create a mock client and set up expectations
 	client := infinity.NewClientMock()
 
-	// Mock the CreateConference API call
-	createResponse := &types.PostResponse{
-		Body:        []byte(""),
-		ResourceURI: "/api/admin/configuration/v1/conference/123/",
-	}
-	client.On("PostWithResponse", mock.Anything, "configuration/v1/conference/", mock.Anything, mock.Anything).Return(createResponse, nil)
-
 	// Shared state for mocking
 	hostView := "two_mains_twentyone_pips"
 	mockState := &config.Conference{
@@ -72,7 +65,6 @@ func TestInfinityConference(t *testing.T) {
 		ReplaceString:                   "replaced",
 		SoftmuteEnabled:                 true,
 		SyncTag:                         "sync-123",
-		TranscriptMode:                  "besteffort",
 		TwoStageDialType:                "regular",
 		ServiceType:                     "conference",
 		PIN:                             "123456",
@@ -83,6 +75,16 @@ func TestInfinityConference(t *testing.T) {
 			{ID: 2},
 		},
 	}
+
+	// Mock the CreateConference API call
+	createResponse := &types.PostResponse{
+		Body:        []byte(""),
+		ResourceURI: "/api/admin/configuration/v1/conference/123/",
+	}
+	client.On("PostWithResponse", mock.Anything, "configuration/v1/conference/", mock.Anything, mock.Anything).Return(createResponse, nil).Run(func(args mock.Arguments) {
+		req := args.Get(2).(*config.ConferenceCreateRequest)
+		mockState.TranscriptMode = req.TranscriptMode
+	})
 
 	// Mock the GetConference API call for Read operations
 	client.On("GetJSON", mock.Anything, "configuration/v1/conference/123/", mock.Anything, mock.Anything).Return(nil).Run(func(args mock.Arguments) {
