@@ -350,7 +350,9 @@ func (r *InfinityEventSinkResource) Update(ctx context.Context, req resource.Upd
 	if !plan.Events.IsNull() && !plan.Events.IsUnknown() {
 		eventNames, diags := getStringList(ctx, plan.Events)
 		resp.Diagnostics.Append(diags...)
-		events := make([]config.EventSinkEvent, len(eventNames))
+		if resp.Diagnostics.HasError() {
+			return
+		}
 		for i, name := range eventNames {
 			events[i] = config.EventSinkEvent{Name: name}
 		}
