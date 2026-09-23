@@ -154,6 +154,7 @@ func (r *InfinityEventSinkResource) Schema(ctx context.Context, req resource.Sch
 			"events": schema.SetAttribute{
 				ElementType:         types.StringType,
 				Optional:            true,
+				Computed:            true,
 				MarkdownDescription: "The list of events to send to this event sink.",
 			},
 		},
@@ -266,7 +267,7 @@ func (r *InfinityEventSinkResource) read(ctx context.Context, resourceID int, pa
 		data.Username = types.StringNull()
 	}
 
-	if srv.Events != nil && len(*srv.Events) > 0 {
+	if srv.Events != nil {
 		eventNames := make([]string, len(*srv.Events))
 		for i, e := range *srv.Events {
 			eventNames[i] = e.Name
