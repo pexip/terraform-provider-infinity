@@ -159,6 +159,7 @@ resource "pexip_infinity_event_sink" "development" {
 
 - `bulk_support` (Boolean) Whether the event sink supports bulk operations.
 - `description` (String) A description of the event sink. Maximum length: 250 characters.
+- `events` (Set of String) The list of events to send to this event sink.
 - `password` (String, Sensitive) Password for authentication to the event sink. Maximum length: 100 characters.
 - `username` (String) Username for authentication to the event sink. Maximum length: 100 characters.
 - `verify_tls_certificate` (Boolean) Whether to verify TLS certificates when connecting to the event sink.

@@ -13,4 +13,5 @@ resource "pexip_infinity_event_sink" "tf-test-event-sink" {
   bulk_support           = true
   verify_tls_certificate = true
   version                = 2
+  events                 = ["conference_ended", "conference_started", "participant_connected"]
 }
