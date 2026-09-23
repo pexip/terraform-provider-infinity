@@ -353,6 +353,7 @@ func (r *InfinityEventSinkResource) Update(ctx context.Context, req resource.Upd
 		if resp.Diagnostics.HasError() {
 			return
 		}
+		events := make([]config.EventSinkEvent, len(eventNames))
 		for i, name := range eventNames {
 			events[i] = config.EventSinkEvent{Name: name}
 		}
