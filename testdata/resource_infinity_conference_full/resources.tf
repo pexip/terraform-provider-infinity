@@ -45,6 +45,7 @@ resource "pexip_infinity_conference" "tf-test-conference" {
   replace_string                      = "replaced"
   softmute_enabled                    = true
   sync_tag                            = "sync-123"
+  transcript_mode                     = "besteffort"
   two_stage_dial_type                 = "regular"
 }
 
