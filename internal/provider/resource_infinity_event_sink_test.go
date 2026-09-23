@@ -65,7 +65,9 @@ func TestInfinityEventSink(t *testing.T) {
 		mockState.URL = req.URL
 		mockState.Username = req.Username
 		mockState.Password = req.Password
-		mockState.Events = req.Events
+		if req.Events != nil {
+			mockState.Events = req.Events
+		}
 		if req.BulkSupport != nil {
 			mockState.BulkSupport = *req.BulkSupport
 		}
@@ -109,7 +111,9 @@ func TestInfinityEventSink(t *testing.T) {
 		mockState.URL = req.URL
 		mockState.Username = req.Username
 		mockState.Password = req.Password
-		mockState.Events = req.Events
+		if req.Events != nil {
+			mockState.Events = req.Events
+		}
 		if req.BulkSupport != nil {
 			mockState.BulkSupport = *req.BulkSupport
 		}
@@ -172,7 +176,10 @@ func testInfinityEventSink(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "bulk_support", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "verify_tls_certificate", "false"),
 					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "version", "1"),
-					resource.TestCheckNoResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "events.#"),
+					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "events.#", "3"),
+					resource.TestCheckTypeSetElemAttr("pexip_infinity_event_sink.tf-test-event-sink", "events.*", "conference_ended"),
+					resource.TestCheckTypeSetElemAttr("pexip_infinity_event_sink.tf-test-event-sink", "events.*", "conference_started"),
+					resource.TestCheckTypeSetElemAttr("pexip_infinity_event_sink.tf-test-event-sink", "events.*", "participant_connected"),
 				),
 			},
 			{
