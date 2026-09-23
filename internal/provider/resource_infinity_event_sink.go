@@ -266,7 +266,7 @@ func (r *InfinityEventSinkResource) read(ctx context.Context, resourceID int, pa
 		data.Username = types.StringNull()
 	}
 
-	if srv.Events != nil {
+	if srv.Events != nil && len(*srv.Events) > 0 {
 		eventNames := make([]string, len(*srv.Events))
 		for i, e := range *srv.Events {
 			eventNames[i] = e.Name
