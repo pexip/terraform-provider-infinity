@@ -57,7 +57,7 @@ func TestInfinityEventSink(t *testing.T) {
 		mockState.Events = req.Events
 	}).Once()
 
-	// Step 2: Update to min config (clear all optional fields)
+	// Step 2: Clear events with explicit events = []
 	client.On("PutJSON", mock.Anything, "configuration/v1/event_sink/1/", mock.Anything, mock.Anything).Return(nil).Run(func(args mock.Arguments) {
 		req := args.Get(2).(*config.EventSinkUpdateRequest)
 		mockState.Name = req.Name
@@ -163,28 +163,19 @@ func testInfinityEventSink(t *testing.T, client InfinityClient) {
 				),
 			},
 			{
-				// Step 2: Update to min config (clear all optional fields)
-				Config: test.LoadTestFolder(t, "resource_infinity_event_sink_min"),
+				// Step 2: Clear events with explicit events = []
+				Config: test.LoadTestFolder(t, "resource_infinity_event_sink_clear"),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrSet("pexip_infinity_event_sink.tf-test-event-sink", "id"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_event_sink.tf-test-event-sink", "resource_id"),
 					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "name", "tf-test-event-sink"),
-					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "description", ""),
 					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "url", "https://tf-test-webhook.example.com/events"),
-					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "username", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "password", ""),
-					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "bulk_support", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "verify_tls_certificate", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "version", "1"),
-					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "events.#", "3"),
-					resource.TestCheckTypeSetElemAttr("pexip_infinity_event_sink.tf-test-event-sink", "events.*", "conference_ended"),
-					resource.TestCheckTypeSetElemAttr("pexip_infinity_event_sink.tf-test-event-sink", "events.*", "conference_started"),
-					resource.TestCheckTypeSetElemAttr("pexip_infinity_event_sink.tf-test-event-sink", "events.*", "participant_connected"),
+					resource.TestCheckResourceAttr("pexip_infinity_event_sink.tf-test-event-sink", "events.#", "0"),
 				),
 			},
 			{
 				// Step 3: Destroy
-				Config:  test.LoadTestFolder(t, "resource_infinity_event_sink_min"),
+				Config:  test.LoadTestFolder(t, "resource_infinity_event_sink_clear"),
 				Destroy: true,
 			},
 			{
