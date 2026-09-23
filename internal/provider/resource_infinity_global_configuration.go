@@ -17,6 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/boolplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64default"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 
@@ -96,8 +97,10 @@ type InfinityGlobalConfigurationResourceModel struct {
 	EnableLyncAutoEscalate              types.Bool   `tfsdk:"enable_lync_auto_escalate"`
 	EnableLyncVbss                      types.Bool   `tfsdk:"enable_lync_vbss"`
 	EnableMlvad                         types.Bool   `tfsdk:"enable_mlvad"`
+	EnableMSSIP                         types.Bool   `tfsdk:"enable_mssip"`
 	EnableRTMP                          types.Bool   `tfsdk:"enable_rtmp"`
 	EnableSIP                           types.Bool   `tfsdk:"enable_sip"`
+	EnableSIPTCP                        types.Bool   `tfsdk:"enable_sip_tcp"`
 	EnableSIPUDP                        types.Bool   `tfsdk:"enable_sip_udp"`
 	EnableSoftmute                      types.Bool   `tfsdk:"enable_softmute"`
 	EnableSSH                           types.Bool   `tfsdk:"enable_ssh"`
@@ -137,6 +140,7 @@ type InfinityGlobalConfigurationResourceModel struct {
 	OcspState                           types.String `tfsdk:"ocsp_state"`
 	PinEntryTimeout                     types.Int64  `tfsdk:"pin_entry_timeout"`
 	ResourceURI                         types.String `tfsdk:"resource_uri"`
+	RestrictCORSOrigins                 types.Bool   `tfsdk:"restrict_cors_origins"`
 	SessionTimeoutEnabled               types.Bool   `tfsdk:"session_timeout_enabled"`
 	SignallingPortsEnd                  types.Int64  `tfsdk:"signalling_ports_end"`
 	SignallingPortsStart                types.Int64  `tfsdk:"signalling_ports_start"`
@@ -145,6 +149,7 @@ type InfinityGlobalConfigurationResourceModel struct {
 	SiteBannerBg                        types.String `tfsdk:"site_banner_bg"`
 	SiteBannerFg                        types.String `tfsdk:"site_banner_fg"`
 	TeamsEnablePowerpointRender         types.Bool   `tfsdk:"teams_enable_powerpoint_render"`
+	TranscriptModeVMRDefault            types.String `tfsdk:"transcript_mode_vmr_default"`
 	WaitingForChairTimeout              types.Int64  `tfsdk:"waiting_for_chair_timeout"`
 }
 
@@ -284,7 +289,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 			"content_security_policy_header": schema.StringAttribute{
 				Optional: true,
 				Computed: true,
-				Default:  stringdefault.StaticString("upgrade-insecure-requests; default-src 'self'; frame-ancestors 'self'; frame-src 'self' https://telemetryservice.firstpartyapps.oaspapps.com/telemetryservice/telemetryproxy.html https://*.microsoft.com https://*.office.com; style-src 'self' 'unsafe-inline' https://*.microsoft.com https://*.office.com; object-src 'self'; font-src 'self' https://*.microsoft.com https://*.office.com; img-src 'self' https://www.adobe.com data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.microsoft.com https://*.office.com https://ajax.aspnetcdn.com https://api.keen.io; media-src 'self' blob:; connect-src 'self' https://*.microsoft.com https://*.office.com https://example.com;"),
+				Default:  stringdefault.StaticString("upgrade-insecure-requests; default-src 'self'; frame-ancestors 'self'; frame-src 'self' https://*.microsoft.com; style-src 'self' 'unsafe-inline' https://*.microsoft.com https://*.office.com; object-src 'self'; font-src 'self' https://*.microsoft.com https://*.office.com; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.microsoft.com https://*.office.com https://ajax.aspnetcdn.com; media-src 'self' blob:; connect-src 'self' https://*.microsoft.com https://*.office.com;"),
 				Validators: []validator.String{
 					stringvalidator.LengthAtMost(4096),
 				},
@@ -369,10 +374,11 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "Enables relay of chat messages between conference participants using supported clients such as the Pexip apps. You can also configure this setting on individual Virtual Meeting Rooms and Virtual Auditoriums.",
 			},
 			"enable_clock": schema.BoolAttribute{
-				Optional:            true,
-				Computed:            true,
-				Default:             booldefault.StaticBool(false),
-				MarkdownDescription: "Enables support for displaying an in-conference timer or countdown clock.",
+				Computed: true,
+				PlanModifiers: []planmodifier.Bool{
+					boolplanmodifier.UseStateForUnknown(),
+				},
+				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"enable_denoise": schema.BoolAttribute{
 				Optional:            true,
@@ -434,6 +440,12 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Default:             booldefault.StaticBool(false),
 				MarkdownDescription: "Enable Voice Focus for advanced voice activity detection.",
 			},
+			"enable_mssip": schema.BoolAttribute{
+				Optional:            true,
+				Computed:            true,
+				Default:             booldefault.StaticBool(false),
+				MarkdownDescription: "Enable support for Skype for Business within the SIP protocol on all Conferencing Nodes.",
+			},
 			"enable_rtmp": schema.BoolAttribute{
 				Optional:            true,
 				Computed:            true,
@@ -444,7 +456,13 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "Enable the SIP protocol over TCP and TLS on all Conferencing Nodes.",
+				MarkdownDescription: "Enable the SIP protocol over TLS on all Conferencing Nodes.",
+			},
+			"enable_sip_tcp": schema.BoolAttribute{
+				Optional:            true,
+				Computed:            true,
+				Default:             booldefault.StaticBool(false),
+				MarkdownDescription: "Enable the SIP protocol over TCP on all Conferencing Nodes.",
 			},
 			"enable_sip_udp": schema.BoolAttribute{
 				Optional:            true,
@@ -729,8 +747,17 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "The length of time (in seconds) for which a participant will be permitted to remain at the PIN entry screen before being disconnected. Range: 30 to 86400. Default: 120.",
 			},
 			"resource_uri": schema.StringAttribute{
-				Computed:            true,
+				Computed: true,
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.UseStateForUnknown(),
+				},
 				MarkdownDescription: "The URI that identifies this resource.",
+			},
+			"restrict_cors_origins": schema.BoolAttribute{
+				Optional:            true,
+				Computed:            true,
+				Default:             booldefault.StaticBool(true),
+				MarkdownDescription: "When enabled, Access-Control-Allow-Origin is only set for recognised HTTP Origins: the node's own address, its Configured FQDN, and any configured External Webapp Hosts.",
 			},
 			"session_timeout_enabled": schema.BoolAttribute{
 				Optional:            true,
@@ -792,6 +819,15 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Default:             booldefault.StaticBool(true),
 				MarkdownDescription: "Determines whether PowerPoint Live content is enabled for Microsoft Teams calls. Default: true.",
 			},
+			"transcript_mode_vmr_default": schema.StringAttribute{
+				Optional: true,
+				Computed: true,
+				Default:  stringdefault.StaticString("ondemand"),
+				Validators: []validator.String{
+					stringvalidator.OneOf("besteffort", "ondemand", "disallowed"),
+				},
+				MarkdownDescription: "Controls the default transcript requirements. You can override this setting on each service individually.",
+			},
 			"waiting_for_chair_timeout": schema.Int64Attribute{
 				Optional: true,
 				Computed: true,
@@ -815,6 +851,7 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 		CryptoMode:                          plan.CryptoMode.ValueString(),
 		DeploymentUUID:                      plan.DeploymentUUID.ValueString(),
 		ErrorReportingURL:                   plan.ErrorReportingURL.ValueString(),
+		EnableSIPTCP:                        plan.EnableSIPTCP.ValueBool(),
 		EnableSIPUDP:                        plan.EnableSIPUDP.ValueBool(),
 		LegacyAPIUsername:                   plan.LegacyAPIUsername.ValueString(),
 		LegacyAPIPassword:                   plan.LegacyAPIPassword.ValueString(),
@@ -830,6 +867,7 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 		SiteBannerBg:                        plan.SiteBannerBg.ValueString(),
 		SiteBannerFg:                        plan.SiteBannerFg.ValueString(),
 		TeamsEnablePowerpointRender:         plan.TeamsEnablePowerpointRender.ValueBool(),
+		TranscriptModeVMRDefault:            plan.TranscriptModeVMRDefault.ValueString(),
 		EnableWebRTC:                        plan.EnableWebRTC.ValueBool(),
 		EnableSIP:                           plan.EnableSIP.ValueBool(),
 		EnableH323:                          plan.EnableH323.ValueBool(),
@@ -838,7 +876,6 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 		EnableApplicationAPI:                plan.EnableApplicationAPI.ValueBool(),
 		EnableBreakoutRooms:                 plan.EnableBreakoutRooms.ValueBool(),
 		EnableChat:                          plan.EnableChat.ValueBool(),
-		EnableClock:                         plan.EnableClock.ValueBool(),
 		EnableDenoise:                       plan.EnableDenoise.ValueBool(),
 		EnableDialout:                       plan.EnableDialout.ValueBool(),
 		EnableDirectory:                     plan.EnableDirectory.ValueBool(),
@@ -848,6 +885,7 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 		EnableLyncAutoEscalate:              plan.EnableLyncAutoEscalate.ValueBool(),
 		EnableLyncVbss:                      plan.EnableLyncVbss.ValueBool(),
 		EnableMlvad:                         plan.EnableMlvad.ValueBool(),
+		EnableMSSIP:                         plan.EnableMSSIP.ValueBool(),
 		EnableSoftmute:                      plan.EnableSoftmute.ValueBool(),
 		EnableSSH:                           plan.EnableSSH.ValueBool(),
 		EnableTurn443:                       plan.EnableTurn443.ValueBool(),
@@ -863,6 +901,7 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 		LiveCaptionsVMRDefault:              plan.LiveCaptionsVMRDefault.ValueBool(),
 		LogsMaxAge:                          int(plan.LogsMaxAge.ValueInt64()),
 		ManagementSessionTimeout:            int(plan.ManagementSessionTimeout.ValueInt64()),
+		RestrictCORSOrigins:                 plan.RestrictCORSOrigins.ValueBool(),
 		SessionTimeoutEnabled:               plan.SessionTimeoutEnabled.ValueBool(),
 		WaitingForChairTimeout:              int(plan.WaitingForChairTimeout.ValueInt64()),
 		EjectLastParticipantBackstopTimeout: int(plan.EjectLastParticipantBackstopTimeout.ValueInt64()),
@@ -1001,6 +1040,7 @@ func (r *InfinityGlobalConfigurationResource) read(ctx context.Context, awsSecre
 	}
 
 	data.ID = types.StringValue(srv.ResourceURI)
+	data.ResourceURI = types.StringValue(srv.ResourceURI)
 	data.AWSAccessKey = types.StringPointerValue(srv.AWSAccessKey)
 	data.AWSSecretKey = types.StringPointerValue(awsSecretKey)
 	data.AzureClientID = types.StringPointerValue(srv.AzureClientID)
@@ -1034,6 +1074,7 @@ func (r *InfinityGlobalConfigurationResource) read(ctx context.Context, awsSecre
 	data.SiteBannerBg = types.StringValue(srv.SiteBannerBg)
 	data.SiteBannerFg = types.StringValue(srv.SiteBannerFg)
 	data.TeamsEnablePowerpointRender = types.BoolValue(srv.TeamsEnablePowerpointRender)
+	data.TranscriptModeVMRDefault = types.StringValue(srv.TranscriptModeVMRDefault)
 	data.EnableWebRTC = types.BoolValue(srv.EnableWebRTC)
 	data.EnableSIP = types.BoolValue(srv.EnableSIP)
 	data.EnableH323 = types.BoolValue(srv.EnableH323)
@@ -1052,6 +1093,8 @@ func (r *InfinityGlobalConfigurationResource) read(ctx context.Context, awsSecre
 	data.EnableLyncAutoEscalate = types.BoolValue(srv.EnableLyncAutoEscalate)
 	data.EnableLyncVbss = types.BoolValue(srv.EnableLyncVbss)
 	data.EnableMlvad = types.BoolValue(srv.EnableMlvad)
+	data.EnableMSSIP = types.BoolValue(srv.EnableMSSIP)
+	data.EnableSIPTCP = types.BoolValue(srv.EnableSIPTCP)
 	data.EnableSIPUDP = types.BoolValue(srv.EnableSIPUDP)
 	data.EnableSoftmute = types.BoolValue(srv.EnableSoftmute)
 	data.EnableSSH = types.BoolValue(srv.EnableSSH)
@@ -1071,6 +1114,7 @@ func (r *InfinityGlobalConfigurationResource) read(ctx context.Context, awsSecre
 	data.LiveCaptionsVMRDefault = types.BoolValue(srv.LiveCaptionsVMRDefault)
 	data.LogsMaxAge = types.Int64Value(int64(srv.LogsMaxAge))
 	data.ManagementSessionTimeout = types.Int64Value(int64(srv.ManagementSessionTimeout))
+	data.RestrictCORSOrigins = types.BoolValue(srv.RestrictCORSOrigins)
 	data.SessionTimeoutEnabled = types.BoolValue(srv.SessionTimeoutEnabled)
 	data.WaitingForChairTimeout = types.Int64Value(int64(srv.WaitingForChairTimeout))
 	data.EjectLastParticipantBackstopTimeout = types.Int64Value(int64(srv.EjectLastParticipantBackstopTimeout))
@@ -1212,7 +1256,7 @@ func (r *InfinityGlobalConfigurationResource) Delete(ctx context.Context, req re
 		BurstingEnabled:                     false,
 		CloudProvider:                       "AWS",
 		ContactEmailAddress:                 "",
-		ContentSecurityPolicyHeader:         "upgrade-insecure-requests; default-src 'self'; frame-ancestors 'self'; frame-src 'self' https://telemetryservice.firstpartyapps.oaspapps.com/telemetryservice/telemetryproxy.html https://*.microsoft.com https://*.office.com; style-src 'self' 'unsafe-inline' https://*.microsoft.com https://*.office.com; object-src 'self'; font-src 'self' https://*.microsoft.com https://*.office.com; img-src 'self' https://www.adobe.com data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.microsoft.com https://*.office.com https://ajax.aspnetcdn.com https://api.keen.io; media-src 'self' blob:; connect-src 'self' https://*.microsoft.com https://*.office.com https://example.com;",
+		ContentSecurityPolicyHeader:         "upgrade-insecure-requests; default-src 'self'; frame-ancestors 'self'; frame-src 'self' https://*.microsoft.com; style-src 'self' 'unsafe-inline' https://*.microsoft.com https://*.office.com; object-src 'self'; font-src 'self' https://*.microsoft.com https://*.office.com; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.microsoft.com https://*.office.com https://ajax.aspnetcdn.com; media-src 'self' blob:; connect-src 'self' https://*.microsoft.com https://*.office.com;",
 		ContentSecurityPolicyState:          true,
 		CryptoMode:                          "besteffort",
 		EjectLastParticipantBackstopTimeout: 0,
@@ -1231,8 +1275,10 @@ func (r *InfinityGlobalConfigurationResource) Delete(ctx context.Context, req re
 		EnableLyncAutoEscalate:              false,
 		EnableLyncVbss:                      false,
 		EnableMlvad:                         false,
+		EnableMSSIP:                         false,
 		EnableRTMP:                          true,
 		EnableSIP:                           true,
+		EnableSIPTCP:                        false,
 		EnableSIPUDP:                        false,
 		EnableSoftmute:                      true,
 		EnableSSH:                           true,
@@ -1265,6 +1311,7 @@ func (r *InfinityGlobalConfigurationResource) Delete(ctx context.Context, req re
 		OcspResponderURL:                    "",
 		OcspState:                           "OFF",
 		PinEntryTimeout:                     120,
+		RestrictCORSOrigins:                 true,
 		SessionTimeoutEnabled:               true,
 		SignallingPortsEnd:                  39999,
 		SignallingPortsStart:                33000,
@@ -1273,6 +1320,7 @@ func (r *InfinityGlobalConfigurationResource) Delete(ctx context.Context, req re
 		SiteBannerBg:                        "#c0c0c0",
 		SiteBannerFg:                        "#000000",
 		TeamsEnablePowerpointRender:         true,
+		TranscriptModeVMRDefault:            "ondemand",
 		WaitingForChairTimeout:              900,
 	}
 

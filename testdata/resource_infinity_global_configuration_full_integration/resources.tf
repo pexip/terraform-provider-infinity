@@ -38,7 +38,6 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
   enable_application_api                  = false
   enable_breakout_rooms                   = true
   enable_chat                             = false
-  enable_clock                            = true
   enable_denoise                          = false
   enable_dialout                          = false
   enable_directory                        = false
@@ -49,8 +48,10 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
   enable_lync_auto_escalate               = true
   enable_lync_vbss                        = true
   enable_mlvad                            = true
+  enable_mssip                            = true
   enable_rtmp                             = false
-  enable_sip                              = false
+  enable_sip                              = true
+  enable_sip_tcp                          = true
   enable_sip_udp                          = true
   enable_softmute                         = false
   enable_ssh                              = false
@@ -89,6 +90,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
   ocsp_responder_url                      = "https://ocsp.tf-test.example.com"
   ocsp_state                              = "ON"
   pin_entry_timeout                       = 321
+  restrict_cors_origins                   = false
   session_timeout_enabled                 = false
   signalling_ports_end                    = 39998
   signalling_ports_start                  = 33001
@@ -97,5 +99,6 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
   site_banner_bg                          = "#123456"
   site_banner_fg                          = "#ffffff"
   teams_enable_powerpoint_render          = true
+  transcript_mode_vmr_default             = "besteffort"
   waiting_for_chair_timeout               = 901
 }
