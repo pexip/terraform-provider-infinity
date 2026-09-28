@@ -32,9 +32,9 @@ type InfinityMediaProcessingServerResource struct {
 }
 
 type InfinityMediaProcessingServerResourceModel struct {
-	ID           types.String `tfsdk:"id"`
-	ResourceID   types.Int32  `tfsdk:"resource_id"`
-	FQDN         types.String `tfsdk:"fqdn"`
+	ID                     types.String `tfsdk:"id"`
+	ResourceID             types.Int32  `tfsdk:"resource_id"`
+	FQDN                   types.String `tfsdk:"fqdn"`
 	AppID                  types.String `tfsdk:"app_id"`
 	PublicJWTKey           types.String `tfsdk:"public_jwt_key"`
 	RegistrationPrivateKey types.String `tfsdk:"registration_private_key"`

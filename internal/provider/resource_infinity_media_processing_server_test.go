@@ -36,9 +36,9 @@ func TestInfinityMediaProcessingServer(t *testing.T) {
 
 	// Shared state for mocking
 	mockState := &config.MediaProcessingServer{
-		ID:           123,
-		ResourceURI:  "/api/admin/configuration/v1/media_processing_server/123/",
-		FQDN:         "tf-test-mps-full.test.local",
+		ID:                     123,
+		ResourceURI:            "/api/admin/configuration/v1/media_processing_server/123/",
+		FQDN:                   "tf-test-mps-full.test.local",
 		AppID:                  "test-app-id",
 		PublicJWTKey:           "test-public-jwt-key",
 		RegistrationPrivateKey: "test-registration-private-key",
