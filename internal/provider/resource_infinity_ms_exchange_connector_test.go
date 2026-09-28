@@ -267,7 +267,7 @@ func testInfinityMsExchangeConnector(t *testing.T, client InfinityClient) {
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "meeting_buffer_before", "60"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "meeting_buffer_after", "90"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "scheduled_alias_suffix_length", "8"),
-		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "authentication_method", "OAUTH"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "authentication_method", "APP_PERM"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "auth_provider", "AZURE"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "exchange_api_type", "GRAPH"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "graph_api_domain", "test-graph.microsoft.com"),
