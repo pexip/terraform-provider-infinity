@@ -31,6 +31,7 @@ resource "pexip_infinity_media_processing_server" "example" {
 - `app_id` (String) The application ID for the media processing server. Maximum length: 100 characters.
 - `id` (String) Resource URI for the media processing server
 - `public_jwt_key` (String) The public JWT key used for authentication with the media processing server.
+- `registration_private_key` (String, Sensitive) The JWT private key used for registration to the media processing server.
 - `resource_id` (Number) The resource integer identifier for the media processing server
 
 
