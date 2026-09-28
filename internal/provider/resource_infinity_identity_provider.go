@@ -327,7 +327,7 @@ func (r *InfinityIdentityProviderResource) Schema(ctx context.Context, req resou
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(false),
-				MarkdownDescription: "Disable pop-up windows used during Single Sign On. Note that this does not effect scheduling.",
+				MarkdownDescription: "Disable pop-up windows used during Single Sign On. Note that this does not affect scheduling.",
 			},
 			"oidc_flow": schema.StringAttribute{
 				Optional: true,
