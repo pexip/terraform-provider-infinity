@@ -82,7 +82,7 @@ resource "pexip_infinity_ms_exchange_connector" "example" {
 - `exchange_api_type` (String) The API that should be used to communicate with the Exchange server. Valid values: EWS, GRAPH. Default: EWS.
 - `graph_api_domain` (String) The FQDN to use when connecting to the Graph API. Maximum length: 192 characters. Default: "graph.microsoft.com".
 - `graph_authentication_method` (String) The method used to authenticate to the Graph API. Valid values: APP_PERM, APP_PERM_PK. Default: APP_PERM.
-- `host_identity_provider_group` (String) The set of Identity Providers to use if participants are required to authenticate in order to join the scheduled conference. If this is blank, participants will not be required to authenticate.
+- `host_identity_provider_group` (String) The Identity Provider to use if participants are required to authenticate in order to join the scheduled conference. If this is blank, participants will not be required to authenticate.
 - `ivr_theme` (String) The theme for use with this service.
 - `kerberos_auth_every_request` (Boolean) When Kerberos authentication is enabled, send a Kerberos Authorization header in every request to the Exchange server.
 - `kerberos_enable_tls` (Boolean) If enabled, all communication to the KDC will go through an HTTPS proxy and all traffic to the KDC will be encrypted using TLS.
@@ -106,7 +106,7 @@ resource "pexip_infinity_ms_exchange_connector" "example" {
 - `password` (String, Sensitive) The password of the service account to be used by the scheduling service. Maximum length: 100 characters. This field is sensitive.
 - `personal_vmr_adfs_relying_party_trust_identifier` (String) The URL which identifies the OAuth 2.0 resource on AD FS. Maximum length: 255 characters.
 - `personal_vmr_description_template` (String) A Jinja2 template that is used to generate the description of the personal VMR, shown to users when they hover over the button. Maximum length: 12288 characters.
-- `personal_vmr_idp` (String) The Identity Providers that will be accepted when this Identity Provider Group is in use.
+- `personal_vmr_idp` (String) The Identity Provider for signing in users in the Outlook add-in.
 - `personal_vmr_instructions_template` (String) A Jinja2 template that is used to produce the joining instructions added by the scheduling service to the body of the meeting request when a personal VMR is being used. Maximum length: 12288 characters.
 - `personal_vmr_location_template` (String) A Jinja2 template that is used to generate the text that will be inserted into the Location field of the meeting request when a personal VMR is being used. Maximum length: 12288 characters.
 - `personal_vmr_name_template` (String) A Jinja2 template that is used to generate the name of the personal VMR, as it appears on the button offered to users. Maximum length: 12288 characters.

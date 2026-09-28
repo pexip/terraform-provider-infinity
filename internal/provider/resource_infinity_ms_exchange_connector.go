@@ -398,9 +398,12 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 				MarkdownDescription: "The API that should be used to communicate with the Exchange server. Valid values: EWS, GRAPH. Default: EWS.",
 			},
 			"graph_api_domain": schema.StringAttribute{
-				Optional:            true,
-				Computed:            true,
-				Default:             stringdefault.StaticString("graph.microsoft.com"),
+				Optional: true,
+				Computed: true,
+				Default:  stringdefault.StaticString("graph.microsoft.com"),
+				Validators: []validator.String{
+					stringvalidator.LengthAtMost(192),
+				},
 				MarkdownDescription: "The FQDN to use when connecting to the Graph API. Maximum length: 192 characters. Default: \"graph.microsoft.com\".",
 			},
 			"graph_authentication_method": schema.StringAttribute{
