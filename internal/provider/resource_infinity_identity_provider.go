@@ -396,7 +396,7 @@ func (r *InfinityIdentityProviderResource) Schema(ctx context.Context, req resou
 				Validators: []validator.String{
 					stringvalidator.OneOf("rs256", "rs512", "hs256"),
 				},
-				MarkdownDescription: "The algorithm used by the Identity Provider to sign the contents of the token. RS256 and RS512 use asymmetric RSA keys (requires a JWKS URL). HS256 uses a shared client secret.",
+				MarkdownDescription: "The algorithm used by the Identity Provider to sign the contents of the token. RS256 and RS512 use asymmetric RSA keys (requires a JWKS URL). HS256 uses a shared client secret. Valid choices: rs256, rs512, hs256.",
 			},
 			"oidc_display_name_claim_name": schema.StringAttribute{
 				Optional: true,
