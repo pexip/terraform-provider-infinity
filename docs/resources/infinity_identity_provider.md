@@ -72,7 +72,7 @@ resource "pexip_infinity_identity_provider" "oidc_example" {
 - `attributes` (Set of String) List of identity provider attribute resource URIs.
 - `description` (String) A description of the Identity Provider. Maximum length: 250 characters.
 - `digest_algorithm` (String) Digest algorithm used to sign SAML authentication request messages and service metadata. Valid choices: http://www.w3.org/2000/09/xmldsig#sha1, http://www.w3.org/2001/04/xmlenc#sha256, http://www.w3.org/2001/04/xmldsig-more#sha384, http://www.w3.org/2001/04/xmlenc#sha512.
-- `disable_popup_flow` (Boolean) Disable pop-up windows used during Single Sign On. Note that this does not effect scheduling.
+- `disable_popup_flow` (Boolean) Disable pop-up windows used during Single Sign On. Note that this does not affect scheduling.
 - `display_name_attribute_name` (String) The SAML 2.0 attribute name from which the user's display name will be extracted. If one is not specified, participants are able to enter their own display name. Default: NameId. Maximum length: 250 characters.
 - `email_attribute_name` (String) The SAML 2.0 attribute name from which the user's email address will be extracted. If one is not specified, this IdP will not be usable for scheduling. Maximum length: 250 characters.
 - `idp_entity_id` (String) The identifier for this Identity Provider integration. For SAML IdPs this is the Entity ID and for OpenID Connect IdPs this is the Issuer for returned JWTs.  Maximum length: 250 characters.
