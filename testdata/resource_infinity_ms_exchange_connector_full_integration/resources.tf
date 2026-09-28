@@ -4,6 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+resource "tls_private_key" "tf-test-oauth-private-key" {
+  algorithm = "RSA"
+  rsa_bits  = 2048
+}
+
 resource "pexip_infinity_ivr_theme" "tf-test-theme" {
   name = "tf-test-ms-exchange-connector-theme"
 }
@@ -32,6 +37,7 @@ resource "pexip_infinity_ms_exchange_connector" "tf-test-ms-exchange-connector" 
   enable_addin_debug_logs                          = true
   oauth_client_id                                  = "11111111-1111-1111-1111-111111111111"
   oauth_client_secret                              = "tf-test-oauth-client-secret"
+  oauth_private_key                                = tls_private_key.tf-test-oauth-private-key.private_key_pem
   oauth_token_endpoint                             = "https://tf-test.example.com/oauth/token"
   kerberos_realm                                   = "TF-TEST.EXAMPLE.COM"
   kerberos_kdc                                     = "tf-test-kdc.example.com"

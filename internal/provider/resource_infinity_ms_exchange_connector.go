@@ -423,7 +423,7 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 			},
 			"personal_vmr_idp": schema.StringAttribute{
 				Optional:            true,
-				MarkdownDescription: "The Identity Providers that will be accepted when this Identity Provider Group is in use.",
+				MarkdownDescription: "The Identity Provider for signing in users in the Outlook add-in.",
 			},
 			"kerberos_realm": schema.StringAttribute{
 				Optional:            true,
@@ -604,7 +604,7 @@ func (r *InfinityMsExchangeConnectorResource) Schema(ctx context.Context, req re
 			},
 			"host_identity_provider_group": schema.StringAttribute{
 				Optional:            true,
-				MarkdownDescription: "The set of Identity Providers to use if participants are required to authenticate in order to join the scheduled conference. If this is blank, participants will not be required to authenticate.",
+				MarkdownDescription: "The Identity Provider to use if participants are required to authenticate in order to join the scheduled conference. If this is blank, participants will not be required to authenticate.",
 			},
 			"ivr_theme": schema.StringAttribute{
 				Optional:            true,
@@ -1064,6 +1064,7 @@ func (r *InfinityMsExchangeConnectorResource) Create(ctx context.Context, req re
 	// Preserve write-only sensitive fields from plan
 	model.Password = plan.Password
 	model.OauthClientSecret = plan.OauthClientSecret
+	model.OauthPrivateKey = plan.OauthPrivateKey
 	model.PersonalVmrOauthClientSecret = plan.PersonalVmrOauthClientSecret
 
 	tflog.Trace(ctx, fmt.Sprintf("created Infinity Microsoft Exchange connector with ID: %s, name: %s", model.ID, model.Name))
@@ -1165,12 +1166,7 @@ func (r *InfinityMsExchangeConnectorResource) read(ctx context.Context, resource
 	} else {
 		data.OauthCertificate = types.StringNull()
 	}
-
-	if srv.OauthPrivateKey != nil {
-		data.OauthPrivateKey = types.StringValue(*srv.OauthPrivateKey)
-	} else {
-		data.OauthPrivateKey = types.StringNull()
-	}
+	// OauthPrivateKey is write-only and not returned by the API, will be preserved from state/plan
 
 	if srv.OauthState != nil {
 		data.OauthState = types.StringValue(*srv.OauthState)
@@ -1290,6 +1286,7 @@ func (r *InfinityMsExchangeConnectorResource) Read(ctx context.Context, req reso
 	// Preserve write-only sensitive fields from prior state
 	priorPassword := state.Password
 	priorOauthClientSecret := state.OauthClientSecret
+	priorOauthPrivateKey := state.OauthPrivateKey
 	priorPersonalVmrOauthClientSecret := state.PersonalVmrOauthClientSecret
 
 	resourceID := int(state.ResourceID.ValueInt32())
@@ -1310,6 +1307,7 @@ func (r *InfinityMsExchangeConnectorResource) Read(ctx context.Context, req reso
 	// Restore write-only sensitive fields from prior state
 	state.Password = priorPassword
 	state.OauthClientSecret = priorOauthClientSecret
+	state.OauthPrivateKey = priorOauthPrivateKey
 	state.PersonalVmrOauthClientSecret = priorPersonalVmrOauthClientSecret
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, state)...)
@@ -1547,6 +1545,7 @@ func (r *InfinityMsExchangeConnectorResource) Update(ctx context.Context, req re
 	// Preserve write-only sensitive fields from plan
 	model.Password = plan.Password
 	model.OauthClientSecret = plan.OauthClientSecret
+	model.OauthPrivateKey = plan.OauthPrivateKey
 	model.PersonalVmrOauthClientSecret = plan.PersonalVmrOauthClientSecret
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, model)...)
