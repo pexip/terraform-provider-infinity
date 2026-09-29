@@ -15,6 +15,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/stretchr/testify/require"
 
 	"github.com/pexip/terraform-provider-infinity/internal/test"
@@ -41,5 +42,123 @@ func TestInfinityPolicyServerIntegration(t *testing.T) {
 	)
 	require.NoError(t, err)
 
-	testInfinityPolicyServer(t, client)
+	testInfinityPolicyServerIntegration(t, client)
+}
+
+func testInfinityPolicyServerIntegration(t *testing.T, client InfinityClient) {
+	resource.Test(t, resource.TestCase{
+		ProtoV6ProviderFactories: getTestProtoV6ProviderFactories(client),
+		Steps: []resource.TestStep{
+			// Step 1: Create with full configuration
+			{
+				Config: test.LoadTestFolder(t, "resource_infinity_policy_server_full_integration"),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttrSet("pexip_infinity_policy_server.tf-test-policy-server", "id"),
+					resource.TestCheckResourceAttrSet("pexip_infinity_policy_server.tf-test-policy-server", "resource_id"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "name", "tf-test-policy-server"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "description", "tf-test Policy Server Description"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "url", "https://policy.example.com"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "allow_http", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "username", "tf-test-user"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_service_lookup", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_participant_lookup", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_registration_lookup", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_directory_lookup", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_avatar_lookup", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_media_location_lookup", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_internal_service_policy", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_internal_participant_policy", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_internal_media_location_policy", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "prefer_local_avatar_configuration", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "internal_service_policy_template", "tf-test service template"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "internal_participant_policy_template", "tf-test participant template"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "internal_media_location_policy_template", "tf-test media location template"),
+				),
+			},
+			// Step 2: Update to min configuration
+			{
+				Config: test.LoadTestFolder(t, "resource_infinity_policy_server_min"),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttrSet("pexip_infinity_policy_server.tf-test-policy-server", "id"),
+					resource.TestCheckResourceAttrSet("pexip_infinity_policy_server.tf-test-policy-server", "resource_id"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "name", "tf-test-policy-server"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "description", ""),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "url", ""),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "allow_http", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "username", ""),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_service_lookup", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_participant_lookup", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_registration_lookup", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_directory_lookup", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_avatar_lookup", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_media_location_lookup", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_internal_service_policy", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_internal_participant_policy", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_internal_media_location_policy", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "prefer_local_avatar_configuration", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "internal_service_policy_template", ""),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "internal_participant_policy_template", ""),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "internal_media_location_policy_template", ""),
+				),
+			},
+			// Step 3: Destroy resources before recreate-from-scratch test
+			{
+				Config:       test.LoadTestFolder(t, "resource_infinity_policy_server_min"),
+				ResourceName: "pexip_infinity_policy_server.tf-test-policy-server",
+				Destroy:      true,
+			},
+			// Step 4: Create with min configuration (after destroy)
+			{
+				Config: test.LoadTestFolder(t, "resource_infinity_policy_server_min"),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttrSet("pexip_infinity_policy_server.tf-test-policy-server", "id"),
+					resource.TestCheckResourceAttrSet("pexip_infinity_policy_server.tf-test-policy-server", "resource_id"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "name", "tf-test-policy-server"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "description", ""),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "url", ""),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "allow_http", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "username", ""),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_service_lookup", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_participant_lookup", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_registration_lookup", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_directory_lookup", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_avatar_lookup", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_media_location_lookup", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_internal_service_policy", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_internal_participant_policy", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_internal_media_location_policy", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "prefer_local_avatar_configuration", "false"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "internal_service_policy_template", ""),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "internal_participant_policy_template", ""),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "internal_media_location_policy_template", ""),
+				),
+			},
+			// Step 5: Update to full configuration
+			{
+				Config: test.LoadTestFolder(t, "resource_infinity_policy_server_full_integration"),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttrSet("pexip_infinity_policy_server.tf-test-policy-server", "id"),
+					resource.TestCheckResourceAttrSet("pexip_infinity_policy_server.tf-test-policy-server", "resource_id"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "name", "tf-test-policy-server"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "description", "tf-test Policy Server Description"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "url", "https://policy.example.com"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "allow_http", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "username", "tf-test-user"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_service_lookup", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_participant_lookup", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_registration_lookup", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_directory_lookup", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_avatar_lookup", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_media_location_lookup", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_internal_service_policy", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_internal_participant_policy", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "enable_internal_media_location_policy", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "prefer_local_avatar_configuration", "true"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "internal_service_policy_template", "tf-test service template"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "internal_participant_policy_template", "tf-test participant template"),
+					resource.TestCheckResourceAttr("pexip_infinity_policy_server.tf-test-policy-server", "internal_media_location_policy_template", "tf-test media location template"),
+				),
+			},
+		},
+	})
 }
