@@ -7,7 +7,7 @@
 resource "pexip_infinity_policy_server" "tf-test-policy-server" {
   name                                      = "tf-test-policy-server"
   description                               = "tf-test Policy Server Description"
-  url                                       = "https://policy.example.com"
+  url                                       = "http://policy.example.com"
   allow_http                                = true
   username                                  = "tf-test-user"
   password                                  = "tf-test-password"
