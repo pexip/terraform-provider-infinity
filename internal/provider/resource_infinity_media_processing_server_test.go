@@ -36,11 +36,12 @@ func TestInfinityMediaProcessingServer(t *testing.T) {
 
 	// Shared state for mocking
 	mockState := &config.MediaProcessingServer{
-		ID:           123,
-		ResourceURI:  "/api/admin/configuration/v1/media_processing_server/123/",
-		FQDN:         "tf-test-mps-full.test.local",
-		AppID:        "test-app-id",
-		PublicJWTKey: "test-public-jwt-key",
+		ID:                     123,
+		ResourceURI:            "/api/admin/configuration/v1/media_processing_server/123/",
+		FQDN:                   "tf-test-mps-full.test.local",
+		AppID:                  "test-app-id",
+		PublicJWTKey:           "test-public-jwt-key",
+		RegistrationPrivateKey: "test-registration-private-key",
 	}
 
 	// Mock the GetMediaprocessingserver API call for Read operations
@@ -84,6 +85,7 @@ func testInfinityMediaProcessingServer(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_media_processing_server.media_processing_server-test", "fqdn", "tf-test-mps-full.test.local"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "app_id"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "public_jwt_key"),
+					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "registration_private_key"),
 				),
 			},
 			// Test 2: Update with min config
@@ -95,6 +97,7 @@ func testInfinityMediaProcessingServer(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_media_processing_server.media_processing_server-test", "fqdn", "tf-test-mps.test.local"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "app_id"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "public_jwt_key"),
+					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "registration_private_key"),
 				),
 			},
 			// Test 3: Update with full config
@@ -106,6 +109,7 @@ func testInfinityMediaProcessingServer(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("pexip_infinity_media_processing_server.media_processing_server-test", "fqdn", "tf-test-mps-full.test.local"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "app_id"),
 					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "public_jwt_key"),
+					resource.TestCheckResourceAttrSet("pexip_infinity_media_processing_server.media_processing_server-test", "registration_private_key"),
 				),
 			},
 		},
