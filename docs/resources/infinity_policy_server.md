@@ -99,6 +99,7 @@ resource "pexip_infinity_policy_server" "local_media_policy_burst" {
 
 ### Optional
 
+- `allow_http` (Boolean) Allow the External Policy URL to use HTTP. This is insecure and should only be used for testing purposes.
 - `description` (String) A description of the policy profile. Maximum length: 250 characters.
 - `enable_avatar_lookup` (Boolean) If enabled, requests are sent to the external policy server to fetch avatar images for participants.
 - `enable_directory_lookup` (Boolean) If enabled, requests are sent to the external policy server to fetch directory listing results.
