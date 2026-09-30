@@ -1,0 +1,43 @@
+name: Use locally built provider
+description: Configure Terraform to use the provider built earlier in this workflow run instead of the published release
+
+runs:
+  using: "composite"
+  steps:
+    - name: Download provider
+      uses: actions/download-artifact@v7
+      with:
+        pattern: terraform-provider-infinity_*
+        path: ${{ runner.temp }}/provider-download
+
+    - name: Configure provider dev override
+      shell: bash
+      run: |
+        set -euo pipefail
+        PROVIDER_DIR="${RUNNER_TEMP}/provider-bin"
+        mkdir -p "$PROVIDER_DIR"
+
+        ZIP_FILENAME=$(find "${RUNNER_TEMP}/provider-download" -type f -name 'terraform-provider-infinity_*.zip' -print -quit)
+        if [ -z "$ZIP_FILENAME" ]; then
+          echo "Error: provider artifact not found"
+          exit 1
+        fi
+        unzip -o "$ZIP_FILENAME" -d "$PROVIDER_DIR"
+
+        # dev_overrides expects the binary to be named terraform-provider-<name>
+        BINARY=$(find "$PROVIDER_DIR" -type f -name 'terraform-provider-infinity_*' -print -quit)
+        mv "$BINARY" "$PROVIDER_DIR/terraform-provider-infinity"
+        chmod +x "$PROVIDER_DIR/terraform-provider-infinity"
+
+        cat > "${RUNNER_TEMP}/terraform.rc" <<EOF
+        provider_installation {
+          dev_overrides {
+            "pexip/infinity" = "${PROVIDER_DIR}"
+          }
+          direct {}
+        }
+        EOF
+
+        # TF_CLI_CONFIG_FILE takes precedence over ~/.terraformrc for all later steps in the job
+        echo "TF_CLI_CONFIG_FILE=${RUNNER_TEMP}/terraform.rc" >> "$GITHUB_ENV"
+        cat "${RUNNER_TEMP}/terraform.rc"
