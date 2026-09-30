@@ -35,6 +35,10 @@ const (
 //
 // The schema is unchanged between the legacy and current type names, so the
 // source state is copied as-is.
+//
+// This helper can be removed in v45, along with the MoveState methods and
+// ResourceWithMoveState assertions on each resource. Resources added after v42
+// never had a legacy type name, so they don't need a MoveState method.
 func legacyTypeNameStateMovers(ctx context.Context, r resource.Resource) []resource.StateMover {
 	metadataResp := &resource.MetadataResponse{}
 	r.Metadata(ctx, resource.MetadataRequest{ProviderTypeName: providerTypeName}, metadataResp)

@@ -17,7 +17,11 @@ The provider source address (`pexip/infinity`) and the resource schemas are unch
 
 ## Step 1: Rename the provider local name
 
-The provider local name in `required_providers` and in the `provider` block should now be `infinity`:
+The provider local name should now be `infinity`. Terraform works out which provider a resource belongs to from the prefix of its type name, so `infinity_*` resources need a provider with the local name `infinity`.
+
+~> Every module declares its own `required_providers`. Make this change in **every** module that uses Infinity resources, including child modules and shared modules, not just the root module. If a module still uses the local name `pexip`, `terraform init` fails with an error saying `registry.terraform.io/hashicorp/infinity` is required.
+
+In each module, rename the entry in `required_providers`:
 
 ```terraform
 terraform {
@@ -28,7 +32,11 @@ terraform {
     }
   }
 }
+```
 
+In the root module, also rename the `provider` block:
+
+```terraform
 provider "infinity" {
   address  = "https://manager.example.com"
   username = var.infinity_username
@@ -36,9 +44,21 @@ provider "infinity" {
 }
 ```
 
+If you pass providers to modules explicitly, or set `provider` on individual resources, update those references too:
+
+```terraform
+module "manager" {
+  source = "./modules/infinity-manager"
+
+  providers = {
+    infinity = infinity
+  }
+}
+```
+
 ## Step 2: Rename resources in your configuration
 
-On macOS or Linux, run the following command in the root of your configuration to update the type names:
+On macOS or Linux, run the following command in the root of your configuration to update the type names. The command only updates files in the current directory and its subdirectories, so also run it in any directory containing modules that live outside your configuration, e.g. `../modules`:
 
 ```shell
 grep -rl --include='*.tf' 'pexip_' . | xargs sed -i.bak \
@@ -47,6 +67,8 @@ grep -rl --include='*.tf' 'pexip_' . | xargs sed -i.bak \
 ```
 
 Check the result and delete the `.bak` files. Make sure the command didn't rename any of your own variables or locals that start with `pexip_`.
+
+~> The command replaces `pexip_infinity_` wherever it appears, including in the middle of your own resource names. For example, `null_resource.wait_for_pexip_infinity_manager` would become `null_resource.wait_for_infinity_manager`. Terraform treats a renamed resource as a new resource, so it would destroy the existing one and create a replacement. Compare the files against the `.bak` copies before deleting them and undo any changes to your own resource names, so that only the resource types have changed.
 
 ## Step 3: Migrate existing state
 
@@ -68,13 +90,13 @@ moved {
 You don't need to write these by hand. Run the following command in the root of your configuration to generate a `moved.tf` file containing a block for every resource in state, including resources in modules and `count`/`for_each` instances:
 
 ```shell
-terraform state list | grep 'pexip_infinity_' | while read -r addr; do
-  new_addr=$(printf '%s' "$addr" | sed 's/pexip_infinity_/infinity_/')
+terraform state list | grep -E '(^|\.)pexip_infinity_' | grep -vE '(^|\.)data\.' | while read -r addr; do
+  new_addr=$(printf '%s' "$addr" | sed -E 's/(^|\.)pexip_infinity_/\1infinity_/')
   printf 'moved {\n  from = %s\n  to   = %s\n}\n\n' "$addr" "$new_addr"
 done > moved.tf
 ```
 
-Data sources and actions don't hold state, so they don't need `moved` blocks.
+Data sources and actions don't hold state that can be moved, so the command skips them. Don't add `moved` blocks for data sources, or the plan fails with a `Resource Type Not Found` error.
 
 Run `terraform plan` and confirm that each resource shows as moved, with no changes. Then run `terraform apply`.
 
@@ -100,7 +122,7 @@ Only the resource type names change. The provider address stays `provider["regis
    **With a script:**
 
    ```shell
-   sed 's/pexip_infinity_/infinity_/g' state.json | jq '.serial += 1' > state.new.json
+   sed -E 's/([".])pexip_infinity_/\1infinity_/g' state.json | jq '.serial += 1' > state.new.json
    ```
 
    **By hand:** copy `state.json` to `state.new.json`, open it in a text editor and make these changes:
@@ -120,7 +142,7 @@ Only the resource type names change. The provider address stays `provider["regis
 
    - Update any `dependencies` entries inside `instances` that refer to the old type names, e.g. `"pexip_infinity_system_location.example"` becomes `"infinity_system_location.example"`.
 
-   Don't change anything else, including `lineage`, the `provider` address and the resource `attributes`. Your editor's find-and-replace for `pexip_infinity_` → `infinity_` covers both the `type` and `dependencies` changes.
+   Don't change anything else, including `lineage`, the `provider` address and the resource `attributes`. If you use your editor's find-and-replace for `pexip_infinity_` → `infinity_`, check each match: only replace it where it starts a type name, not inside your own resource names such as `null_resource.wait_for_pexip_infinity_manager`.
 
 3. Push the updated state:
 
