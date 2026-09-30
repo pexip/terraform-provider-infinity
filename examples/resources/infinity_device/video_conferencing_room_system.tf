@@ -1,4 +1,4 @@
-resource "pexip_infinity_device" "boardroom_system" {
+resource "infinity_device" "boardroom_system" {
   alias                       = "boardroom.company.com"
   description                 = "Main boardroom video system"
   username                    = "boardroom"

@@ -1,4 +1,4 @@
-data "pexip_infinity_manager_config" "config" {
+data "infinity_manager_config" "config" {
   hostname              = "manager-01"
   domain                = "example.com"
   ip                    = "192.168.1.100"
@@ -16,6 +16,6 @@ data "pexip_infinity_manager_config" "config" {
 
 # Use the rendered configuration
 output "manager_config" {
-  value     = data.pexip_infinity_manager_config.config.rendered
+  value     = data.infinity_manager_config.config.rendered
   sensitive = true
 }

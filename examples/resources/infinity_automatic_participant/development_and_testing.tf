@@ -1,7 +1,7 @@
-resource "pexip_infinity_automatic_participant" "test_participant" {
+resource "infinity_automatic_participant" "test_participant" {
   alias                 = "test-${random_id.test.hex}"
   description           = "Test automatic participant"
-  conference            = data.pexip_infinity_conference.test_conference.id
+  conference            = data.infinity_conference.test_conference.id
   protocol              = "webrtc"
   call_type             = "video"
   role                  = "guest"

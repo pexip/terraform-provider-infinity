@@ -32,6 +32,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState    = (*InfinityGlobalConfigurationResource)(nil)
+	_ resource.ResourceWithMoveState      = (*InfinityGlobalConfigurationResource)(nil)
 	_ resource.ResourceWithValidateConfig = (*InfinityGlobalConfigurationResource)(nil)
 )
 
@@ -154,7 +155,11 @@ type InfinityGlobalConfigurationResourceModel struct {
 }
 
 func (r *InfinityGlobalConfigurationResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_global_configuration"
+	resp.TypeName = req.ProviderTypeName + "_global_configuration"
+}
+
+func (r *InfinityGlobalConfigurationResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityGlobalConfigurationResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
@@ -965,7 +970,7 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 		updateRequest.DefaultTheme = &config.IVRTheme{Name: val}
 	}
 	// default_webapp_alias is read-only; it is managed via is_default on
-	// pexip_infinity_webapp_alias, so it must never be sent in update requests.
+	// infinity_webapp_alias, so it must never be sent in update requests.
 	if !plan.GcpClientEmail.IsNull() && !plan.GcpClientEmail.IsUnknown() {
 		val := plan.GcpClientEmail.ValueString()
 		updateRequest.GcpClientEmail = &val

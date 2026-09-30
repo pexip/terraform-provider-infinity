@@ -27,7 +27,7 @@ variable "regional_proxies" {
   }
 }
 
-resource "pexip_infinity_http_proxy" "regional" {
+resource "infinity_http_proxy" "regional" {
   for_each = var.regional_proxies
   name     = each.value.name
   address  = each.value.address

@@ -1,5 +1,5 @@
 # Production proxy
-resource "pexip_infinity_http_proxy" "production" {
+resource "infinity_http_proxy" "production" {
   name     = "Production HTTP Proxy"
   address  = "proxy-prod.company.com"
   port     = 3128
@@ -9,7 +9,7 @@ resource "pexip_infinity_http_proxy" "production" {
 }
 
 # Development proxy
-resource "pexip_infinity_http_proxy" "development" {
+resource "infinity_http_proxy" "development" {
   name     = "Development HTTP Proxy"
   address  = "proxy-dev.company.com"
   port     = 3128
@@ -19,7 +19,7 @@ resource "pexip_infinity_http_proxy" "development" {
 }
 
 # Test proxy without authentication
-resource "pexip_infinity_http_proxy" "test" {
+resource "infinity_http_proxy" "test" {
   name     = "Test HTTP Proxy"
   address  = "proxy-test.company.com"
   port     = 8080

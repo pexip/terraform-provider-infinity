@@ -1,4 +1,4 @@
-resource "pexip_infinity_end_user" "jane_smith" {
+resource "infinity_end_user" "jane_smith" {
   primary_email_address = "jane.smith@company.com"
   first_name            = "Jane"
   last_name             = "Smith"

@@ -1,5 +1,5 @@
 # Route to AWS VPC
-resource "pexip_infinity_static_route" "aws_vpc" {
+resource "infinity_static_route" "aws_vpc" {
   name    = "AWS VPC Network"
   address = "10.100.0.0"
   prefix  = 16
@@ -7,7 +7,7 @@ resource "pexip_infinity_static_route" "aws_vpc" {
 }
 
 # Route to Azure VNet
-resource "pexip_infinity_static_route" "azure_vnet" {
+resource "infinity_static_route" "azure_vnet" {
   name    = "Azure VNet Network"
   address = "10.200.0.0"
   prefix  = 16
@@ -15,7 +15,7 @@ resource "pexip_infinity_static_route" "azure_vnet" {
 }
 
 # Route to Google Cloud VPC
-resource "pexip_infinity_static_route" "gcp_vpc" {
+resource "infinity_static_route" "gcp_vpc" {
   name    = "Google Cloud VPC"
   address = "10.300.0.0"
   prefix  = 16

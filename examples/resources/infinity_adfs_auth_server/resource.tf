@@ -1,4 +1,4 @@
-resource "pexip_infinity_adfs_auth_server" "example" {
+resource "infinity_adfs_auth_server" "example" {
   name                               = "ADFS Server"
   description                        = "ADFS authentication server for corporate users"
   client_id                          = "12345678-1234-1234-1234-123456789012"

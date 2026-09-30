@@ -1,4 +1,4 @@
-resource "pexip_infinity_worker_vm" "worker" {
+resource "infinity_worker_vm" "worker" {
   name               = var.hostname
   hostname           = var.hostname
   address            = var.prv_ip_address
@@ -16,7 +16,7 @@ resource "google_compute_instance" "infinity_worker" {
   machine_type = var.machine_type
 
   metadata = {
-    conferencing_node_config = pexip_infinity_worker_vm.worker.config
+    conferencing_node_config = infinity_worker_vm.worker.config
   }
 
   boot_disk {

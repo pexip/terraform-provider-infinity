@@ -1,4 +1,4 @@
-resource "pexip_infinity_turn_server" "public_turn" {
+resource "infinity_turn_server" "public_turn" {
   name           = "Public TURN Service"
   description    = "External TURN service provider"
   address        = "global-turn.example.com"

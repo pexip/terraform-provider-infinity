@@ -17,7 +17,7 @@ variable "private_key_passphrase" {
   default     = ""
 }
 
-resource "pexip_infinity_tls_certificate" "from_variables" {
+resource "infinity_tls_certificate" "from_variables" {
   certificate            = var.tls_certificate
   private_key            = var.tls_private_key
   private_key_passphrase = var.private_key_passphrase != "" ? var.private_key_passphrase : null

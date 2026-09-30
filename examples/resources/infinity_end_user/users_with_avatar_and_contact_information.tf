@@ -1,4 +1,4 @@
-resource "pexip_infinity_end_user" "executive_user" {
+resource "infinity_end_user" "executive_user" {
   primary_email_address = "ceo@company.com"
   first_name            = "Chief"
   last_name             = "Executive"

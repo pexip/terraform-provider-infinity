@@ -28,6 +28,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinitySnmpNetworkManagementSystemResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinitySnmpNetworkManagementSystemResource)(nil)
 )
 
 type InfinitySnmpNetworkManagementSystemResource struct {
@@ -45,7 +46,11 @@ type InfinitySnmpNetworkManagementSystemResourceModel struct {
 }
 
 func (r *InfinitySnmpNetworkManagementSystemResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_snmp_network_management_system"
+	resp.TypeName = req.ProviderTypeName + "_snmp_network_management_system"
+}
+
+func (r *InfinitySnmpNetworkManagementSystemResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinitySnmpNetworkManagementSystemResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

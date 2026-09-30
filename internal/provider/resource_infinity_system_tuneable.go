@@ -25,6 +25,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinitySystemTuneableResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinitySystemTuneableResource)(nil)
 )
 
 type InfinitySystemTuneableResource struct {
@@ -39,7 +40,11 @@ type InfinitySystemTuneableResourceModel struct {
 }
 
 func (r *InfinitySystemTuneableResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_system_tuneable"
+	resp.TypeName = req.ProviderTypeName + "_system_tuneable"
+}
+
+func (r *InfinitySystemTuneableResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinitySystemTuneableResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

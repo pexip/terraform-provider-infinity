@@ -1,4 +1,4 @@
-resource "pexip_infinity_policy_server" "local_policy" {
+resource "infinity_policy_server" "local_policy" {
   name                                           = "Local Policy Server"
   description                                    = "Local policy example using template files"
   enable_internal_service_policy                 = true

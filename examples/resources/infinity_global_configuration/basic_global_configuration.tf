@@ -1,4 +1,4 @@
-resource "pexip_infinity_global_configuration" "example" {
+resource "infinity_global_configuration" "example" {
   logon_banner  = "Welcome to Pexip Infinity"
   enable_webrtc = true
   enable_sip    = true

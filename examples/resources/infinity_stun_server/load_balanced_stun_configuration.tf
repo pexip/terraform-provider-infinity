@@ -1,5 +1,5 @@
 # STUN servers behind load balancer
-resource "pexip_infinity_stun_server" "lb_stun" {
+resource "infinity_stun_server" "lb_stun" {
   count = var.stun_server_count
 
   name        = "Load Balanced STUN ${count.index + 1}"

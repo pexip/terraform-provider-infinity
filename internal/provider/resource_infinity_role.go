@@ -25,6 +25,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityRoleResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityRoleResource)(nil)
 )
 
 type InfinityRoleResource struct {
@@ -39,7 +40,11 @@ type InfinityRoleResourceModel struct {
 }
 
 func (r *InfinityRoleResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_role"
+	resp.TypeName = req.ProviderTypeName + "_role"
+}
+
+func (r *InfinityRoleResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityRoleResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

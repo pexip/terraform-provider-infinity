@@ -1,4 +1,4 @@
-resource "pexip_infinity_static_route" "specific_server" {
+resource "infinity_static_route" "specific_server" {
   name    = "Database Server Route"
   address = "10.1.1.100"
   prefix  = 32

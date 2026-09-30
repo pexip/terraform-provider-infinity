@@ -13,7 +13,7 @@ variable "proxy_config" {
   }
 }
 
-resource "pexip_infinity_http_proxy" "enterprise" {
+resource "infinity_http_proxy" "enterprise" {
   name     = "Enterprise HTTP Proxy"
   address  = var.proxy_config.address
   port     = var.proxy_config.port

@@ -1,4 +1,4 @@
-resource "pexip_infinity_device" "executive_room" {
+resource "infinity_device" "executive_room" {
   alias                       = "executive-suite.company.com"
   description                 = "Executive conference room with full capabilities"
   username                    = "executive_room"

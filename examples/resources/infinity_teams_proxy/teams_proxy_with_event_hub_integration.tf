@@ -1,4 +1,4 @@
-resource "pexip_infinity_teams_proxy" "teams_proxy_with_events" {
+resource "infinity_teams_proxy" "teams_proxy_with_events" {
   name                    = "Teams Proxy with Events"
   description             = "Teams proxy with event hub integration"
   address                 = "teams-proxy.company.com"

@@ -18,7 +18,7 @@ variable "teams_tenants" {
   ]
 }
 
-resource "pexip_infinity_teams_proxy" "multi_tenant" {
+resource "infinity_teams_proxy" "multi_tenant" {
   count                   = length(var.teams_tenants)
   name                    = var.teams_tenants[count.index].name
   description             = "Teams proxy for ${var.teams_tenants[count.index].azure_tenant}"

@@ -1,4 +1,4 @@
-resource "pexip_infinity_authentication" "oidc_example" {
+resource "infinity_authentication" "oidc_example" {
   source                  = "OIDC+LOCAL"
   oidc_client_id          = var.azure_oidc_auth_app_client_id
   oidc_client_secret      = var.azure_oidc_auth_app_client_secret

@@ -1,5 +1,5 @@
 # Recording participant
-resource "pexip_infinity_automatic_participant" "recorder" {
+resource "infinity_automatic_participant" "recorder" {
   alias                 = "recorder-${var.conference_name}"
   description           = "Recording for ${var.conference_name}"
   conference            = var.conference_id
@@ -13,7 +13,7 @@ resource "pexip_infinity_automatic_participant" "recorder" {
 }
 
 # Streaming participant
-resource "pexip_infinity_automatic_participant" "streamer" {
+resource "infinity_automatic_participant" "streamer" {
   alias                 = "streamer-${var.conference_name}"
   description           = "Streaming for ${var.conference_name}"
   conference            = var.conference_id
@@ -28,7 +28,7 @@ resource "pexip_infinity_automatic_participant" "streamer" {
 }
 
 # Chair participant for persistent hosting
-resource "pexip_infinity_automatic_participant" "host" {
+resource "infinity_automatic_participant" "host" {
   alias                 = "host-${var.conference_name}"
   description           = "Persistent host for ${var.conference_name}"
   conference            = var.conference_id

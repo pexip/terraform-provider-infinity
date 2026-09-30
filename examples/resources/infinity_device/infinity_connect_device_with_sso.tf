@@ -1,4 +1,4 @@
-resource "pexip_infinity_device" "infinity_connect_device" {
+resource "infinity_device" "infinity_connect_device" {
   alias                       = "connect-device-01"
   description                 = "Infinity Connect device with SSO"
   primary_owner_email_address = "user@company.com"

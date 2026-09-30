@@ -1,5 +1,5 @@
 # Route to internal corporate network
-resource "pexip_infinity_static_route" "corporate_network" {
+resource "infinity_static_route" "corporate_network" {
   name    = "Corporate Network"
   address = "10.0.0.0"
   prefix  = 8
@@ -7,7 +7,7 @@ resource "pexip_infinity_static_route" "corporate_network" {
 }
 
 # Route to DMZ network
-resource "pexip_infinity_static_route" "dmz_network" {
+resource "infinity_static_route" "dmz_network" {
   name    = "DMZ Network"
   address = "172.20.0.0"
   prefix  = 16
@@ -15,7 +15,7 @@ resource "pexip_infinity_static_route" "dmz_network" {
 }
 
 # Route to guest network
-resource "pexip_infinity_static_route" "guest_network" {
+resource "infinity_static_route" "guest_network" {
   name    = "Guest Network"
   address = "192.168.50.0"
   prefix  = 24

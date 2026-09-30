@@ -1,5 +1,5 @@
 # Primary TURN server
-resource "pexip_infinity_turn_server" "turn_primary" {
+resource "infinity_turn_server" "turn_primary" {
   name           = "Primary TURN Server"
   description    = "Primary TURN server for main office"
   address        = "turn1.company.com"
@@ -11,7 +11,7 @@ resource "pexip_infinity_turn_server" "turn_primary" {
 }
 
 # Secondary TURN server
-resource "pexip_infinity_turn_server" "turn_secondary" {
+resource "infinity_turn_server" "turn_secondary" {
   name           = "Secondary TURN Server"
   description    = "Secondary TURN server for redundancy"
   address        = "turn2.company.com"

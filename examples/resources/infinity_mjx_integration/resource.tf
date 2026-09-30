@@ -1,4 +1,4 @@
-resource "pexip_infinity_mjx_integration" "example" {
+resource "infinity_mjx_integration" "example" {
   name                          = "Corporate MJX Integration"
   description                   = "MJX integration for corporate calendar systems"
   display_upcoming_meetings     = 5

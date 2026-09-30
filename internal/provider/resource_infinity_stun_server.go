@@ -28,6 +28,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinitySTUNServerResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinitySTUNServerResource)(nil)
 )
 
 type InfinitySTUNServerResource struct {
@@ -44,7 +45,11 @@ type InfinitySTUNServerResourceModel struct {
 }
 
 func (r *InfinitySTUNServerResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_stun_server"
+	resp.TypeName = req.ProviderTypeName + "_stun_server"
+}
+
+func (r *InfinitySTUNServerResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinitySTUNServerResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

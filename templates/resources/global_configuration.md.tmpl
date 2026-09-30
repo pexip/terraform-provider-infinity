@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_global_configuration Resource - terraform-provider-pexip"
+page_title: "infinity_global_configuration Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages the Pexip Infinity global system configuration.
 ---
 
-# pexip_infinity_global_configuration (Resource)
+# infinity_global_configuration (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,15 +13,15 @@ description: |-
 
 ### Basic Global Configuration
 
-{{tffile "examples/resources/pexip_infinity_global_configuration/basic_global_configuration.tf"}}
+{{tffile "examples/resources/infinity_global_configuration/basic_global_configuration.tf"}}
 
 ### Cloud Bursting with GCP
 
-{{tffile "examples/resources/pexip_infinity_global_configuration/cloud_bursting_gcp.tf"}}
+{{tffile "examples/resources/infinity_global_configuration/cloud_bursting_gcp.tf"}}
 
 {{ .SchemaMarkdown }}
 ## Import
 
 ```shell
-terraform import pexip_infinity_global_configuration.example 1
+terraform import infinity_global_configuration.example 1
 ```

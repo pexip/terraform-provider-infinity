@@ -33,6 +33,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityWorkerVMResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityWorkerVMResource)(nil)
 	_ resource.ResourceWithModifyPlan  = (*InfinityWorkerVMResource)(nil)
 )
 
@@ -94,7 +95,11 @@ type InfinityWorkerVMResourceModel struct {
 }
 
 func (r *InfinityWorkerVMResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_worker_vm"
+	resp.TypeName = req.ProviderTypeName + "_worker_vm"
+}
+
+func (r *InfinityWorkerVMResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityWorkerVMResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

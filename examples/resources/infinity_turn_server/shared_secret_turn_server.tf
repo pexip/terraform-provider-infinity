@@ -1,4 +1,4 @@
-resource "pexip_infinity_turn_server" "shared_secret_turn" {
+resource "infinity_turn_server" "shared_secret_turn" {
   name           = "Shared Secret TURN"
   description    = "TURN server using shared secret authentication"
   address        = "turn-shared.company.com"

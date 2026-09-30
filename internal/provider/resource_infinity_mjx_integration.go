@@ -29,6 +29,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityMjxIntegrationResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityMjxIntegrationResource)(nil)
 )
 
 type InfinityMjxIntegrationResource struct {
@@ -67,7 +68,11 @@ type InfinityMjxIntegrationResourceModel struct {
 }
 
 func (r *InfinityMjxIntegrationResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_mjx_integration"
+	resp.TypeName = req.ProviderTypeName + "_mjx_integration"
+}
+
+func (r *InfinityMjxIntegrationResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityMjxIntegrationResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

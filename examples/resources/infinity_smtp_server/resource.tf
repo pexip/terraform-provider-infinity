@@ -1,4 +1,4 @@
-resource "pexip_infinity_smtp_server" "example" {
+resource "infinity_smtp_server" "example" {
   name                = "Corporate SMTP Server"
   description         = "SMTP server for email notifications"
   address             = "smtp.example.com"

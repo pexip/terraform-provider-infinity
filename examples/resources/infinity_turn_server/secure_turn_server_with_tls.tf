@@ -1,4 +1,4 @@
-resource "pexip_infinity_turn_server" "secure_turn" {
+resource "infinity_turn_server" "secure_turn" {
   name           = "Secure TURN Server"
   description    = "TLS-encrypted TURN server"
   address        = "turns.company.com"

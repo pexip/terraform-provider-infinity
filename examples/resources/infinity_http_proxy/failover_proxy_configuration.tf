@@ -1,5 +1,5 @@
 # Primary proxy
-resource "pexip_infinity_http_proxy" "primary" {
+resource "infinity_http_proxy" "primary" {
   name     = "Primary HTTP Proxy"
   address  = "proxy1.company.com"
   port     = 8080
@@ -9,7 +9,7 @@ resource "pexip_infinity_http_proxy" "primary" {
 }
 
 # Secondary proxy for failover
-resource "pexip_infinity_http_proxy" "secondary" {
+resource "infinity_http_proxy" "secondary" {
   name     = "Secondary HTTP Proxy"
   address  = "proxy2.company.com"
   port     = 8080

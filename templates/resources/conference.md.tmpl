@@ -1,4 +1,4 @@
-# pexip_infinity_conference (Resource)
+# infinity_conference (Resource)
 
 {{ .Description | trimspace }}
 
@@ -8,29 +8,29 @@ There are multiple conference types in Infinity, each designed for different use
 
 ### Virtual Meeting Room
 
-{{tffile "examples/resources/pexip_infinity_conference/conference.tf"}}
+{{tffile "examples/resources/infinity_conference/conference.tf"}}
 
 ### Virtual Reception
 
 This IVR only matches four digits for routing to other conferences.
 
-{{tffile "examples/resources/pexip_infinity_conference/two_stage_dialing.tf"}}
+{{tffile "examples/resources/infinity_conference/two_stage_dialing.tf"}}
 
 ### Virtual Auditorium
 
 This VA will auto-mute all guests as they join.
 
-{{tffile "examples/resources/pexip_infinity_conference/lecture.tf"}}
+{{tffile "examples/resources/infinity_conference/lecture.tf"}}
 
 ### Media Playback Service
 
 Multiple resources are needed to create a media playback service. In this example, a single media file is added to a playlist. The service is configured to disconnect the participant once the playlist has finished.
 
-{{tffile "examples/resources/pexip_infinity_conference/media_playback.tf"}}
+{{tffile "examples/resources/infinity_conference/media_playback.tf"}}
 
 ### Test Call Service
 
-{{tffile "examples/resources/pexip_infinity_conference/test_call.tf"}}
+{{tffile "examples/resources/infinity_conference/test_call.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -40,7 +40,7 @@ Multiple resources are needed to create a media playback service. In this exampl
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_conference.example 123
+terraform import infinity_conference.example 123
 ```
 
 Where `123` is the numeric resource ID of the conference.

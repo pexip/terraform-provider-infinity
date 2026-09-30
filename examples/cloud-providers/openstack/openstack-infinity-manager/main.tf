@@ -7,18 +7,18 @@
 locals {
   hostname         = "${var.environment}-manager"
   check_status_url = "https://${openstack_networking_floatingip_v2.infinity-mgr-fip.address}/admin/login/"
-  user_data        = jsonencode(data.pexip_infinity_manager_config.conf.management_node_config)
+  user_data        = jsonencode(data.infinity_manager_config.conf.management_node_config)
 }
 
-resource "pexip_infinity_ssh_password_hash" "default" {
+resource "infinity_ssh_password_hash" "default" {
   password = var.admin_password
 }
 
-resource "pexip_infinity_web_password_hash" "default" {
+resource "infinity_web_password_hash" "default" {
   password = var.password
 }
 
-data "pexip_infinity_manager_config" "conf" {
+data "infinity_manager_config" "conf" {
   hostname              = local.hostname
   domain                = var.domain
   ip                    = openstack_networking_port_v2.infinity-mgr-port.all_fixed_ips.0
@@ -27,8 +27,8 @@ data "pexip_infinity_manager_config" "conf" {
   dns                   = var.dns_server
   ntp                   = var.ntp_server
   user                  = var.username
-  pass                  = pexip_infinity_web_password_hash.default.hash
-  admin_password        = pexip_infinity_ssh_password_hash.default.hash
+  pass                  = infinity_web_password_hash.default.hash
+  admin_password        = infinity_ssh_password_hash.default.hash
   error_reports         = var.report_errors
   enable_analytics      = var.enable_analytics
   contact_email_address = var.contact_email_address

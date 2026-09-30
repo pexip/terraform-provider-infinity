@@ -1,4 +1,4 @@
-resource "pexip_infinity_policy_server" "lookup_policy" {
+resource "infinity_policy_server" "lookup_policy" {
   name        = "Directory Lookup Policy"
   description = "External directory and service lookup"
   url         = "https://directory.company.com/policy"

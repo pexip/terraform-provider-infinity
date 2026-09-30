@@ -63,7 +63,7 @@ module "gcp-infinity-node" {
   subnetwork_mask = "255.255.255.255" // Use /32 for single IP address for GCP
   password        = var.infinity_password
   node_type       = "CONFERENCING"
-  system_location = pexip_infinity_system_location.example-location-1.id
+  system_location = infinity_system_location.example-location-1.id
   tls_certificate = module.gcp-infinity-manager.manager_cert.id
   mgr_public_ip   = module.gcp-infinity-manager.mgr-public-ip
   web_password    = var.infinity_password

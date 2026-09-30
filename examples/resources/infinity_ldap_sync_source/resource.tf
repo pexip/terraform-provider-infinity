@@ -1,4 +1,4 @@
-resource "pexip_infinity_ldap_sync_source" "example" {
+resource "infinity_ldap_sync_source" "example" {
   name                    = "Corporate AD"
   description             = "Corporate Active Directory synchronization"
   ldap_server             = "corp.example.com"

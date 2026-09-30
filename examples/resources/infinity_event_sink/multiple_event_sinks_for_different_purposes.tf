@@ -1,5 +1,5 @@
 # Analytics event sink
-resource "pexip_infinity_event_sink" "analytics" {
+resource "infinity_event_sink" "analytics" {
   name                   = "Analytics Event Sink"
   description            = "Event sink for call analytics and reporting"
   url                    = "https://analytics.company.com/pexip/events"
@@ -11,7 +11,7 @@ resource "pexip_infinity_event_sink" "analytics" {
 }
 
 # Monitoring event sink
-resource "pexip_infinity_event_sink" "monitoring" {
+resource "infinity_event_sink" "monitoring" {
   name        = "Monitoring Event Sink"
   description = "Event sink for real-time monitoring"
   url         = "https://monitoring.company.com/webhooks/pexip"
@@ -21,7 +21,7 @@ resource "pexip_infinity_event_sink" "monitoring" {
 }
 
 # Billing event sink
-resource "pexip_infinity_event_sink" "billing" {
+resource "infinity_event_sink" "billing" {
   name                   = "Billing Event Sink"
   description            = "Event sink for usage tracking and billing"
   url                    = "https://billing.company.com/api/usage-events"

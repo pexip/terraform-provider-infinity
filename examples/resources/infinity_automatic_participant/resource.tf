@@ -1,7 +1,7 @@
-resource "pexip_infinity_automatic_participant" "recorder" {
+resource "infinity_automatic_participant" "recorder" {
   alias                 = "conference-recorder"
   description           = "Automatic recording participant"
-  conference            = pexip_infinity_conference.example.id
+  conference            = infinity_conference.example.id
   protocol              = "sip"
   call_type             = "video"
   role                  = "guest"

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_autobackup" "autobackup-test" {
+resource "infinity_autobackup" "autobackup-test" {
   autobackup_enabled         = true
   autobackup_interval        = 12
   autobackup_passphrase      = "SecretPassphrase123"

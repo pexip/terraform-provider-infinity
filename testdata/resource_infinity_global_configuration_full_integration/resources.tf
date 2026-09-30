@@ -9,11 +9,11 @@ resource "tls_private_key" "gcp-key" {
   rsa_bits  = 2048
 }
 
-resource "pexip_infinity_ivr_theme" "tf-test-theme" {
+resource "infinity_ivr_theme" "tf-test-theme" {
   name = "tf-test-theme"
 }
 
-resource "pexip_infinity_global_configuration" "global_configuration-test" {
+resource "infinity_global_configuration" "global_configuration-test" {
   aws_access_key                          = "non-default-aws-access-key"
   aws_secret_key                          = "non-default-aws-secret-key"
   azure_client_id                         = "11111111-2222-3333-4444-555555555555"
@@ -31,7 +31,7 @@ resource "pexip_infinity_global_configuration" "global_configuration-test" {
   contact_email_address                   = "tf-test@example.com"
   content_security_policy_state           = false
   crypto_mode                             = "on"
-  default_theme                           = pexip_infinity_ivr_theme.tf-test-theme.id
+  default_theme                           = infinity_ivr_theme.tf-test-theme.id
   disabled_codecs                         = ["H264_H_1", "VP9"]
   eject_last_participant_backstop_timeout = 60
   enable_analytics                        = true

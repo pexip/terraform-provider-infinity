@@ -1,4 +1,4 @@
-resource "pexip_infinity_authentication" "ldap_example" {
+resource "infinity_authentication" "ldap_example" {
   source                       = "LDAP+LOCAL"
   ldap_server                  = "ldaps://ldap.example.com:636"
   ldap_base_dn                 = "dc=example,dc=com"

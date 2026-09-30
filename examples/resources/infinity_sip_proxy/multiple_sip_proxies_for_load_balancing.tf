@@ -21,7 +21,7 @@ variable "sip_proxy_servers" {
   ]
 }
 
-resource "pexip_infinity_sip_proxy" "load_balanced_proxies" {
+resource "infinity_sip_proxy" "load_balanced_proxies" {
   count       = length(var.sip_proxy_servers)
   name        = var.sip_proxy_servers[count.index].name
   description = "Load balanced SIP proxy ${count.index + 1}"

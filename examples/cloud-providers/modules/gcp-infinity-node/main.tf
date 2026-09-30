@@ -6,7 +6,7 @@
 
 locals {
   hostname         = "${var.environment}-worker-${var.index}"
-  check_status_url = "https://${var.mgr_public_ip}/api/admin/status/v1/worker_vm/${pexip_infinity_worker_vm.worker.resource_id}/"
+  check_status_url = "https://${var.mgr_public_ip}/api/admin/status/v1/worker_vm/${infinity_worker_vm.worker.resource_id}/"
 }
 
 data "google_compute_image" "pexip-infinity-node-image" {
@@ -14,18 +14,18 @@ data "google_compute_image" "pexip-infinity-node-image" {
   project = var.vm_image_project
 }
 
-resource "pexip_infinity_ssh_password_hash" "default" {
+resource "infinity_ssh_password_hash" "default" {
   password = var.password
 }
 
-resource "pexip_infinity_worker_vm" "worker" {
+resource "infinity_worker_vm" "worker" {
   name               = local.hostname
   hostname           = local.hostname
   address            = google_compute_address.infinity_node_private_ip.address
   netmask            = var.subnetwork_mask
   domain             = local.domain
   gateway            = var.gateway
-  password           = pexip_infinity_ssh_password_hash.default.hash
+  password           = infinity_ssh_password_hash.default.hash
   node_type          = var.node_type
   system_location    = var.system_location
   tls_certificate    = var.tls_certificate
@@ -53,7 +53,7 @@ resource "google_compute_instance" "infinity_worker" {
   min_cpu_platform = var.cpu_platform
 
   metadata = {
-    conferencing_node_config = pexip_infinity_worker_vm.worker.config
+    conferencing_node_config = infinity_worker_vm.worker.config
   }
 
   boot_disk {

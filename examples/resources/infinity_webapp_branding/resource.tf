@@ -1,4 +1,4 @@
-resource "pexip_infinity_webapp_branding" "example" {
+resource "infinity_webapp_branding" "example" {
   name          = "Corporate Branding"
   description   = "Corporate branding for Pexip web applications"
   webapp_type   = "webapp1"

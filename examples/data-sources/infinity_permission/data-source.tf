@@ -1,3 +1,3 @@
-data "pexip_infinity_permission" "example" {
+data "infinity_permission" "example" {
   name = "Can create conferences"
 }

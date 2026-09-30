@@ -4,7 +4,7 @@
 
 ## Example Usage
 
-{{tffile "examples/resources/pexip_infinity_oauth2_client/resource.tf"}}
+{{tffile "examples/resources/infinity_oauth2_client/resource.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -13,7 +13,7 @@
 OAuth2 clients can be imported using their client ID:
 
 ```bash
-terraform import pexip_infinity_oauth2_client.example 12345
+terraform import infinity_oauth2_client.example 12345
 ```
 
 Note: The `private_key_jwt` field will not be available for imported resources as it's only provided during initial creation.

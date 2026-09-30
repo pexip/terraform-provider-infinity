@@ -39,11 +39,11 @@ variable "automatic_participants" {
   ]
 }
 
-resource "pexip_infinity_automatic_participant" "enterprise" {
+resource "infinity_automatic_participant" "enterprise" {
   count                 = length(var.automatic_participants)
   alias                 = var.automatic_participants[count.index].alias
   description           = var.automatic_participants[count.index].description
-  conference            = data.pexip_infinity_conference.enterprise_meeting.id
+  conference            = data.infinity_conference.enterprise_meeting.id
   protocol              = var.automatic_participants[count.index].protocol
   call_type             = var.automatic_participants[count.index].call_type
   role                  = var.automatic_participants[count.index].role

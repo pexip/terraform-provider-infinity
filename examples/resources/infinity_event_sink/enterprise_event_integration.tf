@@ -30,7 +30,7 @@ variable "event_sinks" {
   ]
 }
 
-resource "pexip_infinity_event_sink" "enterprise" {
+resource "infinity_event_sink" "enterprise" {
   count                  = length(var.event_sinks)
   name                   = var.event_sinks[count.index].name
   description            = var.event_sinks[count.index].description

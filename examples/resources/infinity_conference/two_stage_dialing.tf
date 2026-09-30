@@ -1,4 +1,4 @@
-resource "pexip_infinity_conference" "ivr" {
+resource "infinity_conference" "ivr" {
   name         = "IVR Service"
   service_type = "two_stage_dialing"
   description  = "IVR example"

@@ -1,4 +1,4 @@
-resource "pexip_infinity_identity_provider" "oidc_example" {
+resource "infinity_identity_provider" "oidc_example" {
   name                               = "Azure AD OIDC"
   description                        = "Azure Active Directory OIDC provider"
   idp_type                           = "oidc"

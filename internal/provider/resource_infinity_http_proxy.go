@@ -28,6 +28,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityHTTPProxyResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityHTTPProxyResource)(nil)
 )
 
 type InfinityHTTPProxyResource struct {
@@ -46,7 +47,11 @@ type InfinityHTTPProxyResourceModel struct {
 }
 
 func (r *InfinityHTTPProxyResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_http_proxy"
+	resp.TypeName = req.ProviderTypeName + "_http_proxy"
+}
+
+func (r *InfinityHTTPProxyResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityHTTPProxyResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_ca_certificate" "ca_certificate-test" {
+resource "infinity_ca_certificate" "ca_certificate-test" {
   certificate = <<-EOT
 -----BEGIN CERTIFICATE-----
 MIIDkTCCAnmgAwIBAgIUazBoBSUbvix3320NLS8fV1zioXQwDQYJKoZIhvcNAQEL

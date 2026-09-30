@@ -1,4 +1,4 @@
-resource "pexip_infinity_global_configuration" "gcp_bursting" {
+resource "infinity_global_configuration" "gcp_bursting" {
   bursting_enabled = true
   cloud_provider   = "GCP"
   gcp_project_id   = var.gcp_project_id

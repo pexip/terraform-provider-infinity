@@ -26,6 +26,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityNtpServerResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityNtpServerResource)(nil)
 )
 
 type InfinityNtpServerResource struct {
@@ -40,7 +41,11 @@ type InfinityNtpServerResourceModel struct {
 }
 
 func (r *InfinityNtpServerResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_ntp_server"
+	resp.TypeName = req.ProviderTypeName + "_ntp_server"
+}
+
+func (r *InfinityNtpServerResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityNtpServerResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

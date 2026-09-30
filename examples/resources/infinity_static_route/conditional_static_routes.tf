@@ -3,7 +3,7 @@ locals {
   create_routes = var.gateway_available
 }
 
-resource "pexip_infinity_static_route" "conditional_route" {
+resource "infinity_static_route" "conditional_route" {
   count   = local.create_routes ? 1 : 0
   name    = "Conditional Network Route"
   address = "10.50.0.0"

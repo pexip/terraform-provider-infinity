@@ -1,11 +1,11 @@
 ---
-page_title: "pexip_infinity_ntp_server Resource - terraform-provider-pexip"
+page_title: "infinity_ntp_server Resource - terraform-provider-pexip"
 subcategory: ""
 description: |-
   Manages a Pexip Infinity NTP server configuration.
 ---
 
-# pexip_infinity_ntp_server (Resource)
+# infinity_ntp_server (Resource)
 
 {{ .Description | trimspace }}
 
@@ -13,23 +13,23 @@ description: |-
 
 ### Basic Usage
 
-{{tffile "examples/resources/pexip_infinity_ntp_server/basic_usage.tf"}}
+{{tffile "examples/resources/infinity_ntp_server/basic_usage.tf"}}
 
 ### NTP Server with Description
 
-{{tffile "examples/resources/pexip_infinity_ntp_server/ntp_server_with_description.tf"}}
+{{tffile "examples/resources/infinity_ntp_server/ntp_server_with_description.tf"}}
 
 ### Corporate NTP Configuration
 
-{{tffile "examples/resources/pexip_infinity_ntp_server/corporate_ntp_configuration.tf"}}
+{{tffile "examples/resources/infinity_ntp_server/corporate_ntp_configuration.tf"}}
 
 ### Multiple NTP Servers for High Availability
 
-{{tffile "examples/resources/pexip_infinity_ntp_server/multiple_ntp_servers_for_high_availability.tf"}}
+{{tffile "examples/resources/infinity_ntp_server/multiple_ntp_servers_for_high_availability.tf"}}
 
 ### Stratum-based NTP Configuration
 
-{{tffile "examples/resources/pexip_infinity_ntp_server/stratum_based_ntp_configuration.tf"}}
+{{tffile "examples/resources/infinity_ntp_server/stratum_based_ntp_configuration.tf"}}
 
 
 {{ .SchemaMarkdown }}
@@ -38,7 +38,7 @@ description: |-
 Import is supported using the following syntax:
 
 ```shell
-terraform import pexip_infinity_ntp_server.example 123
+terraform import infinity_ntp_server.example 123
 ```
 
 Where `123` is the numeric resource ID of the NTP server.

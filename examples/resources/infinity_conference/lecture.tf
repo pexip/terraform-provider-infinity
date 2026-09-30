@@ -1,4 +1,4 @@
-resource "pexip_infinity_conference" "virtual_auditorium" {
+resource "infinity_conference" "virtual_auditorium" {
   name             = "company-webinar"
   service_type     = "lecture"
   description      = "Monthly company-wide webinar"

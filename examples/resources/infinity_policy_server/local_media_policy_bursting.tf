@@ -1,4 +1,4 @@
-resource "pexip_infinity_policy_server" "local_media_policy_burst" {
+resource "infinity_policy_server" "local_media_policy_burst" {
   name                                    = "Local Media Policy Server Overflow with Burst Locations"
   internal_media_location_policy_template = <<-EOF
     {

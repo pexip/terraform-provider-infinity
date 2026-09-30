@@ -1,5 +1,5 @@
 # Public NTP servers
-resource "pexip_infinity_ntp_server" "public_ntp" {
+resource "infinity_ntp_server" "public_ntp" {
   count       = length(var.ntp_servers)
   address     = var.ntp_servers[count.index]
   description = "Public NTP server ${count.index + 1}"
@@ -14,7 +14,7 @@ locals {
   }
 }
 
-resource "pexip_infinity_ntp_server" "regional_ntp" {
+resource "infinity_ntp_server" "regional_ntp" {
   for_each    = toset(local.regional_ntp_servers[var.region])
   address     = each.value
   description = "Regional NTP server for ${var.region} - ${each.value}"

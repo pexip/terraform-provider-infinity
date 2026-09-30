@@ -1,4 +1,4 @@
-resource "pexip_infinity_turn_server" "authenticated_turn" {
+resource "infinity_turn_server" "authenticated_turn" {
   name           = "Corporate TURN Server"
   description    = "TURN server with username/password authentication"
   address        = "turn.company.com"

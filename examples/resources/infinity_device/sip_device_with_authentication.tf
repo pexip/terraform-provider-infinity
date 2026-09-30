@@ -1,4 +1,4 @@
-resource "pexip_infinity_device" "sip_phone" {
+resource "infinity_device" "sip_phone" {
   alias                       = "sip-phone-101"
   description                 = "Reception desk SIP phone"
   username                    = "phone101"

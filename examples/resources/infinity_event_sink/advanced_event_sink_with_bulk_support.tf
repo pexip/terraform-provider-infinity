@@ -1,4 +1,4 @@
-resource "pexip_infinity_event_sink" "bulk_sink" {
+resource "infinity_event_sink" "bulk_sink" {
   name                   = "Bulk Event Sink"
   description            = "High-volume event sink with bulk processing"
   url                    = "https://analytics.company.com/events/bulk"

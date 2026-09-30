@@ -1,4 +1,4 @@
-resource "pexip_infinity_syslog_server" "central_logging" {
+resource "infinity_syslog_server" "central_logging" {
   address     = "logs.company.com"
   description = "Central logging server for all Pexip logs"
   port        = 514

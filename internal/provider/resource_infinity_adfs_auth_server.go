@@ -27,6 +27,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityADFSAuthServerResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityADFSAuthServerResource)(nil)
 )
 
 type InfinityADFSAuthServerResource struct {
@@ -45,7 +46,11 @@ type InfinityADFSAuthServerResourceModel struct {
 }
 
 func (r *InfinityADFSAuthServerResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_adfs_auth_server"
+	resp.TypeName = req.ProviderTypeName + "_adfs_auth_server"
+}
+
+func (r *InfinityADFSAuthServerResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityADFSAuthServerResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

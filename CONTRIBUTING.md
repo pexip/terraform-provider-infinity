@@ -222,7 +222,7 @@ func TestInfinityDNSServer(t *testing.T) {
             {
                 Config: test.LoadTestFolder(t, "resource_infinity_dns_server_basic"),
                 Check: resource.ComposeTestCheckFunc(
-                    resource.TestCheckResourceAttrSet("pexip_infinity_dns_server.test", "id"),
+                    resource.TestCheckResourceAttrSet("infinity_dns_server.test", "id"),
                 ),
             },
         },
@@ -257,7 +257,7 @@ func TestInfinityDNSServerIntegration(t *testing.T) {
             {
                 Config: testAccInfinityDNSServerConfig,
                 Check: resource.ComposeTestCheckFunc(
-                    resource.TestCheckResourceAttr("pexip_infinity_dns_server.test", "address", "192.168.1.1"),
+                    resource.TestCheckResourceAttr("infinity_dns_server.test", "address", "192.168.1.1"),
                 ),
             },
         },

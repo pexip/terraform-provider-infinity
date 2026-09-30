@@ -1,5 +1,5 @@
 # TURN servers for different regions
-resource "pexip_infinity_turn_server" "regional_turn" {
+resource "infinity_turn_server" "regional_turn" {
   for_each = var.regional_turn_servers
 
   name           = "TURN Server - ${each.key}"

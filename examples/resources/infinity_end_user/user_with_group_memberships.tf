@@ -1,5 +1,5 @@
 # Assume user groups are defined elsewhere
-resource "pexip_infinity_end_user" "manager_user" {
+resource "infinity_end_user" "manager_user" {
   primary_email_address = "manager@company.com"
   first_name            = "John"
   last_name             = "Manager"

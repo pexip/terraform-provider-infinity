@@ -1,4 +1,4 @@
-resource "pexip_infinity_teams_proxy" "primary_teams_proxy" {
+resource "infinity_teams_proxy" "primary_teams_proxy" {
   name                    = "Primary Teams Proxy"
   address                 = "teams-proxy.example.com"
   port                    = 443

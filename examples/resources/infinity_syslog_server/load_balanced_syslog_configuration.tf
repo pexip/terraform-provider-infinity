@@ -1,4 +1,4 @@
-resource "pexip_infinity_syslog_server" "lb_syslog" {
+resource "infinity_syslog_server" "lb_syslog" {
   count = length(var.syslog_servers)
 
   address     = var.syslog_servers[count.index].address

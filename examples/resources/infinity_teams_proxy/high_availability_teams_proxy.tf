@@ -1,4 +1,4 @@
-resource "pexip_infinity_teams_proxy" "ha_teams_proxy" {
+resource "infinity_teams_proxy" "ha_teams_proxy" {
   name                    = "HA Teams Proxy"
   description             = "High availability Teams proxy configuration"
   address                 = "teams-ha.example.com"

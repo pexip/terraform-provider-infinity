@@ -1,5 +1,5 @@
 # Sales team devices
-resource "pexip_infinity_device" "sales_devices" {
+resource "infinity_device" "sales_devices" {
   count = length(var.sales_team_devices)
 
   alias                       = var.sales_team_devices[count.index].alias

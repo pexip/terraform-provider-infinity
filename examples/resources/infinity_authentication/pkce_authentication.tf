@@ -1,4 +1,4 @@
-resource "pexip_infinity_authentication" "pkce_example" {
+resource "infinity_authentication" "pkce_example" {
   source                  = "OIDC+LOCAL"
   oidc_auth_method        = "pkce"
   oidc_client_id          = var.oidc_client_id

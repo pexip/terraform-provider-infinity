@@ -27,7 +27,7 @@ variable "static_routes" {
   ]
 }
 
-resource "pexip_infinity_static_route" "enterprise_routes" {
+resource "infinity_static_route" "enterprise_routes" {
   count   = length(var.static_routes)
   name    = var.static_routes[count.index].name
   address = var.static_routes[count.index].address

@@ -29,6 +29,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityTURNServerResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityTURNServerResource)(nil)
 )
 
 type InfinityTURNServerResource struct {
@@ -50,7 +51,11 @@ type InfinityTURNServerResourceModel struct {
 }
 
 func (r *InfinityTURNServerResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_turn_server"
+	resp.TypeName = req.ProviderTypeName + "_turn_server"
+}
+
+func (r *InfinityTURNServerResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityTURNServerResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

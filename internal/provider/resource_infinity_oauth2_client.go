@@ -26,6 +26,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityOAuth2ClientResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityOAuth2ClientResource)(nil)
 )
 
 type InfinityOAuth2ClientResource struct {
@@ -42,7 +43,11 @@ type InfinityOAuth2ClientResourceModel struct {
 }
 
 func (r *InfinityOAuth2ClientResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_oauth2_client"
+	resp.TypeName = req.ProviderTypeName + "_oauth2_client"
+}
+
+func (r *InfinityOAuth2ClientResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityOAuth2ClientResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

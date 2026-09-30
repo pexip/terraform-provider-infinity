@@ -1,4 +1,4 @@
-resource "pexip_infinity_identity_provider" "saml_example" {
+resource "infinity_identity_provider" "saml_example" {
   name                              = "Corporate SAML IdP"
   description                       = "Corporate SAML identity provider"
   uuid                              = "12345678-1234-1234-1234-123456789012"
