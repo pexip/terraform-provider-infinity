@@ -59,7 +59,7 @@ func testInfinityMsExchangeConnectorIntegration(t *testing.T, client InfinityCli
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "scheduled_alias_suffix_length", "8"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "room_mailbox_email_address", "tf-test@example.com"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "url", "https://tf-test.example.com/ews/exchange.asmx"),
-		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "authentication_method", "OAUTH"),
+		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "authentication_method", "APP_PERM"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "auth_provider", "AZURE"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "uuid", "12345678-1234-1234-1234-123456789012"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "scheduled_alias_domain", "tf-test.example.com"),
@@ -73,6 +73,7 @@ func testInfinityMsExchangeConnectorIntegration(t *testing.T, client InfinityCli
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "kerberos_auth_every_request", "true"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "kerberos_verify_tls_using_custom_ca", "true"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "oauth_client_id", "11111111-1111-1111-1111-111111111111"),
+		resource.TestCheckResourceAttrSet("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "oauth_private_key"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "addin_server_domain", "tf-test.example.com"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "addin_application_id", "22222222-2222-2222-2222-222222222222"),
 		resource.TestCheckResourceAttr("pexip_infinity_ms_exchange_connector.tf-test-ms-exchange-connector", "addin_naa_web_api_application_id", "33333333-3333-3333-3333-333333333333"),
@@ -108,6 +109,11 @@ func testInfinityMsExchangeConnectorIntegration(t *testing.T, client InfinityCli
 
 	resource.Test(t, resource.TestCase{
 		ProtoV6ProviderFactories: getTestProtoV6ProviderFactories(client),
+		ExternalProviders: map[string]resource.ExternalProvider{
+			"tls": {
+				Source: "hashicorp/tls",
+			},
+		},
 		Steps: []resource.TestStep{
 			// Step 1: Create with full config
 			{

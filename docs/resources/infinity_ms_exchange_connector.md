@@ -68,8 +68,8 @@ resource "pexip_infinity_ms_exchange_connector" "example" {
 - `addin_supertip_title` (String) The title of the supertip help text for the add-in button on desktop clients. Maximum length: 250 characters.
 - `additional_add_in_script_sources` (String) Optionally specify additional URLs to download JavaScript script files. Each URL must be entered on a separate line. Maximum length: 4096 characters.
 - `allow_new_users` (Boolean) Disable this option to allow only those users with an existing User record to access the Outlook add-in.
-- `auth_provider` (String) The method by which users will sign into the Outlook add-in.
-- `authentication_method` (String) The method used to authenticate to Exchange Valid choices: BASIC, NTLM, KERBEROS, OAUTH, APP_PERM.
+- `auth_provider` (String) The method by which users will sign into the Outlook add-in. Valid values: ADFS, AZURE. Default: ADFS.
+- `authentication_method` (String) The method used to authenticate to Exchange. Valid values: BASIC, NTLM, KERBEROS, APP_PERM. Default: BASIC.
 - `conference_description_template` (String) A Jinja2 template that is used to produce the description of scheduled conferences. Maximum length: 12288 characters.
 - `conference_name_template` (String) A Jinja2 template that is used to produce the name of scheduled conferences. Please note conference names must be unique so a random number may be appended if the name that is generated is already in use by another service. Maximum length: 12288 characters.
 - `conference_subject_template` (String) A Jinja2 template that is used to produce the subject field of scheduled conferences. By default this will use the subject line of the meeting invitation but this field can be deleted or amended if you do not want the subject to be visible to administrators. Maximum length: 12288 characters.
@@ -79,7 +79,10 @@ resource "pexip_infinity_ms_exchange_connector" "example" {
 - `enable_addin_debug_logs` (Boolean) Enable this option to view debug logs within the add-in side pane. Note that these logs will appear for all users of this add-in.
 - `enable_dynamic_vmrs` (Boolean) Enable this option to allow Outlook users to schedule meetings in single-use (randomly generated) VMRs.
 - `enable_personal_vmrs` (Boolean) Enable this option to allow Outlook users to schedule meetings in their personal VMRs.
-- `host_identity_provider_group` (String) The set of Identity Providers to use if participants are required to authenticate in order to join the scheduled conference. If this is blank, participants will not be required to authenticate.
+- `exchange_api_type` (String) The API that should be used to communicate with the Exchange server. Valid values: EWS, GRAPH. Default: EWS.
+- `graph_api_domain` (String) The FQDN to use when connecting to the Graph API. Maximum length: 192 characters. Default: "graph.microsoft.com".
+- `graph_authentication_method` (String) The method used to authenticate to the Graph API. Valid values: APP_PERM, APP_PERM_PK. Default: APP_PERM.
+- `host_identity_provider_group` (String) The Identity Provider to use if participants are required to authenticate in order to join the scheduled conference. If this is blank, participants will not be required to authenticate.
 - `ivr_theme` (String) The theme for use with this service.
 - `kerberos_auth_every_request` (Boolean) When Kerberos authentication is enabled, send a Kerberos Authorization header in every request to the Exchange server.
 - `kerberos_enable_tls` (Boolean) If enabled, all communication to the KDC will go through an HTTPS proxy and all traffic to the KDC will be encrypted using TLS.
@@ -94,16 +97,16 @@ resource "pexip_infinity_ms_exchange_connector" "example" {
 - `microsoft_fabric_components_url` (String) The URL used to download the Microsoft Fabric Components CSS. Maximum length: 255 characters.
 - `microsoft_fabric_url` (String) The URL used to download the Microsoft Fabric CSS. Maximum length: 255 characters.
 - `non_idp_participants` (String) Determines whether participants attempting to join from devices other than Pexip apps (for example, SIP or H.323 endpoints) are permitted to join the conference when authentication is required. Disallow all: these devices may not join the conference directly, and will instead be placed in the waiting room. Allow if trusted: these devices may join the conference if they are locally registered, otherwise they will be placed in the waiting room.
-- `oauth_auth_endpoint` (String) The URI of the OAuth authorization endpoint. This should be copied from the 'Endpoints' section in Azure Active Directory App Registrations. Maximum length: 255 characters.
+- `oauth_certificate` (String) The certificate which was generated when creating an App Registration in Microsoft Entra.
 - `oauth_client_id` (String) The Application ID which was generated when creating an App Registration in Azure Active Directory
 - `oauth_client_secret` (String, Sensitive) The OAuth Client Secret which was generated when creating an App Registration in Microsoft Entra
-- `oauth_redirect_uri` (String) The redirect URI you entered when creating an App Registration in Azure Active Directory. It should be in the format 'https://[Management Node Address]/admin/platform/msexchangeconnector/oauth_redirect/'. Maximum length: 255 characters.
-- `oauth_state` (String) A unique state which is used during the OAuth sign-in flow.
+- `oauth_private_key` (String, Sensitive) The private key which was generated when creating an App Registration in Microsoft Entra. Maximum length: 12288 characters.
 - `oauth_token_endpoint` (String) The URI of the OAuth token endpoint. This should be copied from the 'Endpoints' section in Azure Active Directory App Registrations. Maximum length: 255 characters.
 - `office_js_url` (String) The URL used to download the Office.js JavaScript library. Maximum length: 255 characters.
-- `password` (String, Sensitive) Password for Exchange authentication. This field is sensitive.
+- `password` (String, Sensitive) The password of the service account to be used by the scheduling service. Maximum length: 100 characters. This field is sensitive.
 - `personal_vmr_adfs_relying_party_trust_identifier` (String) The URL which identifies the OAuth 2.0 resource on AD FS. Maximum length: 255 characters.
 - `personal_vmr_description_template` (String) A Jinja2 template that is used to generate the description of the personal VMR, shown to users when they hover over the button. Maximum length: 12288 characters.
+- `personal_vmr_idp` (String) The Identity Provider for signing in users in the Outlook add-in.
 - `personal_vmr_instructions_template` (String) A Jinja2 template that is used to produce the joining instructions added by the scheduling service to the body of the meeting request when a personal VMR is being used. Maximum length: 12288 characters.
 - `personal_vmr_location_template` (String) A Jinja2 template that is used to generate the text that will be inserted into the Location field of the meeting request when a personal VMR is being used. Maximum length: 12288 characters.
 - `personal_vmr_name_template` (String) A Jinja2 template that is used to generate the name of the personal VMR, as it appears on the button offered to users. Maximum length: 12288 characters.
@@ -118,21 +121,24 @@ resource "pexip_infinity_ms_exchange_connector" "example" {
 - `reject_invalid_alias_id_template` (String) The text that is sent to meeting organizers when the scheduling service fails to schedule a meeting because the alias ID in the meeting email is invalid. Maximum length: 12288 characters.
 - `reject_recurring_series_past_template` (String) The text that is sent to meeting organizers when the scheduling service fails to schedule a recurring meeting because all occurrences occur in the past. Maximum length: 12288 characters.
 - `reject_single_meeting_past` (String) The text that is sent to meeting organizers when the scheduling service fails to schedule a meeting because it occurs in the past. Maximum length: 12288 characters.
-- `room_mailbox_email_address` (String) Room mailbox email address for Exchange integration.
-- `room_mailbox_name` (String) Room mailbox name for Exchange integration.
+- `room_mailbox_email_address` (String) The email address of the equipment resource or room resource that is to be used by the scheduling service. Maximum length: 100 characters.
+- `room_mailbox_name` (String) The name of the equipment resource or room resource that is to be used by the scheduling service. Maximum length: 250 characters.
 - `scheduled_alias_description_template` (String) A Jinja2 template that is used to produce the description of scheduled conference aliases. Maximum length: 12288 characters.
-- `scheduled_alias_domain` (String) Domain for scheduled conference aliases.
-- `scheduled_alias_prefix` (String) Prefix for scheduled conference aliases.
+- `scheduled_alias_domain` (String) The domain to use when generating aliases for scheduled conferences. Maximum length: 192 characters.
+- `scheduled_alias_prefix` (String) The prefix to use when generating aliases for scheduled conferences. Minimum length: 1 character. Maximum length: 8 characters.
 - `scheduled_alias_suffix_length` (Number) The length of the random number suffix part of aliases used for scheduled conferences. Range: 5 to 15. Default: 6.
-- `url` (String) Exchange server URL for connectivity.
+- `url` (String) The URL used to connect to Exchange Web Services (EWS) on the Exchange server. Maximum length: 255 characters.
 - `use_custom_add_in_sources` (Boolean) Enable this to specify custom locations to serve add-in JavaScript and CSS from. This can be used to support offline deployments.
-- `username` (String) Username for Exchange authentication.
-- `uuid` (String) UUID for the Exchange connector.
+- `username` (String) The username of the service account to be used by the scheduling service. Maximum length: 100 characters.
+- `uuid` (String) The unique identifier of the Secure Scheduler for Exchange Integration.
 
 ### Read-Only
 
 - `id` (String) Resource URI for the Microsoft Exchange connector.
-- `oauth_refresh_token` (String, Sensitive) The OAuth refresh token which is obtained after successfully signing in via the OAuth flow. Maximum length: 4096 characters.
+- `oauth_auth_endpoint` (String, Deprecated) This field is deprecated and will be ignored.
+- `oauth_redirect_uri` (String, Deprecated) This field is deprecated and will be ignored.
+- `oauth_refresh_token` (String, Sensitive, Deprecated) This field is deprecated and will be ignored.
+- `oauth_state` (String, Deprecated) This field is deprecated and will be ignored.
 - `private_key` (String, Sensitive) The private key used by this Secure Scheduler for Exchange Integration. Maximum length: 12288 characters.
 - `public_key` (String) The public key used by this Secure Scheduler for Exchange Integration. Maximum length: 12288 characters.
 - `resource_id` (Number) The resource integer identifier for the Microsoft Exchange connector
