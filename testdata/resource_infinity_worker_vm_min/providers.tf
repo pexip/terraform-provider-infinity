@@ -7,7 +7,7 @@
 terraform {
   required_providers {
     infinity = {
-      source  = "pexip/infinity"
+      source  = "infinity"
       version = "0.0.1"
     }
   }
