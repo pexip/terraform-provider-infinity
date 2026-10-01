@@ -9,11 +9,11 @@ resource "tls_private_key" "tf-test-oauth-private-key" {
   rsa_bits  = 2048
 }
 
-resource "pexip_infinity_ivr_theme" "tf-test-theme" {
+resource "infinity_ivr_theme" "tf-test-theme" {
   name = "tf-test-ms-exchange-connector-theme"
 }
 
-resource "pexip_infinity_ms_exchange_connector" "tf-test-ms-exchange-connector" {
+resource "infinity_ms_exchange_connector" "tf-test-ms-exchange-connector" {
   name                                             = "tf-test-ms-exchange-connector"
   description                                      = "tf-test MS Exchange Connector"
   meeting_buffer_before                            = 60
@@ -68,6 +68,6 @@ resource "pexip_infinity_ms_exchange_connector" "tf-test-ms-exchange-connector" 
   microsoft_fabric_url                             = "https://appsforoffice.microsoft.com/fabric/1.0/fabric.min.css"
   microsoft_fabric_components_url                  = "https://appsforoffice.microsoft.com/fabric/1.0/fabric.components.min.css"
   additional_add_in_script_sources                 = "https://tf-test.example.com/custom.js"
-  ivr_theme                                        = pexip_infinity_ivr_theme.tf-test-theme.id
+  ivr_theme                                        = infinity_ivr_theme.tf-test-theme.id
   non_idp_participants                             = "disallow_all"
 }

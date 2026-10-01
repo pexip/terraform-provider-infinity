@@ -77,7 +77,7 @@ func newTestProvider(client InfinityClient) provider.Provider {
 }
 
 func (p *PexipProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
-	resp.TypeName = "pexip"
+	resp.TypeName = providerTypeName
 	resp.Version = version.Version().String()
 }
 

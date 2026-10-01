@@ -25,6 +25,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityGMSAccessTokenResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityGMSAccessTokenResource)(nil)
 )
 
 type InfinityGMSAccessTokenResource struct {
@@ -39,7 +40,11 @@ type InfinityGMSAccessTokenResourceModel struct {
 }
 
 func (r *InfinityGMSAccessTokenResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_gms_access_token"
+	resp.TypeName = req.ProviderTypeName + "_gms_access_token"
+}
+
+func (r *InfinityGMSAccessTokenResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityGMSAccessTokenResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

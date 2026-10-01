@@ -28,6 +28,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityH323GatekeeperResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityH323GatekeeperResource)(nil)
 )
 
 type InfinityH323GatekeeperResource struct {
@@ -44,7 +45,11 @@ type InfinityH323GatekeeperResourceModel struct {
 }
 
 func (r *InfinityH323GatekeeperResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_h323_gatekeeper"
+	resp.TypeName = req.ProviderTypeName + "_h323_gatekeeper"
+}
+
+func (r *InfinityH323GatekeeperResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityH323GatekeeperResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

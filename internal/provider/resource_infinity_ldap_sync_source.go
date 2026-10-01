@@ -25,6 +25,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityLdapSyncSourceResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityLdapSyncSourceResource)(nil)
 )
 
 type InfinityLdapSyncSourceResource struct {
@@ -45,7 +46,11 @@ type InfinityLdapSyncSourceResourceModel struct {
 }
 
 func (r *InfinityLdapSyncSourceResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_ldap_sync_source"
+	resp.TypeName = req.ProviderTypeName + "_ldap_sync_source"
+}
+
+func (r *InfinityLdapSyncSourceResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityLdapSyncSourceResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

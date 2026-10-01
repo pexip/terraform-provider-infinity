@@ -29,6 +29,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityWebPasswordHashResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityWebPasswordHashResource)(nil)
 )
 
 type InfinityWebPasswordHashResource struct{}
@@ -42,7 +43,11 @@ type InfinityWebPasswordHashResourceModel struct {
 }
 
 func (r *InfinityWebPasswordHashResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_web_password_hash"
+	resp.TypeName = req.ProviderTypeName + "_web_password_hash"
+}
+
+func (r *InfinityWebPasswordHashResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityWebPasswordHashResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_adfs_auth_server" "tf-test-adfs-auth-server" {
+resource "infinity_adfs_auth_server" "tf-test-adfs-auth-server" {
   name                               = "tf-test-adfs-auth-server"
   description                        = "Full test configuration for ADFS Auth Server"
   client_id                          = "test-client-id-full"

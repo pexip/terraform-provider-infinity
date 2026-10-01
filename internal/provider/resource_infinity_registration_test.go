@@ -159,19 +159,19 @@ func testInfinityRegistration(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_registration_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_registration.registration-test", "id"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "enable", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "refresh_strategy", "maximum"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "adaptive_min_refresh", "120"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "adaptive_max_refresh", "600"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "maximum_min_refresh", "120"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "maximum_max_refresh", "600"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "natted_min_refresh", "120"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "natted_max_refresh", "180"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "route_via_registrar", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "enable_push_notifications", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "enable_google_cloud_messaging", "false"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_registration.registration-test", "push_token"),
+					resource.TestCheckResourceAttrSet("infinity_registration.registration-test", "id"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "enable", "false"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "refresh_strategy", "maximum"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "adaptive_min_refresh", "120"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "adaptive_max_refresh", "600"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "maximum_min_refresh", "120"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "maximum_max_refresh", "600"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "natted_min_refresh", "120"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "natted_max_refresh", "180"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "route_via_registrar", "false"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "enable_push_notifications", "true"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "enable_google_cloud_messaging", "false"),
+					resource.TestCheckResourceAttrSet("infinity_registration.registration-test", "push_token"),
 				),
 			},
 			// Step 2: Destroy — triggers Delete which must reset all fields to API defaults.
@@ -183,19 +183,19 @@ func testInfinityRegistration(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_registration_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_registration.registration-test", "id"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "enable", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "refresh_strategy", "adaptive"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "adaptive_min_refresh", "60"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "adaptive_max_refresh", "3600"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "maximum_min_refresh", "60"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "maximum_max_refresh", "300"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "natted_min_refresh", "60"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "natted_max_refresh", "90"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "route_via_registrar", "true"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "enable_push_notifications", "false"),
-					resource.TestCheckResourceAttr("pexip_infinity_registration.registration-test", "enable_google_cloud_messaging", "true"),
-					resource.TestCheckNoResourceAttr("pexip_infinity_registration.registration-test", "push_token"),
+					resource.TestCheckResourceAttrSet("infinity_registration.registration-test", "id"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "enable", "true"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "refresh_strategy", "adaptive"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "adaptive_min_refresh", "60"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "adaptive_max_refresh", "3600"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "maximum_min_refresh", "60"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "maximum_max_refresh", "300"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "natted_min_refresh", "60"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "natted_max_refresh", "90"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "route_via_registrar", "true"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "enable_push_notifications", "false"),
+					resource.TestCheckResourceAttr("infinity_registration.registration-test", "enable_google_cloud_messaging", "true"),
+					resource.TestCheckNoResourceAttr("infinity_registration.registration-test", "push_token"),
 				),
 			},
 		},
@@ -213,7 +213,7 @@ func TestInfinityRegistrationValidation(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: `
-resource "pexip_infinity_registration" "registration-test" {
+resource "infinity_registration" "registration-test" {
   refresh_strategy = "INVALID"
 }
 `,
@@ -221,7 +221,7 @@ resource "pexip_infinity_registration" "registration-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_registration" "registration-test" {
+resource "infinity_registration" "registration-test" {
   adaptive_min_refresh = 59
 }
 `,
@@ -229,7 +229,7 @@ resource "pexip_infinity_registration" "registration-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_registration" "registration-test" {
+resource "infinity_registration" "registration-test" {
   adaptive_min_refresh = 3601
 }
 `,
@@ -237,7 +237,7 @@ resource "pexip_infinity_registration" "registration-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_registration" "registration-test" {
+resource "infinity_registration" "registration-test" {
   adaptive_max_refresh = 59
 }
 `,
@@ -245,7 +245,7 @@ resource "pexip_infinity_registration" "registration-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_registration" "registration-test" {
+resource "infinity_registration" "registration-test" {
   adaptive_max_refresh = 7201
 }
 `,
@@ -253,7 +253,7 @@ resource "pexip_infinity_registration" "registration-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_registration" "registration-test" {
+resource "infinity_registration" "registration-test" {
   maximum_min_refresh = 59
 }
 `,
@@ -261,7 +261,7 @@ resource "pexip_infinity_registration" "registration-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_registration" "registration-test" {
+resource "infinity_registration" "registration-test" {
   maximum_min_refresh = 3601
 }
 `,
@@ -269,7 +269,7 @@ resource "pexip_infinity_registration" "registration-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_registration" "registration-test" {
+resource "infinity_registration" "registration-test" {
   maximum_max_refresh = 59
 }
 `,
@@ -277,7 +277,7 @@ resource "pexip_infinity_registration" "registration-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_registration" "registration-test" {
+resource "infinity_registration" "registration-test" {
   maximum_max_refresh = 7201
 }
 `,
@@ -285,7 +285,7 @@ resource "pexip_infinity_registration" "registration-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_registration" "registration-test" {
+resource "infinity_registration" "registration-test" {
   natted_min_refresh = 59
 }
 `,
@@ -293,7 +293,7 @@ resource "pexip_infinity_registration" "registration-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_registration" "registration-test" {
+resource "infinity_registration" "registration-test" {
   natted_min_refresh = 3601
 }
 `,
@@ -301,7 +301,7 @@ resource "pexip_infinity_registration" "registration-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_registration" "registration-test" {
+resource "infinity_registration" "registration-test" {
   natted_max_refresh = 59
 }
 `,
@@ -309,7 +309,7 @@ resource "pexip_infinity_registration" "registration-test" {
 			},
 			{
 				Config: `
-resource "pexip_infinity_registration" "registration-test" {
+resource "infinity_registration" "registration-test" {
   natted_max_refresh = 3601
 }
 `,

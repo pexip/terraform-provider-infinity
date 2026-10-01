@@ -29,6 +29,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityScheduledScalingResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityScheduledScalingResource)(nil)
 )
 
 type InfinityScheduledScalingResource struct {
@@ -59,7 +60,11 @@ type InfinityScheduledScalingResourceModel struct {
 }
 
 func (r *InfinityScheduledScalingResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_scheduled_scaling"
+	resp.TypeName = req.ProviderTypeName + "_scheduled_scaling"
+}
+
+func (r *InfinityScheduledScalingResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityScheduledScalingResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

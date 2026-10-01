@@ -26,6 +26,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityLicenceResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityLicenceResource)(nil)
 )
 
 type InfinityLicenceResource struct {
@@ -56,7 +57,11 @@ type InfinityLicenceResourceModel struct {
 }
 
 func (r *InfinityLicenceResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_licence"
+	resp.TypeName = req.ProviderTypeName + "_licence"
+}
+
+func (r *InfinityLicenceResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityLicenceResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

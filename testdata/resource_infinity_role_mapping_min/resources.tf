@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_role_mapping" "test" {
+resource "infinity_role_mapping" "test" {
   name  = "tf-test role mapping min"
   value = "testmin"
 }
