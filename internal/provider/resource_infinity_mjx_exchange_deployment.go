@@ -227,7 +227,6 @@ func (r *InfinityMjxExchangeDeploymentResource) Schema(ctx context.Context, req 
 			},
 			"oauth_client_id": schema.StringAttribute{
 				Computed:           true,
-				DeprecationMessage: "This attribute is deprecated and will be removed in a future version.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -235,7 +234,6 @@ func (r *InfinityMjxExchangeDeploymentResource) Schema(ctx context.Context, req 
 			},
 			"oauth_auth_endpoint": schema.StringAttribute{
 				Computed:           true,
-				DeprecationMessage: "This attribute is deprecated and will be removed in a future version.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -243,7 +241,6 @@ func (r *InfinityMjxExchangeDeploymentResource) Schema(ctx context.Context, req 
 			},
 			"oauth_token_endpoint": schema.StringAttribute{
 				Computed:           true,
-				DeprecationMessage: "This attribute is deprecated and will be removed in a future version.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -251,7 +248,6 @@ func (r *InfinityMjxExchangeDeploymentResource) Schema(ctx context.Context, req 
 			},
 			"oauth_redirect_uri": schema.StringAttribute{
 				Computed:           true,
-				DeprecationMessage: "This attribute is deprecated and will be removed in a future version.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -260,7 +256,6 @@ func (r *InfinityMjxExchangeDeploymentResource) Schema(ctx context.Context, req 
 			"oauth_refresh_token": schema.StringAttribute{
 				Computed:           true,
 				Sensitive:          true,
-				DeprecationMessage: "This attribute is deprecated and will be removed in a future version.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -268,7 +263,6 @@ func (r *InfinityMjxExchangeDeploymentResource) Schema(ctx context.Context, req 
 			},
 			"oauth_state": schema.StringAttribute{
 				Computed:           true,
-				DeprecationMessage: "This attribute is deprecated and will be removed in a future version.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
