@@ -1,0 +1,19 @@
+# infinity_conference_alias (Resource)
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+{{tffile "examples/resources/infinity_conference_alias/conference_alias.tf"}}
+
+{{ .SchemaMarkdown }}
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+terraform import infinity_conference_alias.example 123
+```
+
+Where `123` is the numeric resource ID of the conference alias.

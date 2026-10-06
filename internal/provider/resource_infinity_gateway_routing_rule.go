@@ -31,6 +31,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState      = (*InfinityGatewayRoutingRuleResource)(nil)
+	_ resource.ResourceWithMoveState        = (*InfinityGatewayRoutingRuleResource)(nil)
 	_ resource.ResourceWithConfigValidators = (*InfinityGatewayRoutingRuleResource)(nil)
 )
 
@@ -83,7 +84,11 @@ type InfinityGatewayRoutingRuleResourceModel struct {
 }
 
 func (r *InfinityGatewayRoutingRuleResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_gateway_routing_rule"
+	resp.TypeName = req.ProviderTypeName + "_gateway_routing_rule"
+}
+
+func (r *InfinityGatewayRoutingRuleResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityGatewayRoutingRuleResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

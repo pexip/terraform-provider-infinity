@@ -28,6 +28,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityMediaLibraryPlaylistEntryResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityMediaLibraryPlaylistEntryResource)(nil)
 )
 
 type InfinityMediaLibraryPlaylistEntryResource struct {
@@ -45,7 +46,11 @@ type InfinityMediaLibraryPlaylistEntryResourceModel struct {
 }
 
 func (r *InfinityMediaLibraryPlaylistEntryResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_media_library_playlist_entry"
+	resp.TypeName = req.ProviderTypeName + "_media_library_playlist_entry"
+}
+
+func (r *InfinityMediaLibraryPlaylistEntryResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityMediaLibraryPlaylistEntryResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

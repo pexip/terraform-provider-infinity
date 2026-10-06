@@ -29,6 +29,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityMjxGoogleDeploymentResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityMjxGoogleDeploymentResource)(nil)
 )
 
 type InfinityMjxGoogleDeploymentResource struct {
@@ -55,7 +56,11 @@ type InfinityMjxGoogleDeploymentResourceModel struct {
 }
 
 func (r *InfinityMjxGoogleDeploymentResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_mjx_google_deployment"
+	resp.TypeName = req.ProviderTypeName + "_mjx_google_deployment"
+}
+
+func (r *InfinityMjxGoogleDeploymentResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityMjxGoogleDeploymentResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

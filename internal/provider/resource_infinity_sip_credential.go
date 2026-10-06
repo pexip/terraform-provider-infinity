@@ -26,6 +26,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinitySIPCredentialResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinitySIPCredentialResource)(nil)
 )
 
 type InfinitySIPCredentialResource struct {
@@ -41,7 +42,11 @@ type InfinitySIPCredentialResourceModel struct {
 }
 
 func (r *InfinitySIPCredentialResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_sip_credential"
+	resp.TypeName = req.ProviderTypeName + "_sip_credential"
+}
+
+func (r *InfinitySIPCredentialResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinitySIPCredentialResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

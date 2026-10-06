@@ -26,6 +26,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityDiagnosticGraphResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityDiagnosticGraphResource)(nil)
 )
 
 type InfinityDiagnosticGraphResource struct {
@@ -41,7 +42,11 @@ type InfinityDiagnosticGraphResourceModel struct {
 }
 
 func (r *InfinityDiagnosticGraphResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_diagnostic_graph"
+	resp.TypeName = req.ProviderTypeName + "_diagnostic_graph"
+}
+
+func (r *InfinityDiagnosticGraphResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityDiagnosticGraphResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

@@ -36,6 +36,7 @@ jobs:
 
   deploy-infinity:
     name: Deploy Infinity
+    needs: build-provider
     secrets: inherit
     permissions:
       contents: read

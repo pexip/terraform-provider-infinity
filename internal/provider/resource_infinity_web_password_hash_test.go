@@ -33,19 +33,19 @@ func testInfinityWebPasswordHash(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_web_password_hash_basic"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_web_password_hash.web_password_hash-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_web_password_hash.web_password_hash-test", "hash"),
-					resource.TestCheckResourceAttr("pexip_infinity_web_password_hash.web_password_hash-test", "rounds", "5000"),
-					resource.TestCheckResourceAttr("pexip_infinity_web_password_hash.web_password_hash-test", "salt", "abcdefghijkl"),
+					resource.TestCheckResourceAttrSet("infinity_web_password_hash.web_password_hash-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_web_password_hash.web_password_hash-test", "hash"),
+					resource.TestCheckResourceAttr("infinity_web_password_hash.web_password_hash-test", "rounds", "5000"),
+					resource.TestCheckResourceAttr("infinity_web_password_hash.web_password_hash-test", "salt", "abcdefghijkl"),
 				),
 			},
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_web_password_hash_basic_updated"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_web_password_hash.web_password_hash-test", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_web_password_hash.web_password_hash-test", "hash"),
-					resource.TestCheckResourceAttr("pexip_infinity_web_password_hash.web_password_hash-test", "rounds", "6000"),
-					resource.TestCheckResourceAttr("pexip_infinity_web_password_hash.web_password_hash-test", "salt", "mnopqrstuvwx"),
+					resource.TestCheckResourceAttrSet("infinity_web_password_hash.web_password_hash-test", "id"),
+					resource.TestCheckResourceAttrSet("infinity_web_password_hash.web_password_hash-test", "hash"),
+					resource.TestCheckResourceAttr("infinity_web_password_hash.web_password_hash-test", "rounds", "6000"),
+					resource.TestCheckResourceAttr("infinity_web_password_hash.web_password_hash-test", "salt", "mnopqrstuvwx"),
 				),
 			},
 		},

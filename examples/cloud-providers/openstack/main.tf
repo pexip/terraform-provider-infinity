@@ -59,7 +59,7 @@ module "openstack-infinity-node" {
   image_id             = var.cnf_node_vm_image_id
   password             = var.infinity_password
   node_type            = "CONFERENCING"
-  system_location      = pexip_infinity_system_location.example-location-1.id
+  system_location      = infinity_system_location.example-location-1.id
   tls_certificate      = module.openstack-infinity-manager.manager_cert.id
   mgr_public_ip        = module.openstack-infinity-manager.mgr-public-ip
   web_password         = var.infinity_password

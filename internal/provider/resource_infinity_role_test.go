@@ -96,20 +96,20 @@ func testInfinityRole(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_role_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_role.tf-test-role", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_role.tf-test-role", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_role.tf-test-role", "name", "tf-test-role"),
-					resource.TestCheckResourceAttr("pexip_infinity_role.tf-test-role", "permissions.#", "2"),
+					resource.TestCheckResourceAttrSet("infinity_role.tf-test-role", "id"),
+					resource.TestCheckResourceAttrSet("infinity_role.tf-test-role", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_role.tf-test-role", "name", "tf-test-role"),
+					resource.TestCheckResourceAttr("infinity_role.tf-test-role", "permissions.#", "2"),
 				),
 			},
 			// Step 2: Update to min config (clearing permissions)
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_role_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_role.tf-test-role", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_role.tf-test-role", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_role.tf-test-role", "name", "tf-test-role"),
-					resource.TestCheckResourceAttr("pexip_infinity_role.tf-test-role", "permissions.#", "0"),
+					resource.TestCheckResourceAttrSet("infinity_role.tf-test-role", "id"),
+					resource.TestCheckResourceAttrSet("infinity_role.tf-test-role", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_role.tf-test-role", "name", "tf-test-role"),
+					resource.TestCheckResourceAttr("infinity_role.tf-test-role", "permissions.#", "0"),
 				),
 			},
 			// Step 3: Destroy
@@ -121,20 +121,20 @@ func testInfinityRole(t *testing.T, client InfinityClient) {
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_role_min"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_role.tf-test-role", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_role.tf-test-role", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_role.tf-test-role", "name", "tf-test-role"),
-					resource.TestCheckResourceAttr("pexip_infinity_role.tf-test-role", "permissions.#", "0"),
+					resource.TestCheckResourceAttrSet("infinity_role.tf-test-role", "id"),
+					resource.TestCheckResourceAttrSet("infinity_role.tf-test-role", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_role.tf-test-role", "name", "tf-test-role"),
+					resource.TestCheckResourceAttr("infinity_role.tf-test-role", "permissions.#", "0"),
 				),
 			},
 			// Step 5: Update to full config
 			{
 				Config: test.LoadTestFolder(t, "resource_infinity_role_full"),
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet("pexip_infinity_role.tf-test-role", "id"),
-					resource.TestCheckResourceAttrSet("pexip_infinity_role.tf-test-role", "resource_id"),
-					resource.TestCheckResourceAttr("pexip_infinity_role.tf-test-role", "name", "tf-test-role"),
-					resource.TestCheckResourceAttr("pexip_infinity_role.tf-test-role", "permissions.#", "2"),
+					resource.TestCheckResourceAttrSet("infinity_role.tf-test-role", "id"),
+					resource.TestCheckResourceAttrSet("infinity_role.tf-test-role", "resource_id"),
+					resource.TestCheckResourceAttr("infinity_role.tf-test-role", "name", "tf-test-role"),
+					resource.TestCheckResourceAttr("infinity_role.tf-test-role", "permissions.#", "2"),
 				),
 			},
 		},

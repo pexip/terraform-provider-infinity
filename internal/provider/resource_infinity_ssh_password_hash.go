@@ -29,6 +29,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinitySSHPasswordHashResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinitySSHPasswordHashResource)(nil)
 )
 
 type InfinitySSHPasswordHashResource struct{}
@@ -42,7 +43,11 @@ type InfinitySSHPasswordHashResourceModel struct {
 }
 
 func (r *InfinitySSHPasswordHashResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_ssh_password_hash"
+	resp.TypeName = req.ProviderTypeName + "_ssh_password_hash"
+}
+
+func (r *InfinitySSHPasswordHashResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinitySSHPasswordHashResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

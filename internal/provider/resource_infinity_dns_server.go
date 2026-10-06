@@ -28,6 +28,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityDnsServerResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityDnsServerResource)(nil)
 )
 
 type InfinityDnsServerResource struct {
@@ -42,7 +43,11 @@ type InfinityDnsServerResourceModel struct {
 }
 
 func (r *InfinityDnsServerResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_dns_server"
+	resp.TypeName = req.ProviderTypeName + "_dns_server"
+}
+
+func (r *InfinityDnsServerResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityDnsServerResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

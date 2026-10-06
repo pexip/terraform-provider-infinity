@@ -246,12 +246,12 @@ jobs:
       run: go install github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@v0.25.0
 
     - name: Generate docs
-      run: tfplugindocs generate --provider-name pexip
+      run: tfplugindocs generate --provider-name infinity
 
     - name: Check for uncommitted changes
       run: |
         if [ -n "$(git status --porcelain)" ]; then
-          echo "Generated docs are out of date. Run 'tfplugindocs generate --provider-name pexip' locally and commit the changes."
+          echo "Generated docs are out of date. Run 'tfplugindocs generate --provider-name infinity' locally and commit the changes."
           git status --porcelain
           exit 1
         fi

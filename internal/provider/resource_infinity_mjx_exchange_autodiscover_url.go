@@ -26,6 +26,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityMjxExchangeAutodiscoverURLResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityMjxExchangeAutodiscoverURLResource)(nil)
 )
 
 type InfinityMjxExchangeAutodiscoverURLResource struct {
@@ -42,7 +43,11 @@ type InfinityMjxExchangeAutodiscoverURLResourceModel struct {
 }
 
 func (r *InfinityMjxExchangeAutodiscoverURLResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_mjx_exchange_autodiscover_url"
+	resp.TypeName = req.ProviderTypeName + "_mjx_exchange_autodiscover_url"
+}
+
+func (r *InfinityMjxExchangeAutodiscoverURLResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityMjxExchangeAutodiscoverURLResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

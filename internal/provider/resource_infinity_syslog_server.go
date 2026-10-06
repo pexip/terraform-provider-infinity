@@ -30,6 +30,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinitySyslogServerResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinitySyslogServerResource)(nil)
 )
 
 type InfinitySyslogServerResource struct {
@@ -50,7 +51,11 @@ type InfinitySyslogServerResourceModel struct {
 }
 
 func (r *InfinitySyslogServerResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_syslog_server"
+	resp.TypeName = req.ProviderTypeName + "_syslog_server"
+}
+
+func (r *InfinitySyslogServerResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinitySyslogServerResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

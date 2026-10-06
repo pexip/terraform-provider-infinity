@@ -6,7 +6,7 @@
 
 terraform {
   required_providers {
-    pexip = {
+    infinity = {
       source  = "pexip/infinity"
       version = ">= 0.9.0"
     }
@@ -37,7 +37,7 @@ provider "google" {
   project = var.project_id
 }
 
-provider "pexip" {
+provider "infinity" {
   address  = "https://${local.manager_hostname}.${local.domain}"
   username = var.infinity_username
   password = var.infinity_password

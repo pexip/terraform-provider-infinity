@@ -35,7 +35,7 @@ The provider supports basic authentication using username and password credentia
 ### Provider Configuration
 
 ```terraform
-provider "pexip" {
+provider "infinity" {
   address  = "https://manager.example.com"
   username = "admin"
   password = "secure_password"
@@ -61,7 +61,7 @@ export PEXIP_INSECURE="true"
 ```terraform
 terraform {
   required_providers {
-    pexip = {
+    infinity = {
       source  = "pexip/infinity"
       version = "~> 0.9.11"
     }
@@ -69,7 +69,7 @@ terraform {
 }
 
 # Configure the Pexip Provider
-provider "pexip" {
+provider "infinity" {
   address  = "https://manager.example.com"
   username = var.pexip_username
   password = var.pexip_password

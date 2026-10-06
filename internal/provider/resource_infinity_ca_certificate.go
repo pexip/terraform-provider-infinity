@@ -26,6 +26,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityCACertificateResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityCACertificateResource)(nil)
 )
 
 type InfinityCACertificateResource struct {
@@ -52,7 +53,11 @@ type InfinityCACertificateResourceModel struct {
 }
 
 func (r *InfinityCACertificateResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_ca_certificate"
+	resp.TypeName = req.ProviderTypeName + "_ca_certificate"
+}
+
+func (r *InfinityCACertificateResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityCACertificateResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

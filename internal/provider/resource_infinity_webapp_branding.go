@@ -27,6 +27,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityWebappBrandingResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityWebappBrandingResource)(nil)
 )
 
 type InfinityWebappBrandingResource struct {
@@ -45,7 +46,11 @@ type InfinityWebappBrandingResourceModel struct {
 }
 
 func (r *InfinityWebappBrandingResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_webapp_branding"
+	resp.TypeName = req.ProviderTypeName + "_webapp_branding"
+}
+
+func (r *InfinityWebappBrandingResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityWebappBrandingResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

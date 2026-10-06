@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-resource "pexip_infinity_mjx_endpoint" "test" {
+resource "infinity_mjx_endpoint" "test" {
   name                                = "tf-test mjx-endpoint full"
   description                         = "Test MJX endpoint description"
   endpoint_type                       = "CISCO"

@@ -28,6 +28,7 @@ import (
 
 var (
 	_ resource.ResourceWithImportState = (*InfinityMjxMeetingProcessingRuleResource)(nil)
+	_ resource.ResourceWithMoveState   = (*InfinityMjxMeetingProcessingRuleResource)(nil)
 )
 
 type InfinityMjxMeetingProcessingRuleResource struct {
@@ -54,7 +55,11 @@ type InfinityMjxMeetingProcessingRuleResourceModel struct {
 }
 
 func (r *InfinityMjxMeetingProcessingRuleResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_infinity_mjx_meeting_processing_rule"
+	resp.TypeName = req.ProviderTypeName + "_mjx_meeting_processing_rule"
+}
+
+func (r *InfinityMjxMeetingProcessingRuleResource) MoveState(ctx context.Context) []resource.StateMover {
+	return legacyTypeNameStateMovers(ctx, r)
 }
 
 func (r *InfinityMjxMeetingProcessingRuleResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

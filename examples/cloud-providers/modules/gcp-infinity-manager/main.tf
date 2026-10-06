@@ -14,15 +14,15 @@ data "google_compute_image" "pexip-infinity-manager-image" {
   project = var.vm_image_project
 }
 
-resource "pexip_infinity_ssh_password_hash" "default" {
+resource "infinity_ssh_password_hash" "default" {
   password = var.admin_password
 }
 
-resource "pexip_infinity_web_password_hash" "default" {
+resource "infinity_web_password_hash" "default" {
   password = var.password
 }
 
-data "pexip_infinity_manager_config" "conf" {
+data "infinity_manager_config" "conf" {
   hostname              = local.hostname
   domain                = local.domain
   ip                    = google_compute_address.infinity_manager_private_ip.address
@@ -31,8 +31,8 @@ data "pexip_infinity_manager_config" "conf" {
   dns                   = var.dns_server
   ntp                   = var.ntp_server
   user                  = var.username
-  pass                  = pexip_infinity_web_password_hash.default.hash
-  admin_password        = pexip_infinity_ssh_password_hash.default.hash
+  pass                  = infinity_web_password_hash.default.hash
+  admin_password        = infinity_ssh_password_hash.default.hash
   error_reports         = var.report_errors
   enable_analytics      = var.enable_analytics
   contact_email_address = var.contact_email_address
@@ -61,7 +61,7 @@ resource "google_compute_instance" "infinity_manager" {
 
 
   metadata = {
-    management_node_config = data.pexip_infinity_manager_config.conf.management_node_config
+    management_node_config = data.infinity_manager_config.conf.management_node_config
   }
 
   boot_disk {

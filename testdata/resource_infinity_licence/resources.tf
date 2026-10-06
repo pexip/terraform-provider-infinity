@@ -11,6 +11,6 @@ variable "infinity_licence_key2" {
 
 }
 
-resource "pexip_infinity_licence" "licence-test" {
+resource "infinity_licence" "licence-test" {
   entitlement_id = var.infinity_licence_key2
 }
