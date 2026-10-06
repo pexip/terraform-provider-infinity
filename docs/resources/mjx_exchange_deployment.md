@@ -44,18 +44,18 @@ resource "infinity_mjx_exchange_deployment" "example" {
 - `kerberos_kdc_https_proxy` (String) The URL of the Kerberos key distribution center (KDC) HTTPS proxy. Maximum length: 255 characters.
 - `kerberos_realm` (String) The Kerberos Realm, which is usually your domain in upper-case. Maximum length: 250 characters.
 - `kerberos_verify_tls_using_custom_ca` (Boolean) If enabled, use the configured Root Trust CA Certificates to verify the KDC HTTPS proxy SSL certificate. If disabled, the HTTPS proxy SSL certificate is verified using the system-wide default set of trusted certificates.
-- `oauth_auth_endpoint` (String) The URI of the OAuth authorization endpoint. This should be copied from the 'Endpoints' section in Azure Active Directory App Registrations. Maximum length: 255 characters.
-- `oauth_client_id` (String) The Application ID which was generated when creating an App Registration in Azure Active Directory.
-- `oauth_redirect_uri` (String) The redirect URI you entered when creating an App Registration in Azure Active Directory. It should be in the format 'https://[Management Node Address]/admin/platform/mjxexchangedeployment/oauth_redirect/'. Maximum length: 255 characters.
-- `oauth_state` (String) A unique state which is used during the OAuth sign-in flow.
-- `oauth_token_endpoint` (String) The URI of the OAuth token endpoint. This should be copied from the 'Endpoints' section in Azure Active Directory App Registrations. Maximum length: 255 characters.
 
 ### Read-Only
 
 - `autodiscover_urls` (Set of String) The Autodiscover URLs associated with this One-Touch Join Exchange Integration.
 - `id` (String) Resource URI for the MJX Exchange deployment.
 - `mjx_integrations` (Set of String) The One-Touch Join Profiles associated with this OTJ Exchange Integration.
-- `oauth_refresh_token` (String, Sensitive) The OAuth refresh token which is obtained after successfully signing in via the OAuth flow.
+- `oauth_auth_endpoint` (String) This field is deprecated and will be ignored.
+- `oauth_client_id` (String) This field is deprecated and will be ignored.
+- `oauth_redirect_uri` (String) This field is deprecated and will be ignored.
+- `oauth_refresh_token` (String, Sensitive) This field is deprecated and will be ignored.
+- `oauth_state` (String) This field is deprecated and will be ignored.
+- `oauth_token_endpoint` (String) This field is deprecated and will be ignored.
 - `resource_id` (Number) The resource integer identifier for the MJX Exchange deployment.
 
 

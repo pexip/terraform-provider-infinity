@@ -226,43 +226,43 @@ func (r *InfinityMjxExchangeDeploymentResource) Schema(ctx context.Context, req 
 				MarkdownDescription: "If enabled, use the configured Root Trust CA Certificates to verify the KDC HTTPS proxy SSL certificate. If disabled, the HTTPS proxy SSL certificate is verified using the system-wide default set of trusted certificates.",
 			},
 			"oauth_client_id": schema.StringAttribute{
-				Computed:           true,
+				Computed: true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"oauth_auth_endpoint": schema.StringAttribute{
-				Computed:           true,
+				Computed: true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"oauth_token_endpoint": schema.StringAttribute{
-				Computed:           true,
+				Computed: true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"oauth_redirect_uri": schema.StringAttribute{
-				Computed:           true,
+				Computed: true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"oauth_refresh_token": schema.StringAttribute{
-				Computed:           true,
-				Sensitive:          true,
+				Computed:  true,
+				Sensitive: true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 				MarkdownDescription: "This field is deprecated and will be ignored.",
 			},
 			"oauth_state": schema.StringAttribute{
-				Computed:           true,
+				Computed: true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
