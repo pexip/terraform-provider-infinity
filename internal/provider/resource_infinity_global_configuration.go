@@ -1004,6 +1004,10 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 }
 
 // changedCallingProtocols returns the names of the calling protocol attributes whose value differs between from and to.
+//
+// An unknown planned value (e.g. one derived from another resource's computed attribute) is never Equal to the known
+// state, so it is reported as changed even if it later resolves to the current value. This edge case is intentional:
+// a possibly spurious warning is preferred over silently missing a restart of all conferencing nodes.
 func changedCallingProtocols(from, to *InfinityGlobalConfigurationResourceModel) []string {
 	var changed []string
 	for _, attr := range []struct {
