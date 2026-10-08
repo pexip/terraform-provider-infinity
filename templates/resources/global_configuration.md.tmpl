@@ -9,6 +9,8 @@ description: |-
 
 {{ .Description | trimspace }}
 
+~> **Warning:** Enabling or disabling any of the calling protocols (`enable_sip`, `enable_h323`, `enable_sip_tcp`, `enable_sip_udp` or `enable_rtmp`) triggers a restart of all conferencing nodes. Terraform shows a warning during `plan` when a change to one of these attributes is pending. Destroying this resource resets the protocols to their defaults, which can also trigger a restart.
+
 ## Example Usage
 
 ### Basic Global Configuration
