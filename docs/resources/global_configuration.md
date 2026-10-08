@@ -84,7 +84,7 @@ resource "infinity_global_configuration" "gcp_bursting" {
 - `enable_rtmp` (Boolean) Enables RTMP calls on all Conferencing Nodes. This allows Pexip apps that use RTMP to access Pexip Infinity services, and allows conference content to be output to streaming and recording services. Enabling or disabling this setting triggers a restart of all conferencing nodes.
 - `enable_sip` (Boolean) Enable the SIP protocol over TLS on all Conferencing Nodes. Enabling or disabling this setting triggers a restart of all conferencing nodes.
 - `enable_sip_tcp` (Boolean) Enable the SIP protocol over TCP on all Conferencing Nodes. Enabling or disabling this setting triggers a restart of all conferencing nodes.
-- `enable_sip_udp` (Boolean) Enable incoming calls using the SIP protocol over UDP on all Conferencing Nodes. If changing from enabled to disabled, all Conferencing Nodes must be rebooted. Enabling or disabling this setting triggers a restart of all conferencing nodes.
+- `enable_sip_udp` (Boolean) Enable incoming calls using the SIP protocol over UDP on all Conferencing Nodes. Enabling or disabling this setting triggers a restart of all conferencing nodes.
 - `enable_softmute` (Boolean) Enable Softmute for advance speech-aware audio gating (see documentation for ways to enable it for a VMR). Note that this does not remove any noise from the audio.
 - `enable_ssh` (Boolean) Allows an administrator to log in to the Management and Conferencing Nodes over SSH. This setting can be overridden on individual nodes.
 - `enable_turn_443` (Boolean) Enable media relay on TCP port 443 for WebRTC clients as a fallback.
