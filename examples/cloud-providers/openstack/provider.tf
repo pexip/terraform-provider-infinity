@@ -8,7 +8,7 @@ terraform {
   required_providers {
     infinity = {
       source  = "pexip/infinity"
-      version = "0.9.0"
+      version = "~> 42.0"
     }
     openstack = {
       source  = "terraform-provider-openstack/openstack"
