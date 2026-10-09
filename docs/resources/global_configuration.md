@@ -11,6 +11,8 @@ Manages the global system configuration.
 
 -> **NOTE** This resource is a singleton.
 
+~> **Warning:** Enabling or disabling any of the calling protocols (`enable_sip`, `enable_h323`, `enable_sip_tcp`, `enable_sip_udp` or `enable_rtmp`) triggers a restart of all conferencing nodes. Terraform shows a warning during `plan` when a change to one of these attributes is pending. Destroying this resource resets the protocols to their defaults, which can also trigger a restart.
+
 ## Example Usage
 
 ### Basic Global Configuration
@@ -73,16 +75,16 @@ resource "infinity_global_configuration" "gcp_bursting" {
 - `enable_directory` (Boolean) When disabled, Pexip apps will display aliases from their own call history only. When enabled, registered Pexip apps will additionally display the aliases of VMRs, Virtual Auditoriums, Virtual Receptions, and devices registered to the Pexip Infinity deployment.
 - `enable_edge_non_mesh` (Boolean) Enable the restricted IPsec network routing requirements of Proxying Edge Nodes. When enabled, if a location only contains Proxying Edge Nodes, then those nodes only require IPsec connectivity with other nodes in that location, the transcoding location, the primary and secondary overflow locations, and with the Management Node.
 - `enable_fecc` (Boolean) Enables Pexip apps and SIP/H.323 endpoints to send Far-End Camera Control (FECC) signals to supporting endpoints, in order to pan, tilt and zoom the device's camera.
-- `enable_h323` (Boolean) Enable the H323 protocol on all Conferencing Nodes.
+- `enable_h323` (Boolean) Enable the H323 protocol on all Conferencing Nodes. Enabling or disabling this setting triggers a restart of all conferencing nodes.
 - `enable_legacy_dialout_api` (Boolean) Enables outbound calls from a VMR using the legacy dialout API. When disabled, outbound calls are only permitted by following Call Routing Rules.
 - `enable_lync_auto_escalate` (Boolean) Determines whether a Skype for Business audio call is automatically escalated so that it receives video from a conference.
 - `enable_lync_vbss` (Boolean) Determines whether Video-based Screen Sharing (VbSS) is enabled for Skype for Business calls.
 - `enable_mlvad` (Boolean) Enable Voice Focus for advanced voice activity detection.
 - `enable_mssip` (Boolean) Enable support for Skype for Business within the SIP protocol on all Conferencing Nodes.
-- `enable_rtmp` (Boolean) Enables RTMP calls on all Conferencing Nodes. This allows Pexip apps that use RTMP to access Pexip Infinity services, and allows conference content to be output to streaming and recording services.
-- `enable_sip` (Boolean) Enable the SIP protocol over TLS on all Conferencing Nodes.
-- `enable_sip_tcp` (Boolean) Enable the SIP protocol over TCP on all Conferencing Nodes.
-- `enable_sip_udp` (Boolean) Enable incoming calls using the SIP protocol over UDP on all Conferencing Nodes. If changing from enabled to disabled, all Conferencing Nodes must be rebooted.
+- `enable_rtmp` (Boolean) Enables RTMP calls on all Conferencing Nodes. This allows Pexip apps that use RTMP to access Pexip Infinity services, and allows conference content to be output to streaming and recording services. Enabling or disabling this setting triggers a restart of all conferencing nodes.
+- `enable_sip` (Boolean) Enable the SIP protocol over TLS on all Conferencing Nodes. Enabling or disabling this setting triggers a restart of all conferencing nodes.
+- `enable_sip_tcp` (Boolean) Enable the SIP protocol over TCP on all Conferencing Nodes. Enabling or disabling this setting triggers a restart of all conferencing nodes.
+- `enable_sip_udp` (Boolean) Enable incoming calls using the SIP protocol over UDP on all Conferencing Nodes. If changing from enabled to disabled, all Conferencing Nodes must be rebooted. Enabling or disabling this setting triggers a restart of all conferencing nodes.
 - `enable_softmute` (Boolean) Enable Softmute for advance speech-aware audio gating (see documentation for ways to enable it for a VMR). Note that this does not remove any noise from the audio.
 - `enable_ssh` (Boolean) Allows an administrator to log in to the Management and Conferencing Nodes over SSH. This setting can be overridden on individual nodes.
 - `enable_turn_443` (Boolean) Enable media relay on TCP port 443 for WebRTC clients as a fallback.

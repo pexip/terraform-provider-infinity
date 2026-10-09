@@ -9,6 +9,7 @@ package provider
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
@@ -32,9 +33,12 @@ import (
 
 var (
 	_ resource.ResourceWithImportState    = (*InfinityGlobalConfigurationResource)(nil)
+	_ resource.ResourceWithModifyPlan     = (*InfinityGlobalConfigurationResource)(nil)
 	_ resource.ResourceWithMoveState      = (*InfinityGlobalConfigurationResource)(nil)
 	_ resource.ResourceWithValidateConfig = (*InfinityGlobalConfigurationResource)(nil)
 )
+
+const callingProtocolRestartNote = " Enabling or disabling this setting triggers a restart of all conferencing nodes."
 
 type InfinityGlobalConfigurationResource struct {
 	InfinityClient InfinityClient
@@ -419,7 +423,7 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "Enable the H323 protocol on all Conferencing Nodes.",
+				MarkdownDescription: "Enable the H323 protocol on all Conferencing Nodes." + callingProtocolRestartNote,
 			},
 			"enable_legacy_dialout_api": schema.BoolAttribute{
 				Optional:            true,
@@ -455,25 +459,25 @@ func (r *InfinityGlobalConfigurationResource) Schema(ctx context.Context, req re
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "Enables RTMP calls on all Conferencing Nodes. This allows Pexip apps that use RTMP to access Pexip Infinity services, and allows conference content to be output to streaming and recording services.",
+				MarkdownDescription: "Enables RTMP calls on all Conferencing Nodes. This allows Pexip apps that use RTMP to access Pexip Infinity services, and allows conference content to be output to streaming and recording services." + callingProtocolRestartNote,
 			},
 			"enable_sip": schema.BoolAttribute{
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(true),
-				MarkdownDescription: "Enable the SIP protocol over TLS on all Conferencing Nodes.",
+				MarkdownDescription: "Enable the SIP protocol over TLS on all Conferencing Nodes." + callingProtocolRestartNote,
 			},
 			"enable_sip_tcp": schema.BoolAttribute{
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(false),
-				MarkdownDescription: "Enable the SIP protocol over TCP on all Conferencing Nodes.",
+				MarkdownDescription: "Enable the SIP protocol over TCP on all Conferencing Nodes." + callingProtocolRestartNote,
 			},
 			"enable_sip_udp": schema.BoolAttribute{
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(false),
-				MarkdownDescription: "Enable incoming calls using the SIP protocol over UDP on all Conferencing Nodes. If changing from enabled to disabled, all Conferencing Nodes must be rebooted.",
+				MarkdownDescription: "Enable incoming calls using the SIP protocol over UDP on all Conferencing Nodes. If changing from enabled to disabled, all Conferencing Nodes must be rebooted." + callingProtocolRestartNote,
 			},
 			"enable_softmute": schema.BoolAttribute{
 				Optional:            true,
@@ -997,6 +1001,70 @@ func (r *InfinityGlobalConfigurationResource) buildUpdateRequest(plan *InfinityG
 	}
 
 	return updateRequest
+}
+
+// changedCallingProtocols returns the names of the calling protocol attributes whose value differs between from and to.
+//
+// An unknown planned value (e.g. one derived from another resource's computed attribute) is never Equal to the known
+// state, so it is reported as changed even if it later resolves to the current value. This edge case is intentional:
+// a possibly spurious warning is preferred over silently missing a restart of all conferencing nodes.
+func changedCallingProtocols(from, to *InfinityGlobalConfigurationResourceModel) []string {
+	var changed []string
+	for _, attr := range []struct {
+		name     string
+		from, to types.Bool
+	}{
+		{"enable_sip", from.EnableSIP, to.EnableSIP},
+		{"enable_h323", from.EnableH323, to.EnableH323},
+		{"enable_sip_tcp", from.EnableSIPTCP, to.EnableSIPTCP},
+		{"enable_sip_udp", from.EnableSIPUDP, to.EnableSIPUDP},
+		{"enable_rtmp", from.EnableRTMP, to.EnableRTMP},
+	} {
+		if !attr.from.Equal(attr.to) {
+			changed = append(changed, attr.name)
+		}
+	}
+	return changed
+}
+
+func (r *InfinityGlobalConfigurationResource) ModifyPlan(ctx context.Context, req resource.ModifyPlanRequest, resp *resource.ModifyPlanResponse) {
+	// Create: the singleton already exists, so its current values are not known at plan time.
+	if req.State.Raw.IsNull() {
+		resp.Diagnostics.AddWarning(
+			"Changing calling protocols triggers a restart of all conferencing nodes",
+			"Applying this resource sets enable_sip, enable_h323, enable_sip_tcp, enable_sip_udp and enable_rtmp. "+
+				"Enabling or disabling any of these protocols triggers a restart of all conferencing nodes.",
+		)
+		return
+	}
+
+	state := &InfinityGlobalConfigurationResourceModel{}
+	resp.Diagnostics.Append(req.State.Get(ctx, state)...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// Destroy resets the calling protocols to their defaults.
+	target := &InfinityGlobalConfigurationResourceModel{
+		EnableSIP:    types.BoolValue(true),
+		EnableH323:   types.BoolValue(true),
+		EnableSIPTCP: types.BoolValue(false),
+		EnableSIPUDP: types.BoolValue(false),
+		EnableRTMP:   types.BoolValue(true),
+	}
+	if !req.Plan.Raw.IsNull() {
+		resp.Diagnostics.Append(req.Plan.Get(ctx, target)...)
+		if resp.Diagnostics.HasError() {
+			return
+		}
+	}
+
+	if changed := changedCallingProtocols(state, target); len(changed) > 0 {
+		resp.Diagnostics.AddWarning(
+			"Changing calling protocols triggers a restart of all conferencing nodes",
+			fmt.Sprintf("This plan enables or disables the following calling protocols, which triggers a restart of all conferencing nodes: %s.", strings.Join(changed, ", ")),
+		)
+	}
 }
 
 func (r *InfinityGlobalConfigurationResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {

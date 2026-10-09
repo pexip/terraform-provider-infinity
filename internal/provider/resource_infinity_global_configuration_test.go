@@ -7,9 +7,14 @@
 package provider
 
 import (
+	"context"
 	"os"
 	"regexp"
 	"testing"
+
+	fwresource "github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-go/tftypes"
 
 	"github.com/pexip/go-infinity-sdk/v41/config"
 	"github.com/stretchr/testify/assert"
@@ -768,4 +773,127 @@ resource "infinity_global_configuration" "global_configuration-test" {
 			},
 		},
 	})
+}
+
+func TestInfinityGlobalConfigurationModifyPlanWarnings(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+
+	r := &InfinityGlobalConfigurationResource{}
+	schemaResp := &fwresource.SchemaResponse{}
+	r.Schema(ctx, fwresource.SchemaRequest{}, schemaResp)
+	sch := schemaResp.Schema
+	objType := sch.Type().TerraformType(ctx).(tftypes.Object)
+
+	// buildValue returns an object value with every attribute null except the given calling protocol values.
+	buildValue := func(protocols map[string]tftypes.Value) tftypes.Value {
+		attrs := make(map[string]tftypes.Value, len(objType.AttributeTypes))
+		for name, typ := range objType.AttributeTypes {
+			attrs[name] = tftypes.NewValue(typ, nil)
+		}
+		for name, v := range protocols {
+			attrs[name] = v
+		}
+		return tftypes.NewValue(objType, attrs)
+	}
+	boolVal := func(b bool) tftypes.Value { return tftypes.NewValue(tftypes.Bool, b) }
+	protocols := func(sip, h323, sipTCP, sipUDP, rtmp bool) map[string]tftypes.Value {
+		return map[string]tftypes.Value{
+			"enable_sip":     boolVal(sip),
+			"enable_h323":    boolVal(h323),
+			"enable_sip_tcp": boolVal(sipTCP),
+			"enable_sip_udp": boolVal(sipUDP),
+			"enable_rtmp":    boolVal(rtmp),
+		}
+	}
+	defaults := protocols(true, true, false, false, true)
+	nullValue := tftypes.NewValue(objType, nil)
+
+	tests := []struct {
+		name            string
+		state           tftypes.Value
+		plan            tftypes.Value
+		expectedSummary string
+		expectedDetail  string
+	}{
+		{
+			name:            "create always warns",
+			state:           nullValue,
+			plan:            buildValue(defaults),
+			expectedSummary: "Changing calling protocols triggers a restart of all conferencing nodes",
+			expectedDetail:  "Applying this resource sets enable_sip, enable_h323, enable_sip_tcp, enable_sip_udp and enable_rtmp. Enabling or disabling any of these protocols triggers a restart of all conferencing nodes.",
+		},
+		{
+			name:  "update without protocol changes does not warn",
+			state: buildValue(defaults),
+			plan:  buildValue(defaults),
+		},
+		{
+			name:            "update with one protocol change warns",
+			state:           buildValue(defaults),
+			plan:            buildValue(protocols(true, true, true, false, true)),
+			expectedSummary: "Changing calling protocols triggers a restart of all conferencing nodes",
+			expectedDetail:  "This plan enables or disables the following calling protocols, which triggers a restart of all conferencing nodes: enable_sip_tcp.",
+		},
+		{
+			name:            "update with every protocol changed lists all of them",
+			state:           buildValue(defaults),
+			plan:            buildValue(protocols(false, false, true, true, false)),
+			expectedSummary: "Changing calling protocols triggers a restart of all conferencing nodes",
+			expectedDetail:  "This plan enables or disables the following calling protocols, which triggers a restart of all conferencing nodes: enable_sip, enable_h323, enable_sip_tcp, enable_sip_udp, enable_rtmp.",
+		},
+		{
+			// Intentional edge case: an unknown planned value is reported as changed.
+			name:  "update with unknown protocol value warns",
+			state: buildValue(defaults),
+			plan: buildValue(map[string]tftypes.Value{
+				"enable_sip":     boolVal(true),
+				"enable_h323":    boolVal(true),
+				"enable_sip_tcp": boolVal(false),
+				"enable_sip_udp": boolVal(false),
+				"enable_rtmp":    tftypes.NewValue(tftypes.Bool, tftypes.UnknownValue),
+			}),
+			expectedSummary: "Changing calling protocols triggers a restart of all conferencing nodes",
+			expectedDetail:  "This plan enables or disables the following calling protocols, which triggers a restart of all conferencing nodes: enable_rtmp.",
+		},
+		{
+			name:  "destroy with default protocols does not warn",
+			state: buildValue(defaults),
+			plan:  nullValue,
+		},
+		{
+			name:            "destroy with non-default protocols warns",
+			state:           buildValue(protocols(true, false, true, false, true)),
+			plan:            nullValue,
+			expectedSummary: "Changing calling protocols triggers a restart of all conferencing nodes",
+			expectedDetail:  "This plan enables or disables the following calling protocols, which triggers a restart of all conferencing nodes: enable_h323, enable_sip_tcp.",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			req := fwresource.ModifyPlanRequest{
+				State: tfsdk.State{Schema: sch, Raw: tt.state},
+				Plan:  tfsdk.Plan{Schema: sch, Raw: tt.plan},
+			}
+			resp := &fwresource.ModifyPlanResponse{
+				Plan: tfsdk.Plan{Schema: sch, Raw: tt.plan},
+			}
+
+			r.ModifyPlan(ctx, req, resp)
+
+			assert.False(t, resp.Diagnostics.HasError(), "unexpected errors: %v", resp.Diagnostics.Errors())
+			warnings := resp.Diagnostics.Warnings()
+			if tt.expectedSummary == "" {
+				assert.Empty(t, warnings)
+				return
+			}
+			if assert.Len(t, warnings, 1) {
+				assert.Equal(t, tt.expectedSummary, warnings[0].Summary())
+				assert.Equal(t, tt.expectedDetail, warnings[0].Detail())
+			}
+		})
+	}
 }
