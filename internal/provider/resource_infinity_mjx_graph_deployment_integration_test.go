@@ -19,7 +19,7 @@ import (
 
 	"github.com/pexip/terraform-provider-infinity/internal/test"
 
-	"github.com/pexip/go-infinity-sdk/v41"
+	"github.com/pexip/go-infinity-sdk/v42"
 )
 
 func TestInfinityMjxGraphDeploymentIntegration(t *testing.T) {

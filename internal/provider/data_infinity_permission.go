@@ -14,7 +14,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 
-	"github.com/pexip/go-infinity-sdk/v41/config"
+	"github.com/pexip/go-infinity-sdk/v42/config"
 )
 
 type InfinityPermissionDataSource struct {
