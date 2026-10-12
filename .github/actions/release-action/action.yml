@@ -65,10 +65,19 @@ runs:
         github-token: ${{ inputs.github_token }}
         script: |
           try {
+            const fs = require('fs')
             const version = '${{ inputs.version }}'
+
+            // Use custom release notes from .github/release-notes/<version>.md if present,
+            // otherwise fall back to GitHub's generated release notes.
+            const notesFile = `.github/release-notes/${version}.md`
+            const body = fs.existsSync(notesFile) ? fs.readFileSync(notesFile, 'utf8') : undefined
+            core.info(body ? `Using release notes from ${notesFile}` : `${notesFile} not found, generating release notes`)
+
             const response = await github.rest.repos.createRelease({
+              body,
               draft: false,
-              generate_release_notes: true,
+              generate_release_notes: !body,
               name: `Release ${version}`,
               owner: context.repo.owner,
               prerelease: ${{ inputs.pre_release == 'true' }},
