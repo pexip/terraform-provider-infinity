@@ -7,7 +7,7 @@ This directory contains the CI/CD workflows for the Terraform Provider for Pexip
 ### Main Workflows
 
 - **test.yml**: Runs on push to master and pull requests. Executes unit tests, terraform validation, linting, and dependency review.
-- **release.yml**: Manual workflow to create releases and trigger asset publishing. Uses `.github/release-notes/<version>.md` as the release notes if it exists, otherwise generates them.
+- **release.yml**: Manual workflow to create releases and trigger asset publishing. Uses `.github/release-notes/<version>.md` as the release notes if it exists and isn't empty, otherwise generates them.
 - **publish-assets.yml**: Builds and publishes provider binaries for multiple platforms.
 - **integration-test.yml**: Runs integration tests against a live Pexip Infinity environment. Triggered by cron schedule, manual dispatch, or workflow call.
 
