@@ -30,7 +30,7 @@ variable "dns_zone_name" {
 
 variable "vm_image_project" {
   type        = string
-  default     = "pexip-infinity-images"
+  default     = "pexip-product-images"
   description = "GCP project containing the Pexip Infinity VM images"
 }
 
