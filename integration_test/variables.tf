@@ -28,6 +28,12 @@ variable "dns_zone_name" {
   description = "name of GCP DNS zone"
 }
 
+variable "vm_image_project" {
+  type        = string
+  default     = "pexip-infinity-images"
+  description = "GCP project containing the Pexip Infinity VM images"
+}
+
 variable "vm_image_manager_name" {
   type        = string
   default     = "pexip-infinity-mgmt-node-42-0-0-85415-0-0"
