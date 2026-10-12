@@ -30,13 +30,13 @@ variable "dns_zone_name" {
 
 variable "vm_image_manager_name" {
   type        = string
-  default     = "pexip-mgr-v42-rc1"
+  default     = "pexip-infinity-mgmt-node-42-0-0-85415-0-0"
   description = "Pexip Infinity VM image to use"
 }
 
 variable "vm_image_node_name" {
   type        = string
-  default     = "pexip-infinity-conf-node-41-0-0-84477-0-0"
+  default     = "pexip-infinity-conf-node-42-0-0-85415-0-0"
   description = "VM image to use"
 }
 
