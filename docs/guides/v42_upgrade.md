@@ -15,7 +15,7 @@ Version 42 renames every resource, data source and action so that the prefix mat
 
 The provider source address (`pexip/infinity`) and the resource schemas are unchanged.
 
-Version 42 also renames the provider's environment variables from `PEXIP_*` to `INFINITY_*`. If you use environment variables, complete [Step 4](#step-4-rename-environment-variables) before running the Terraform commands in Step 3.
+Version 42 also renames the provider's environment variables from `PEXIP_*` to `INFINITY_*`. See [Step 4](#step-4-rename-environment-variables).
 
 ## Step 1: Rename the provider local name
 
