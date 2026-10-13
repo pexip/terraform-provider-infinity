@@ -111,9 +111,9 @@ make test
 
 # Acceptance tests (requires real Pexip environment)
 export TF_ACC=1
-export PEXIP_ADDRESS="https://your-manager.example.com"
-export PEXIP_USERNAME="admin" 
-export PEXIP_PASSWORD="your-password"
+export INFINITY_ADDRESS="https://your-manager.example.com"
+export INFINITY_USERNAME="admin" 
+export INFINITY_PASSWORD="your-password"
 make testacc
 
 # Test specific resource
