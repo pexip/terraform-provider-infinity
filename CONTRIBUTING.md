@@ -362,6 +362,10 @@ Releases are managed by project maintainers following semantic versioning:
 - **Minor** (0.x.0): New features, backward compatible
 - **Patch** (0.0.x): Bug fixes, backward compatible
 
+### Release notes
+
+To publish custom release notes, add them to `.github/release-notes/<version>.md` (e.g. `.github/release-notes/v42.0.0.md`) and merge the file before running the Release workflow. The file name must match the version entered in the workflow exactly, including the `v` prefix. If the file doesn't exist, or is empty, GitHub generates the release notes from the merged pull requests.
+
 ## Getting Help
 
 - **Issues**: Use GitHub Issues for bug reports and feature requests

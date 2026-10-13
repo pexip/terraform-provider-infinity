@@ -65,10 +65,28 @@ runs:
         github-token: ${{ inputs.github_token }}
         script: |
           try {
+            const fs = require('fs')
             const version = '${{ inputs.version }}'
+
+            // Use custom release notes from .github/release-notes/<version>.md if it exists and isn't empty,
+            // otherwise fall back to GitHub's generated release notes. An empty file is treated as a mistake
+            // rather than a request for a release with no notes.
+            const notesFile = `.github/release-notes/${version}.md`
+            const notesFileExists = fs.existsSync(notesFile)
+            const notes = notesFileExists ? fs.readFileSync(notesFile, 'utf8') : ''
+            const useCustomNotes = notes.trim() !== ''
+            if (useCustomNotes) {
+              core.info(`Using release notes from ${notesFile}`)
+            } else if (notesFileExists) {
+              core.warning(`${notesFile} is empty, generating release notes`)
+            } else {
+              core.info(`${notesFile} not found, generating release notes`)
+            }
+
             const response = await github.rest.repos.createRelease({
+              body: useCustomNotes ? notes : undefined,
               draft: false,
-              generate_release_notes: true,
+              generate_release_notes: !useCustomNotes,
               name: `Release ${version}`,
               owner: context.repo.owner,
               prerelease: ${{ inputs.pre_release == 'true' }},
