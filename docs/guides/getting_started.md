@@ -37,10 +37,10 @@ provider "infinity" {
 You can also configure the provider using environment variables:
 
 ```bash
-export PEXIP_ADDRESS="https://manager.example.com"
-export PEXIP_USERNAME="admin"
-export PEXIP_PASSWORD="secure_password"
-export PEXIP_INSECURE="true"
+export INFINITY_ADDRESS="https://manager.example.com"
+export INFINITY_USERNAME="admin"
+export INFINITY_PASSWORD="secure_password"
+export INFINITY_INSECURE="true"
 ```
 
 ## Example Usage

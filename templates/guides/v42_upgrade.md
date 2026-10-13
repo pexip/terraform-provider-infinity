@@ -15,6 +15,8 @@ Version 42 renames every resource, data source and action so that the prefix mat
 
 The provider source address (`pexip/infinity`) and the resource schemas are unchanged.
 
+Version 42 also renames the provider's environment variables from `PEXIP_*` to `INFINITY_*`. See [Step 4](#step-4-rename-environment-variables).
+
 ## Step 1: Rename the provider local name
 
 The provider local name should now be `infinity`. Terraform works out which provider a resource belongs to from the prefix of its type name, so `infinity_*` resources need a provider with the local name `infinity`.
@@ -155,3 +157,18 @@ Run `terraform plan` using the updated configuration from Steps 1 and 2 and conf
 ~> Push the updated state only when you're switching to the updated configuration. If the old configuration runs against the updated state, Terraform will plan to destroy the renamed resources.
 
 If something goes wrong, restore the backup with `terraform state push -force state.backup.json`.
+
+## Step 4: Rename environment variables
+
+If you configure the provider with environment variables, rename them. The old names are no longer read, so if any are left unrenamed, the provider fails with an error saying the address, username or password is missing.
+
+| Before v42 | v42 and later |
+|---|---|
+| `PEXIP_ADDRESS` | `INFINITY_ADDRESS` |
+| `PEXIP_USERNAME` | `INFINITY_USERNAME` |
+| `PEXIP_PASSWORD` | `INFINITY_PASSWORD` |
+| `PEXIP_INSECURE` | `INFINITY_INSECURE` |
+
+Check everywhere the variables are set, including shell profiles, CI/CD pipelines and secret stores.
+
+~> An unrenamed `PEXIP_INSECURE` is silently ignored and `insecure` defaults to `false`. If your Infinity Manager uses a self-signed certificate, the provider then fails with a certificate verification error.
