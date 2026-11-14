@@ -29,7 +29,7 @@ ZIP_ARCHIVE_NAME ?= $(NAME)_$(VERSION_NO_V)_$(OS_ARCH).zip
 # Build flags
 BUILD_LD_FLAGS := "-X main.commit=$(GIT_BRANCH)@$(GIT_REVISION)$(GIT_REVISION_DIRTY) -X internal/version.appBuildTime=$(BUILD_TIME) -X internal/version.appVersion=$(VERSION_NO_V) -X internal/version.appBuildUser=${USER}"
 
-.PHONY: prepare lint build package install test testacc clean manifest
+.PHONY: prepare lint build package install test testacc clean manifest schema-diff
 
 all: build
 
@@ -53,6 +53,11 @@ install:
 
 test: prepare
 	go test -v -parallel 4 -tags unit -coverprofile=$(BUILD_DIR)/cover.out ./...
+
+# Compare provider resource schemas against the go-infinity-sdk API schemas.
+# Pass flags via ARGS, e.g. make schema-diff ARGS="-resource conference -format json"
+schema-diff:
+	@go run ./tools/schemadiff $(ARGS)
 
 testacc: export TF_ACC=true
 testacc: prepare
