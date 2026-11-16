@@ -30,7 +30,6 @@ import (
 	"github.com/pexip/go-infinity-sdk/v42/command"
 	"github.com/pexip/go-infinity-sdk/v42/config"
 	"github.com/pexip/go-infinity-sdk/v42/history"
-	"github.com/pexip/go-infinity-sdk/v42/interfaces"
 	"github.com/pexip/go-infinity-sdk/v42/status"
 
 	"github.com/pexip/terraform-provider-infinity/internal/provider/validators"
@@ -56,7 +55,8 @@ type PexipProvider struct {
 }
 
 type InfinityClient interface {
-	interfaces.HTTPClient
+	// PatchJSON performs a PATCH request with JSON body and unmarshals the JSON response
+	PatchJSON(ctx context.Context, endpoint string, body interface{}, result interface{}) error
 	Config() *config.Service
 	Status() *status.Service
 	History() *history.Service
