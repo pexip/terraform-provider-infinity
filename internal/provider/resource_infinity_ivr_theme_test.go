@@ -8,6 +8,7 @@ package provider
 
 import (
 	"os"
+	"strconv"
 	"testing"
 
 	"github.com/pexip/go-infinity-sdk/v42/config"
@@ -30,6 +31,7 @@ func TestInfinityIvrTheme(t *testing.T) {
 		ID:          123,
 		ResourceURI: "/api/admin/configuration/v1/ivr_theme/123/",
 		Name:        "tf-test-ivr-theme",
+		Version:     2,
 	}
 
 	createResponse := &types.PostResponse{
@@ -43,6 +45,9 @@ func TestInfinityIvrTheme(t *testing.T) {
 		fields := args.Get(2).(map[string]string)
 		if name, ok := fields["name"]; ok {
 			mockState.Name = name
+		}
+		if version, ok := fields["version"]; ok {
+			mockState.Version, _ = strconv.Atoi(version)
 		}
 	}).Maybe()
 
@@ -59,6 +64,9 @@ func TestInfinityIvrTheme(t *testing.T) {
 		if name, ok := fields["name"]; ok && name != "" {
 			mockState.Name = name
 		}
+		if version, ok := fields["version"]; ok {
+			mockState.Version, _ = strconv.Atoi(version)
+		}
 		*result = *mockState
 	}).Maybe()
 
@@ -69,6 +77,9 @@ func TestInfinityIvrTheme(t *testing.T) {
 		result := args.Get(6).(*config.IVRTheme)
 		if name, ok := fields["name"]; ok && name != "" {
 			mockState.Name = name
+		}
+		if version, ok := fields["version"]; ok {
+			mockState.Version, _ = strconv.Atoi(version)
 		}
 		*result = *mockState
 	}).Maybe()
@@ -89,6 +100,7 @@ func testInfinityIvrTheme(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "id"),
 					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "resource_id"),
 					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme-full"),
+					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "version", "1"),
 				),
 			},
 			// Step 2: Update to min config
@@ -98,6 +110,7 @@ func testInfinityIvrTheme(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "id"),
 					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "resource_id"),
 					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme"),
+					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "version", "2"),
 				),
 			},
 			// Step 3: Delete
@@ -113,6 +126,7 @@ func testInfinityIvrTheme(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "id"),
 					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "resource_id"),
 					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme"),
+					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "version", "2"),
 				),
 			},
 			// Step 5: Update to full config
@@ -122,6 +136,7 @@ func testInfinityIvrTheme(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "id"),
 					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "resource_id"),
 					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme-full"),
+					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "version", "1"),
 				),
 			},
 		},

@@ -13,9 +13,11 @@ import (
 	"path/filepath"
 	"strconv"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/int32validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int32default"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int32planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -40,6 +42,7 @@ type InfinityIvrThemeResourceModel struct {
 	Name       types.String `tfsdk:"name"`
 	UUID       types.String `tfsdk:"uuid"`
 	Package    types.String `tfsdk:"package"`
+	Version    types.Int32  `tfsdk:"version"`
 }
 
 func (r *InfinityIvrThemeResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -99,6 +102,15 @@ func (r *InfinityIvrThemeResource) Schema(ctx context.Context, req resource.Sche
 				Optional:            true,
 				MarkdownDescription: "Path to the IVR theme package file to upload (e.g., `package = \"path/to/theme.zip\"`).",
 			},
+			"version": schema.Int32Attribute{
+				Optional: true,
+				Computed: true,
+				Default:  int32default.StaticInt32(2),
+				Validators: []validator.Int32{
+					int32validator.OneOf(1, 2),
+				},
+				MarkdownDescription: "The IVR theme package version. Valid values: `1` or `2`. Defaults to `2`.",
+			},
 		},
 		MarkdownDescription: "Manages an IVR theme configuration.",
 	}
@@ -113,7 +125,8 @@ func (r *InfinityIvrThemeResource) Create(ctx context.Context, req resource.Crea
 	}
 
 	createRequest := &config.IVRThemeCreateRequest{
-		Name: plan.Name.ValueString(),
+		Name:    plan.Name.ValueString(),
+		Version: int(plan.Version.ValueInt32()),
 	}
 
 	// The Pexip API does not accept a package file during the initial POST.
@@ -150,7 +163,8 @@ func (r *InfinityIvrThemeResource) Create(ctx context.Context, req resource.Crea
 		defer func() { _ = packageFile.Close() }()
 
 		updateRequest := &config.IVRThemeUpdateRequest{
-			Name: plan.Name.ValueString(),
+			Name:    plan.Name.ValueString(),
+			Version: int(plan.Version.ValueInt32()),
 		}
 		_, updateErr := r.InfinityClient.Config().UpdateIVRTheme(ctx, resourceID, updateRequest, filepath.Base(packagePath), packageFile)
 		if updateErr != nil {
@@ -194,6 +208,7 @@ func (r *InfinityIvrThemeResource) read(ctx context.Context, resourceID int) (*I
 	data.ResourceID = types.Int32Value(int32(resourceID)) // #nosec G115 -- API values are expected to be within int32 range
 	data.Name = types.StringValue(srv.Name)
 	data.UUID = types.StringValue(srv.UUID)
+	data.Version = types.Int32Value(int32(srv.Version)) // #nosec G115 -- API values are expected to be within int32 range
 	// Note: Package is not returned by the API (binary content cannot be retrieved)
 	// It will be preserved from plan/state by the caller
 
@@ -245,7 +260,8 @@ func (r *InfinityIvrThemeResource) Update(ctx context.Context, req resource.Upda
 	resourceID := int(state.ResourceID.ValueInt32())
 
 	updateRequest := &config.IVRThemeUpdateRequest{
-		Name: plan.Name.ValueString(),
+		Name:    plan.Name.ValueString(),
+		Version: int(plan.Version.ValueInt32()),
 	}
 
 	var filename string
