@@ -10,9 +10,17 @@
 // tagged as new in the latest version or pre-existing, using the schema
 // version the provider currently depends on as the baseline.
 //
+// Modes:
+//
+//   - report (default): every difference between the provider and the latest
+//     schema, including validator checks.
+//   - upgrade: per-resource change lists for moving the provider to the latest
+//     schema version, with file references and API definitions, intended for
+//     creating one PR per resource. Use -out-dir to write one file per resource.
+//
 // Usage:
 //
-//	go run ./tools/schemadiff [-schema-dir ../go-infinity-sdk/schema] [-latest config-v43] [-baseline config-v42]
+//	go run ./tools/schemadiff [-mode report|upgrade] [-latest config-v43] [-baseline config-v42]
 package main
 
 import (
@@ -29,7 +37,10 @@ import (
 	"strings"
 )
 
-const defaultSchemaRootDir = "../go-infinity-sdk/schema"
+const (
+	defaultSDKDir        = "../go-infinity-sdk"
+	defaultSchemaRootDir = defaultSDKDir + "/schema"
+)
 
 var sdkModulePattern = regexp.MustCompile(`github\.com/pexip/go-infinity-sdk/v(\d+)\s`)
 
@@ -49,8 +60,18 @@ func run(args []string, w io.Writer) error {
 	format := fs.String("format", "markdown", "output format: markdown or json")
 	includeReadOnly := fs.Bool("include-readonly", false, "report read-only API fields missing from the provider")
 	failOnFindings := fs.Bool("fail-on-findings", false, "exit non-zero if any findings are reported")
+	mode := fs.String("mode", "report", "report: all differences; upgrade: per-resource changes for the latest version")
+	scope := fs.String("scope", scopeNew, "upgrade mode: new (changes in the latest version) or all (also pre-existing gaps)")
+	outDir := fs.String("out-dir", "", "upgrade mode: write index.md and one markdown file per resource to this directory")
+	sdkDir := fs.String("sdk-dir", defaultSDKDir, "go-infinity-sdk checkout, used to check SDK models in upgrade mode")
 	if err := fs.Parse(args); err != nil {
 		return err
+	}
+	if *mode != "report" && *mode != "upgrade" {
+		return fmt.Errorf("unknown mode %q", *mode)
+	}
+	if *scope != scopeNew && *scope != scopeAll {
+		return fmt.Errorf("unknown scope %q", *scope)
 	}
 
 	dirs, err := findSchemaDirs(*schemaDir)
@@ -82,11 +103,20 @@ func run(args []string, w io.Writer) error {
 	resources := loadProviderResources(context.Background())
 	rep := buildReport(resources, latest, baseline, Options{IncludeReadOnly: *includeReadOnly}, *filter)
 
+	if *mode == "upgrade" {
+		plan := buildUpgradePlan(rep, resources, latest, baseline, *scope, PlanPaths{RepoDir: ".", SDKDir: *sdkDir})
+		if err := writeUpgrade(w, plan, *format, *outDir); err != nil {
+			return err
+		}
+		if *failOnFindings && (len(plan.Resources) > 0 || len(plan.NewResources) > 0) {
+			return fmt.Errorf("%d resources need updating", len(plan.Resources))
+		}
+		return nil
+	}
+
 	switch *format {
 	case "json":
-		enc := json.NewEncoder(w)
-		enc.SetIndent("", "  ")
-		if err := enc.Encode(rep); err != nil {
+		if err := writeJSON(w, rep); err != nil {
 			return err
 		}
 	case "markdown":
@@ -99,6 +129,31 @@ func run(args []string, w io.Writer) error {
 		return fmt.Errorf("%d resources with findings", len(rep.Resources))
 	}
 	return nil
+}
+
+func writeUpgrade(w io.Writer, plan *UpgradePlan, format, outDir string) error {
+	if outDir != "" {
+		if err := writeUpgradeDir(outDir, plan); err != nil {
+			return err
+		}
+		fmt.Fprintf(w, "Wrote %d resource files and index.md to %s\n", len(plan.Resources), outDir)
+		return nil
+	}
+	switch format {
+	case "json":
+		return writeJSON(w, plan)
+	case "markdown":
+		writeUpgradeMarkdown(w, plan)
+		return nil
+	default:
+		return fmt.Errorf("unknown format %q", format)
+	}
+}
+
+func writeJSON(w io.Writer, v any) error {
+	enc := json.NewEncoder(w)
+	enc.SetIndent("", "  ")
+	return enc.Encode(v)
 }
 
 func latestVersion(dirs map[int]string) int {

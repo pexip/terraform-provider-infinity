@@ -29,7 +29,7 @@ ZIP_ARCHIVE_NAME ?= $(NAME)_$(VERSION_NO_V)_$(OS_ARCH).zip
 # Build flags
 BUILD_LD_FLAGS := "-X main.commit=$(GIT_BRANCH)@$(GIT_REVISION)$(GIT_REVISION_DIRTY) -X internal/version.appBuildTime=$(BUILD_TIME) -X internal/version.appVersion=$(VERSION_NO_V) -X internal/version.appBuildUser=${USER}"
 
-.PHONY: prepare lint build package install test testacc clean manifest schema-diff
+.PHONY: prepare lint build package install test testacc clean manifest schema-diff schema-upgrade
 
 all: build
 
@@ -58,6 +58,11 @@ test: prepare
 # Pass flags via ARGS, e.g. make schema-diff ARGS="-resource conference -format json"
 schema-diff:
 	@go run ./tools/schemadiff $(ARGS)
+
+# Per-resource change list for moving to the latest SDK schema version, one
+# file per resource, e.g. make schema-upgrade OUT=dist/upgrade ARGS="-scope all"
+schema-upgrade:
+	@go run ./tools/schemadiff -mode upgrade -out-dir $(or $(OUT),$(BUILD_DIR)/schema-upgrade) $(ARGS)
 
 testacc: export TF_ACC=true
 testacc: prepare

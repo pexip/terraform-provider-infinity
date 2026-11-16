@@ -33,6 +33,7 @@ const (
 	IssueNoAPISchema   = "no API schema"
 	tagPreExisting     = "pre-existing"
 	tagNewFormat       = "new in v%d"
+	noValidatorMarker  = "provider has no"
 )
 
 // Finding is a single difference between the API schema and the provider.
@@ -50,10 +51,11 @@ func (f Finding) key() string { return f.Resource + "|" + f.Field + "|" + f.Issu
 
 // Change is an API field change between the baseline and latest schemas.
 type Change struct {
-	Schema string   `json:"schema"`
-	Field  string   `json:"field"`
-	Keys   []string `json:"keys"`
-	Detail string   `json:"detail"`
+	Resource string   `json:"resource,omitempty"`
+	Schema   string   `json:"schema"`
+	Field    string   `json:"field"`
+	Keys     []string `json:"keys"`
+	Detail   string   `json:"detail"`
 }
 
 // ResourceReport groups findings for one provider resource.
@@ -164,7 +166,7 @@ func compareField(name string, f *APIField, attr *TFAttr, add func(field, issue,
 		missing, extra := diffStrings(apiChoices, attr.Choices)
 		switch {
 		case attr.Choices == nil:
-			add(name, IssueChoices, fmt.Sprintf("provider has no OneOf validator; api allows %s", summarize(apiChoices)))
+			add(name, IssueChoices, fmt.Sprintf(noValidatorMarker+" OneOf validator; api allows %s", summarize(apiChoices)))
 		case len(missing) > 0 || len(extra) > 0:
 			var parts []string
 			if len(missing) > 0 {
@@ -180,7 +182,7 @@ func compareField(name string, f *APIField, attr *TFAttr, add func(field, issue,
 	if n, ok := f.maxLength(); ok && !computedOnly && attr.Kind == "string" {
 		switch {
 		case attr.MaxLength == nil:
-			add(name, IssueMaxLength, fmt.Sprintf("api max %d, provider has no LengthAtMost validator", n))
+			add(name, IssueMaxLength, fmt.Sprintf("api max %d, "+noValidatorMarker+" LengthAtMost validator", n))
 		case *attr.MaxLength != n:
 			add(name, IssueMaxLength, fmt.Sprintf("api max %d, provider max %d", n, *attr.MaxLength))
 		}
@@ -189,7 +191,7 @@ func compareField(name string, f *APIField, attr *TFAttr, add func(field, issue,
 	if lo, hi, ok := f.intRange(); ok && !computedOnly && (attr.Kind == "int32" || attr.Kind == "int64") {
 		switch {
 		case attr.Range == nil:
-			add(name, IssueRange, fmt.Sprintf("api range %d-%d, provider has no Between validator", lo, hi))
+			add(name, IssueRange, fmt.Sprintf("api range %d-%d, "+noValidatorMarker+" Between validator", lo, hi))
 		case attr.Range[0] != lo || attr.Range[1] != hi:
 			add(name, IssueRange, fmt.Sprintf("api range %d-%d, provider range %d-%d", lo, hi, attr.Range[0], attr.Range[1]))
 		}
@@ -313,7 +315,10 @@ func buildReport(resources []*TFResource, latest, baseline *SchemaSet, opts Opti
 		var baseFindings []Finding
 		if base, ok := baseline.Schemas[name]; ok {
 			baseFindings = compareResource(res, base, opts)
-			rep.Changes = append(rep.Changes, schemaChanges(base, api)...)
+			for _, c := range schemaChanges(base, api) {
+				c.Resource = res.TypeName
+				rep.Changes = append(rep.Changes, c)
+			}
 		}
 		tagFindings(findings, baseFindings, latest.Version)
 		if len(findings) > 0 {
