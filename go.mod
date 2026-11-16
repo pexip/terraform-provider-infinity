@@ -10,7 +10,7 @@ require (
 	github.com/hashicorp/terraform-plugin-go v0.29.0
 	github.com/hashicorp/terraform-plugin-log v0.10.0
 	github.com/hashicorp/terraform-plugin-testing v1.14.0
-	github.com/pexip/go-infinity-sdk/v42 v42.0.1-0.20261116142942-9a40b0f0aa3f
+	github.com/pexip/go-infinity-sdk/v42 v42.0.1-0.20261116155859-d6f703bb790b
 	github.com/stretchr/testify v1.12.1
 	golang.org/x/crypto v0.55.0
 )
