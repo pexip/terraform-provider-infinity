@@ -17,7 +17,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int32default"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int32planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -105,11 +104,10 @@ func (r *InfinityIvrThemeResource) Schema(ctx context.Context, req resource.Sche
 			"version": schema.Int32Attribute{
 				Optional: true,
 				Computed: true,
-				Default:  int32default.StaticInt32(2),
 				Validators: []validator.Int32{
 					int32validator.OneOf(1, 2),
 				},
-				MarkdownDescription: "The IVR theme package version. Valid values: `1` or `2`. Defaults to `2`.",
+				MarkdownDescription: "The IVR theme package version. Valid values: `1` or `2`. When a `package` is uploaded, Infinity sets the version from `theme_version` in the package's `themeconfig.json`, so if set it must match the package. Without a package, Infinity defaults to `2`.",
 			},
 		},
 		MarkdownDescription: "Manages an IVR theme configuration.",

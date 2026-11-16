@@ -100,7 +100,7 @@ func testInfinityIvrTheme(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "id"),
 					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "resource_id"),
 					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme-full"),
-					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "version", "1"),
+					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "version", "2"),
 				),
 			},
 			// Step 2: Update to min config
@@ -136,7 +136,7 @@ func testInfinityIvrTheme(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "id"),
 					resource.TestCheckResourceAttrSet("infinity_ivr_theme.ivr_theme-test", "resource_id"),
 					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "name", "tf-test-ivr-theme-full"),
-					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "version", "1"),
+					resource.TestCheckResourceAttr("infinity_ivr_theme.ivr_theme-test", "version", "2"),
 				),
 			},
 		},
