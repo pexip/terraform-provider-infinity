@@ -81,6 +81,9 @@ resource "infinity_identity_provider" "oidc_example" {
 - `oidc_additional_scopes` (String) Space-separated list of additional scopes to request from the OpenID Connect Identity Provider. Maximum length: 250 characters.
 - `oidc_client_id` (String) The client identifier provided by the OpenID Connect Identity Provider. Maximum length: 250 characters.
 - `oidc_client_secret` (String, Sensitive) The client secret provided by the OpenID Connect Identity Provider. Maximum length: 100 characters.
+- `oidc_device_idp` (Boolean) This identity provider will use the Pexip Device IdP service.
+- `oidc_device_idp_baseurl` (String) Root URL for the Pexip Device IdP. Maximum length: 255 characters.
+- `oidc_device_idp_session_duration` (Number) Device IdP authenticated session duration, in seconds. Range: 3600 to 3024000. Default: 86400.
 - `oidc_display_name_claim_name` (String) The claim name from which the user's display name will be extracted. This can come from either the JWT, or data from the UserInfo endpoint (if one is configured). Maximum length: 250 characters.
 - `oidc_email_claim_name` (String) The claim name from which the user's email address will be extracted. This can come from either the JWT, or data from the UserInfo endpoint (if one is configured). Required for scheduling. Maximum length: 250 characters.
 - `oidc_flow` (String) The flow used by the OpenID Connect Identity Provider. Valid choices: implicit, code.

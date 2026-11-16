@@ -52,6 +52,9 @@ func TestInfinityIdentityProvider(t *testing.T) {
 		OidcTokenEndpointAuthScheme:         "client_secret_basic",
 		OidcTokenSignatureScheme:            "rs256",
 		OidcFranceConnectRequiredEidasLevel: "eidas1",
+		OidcDeviceIdp:                       false,
+		OidcDeviceIdpBaseURL:                "",
+		OidcDeviceIdpSessionDuration:        86400,
 	}
 
 	// Mock the CreateIdentityprovider API call
@@ -102,6 +105,9 @@ func TestInfinityIdentityProvider(t *testing.T) {
 		mockState.OidcRegistrationAliasClaimName = createReq.OidcRegistrationAliasClaimName
 		mockState.OidcAdditionalScopes = createReq.OidcAdditionalScopes
 		mockState.OidcFranceConnectRequiredEidasLevel = createReq.OidcFranceConnectRequiredEidasLevel
+		mockState.OidcDeviceIdp = createReq.OidcDeviceIdp
+		mockState.OidcDeviceIdpBaseURL = createReq.OidcDeviceIdpBaseURL
+		mockState.OidcDeviceIdpSessionDuration = createReq.OidcDeviceIdpSessionDuration
 
 		// Convert attributes from URIs to IdentityProviderAttribute structs
 		if createReq.Attributes != nil {
@@ -228,6 +234,13 @@ func TestInfinityIdentityProvider(t *testing.T) {
 		mockState.OidcRegistrationAliasClaimName = updateRequest.OidcRegistrationAliasClaimName
 		mockState.OidcAdditionalScopes = updateRequest.OidcAdditionalScopes
 		mockState.OidcFranceConnectRequiredEidasLevel = updateRequest.OidcFranceConnectRequiredEidasLevel
+		if updateRequest.OidcDeviceIdp != nil {
+			mockState.OidcDeviceIdp = *updateRequest.OidcDeviceIdp
+		}
+		mockState.OidcDeviceIdpBaseURL = updateRequest.OidcDeviceIdpBaseURL
+		if updateRequest.OidcDeviceIdpSessionDuration != nil {
+			mockState.OidcDeviceIdpSessionDuration = *updateRequest.OidcDeviceIdpSessionDuration
+		}
 
 		// Convert attributes from URIs to IdentityProviderAttribute structs
 		if updateRequest.Attributes != nil {
@@ -332,6 +345,9 @@ func testInfinityIdentityProvider(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_registration_alias_claim_name", "preferred_username"),
 					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_additional_scopes", "profile email phone address"),
 					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_france_connect_required_eidas_level", "eidas3"),
+					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_device_idp", "true"),
+					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_device_idp_baseurl", "https://deviceidp.example.com"),
+					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_device_idp_session_duration", "172800"),
 
 					// Attributes
 					resource.TestCheckTypeSetElemAttrPair("infinity_identity_provider.test", "attributes.*", "infinity_identity_provider_attribute.attr1", "id"),
@@ -387,6 +403,9 @@ func testInfinityIdentityProvider(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_registration_alias_claim_name", "sub"),
 					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_additional_scopes", ""),
 					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_france_connect_required_eidas_level", "disabled"),
+					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_device_idp", "false"),
+					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_device_idp_baseurl", ""),
+					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_device_idp_session_duration", "86400"),
 				),
 			},
 			{
@@ -422,6 +441,9 @@ func testInfinityIdentityProvider(t *testing.T, client InfinityClient) {
 					resource.TestCheckNoResourceAttr("infinity_identity_provider.test", "oidc_email_claim_name"),
 					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_registration_alias_claim_name", "sub"),
 					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_france_connect_required_eidas_level", "disabled"),
+					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_device_idp", "false"),
+					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_device_idp_baseurl", ""),
+					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_device_idp_session_duration", "86400"),
 				),
 			},
 			{
@@ -481,6 +503,9 @@ func testInfinityIdentityProvider(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_registration_alias_claim_name", "preferred_username"),
 					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_additional_scopes", "profile email phone address"),
 					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_france_connect_required_eidas_level", "eidas3"),
+					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_device_idp", "true"),
+					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_device_idp_baseurl", "https://deviceidp.example.com"),
+					resource.TestCheckResourceAttr("infinity_identity_provider.test", "oidc_device_idp_session_duration", "172800"),
 
 					// Attributes
 					resource.TestCheckTypeSetElemAttrPair("infinity_identity_provider.test", "attributes.*", "infinity_identity_provider_attribute.attr1", "id"),

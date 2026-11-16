@@ -11,10 +11,12 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/int32validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int32default"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int32planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
@@ -77,6 +79,9 @@ type InfinityIdentityProviderResourceModel struct {
 	OidcRegistrationAliasClaimName      types.String `tfsdk:"oidc_registration_alias_claim_name"`
 	OidcAdditionalScopes                types.String `tfsdk:"oidc_additional_scopes"`
 	OidcFranceConnectRequiredEidasLevel types.String `tfsdk:"oidc_france_connect_required_eidas_level"`
+	OidcDeviceIdp                       types.Bool   `tfsdk:"oidc_device_idp"`
+	OidcDeviceIdpBaseURL                types.String `tfsdk:"oidc_device_idp_baseurl"`
+	OidcDeviceIdpSessionDuration        types.Int32  `tfsdk:"oidc_device_idp_session_duration"`
 	Attributes                          types.Set    `tfsdk:"attributes"`
 }
 
@@ -445,6 +450,30 @@ func (r *InfinityIdentityProviderResource) Schema(ctx context.Context, req resou
 				},
 				MarkdownDescription: "The eIDAS level to use in requests and responses. This should not be changed from the default \"Disabled\" unless advised by your Pexip support representative. Valid choices: disabled, eidas1, eidas2, eidas3.",
 			},
+			"oidc_device_idp": schema.BoolAttribute{
+				Optional:            true,
+				Computed:            true,
+				Default:             booldefault.StaticBool(false),
+				MarkdownDescription: "This identity provider will use the Pexip Device IdP service.",
+			},
+			"oidc_device_idp_baseurl": schema.StringAttribute{
+				Optional: true,
+				Computed: true,
+				Default:  stringdefault.StaticString(""),
+				Validators: []validator.String{
+					stringvalidator.LengthAtMost(255),
+				},
+				MarkdownDescription: "Root URL for the Pexip Device IdP. Maximum length: 255 characters.",
+			},
+			"oidc_device_idp_session_duration": schema.Int32Attribute{
+				Optional: true,
+				Computed: true,
+				Default:  int32default.StaticInt32(86400),
+				Validators: []validator.Int32{
+					int32validator.Between(3600, 3024000),
+				},
+				MarkdownDescription: "Device IdP authenticated session duration, in seconds. Range: 3600 to 3024000. Default: 86400.",
+			},
 			"attributes": schema.SetAttribute{
 				Optional:            true,
 				ElementType:         types.StringType,
@@ -584,6 +613,15 @@ func (r *InfinityIdentityProviderResource) Create(ctx context.Context, req resou
 	if !plan.OidcAdditionalScopes.IsNull() {
 		createRequest.OidcAdditionalScopes = plan.OidcAdditionalScopes.ValueString()
 	}
+	if !plan.OidcDeviceIdp.IsNull() {
+		createRequest.OidcDeviceIdp = plan.OidcDeviceIdp.ValueBool()
+	}
+	if !plan.OidcDeviceIdpBaseURL.IsNull() {
+		createRequest.OidcDeviceIdpBaseURL = plan.OidcDeviceIdpBaseURL.ValueString()
+	}
+	if !plan.OidcDeviceIdpSessionDuration.IsNull() {
+		createRequest.OidcDeviceIdpSessionDuration = int(plan.OidcDeviceIdpSessionDuration.ValueInt32())
+	}
 
 	// Handle Attributes field
 	if !plan.Attributes.IsNull() && len(plan.Attributes.Elements()) > 0 {
@@ -682,6 +720,9 @@ func (r *InfinityIdentityProviderResource) read(ctx context.Context, resourceID 
 	data.OidcRegistrationAliasClaimName = types.StringValue(srv.OidcRegistrationAliasClaimName)
 	data.OidcAdditionalScopes = types.StringValue(srv.OidcAdditionalScopes)
 	data.OidcFranceConnectRequiredEidasLevel = types.StringValue(srv.OidcFranceConnectRequiredEidasLevel)
+	data.OidcDeviceIdp = types.BoolValue(srv.OidcDeviceIdp)
+	data.OidcDeviceIdpBaseURL = types.StringValue(srv.OidcDeviceIdpBaseURL)
+	data.OidcDeviceIdpSessionDuration = types.Int32Value(int32(srv.OidcDeviceIdpSessionDuration)) // #nosec G115 -- API values are expected to be within int32 range
 
 	// Convert attributes from SDK to Terraform format
 	var attributes []string
@@ -838,6 +879,12 @@ func (r *InfinityIdentityProviderResource) Update(ctx context.Context, req resou
 	if !plan.OidcAdditionalScopes.IsNull() {
 		updateRequest.OidcAdditionalScopes = plan.OidcAdditionalScopes.ValueString()
 	}
+	// Always send Device IdP settings from the plan so they can be reset to defaults
+	oidcDeviceIdp := plan.OidcDeviceIdp.ValueBool()
+	updateRequest.OidcDeviceIdp = &oidcDeviceIdp
+	updateRequest.OidcDeviceIdpBaseURL = plan.OidcDeviceIdpBaseURL.ValueString()
+	oidcDeviceIdpSessionDuration := int(plan.OidcDeviceIdpSessionDuration.ValueInt32())
+	updateRequest.OidcDeviceIdpSessionDuration = &oidcDeviceIdpSessionDuration
 
 	// Handle Attributes field - always set it since it doesn't have omitempty in UpdateRequest
 	if !plan.Attributes.IsNull() && len(plan.Attributes.Elements()) > 0 {
