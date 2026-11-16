@@ -33,7 +33,7 @@ resource "infinity_mjx_graph_deployment" "example" {
 ### Optional
 
 - `authentication_method` (String) The method used to authenticate to Graph. Valid values: CLIENT_SECRET, CERTIFICATE. Default: CLIENT_SECRET.
-- `client_secret` (String, Sensitive) The client secret of the application you created in the Azure Portal, for use by OTJ. Maximum length: 100 characters.
+- `client_secret` (String, Sensitive) The client secret of the application you created in the Azure Portal, for use by OTJ. Required when `authentication_method` is `CLIENT_SECRET`. Maximum length: 100 characters.
 - `description` (String) A description of this OTJ O365 Graph Integration. Maximum length: 250 characters.
 - `disable_proxy` (Boolean) Bypass the web proxy (where configured for the system location) for outbound requests sent from this integration.
 - `graph_api_domain` (String) The FQDN to use when connecting to the Graph API. Maximum length: 192 characters.

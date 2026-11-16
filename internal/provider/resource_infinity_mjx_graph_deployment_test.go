@@ -8,6 +8,7 @@ package provider
 
 import (
 	"os"
+	"regexp"
 	"testing"
 
 	"github.com/pexip/go-infinity-sdk/v42/config"
@@ -19,6 +20,27 @@ import (
 
 	"github.com/pexip/terraform-provider-infinity/internal/test"
 )
+
+func TestInfinityMjxGraphDeploymentValidator(t *testing.T) {
+	t.Parallel()
+	_ = os.Setenv("TF_ACC", "1")
+
+	client := infinity.NewClientMock()
+
+	resource.Test(t, resource.TestCase{
+		ProtoV6ProviderFactories: getTestProtoV6ProviderFactories(client),
+		Steps: []resource.TestStep{
+			{
+				Config: `resource "infinity_mjx_graph_deployment" "test" {
+  name            = "tf-test mjx-graph-deployment"
+  client_id       = "12345678-1234-1234-1234-123456789012"
+  oauth_token_url = "https://login.microsoftonline.com/test-tenant/oauth2/v2.0/token"
+}`,
+				ExpectError: regexp.MustCompile(`client_secret must be set when authentication_method is\s+CLIENT_SECRET`),
+			},
+		},
+	})
+}
 
 func TestInfinityMjxGraphDeployment(t *testing.T) {
 	t.Parallel()
@@ -111,7 +133,7 @@ func testInfinityMjxGraphDeployment(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "name", "tf-test mjx-graph-deployment min"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "description", ""),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_id", "12345678-1234-1234-1234-123456789012"),
-					resource.TestCheckNoResourceAttr("infinity_mjx_graph_deployment.test", "client_secret"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_secret", "test-client-secret-min"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "authentication_method", "CLIENT_SECRET"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "oauth_certificate", ""),
 					resource.TestCheckNoResourceAttr("infinity_mjx_graph_deployment.test", "oauth_private_key"),
@@ -135,7 +157,7 @@ func testInfinityMjxGraphDeployment(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "name", "tf-test mjx-graph-deployment min"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "description", ""),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_id", "12345678-1234-1234-1234-123456789012"),
-					resource.TestCheckNoResourceAttr("infinity_mjx_graph_deployment.test", "client_secret"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_secret", "test-client-secret-min"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "authentication_method", "CLIENT_SECRET"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "oauth_certificate", ""),
 					resource.TestCheckNoResourceAttr("infinity_mjx_graph_deployment.test", "oauth_private_key"),

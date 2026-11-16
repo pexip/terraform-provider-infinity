@@ -13,6 +13,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -28,8 +29,9 @@ import (
 )
 
 var (
-	_ resource.ResourceWithImportState = (*InfinityMjxGraphDeploymentResource)(nil)
-	_ resource.ResourceWithMoveState   = (*InfinityMjxGraphDeploymentResource)(nil)
+	_ resource.ResourceWithImportState    = (*InfinityMjxGraphDeploymentResource)(nil)
+	_ resource.ResourceWithMoveState      = (*InfinityMjxGraphDeploymentResource)(nil)
+	_ resource.ResourceWithValidateConfig = (*InfinityMjxGraphDeploymentResource)(nil)
 )
 
 type InfinityMjxGraphDeploymentResource struct {
@@ -78,6 +80,27 @@ func (r *InfinityMjxGraphDeploymentResource) Configure(ctx context.Context, req 
 	r.InfinityClient = p.client
 }
 
+func (r *InfinityMjxGraphDeploymentResource) ValidateConfig(ctx context.Context, req resource.ValidateConfigRequest, resp *resource.ValidateConfigResponse) {
+	var data InfinityMjxGraphDeploymentResourceModel
+
+	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// The API requires client_secret when authentication_method is CLIENT_SECRET,
+	// which is also the default when authentication_method is not set.
+	usesClientSecret := data.AuthenticationMethod.IsNull() ||
+		(!data.AuthenticationMethod.IsUnknown() && data.AuthenticationMethod.ValueString() == "CLIENT_SECRET")
+	if usesClientSecret && !data.ClientSecret.IsUnknown() && data.ClientSecret.ValueString() == "" {
+		resp.Diagnostics.AddAttributeError(
+			path.Root("client_secret"),
+			"Missing Required Attribute",
+			"client_secret must be set when authentication_method is CLIENT_SECRET (the default).",
+		)
+	}
+}
+
 func (r *InfinityMjxGraphDeploymentResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
@@ -122,7 +145,7 @@ func (r *InfinityMjxGraphDeploymentResource) Schema(ctx context.Context, req res
 				Validators: []validator.String{
 					stringvalidator.LengthAtMost(100),
 				},
-				MarkdownDescription: "The client secret of the application you created in the Azure Portal, for use by OTJ. Maximum length: 100 characters.",
+				MarkdownDescription: "The client secret of the application you created in the Azure Portal, for use by OTJ. Required when `authentication_method` is `CLIENT_SECRET`. Maximum length: 100 characters.",
 			},
 			"authentication_method": schema.StringAttribute{
 				Optional: true,

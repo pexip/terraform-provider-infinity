@@ -71,7 +71,7 @@ func testInfinityMjxGraphDeploymentIntegration(t *testing.T, client InfinityClie
 		resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "name", "tf-test mjx-graph-deployment min"),
 		resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "description", ""),
 		resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_id", "12345678-1234-1234-1234-123456789012"),
-		resource.TestCheckNoResourceAttr("infinity_mjx_graph_deployment.test", "client_secret"),
+		resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_secret", "test-client-secret-min"),
 		resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "authentication_method", "CLIENT_SECRET"),
 		resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "oauth_certificate", ""),
 		resource.TestCheckNoResourceAttr("infinity_mjx_graph_deployment.test", "oauth_private_key"),
