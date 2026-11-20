@@ -117,6 +117,9 @@ resource "infinity_identity_provider" "test" {
   oidc_registration_alias_claim_name       = "preferred_username"
   oidc_additional_scopes                   = "profile email phone address"
   oidc_france_connect_required_eidas_level = "eidas3"
+  oidc_device_idp                          = true
+  oidc_device_idp_baseurl                  = "https://deviceidp.example.com"
+  oidc_device_idp_session_duration         = 172800
 
   # Attributes
   attributes = [
