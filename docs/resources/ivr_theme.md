@@ -30,6 +30,7 @@ resource "infinity_ivr_theme" "example" {
 ### Optional
 
 - `package` (String) Path to the IVR theme package file to upload (e.g., `package = "path/to/theme.zip"`).
+- `version` (Number) The IVR theme package version. Valid values: `1` or `2`. When a `package` is uploaded, Infinity sets the version from `theme_version` in the package's `themeconfig.json`, so if set it must match the package. Without a package, Infinity defaults to `2`.
 
 ### Read-Only
 

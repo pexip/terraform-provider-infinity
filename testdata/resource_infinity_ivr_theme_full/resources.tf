@@ -7,4 +7,5 @@
 resource "infinity_ivr_theme" "ivr_theme-test" {
   name    = "tf-test-ivr-theme-full"
   package = "${path.module}/pexip-test-theme-updated.zip"
+  version = 2
 }
