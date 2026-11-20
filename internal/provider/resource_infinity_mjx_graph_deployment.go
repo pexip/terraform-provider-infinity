@@ -13,6 +13,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
@@ -28,8 +29,9 @@ import (
 )
 
 var (
-	_ resource.ResourceWithImportState = (*InfinityMjxGraphDeploymentResource)(nil)
-	_ resource.ResourceWithMoveState   = (*InfinityMjxGraphDeploymentResource)(nil)
+	_ resource.ResourceWithImportState    = (*InfinityMjxGraphDeploymentResource)(nil)
+	_ resource.ResourceWithMoveState      = (*InfinityMjxGraphDeploymentResource)(nil)
+	_ resource.ResourceWithValidateConfig = (*InfinityMjxGraphDeploymentResource)(nil)
 )
 
 type InfinityMjxGraphDeploymentResource struct {
@@ -37,17 +39,20 @@ type InfinityMjxGraphDeploymentResource struct {
 }
 
 type InfinityMjxGraphDeploymentResourceModel struct {
-	ID              types.String `tfsdk:"id"`
-	ResourceID      types.Int32  `tfsdk:"resource_id"`
-	Name            types.String `tfsdk:"name"`
-	Description     types.String `tfsdk:"description"`
-	ClientID        types.String `tfsdk:"client_id"`
-	ClientSecret    types.String `tfsdk:"client_secret"`
-	OAuthTokenURL   types.String `tfsdk:"oauth_token_url"`
-	GraphAPIDomain  types.String `tfsdk:"graph_api_domain"`
-	RequestQuota    types.Int64  `tfsdk:"request_quota"`
-	DisableProxy    types.Bool   `tfsdk:"disable_proxy"`
-	MjxIntegrations types.Set    `tfsdk:"mjx_integrations"`
+	ID                   types.String `tfsdk:"id"`
+	ResourceID           types.Int32  `tfsdk:"resource_id"`
+	Name                 types.String `tfsdk:"name"`
+	Description          types.String `tfsdk:"description"`
+	ClientID             types.String `tfsdk:"client_id"`
+	ClientSecret         types.String `tfsdk:"client_secret"`
+	AuthenticationMethod types.String `tfsdk:"authentication_method"`
+	OAuthCertificate     types.String `tfsdk:"oauth_certificate"`
+	OAuthPrivateKey      types.String `tfsdk:"oauth_private_key"`
+	OAuthTokenURL        types.String `tfsdk:"oauth_token_url"`
+	GraphAPIDomain       types.String `tfsdk:"graph_api_domain"`
+	RequestQuota         types.Int64  `tfsdk:"request_quota"`
+	DisableProxy         types.Bool   `tfsdk:"disable_proxy"`
+	MjxIntegrations      types.Set    `tfsdk:"mjx_integrations"`
 }
 
 func (r *InfinityMjxGraphDeploymentResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -73,6 +78,27 @@ func (r *InfinityMjxGraphDeploymentResource) Configure(ctx context.Context, req 
 	}
 
 	r.InfinityClient = p.client
+}
+
+func (r *InfinityMjxGraphDeploymentResource) ValidateConfig(ctx context.Context, req resource.ValidateConfigRequest, resp *resource.ValidateConfigResponse) {
+	var data InfinityMjxGraphDeploymentResourceModel
+
+	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	// The API requires client_secret when authentication_method is CLIENT_SECRET,
+	// which is also the default when authentication_method is not set.
+	usesClientSecret := data.AuthenticationMethod.IsNull() ||
+		(!data.AuthenticationMethod.IsUnknown() && data.AuthenticationMethod.ValueString() == "CLIENT_SECRET")
+	if usesClientSecret && !data.ClientSecret.IsUnknown() && data.ClientSecret.ValueString() == "" {
+		resp.Diagnostics.AddAttributeError(
+			path.Root("client_secret"),
+			"Missing Required Attribute",
+			"client_secret must be set when authentication_method is CLIENT_SECRET (the default).",
+		)
+	}
 }
 
 func (r *InfinityMjxGraphDeploymentResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
@@ -119,7 +145,30 @@ func (r *InfinityMjxGraphDeploymentResource) Schema(ctx context.Context, req res
 				Validators: []validator.String{
 					stringvalidator.LengthAtMost(100),
 				},
-				MarkdownDescription: "The client secret of the application you created in the Azure Portal, for use by OTJ. Maximum length: 100 characters.",
+				MarkdownDescription: "The client secret of the application you created in the Azure Portal, for use by OTJ. Required when `authentication_method` is `CLIENT_SECRET`. Maximum length: 100 characters.",
+			},
+			"authentication_method": schema.StringAttribute{
+				Optional: true,
+				Computed: true,
+				Default:  stringdefault.StaticString("CLIENT_SECRET"),
+				Validators: []validator.String{
+					stringvalidator.OneOf("CLIENT_SECRET", "CERTIFICATE"),
+				},
+				MarkdownDescription: "The method used to authenticate to Graph. Valid values: CLIENT_SECRET, CERTIFICATE. Default: CLIENT_SECRET.",
+			},
+			"oauth_certificate": schema.StringAttribute{
+				Optional:            true,
+				Computed:            true,
+				Default:             stringdefault.StaticString(""),
+				MarkdownDescription: "The certificate which was generated when creating an App Registration in Microsoft Entra.",
+			},
+			"oauth_private_key": schema.StringAttribute{
+				Optional:  true,
+				Sensitive: true,
+				Validators: []validator.String{
+					stringvalidator.LengthAtMost(12288),
+				},
+				MarkdownDescription: "The private key which was generated when creating an App Registration in Microsoft Entra. Maximum length: 12288 characters.",
 			},
 			"oauth_token_url": schema.StringAttribute{
 				Required: true,
@@ -171,17 +220,23 @@ func (r *InfinityMjxGraphDeploymentResource) Create(ctx context.Context, req res
 	}
 
 	createRequest := &config.MjxGraphDeploymentCreateRequest{
-		Name:           plan.Name.ValueString(),
-		Description:    plan.Description.ValueString(),
-		ClientID:       plan.ClientID.ValueString(),
-		OAuthTokenURL:  plan.OAuthTokenURL.ValueString(),
-		GraphAPIDomain: plan.GraphAPIDomain.ValueString(),
-		RequestQuota:   int(plan.RequestQuota.ValueInt64()),
-		DisableProxy:   plan.DisableProxy.ValueBool(),
+		Name:                 plan.Name.ValueString(),
+		Description:          plan.Description.ValueString(),
+		ClientID:             plan.ClientID.ValueString(),
+		AuthenticationMethod: plan.AuthenticationMethod.ValueString(),
+		OAuthCertificate:     plan.OAuthCertificate.ValueString(),
+		OAuthTokenURL:        plan.OAuthTokenURL.ValueString(),
+		GraphAPIDomain:       plan.GraphAPIDomain.ValueString(),
+		RequestQuota:         int(plan.RequestQuota.ValueInt64()),
+		DisableProxy:         plan.DisableProxy.ValueBool(),
 	}
 
 	if !plan.ClientSecret.IsNull() && !plan.ClientSecret.IsUnknown() {
 		createRequest.ClientSecret = plan.ClientSecret.ValueString()
+	}
+
+	if !plan.OAuthPrivateKey.IsNull() && !plan.OAuthPrivateKey.IsUnknown() {
+		createRequest.OAuthPrivateKey = plan.OAuthPrivateKey.ValueStringPointer()
 	}
 
 	createResponse, err := r.InfinityClient.Config().CreateMjxGraphDeployment(ctx, createRequest)
@@ -211,8 +266,9 @@ func (r *InfinityMjxGraphDeploymentResource) Create(ctx context.Context, req res
 		return
 	}
 
-	// Preserve client_secret from plan as it is not returned by the API
+	// Preserve client_secret and oauth_private_key from plan as they are not returned by the API
 	model.ClientSecret = plan.ClientSecret
+	model.OAuthPrivateKey = plan.OAuthPrivateKey
 
 	tflog.Trace(ctx, fmt.Sprintf("created Infinity MJX Graph deployment with ID: %s, name: %s", model.ID, model.Name))
 
@@ -236,12 +292,14 @@ func (r *InfinityMjxGraphDeploymentResource) read(ctx context.Context, resourceI
 	data.Name = types.StringValue(srv.Name)
 	data.Description = types.StringValue(srv.Description)
 	data.ClientID = types.StringValue(srv.ClientID)
+	data.AuthenticationMethod = types.StringValue(srv.AuthenticationMethod)
+	data.OAuthCertificate = types.StringValue(srv.OAuthCertificate)
 	data.OAuthTokenURL = types.StringValue(srv.OAuthTokenURL)
 	data.GraphAPIDomain = types.StringValue(srv.GraphAPIDomain)
 	data.RequestQuota = types.Int64Value(int64(srv.RequestQuota))
 	data.DisableProxy = types.BoolValue(srv.DisableProxy)
 
-	// Note: ClientSecret is not returned by the API and will be preserved from plan/state
+	// Note: ClientSecret and OAuthPrivateKey are not returned by the API and will be preserved from plan/state
 
 	if srv.MjxIntegrations != nil && len(*srv.MjxIntegrations) > 0 {
 		integrations, diags := types.SetValueFrom(ctx, types.StringType, *srv.MjxIntegrations)
@@ -264,8 +322,9 @@ func (r *InfinityMjxGraphDeploymentResource) Read(ctx context.Context, req resou
 		return
 	}
 
-	// Preserve client_secret from existing state
+	// Preserve client_secret and oauth_private_key from existing state
 	clientSecret := state.ClientSecret
+	oauthPrivateKey := state.OAuthPrivateKey
 
 	resourceID := int(state.ResourceID.ValueInt32())
 	state, err := r.read(ctx, resourceID)
@@ -281,8 +340,9 @@ func (r *InfinityMjxGraphDeploymentResource) Read(ctx context.Context, req resou
 		return
 	}
 
-	// Restore client_secret as it is not returned by the API
+	// Restore client_secret and oauth_private_key as they are not returned by the API
 	state.ClientSecret = clientSecret
+	state.OAuthPrivateKey = oauthPrivateKey
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, state)...)
 }
@@ -301,17 +361,24 @@ func (r *InfinityMjxGraphDeploymentResource) Update(ctx context.Context, req res
 	disableProxy := plan.DisableProxy.ValueBool()
 
 	updateRequest := &config.MjxGraphDeploymentUpdateRequest{
-		Name:           plan.Name.ValueString(),
-		Description:    plan.Description.ValueString(),
-		ClientID:       plan.ClientID.ValueString(),
-		OAuthTokenURL:  plan.OAuthTokenURL.ValueString(),
-		GraphAPIDomain: plan.GraphAPIDomain.ValueString(),
-		RequestQuota:   &requestQuota,
-		DisableProxy:   &disableProxy,
+		Name:                 plan.Name.ValueString(),
+		Description:          plan.Description.ValueString(),
+		ClientID:             plan.ClientID.ValueString(),
+		AuthenticationMethod: plan.AuthenticationMethod.ValueString(),
+		OAuthCertificate:     plan.OAuthCertificate.ValueString(),
+		OAuthTokenURL:        plan.OAuthTokenURL.ValueString(),
+		GraphAPIDomain:       plan.GraphAPIDomain.ValueString(),
+		RequestQuota:         &requestQuota,
+		DisableProxy:         &disableProxy,
 	}
 
 	if !plan.ClientSecret.IsNull() && !plan.ClientSecret.IsUnknown() {
 		updateRequest.ClientSecret = plan.ClientSecret.ValueString()
+	}
+
+	// oauth_private_key is only sent when set; omitting it leaves the stored key unchanged
+	if !plan.OAuthPrivateKey.IsNull() && !plan.OAuthPrivateKey.IsUnknown() {
+		updateRequest.OAuthPrivateKey = plan.OAuthPrivateKey.ValueStringPointer()
 	}
 
 	resourceID := int(state.ResourceID.ValueInt32())
@@ -333,8 +400,9 @@ func (r *InfinityMjxGraphDeploymentResource) Update(ctx context.Context, req res
 		return
 	}
 
-	// Preserve client_secret from plan as it is not returned by the API
+	// Preserve client_secret and oauth_private_key from plan as they are not returned by the API
 	model.ClientSecret = plan.ClientSecret
+	model.OAuthPrivateKey = plan.OAuthPrivateKey
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, model)...)
 }

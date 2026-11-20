@@ -8,6 +8,7 @@ package provider
 
 import (
 	"os"
+	"regexp"
 	"testing"
 
 	"github.com/pexip/go-infinity-sdk/v42/config"
@@ -19,6 +20,27 @@ import (
 
 	"github.com/pexip/terraform-provider-infinity/internal/test"
 )
+
+func TestInfinityMjxGraphDeploymentValidator(t *testing.T) {
+	t.Parallel()
+	_ = os.Setenv("TF_ACC", "1")
+
+	client := infinity.NewClientMock()
+
+	resource.Test(t, resource.TestCase{
+		ProtoV6ProviderFactories: getTestProtoV6ProviderFactories(client),
+		Steps: []resource.TestStep{
+			{
+				Config: `resource "infinity_mjx_graph_deployment" "test" {
+  name            = "tf-test mjx-graph-deployment"
+  client_id       = "12345678-1234-1234-1234-123456789012"
+  oauth_token_url = "https://login.microsoftonline.com/test-tenant/oauth2/v2.0/token"
+}`,
+				ExpectError: regexp.MustCompile(`client_secret must be set when authentication_method is\s+CLIENT_SECRET`),
+			},
+		},
+	})
+}
 
 func TestInfinityMjxGraphDeployment(t *testing.T) {
 	t.Parallel()
@@ -35,16 +57,18 @@ func TestInfinityMjxGraphDeployment(t *testing.T) {
 	client.On("PostWithResponse", mock.Anything, "configuration/v1/mjx_graph_deployment/", mock.Anything, mock.Anything).Return(createResponse, nil).Run(func(args mock.Arguments) {
 		createReq := args.Get(2).(*config.MjxGraphDeploymentCreateRequest)
 		*mockState = config.MjxGraphDeployment{
-			ID:              123,
-			ResourceURI:     "/api/admin/configuration/v1/mjx_graph_deployment/123/",
-			Name:            createReq.Name,
-			Description:     createReq.Description,
-			ClientID:        createReq.ClientID,
-			OAuthTokenURL:   createReq.OAuthTokenURL,
-			GraphAPIDomain:  createReq.GraphAPIDomain,
-			RequestQuota:    createReq.RequestQuota,
-			DisableProxy:    createReq.DisableProxy,
-			MjxIntegrations: createReq.MjxIntegrations,
+			ID:                   123,
+			ResourceURI:          "/api/admin/configuration/v1/mjx_graph_deployment/123/",
+			Name:                 createReq.Name,
+			Description:          createReq.Description,
+			ClientID:             createReq.ClientID,
+			AuthenticationMethod: createReq.AuthenticationMethod,
+			OAuthCertificate:     createReq.OAuthCertificate,
+			OAuthTokenURL:        createReq.OAuthTokenURL,
+			GraphAPIDomain:       createReq.GraphAPIDomain,
+			RequestQuota:         createReq.RequestQuota,
+			DisableProxy:         createReq.DisableProxy,
+			MjxIntegrations:      createReq.MjxIntegrations,
 		}
 	})
 
@@ -59,6 +83,8 @@ func TestInfinityMjxGraphDeployment(t *testing.T) {
 		mockState.Name = updateReq.Name
 		mockState.Description = updateReq.Description
 		mockState.ClientID = updateReq.ClientID
+		mockState.AuthenticationMethod = updateReq.AuthenticationMethod
+		mockState.OAuthCertificate = updateReq.OAuthCertificate
 		mockState.OAuthTokenURL = updateReq.OAuthTokenURL
 		mockState.GraphAPIDomain = updateReq.GraphAPIDomain
 		if updateReq.RequestQuota != nil {
@@ -89,6 +115,9 @@ func testInfinityMjxGraphDeployment(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "description", "Test MJX Graph deployment description"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_id", "a1b2c3d4-e5f6-7890-abcd-ef1234567890"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_secret", "test-client-secret"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "authentication_method", "CERTIFICATE"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "oauth_certificate", "test-oauth-certificate"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "oauth_private_key", "test-oauth-private-key"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "oauth_token_url", "https://login.microsoftonline.com/updated-tenant/oauth2/v2.0/token"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "graph_api_domain", "graph.microsoft.com"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "request_quota", "500000"),
@@ -104,6 +133,10 @@ func testInfinityMjxGraphDeployment(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "name", "tf-test mjx-graph-deployment min"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "description", ""),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_id", "12345678-1234-1234-1234-123456789012"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_secret", "test-client-secret-min"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "authentication_method", "CLIENT_SECRET"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "oauth_certificate", ""),
+					resource.TestCheckNoResourceAttr("infinity_mjx_graph_deployment.test", "oauth_private_key"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "oauth_token_url", "https://login.microsoftonline.com/test-tenant/oauth2/v2.0/token"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "graph_api_domain", "graph.microsoft.com"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "request_quota", "1000000"),
@@ -124,6 +157,10 @@ func testInfinityMjxGraphDeployment(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "name", "tf-test mjx-graph-deployment min"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "description", ""),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_id", "12345678-1234-1234-1234-123456789012"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_secret", "test-client-secret-min"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "authentication_method", "CLIENT_SECRET"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "oauth_certificate", ""),
+					resource.TestCheckNoResourceAttr("infinity_mjx_graph_deployment.test", "oauth_private_key"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "oauth_token_url", "https://login.microsoftonline.com/test-tenant/oauth2/v2.0/token"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "graph_api_domain", "graph.microsoft.com"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "request_quota", "1000000"),
@@ -140,6 +177,9 @@ func testInfinityMjxGraphDeployment(t *testing.T, client InfinityClient) {
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "description", "Test MJX Graph deployment description"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_id", "a1b2c3d4-e5f6-7890-abcd-ef1234567890"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "client_secret", "test-client-secret"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "authentication_method", "CERTIFICATE"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "oauth_certificate", "test-oauth-certificate"),
+					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "oauth_private_key", "test-oauth-private-key"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "oauth_token_url", "https://login.microsoftonline.com/updated-tenant/oauth2/v2.0/token"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "graph_api_domain", "graph.microsoft.com"),
 					resource.TestCheckResourceAttr("infinity_mjx_graph_deployment.test", "request_quota", "500000"),
